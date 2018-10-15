@@ -1,4 +1,4 @@
 */.idea/*
 migrations/
+**.pyc
 __pycache__/
-*.pyc
