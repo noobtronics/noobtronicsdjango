@@ -1,0 +1,74 @@
+@charset "utf-8"
+$navbar-height: 7.25rem
+
+@import "bulma-0.7.1/bulma.sass"
+
+@import "extension/bulma-badge.sass"
+@import "bulma-extensions/bulma-carousel/src/sass/index.sass"
+
+.navbar-item
+  color: white !important
+
+  img
+    max-height: 116px
+
+.navbar-dropdown
+  .navbar-item
+    color: #4a4a4a !important
+    &:hover
+      color: black !important
+
+.myaccount
+  width: 50px
+
+$cart-width: 300px
+.cart
+  left: calc(100% - #{$cart-width} )
+  width: $cart-width
+  top: calc(100% + (8px)) !important
+
+  &:after
+    content: ""
+    width: 0
+    height: 0
+    border-left: 8px solid transparent
+    border-right: 8px solid transparent
+    border-bottom: 8px solid #fff
+    position: absolute
+    top: -8px
+    right: 10px
+
+  article
+    color: black !important
+    margin-top: 2px !important
+    padding-bottom: 2px
+    padding-top: 5px !important
+
+    .media-left
+      margin-left: 10px
+      padding: 10px 0px
+
+    .media-right
+      margin-right: 10px
+      margin-top: 10px
+
+    .media-content
+      .level-left
+        .increment
+          height: 20px
+          width: 20px
+          font-size: 12px
+          margin-right: 5px
+          background-color: #F2F2F2 !important
+      .cart_qty
+        margin-right: 5px
+
+  .subtotal
+    padding-right: 10px
+    padding-left: 10px
+
+    .level-left, .level-right
+      margin: auto auto
+
+    strong
+      margin-right: 5px

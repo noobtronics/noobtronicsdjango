@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Noobtronics Shop</title>
+    <style>
+        html { visibility:hidden; }
+    </style>
+    <link rel="stylesheet" href="/css/plugin/balloon.min.css">
+    <link rel="stylesheet" href="/css/plugin/box-shadows.min.css">
+
+    <link rel="stylesheet" href="/css/bulma/mystyle.css">
+    <script defer src="/css/fontawesome/js/all.js"></script>
+    <script type="text/javascript" src="/css/bulma/bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
+    <script src="/js/vue/vue.js"></script>
+</head>
+<body>
+<section class="hero is-success is-fullheight" id="app">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+        <header class="navbar is-transparent">
+            <div class="container">
+                <div class="navbar-brand ">
+                    <a class="navbar-item ">
+                        <img src="/images/Logo.png" alt="Logo" width="300" height="100">
+                    </a>
+                    <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+                </div>
+                <div id="navbarMenuHeroC" class="navbar-menu">
+
+
+                    <div class="navbar-end">
+                        <nav class="level">
+                            <a class="navbar-item is-active">
+                                Home
+                            </a>
+                            <a class="navbar-item">
+                                Shop
+                            </a>
+                            <a class="navbar-item">
+                                Learn
+                            </a>
+                            <a class="navbar-item">
+                                Make
+                            </a>
+                            <a class="navbar-item">
+                                Login
+                            </a>
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link" href="/documentation/overview/start/">
+                                    My Account
+                                </a>
+                                <div class="navbar-dropdown is-boxed myaccount">
+                                    <a class="navbar-item" href="/documentation/overview/start/">
+                                        Orders
+                                    </a>
+                                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                                        Refer and Earn
+                                    </a>
+                                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <div class="dropdown-trigger">
+                                <a class="button is-success is-inverted badge is-badge-danger" data-badge="8" >
+                                    <span class="icon">
+                                      <i class="fas fa-shopping-cart"></i>
+                                    </span>
+                                </a>
+                                </div>
+                                <div class="navbar-dropdown is-boxed cart" >
+
+
+                                    <article class="media">
+                                        <figure class="media-left">
+                                            <p class="image is-64x64">
+                                                <img src="/images/cart/cart1.jpg">
+                                            </p>
+                                        </figure>
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <a href="#">
+                                                    <strong>Smartduino Uno - Atmega328 dosivjow</strong>
+                                                </a>
+                                                <nav class="level">
+                                                    <div class="level-left">
+                                                        <a class="button is-success is-inverted increment" >
+                                                        <span class="icon">
+                                                          <i class="fas fa-plus"></i>
+                                                        </span>
+                                                        </a>
+                                                        <span class="cart_qty">10</span>
+                                                        <a class="button is-success is-inverted increment" >
+                                                        <span class="icon">
+                                                          <i class="fas fa-minus"></i>
+                                                        </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="level-right">
+                                                        <span>&#8377;</span>
+                                                        <span>100</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                        <div class="media-right">
+                                            <button class="delete"></button>
+                                        </div>
+                                    </article>
+
+                                    <article class="media subtotal">
+                                        <div class="media-content">
+                                        <nav class="level">
+                                            <div class="level-left">
+                                                <a class="button is-danger ">Checkout</a>
+                                            </div>
+                                            <div class="level-right">
+                                                <span><strong>Subtotal:</strong></span>
+                                                <span>&#8377;</span>
+                                                <span>1000</span>
+                                            </div>
+                                        </nav>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+
+                    </nav>
+
+                </div>
+
+            </div>
+    </div>
+    </header>
+
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true">
+                <div class='carousel-container'>
+                    <div class='carousel-item is-active'>
+                        <div class="columns">
+                            <div class="column">
+                                <h2 class="prodtitle">Smartduino Uno 16Mhz</h2>
+                                <h2 class="subtitle">Atmega328 Microcontroller Board</h2>
+                                <h2 class="price">&#8377;400<span class="mrpprice">&nbsp;&#8377;600&nbsp;&nbsp;</span></h2>
+                                <a class="button is-warning homeorder">Order Now</a>
+                            </div>
+                            <div class="column">
+                                <img src="/images/robotdyn.png" width="500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='carousel-item'>
+                        <div class="columns">
+                            <div class="column">
+                                <h2 class="prodtitle">Smartduino Uno 20Mhz</h2>
+                                <h2 class="subtitle">Atmega328 Microcontroller Board</h2>
+                                <h2 class="price">&#8377;500<span class="mrpprice">&nbsp;&#8377;750&nbsp;&nbsp;</span></h2>
+                                <a class="button is-warning homeorder">Order Now</a>
+                            </div>
+                            <div class="column">
+                                <img src="/images/robotdyn.png" width="500">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="carousel-navigation is-centered">
+                    <div class="carousel-nav-left">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="carousel-nav-right">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-foot">
+        <nav class="tabs">
+            <div class="container">
+                <div class="columns has-text-centered footerc">
+                    <div class="column"><span v-on:click="ModalDelivery=true">Express Delivery</span></div>
+                    <div class="column"><span v-on:click="ModalTC=true">T & C</span></div>
+                    <div class="column"><span v-on:click="ModalPayment=true">COD Available</span></div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="socialbutton">
+        <div data-balloon="WhatsApp Contact" data-balloon-pos="up">
+            <i class="fab fa-whatsapp-square" style="font-size: 50px;margin-right: 5px;"></i>
+            <span>
+                <a href="https://wa.me/919833870385/?text=Hi%20Noobtroncis" target="_blank">+91 9833870385</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="modal" v-bind:class="{'is-active': ModalDelivery}">
+        <div class="modal-card delivery-modal bShadow-10">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalDelivery=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2 class="title is-6">Express Delivery</h2>
+                <p>
+                    All shipments to major cities are express delivered using Delhivery
+                    <br><br>
+                    All India delivery supported using Speed Post
+                    <br><br>
+                    All shipments are Tracked online
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal" v-bind:class="{'is-active': ModalPayment}">
+        <div class="modal-card paymentt-modal bShadow-10">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalPayment=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2 class="title is-6">Payment Methods</h2>
+                <p>
+                <li>Cash on Delivery supported</li>
+                <br>
+                <li>Secured payment gateways:</li>
+                <br>
+                </p>
+                <div class="columns">
+                    <div class="column"></div>
+                    <div class="column" style="padding: 0px 0px;">
+                        <a class="logoPaytm" href="https://paytm.com/" target="_blank"></a>
+                    </div>
+                    <div class="column" style="padding: 0px 0px;">
+                        <a class="logoInstamojo" href="https://www.instamojo.com/" target="_blank"></a>
+                    </div>
+                    <div class="column" style="padding: 0px 0px;">
+                        <a class="logoPayU" href="https://www.payumoney.com" target="_blank"></a>
+                    </div>
+                    <div class="column"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal" v-bind:class="{'is-active': ModalTC}">
+        <div class="modal-card tc-modal bShadow-10">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalTC=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2 class="title is-6">Return Policy</h2>
+                <p>
+                <li>Returns accepted within 15 days of Order Delivery</li>
+            </p>
+                <br>
+            <h2 class="title is-6">Replacement Policy</h2>
+            <p>
+            <li>Free Replacement will be done to Faulty Shipment</li>
+            </p>
+                <br>
+                <h2 class="title is-6">Refund Policy</h2>
+                <p>
+                <li>For Refunds, Shipping cost will be deducted from the Refund amount</li>
+                </p>
+        </div>
+    </div>
+
+</section>
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            ModalDelivery: false,
+            ModalPayment: false,
+            ModalTC: false
+        }
+    })
+</script>
+
+<script>
+    var carousels = bulmaCarousel.attach();
+    window.onload = function(){
+        document.getElementsByTagName("html")[0].style.visibility = "visible";
+    };
+</script>
+</body>
+</html>
