@@ -1,0 +1,97 @@
+<div class="hero-foot">
+    <nav class="tabs">
+        <div class="container">
+            <div class="columns has-text-centered footerc">
+                <div class="column"><span v-on:click="ModalDelivery=true">Express Delivery</span></div>
+                <div class="column"><span v-on:click="ModalTC=true">T & C</span></div>
+                <div class="column"><span v-on:click="ModalPayment=true">COD Available</span></div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="socialbutton">
+    <div data-balloon="WhatsApp Contact" data-balloon-pos="up">
+        <i class="fab fa-whatsapp-square" style="font-size: 50px;margin-right: 5px;"></i>
+        <span>
+                <a href="https://wa.me/919833870385/?text=Hi%20Noobtroncis" target="_blank">+91 9833870385</a>
+            </span>
+    </div>
+</div>
+
+<div class="modal" v-bind:class="{'is-active': ModalDelivery}">
+    <div class="modal-card delivery-modal bShadow-10">
+        <section class="modal-card-body">
+            <div class="modalclose">
+                    <span v-on:click="ModalDelivery=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+            </div>
+            <h2 class="title is-6">Express Delivery</h2>
+            <p>
+                All shipments to major cities are express delivered using Delhivery
+                <br><br>
+                All India delivery supported using Speed Post
+                <br><br>
+                All shipments are Tracked online
+            </p>
+        </section>
+    </div>
+</div>
+
+<div class="modal" v-bind:class="{'is-active': ModalPayment}">
+    <div class="modal-card paymentt-modal bShadow-10">
+        <section class="modal-card-body">
+            <div class="modalclose">
+                    <span v-on:click="ModalPayment=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+            </div>
+            <h2 class="title is-6">Payment Methods</h2>
+            <p>
+            <li>Cash on Delivery supported</li>
+            <br>
+            <li>Secured payment gateways:</li>
+            <br>
+            </p>
+            <div class="columns">
+                <div class="column"></div>
+                <div class="column" style="padding: 0px 0px;">
+                    <a class="logoPaytm" href="https://paytm.com/" target="_blank"></a>
+                </div>
+                <div class="column" style="padding: 0px 0px;">
+                    <a class="logoInstamojo" href="https://www.instamojo.com/" target="_blank"></a>
+                </div>
+                <div class="column" style="padding: 0px 0px;">
+                    <a class="logoPayU" href="https://www.payumoney.com" target="_blank"></a>
+                </div>
+                <div class="column"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="modal" v-bind:class="{'is-active': ModalTC}">
+    <div class="modal-card tc-modal bShadow-10">
+        <section class="modal-card-body">
+            <div class="modalclose">
+                    <span v-on:click="ModalTC=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+            </div>
+            <h2 class="title is-6">Return Policy</h2>
+            <p>
+            <li>Returns accepted within 15 days of Order Delivery</li>
+            </p>
+            <br>
+            <h2 class="title is-6">Replacement Policy</h2>
+            <p>
+            <li>Free Replacement will be done to Faulty Shipment</li>
+            </p>
+            <br>
+            <h2 class="title is-6">Refund Policy</h2>
+            <p>
+            <li>For Refunds, Shipping cost will be deducted from the Refund amount</li>
+            </p>
+    </div>
+</div>

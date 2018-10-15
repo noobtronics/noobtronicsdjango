@@ -7,7 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def home_page(request):
-    context = {}
+    context = {
+        'loggedin': request.user.is_authenticated
+    }
     return render(request, 'home-page.html', context)
 
 
