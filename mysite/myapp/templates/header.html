@@ -48,4 +48,10 @@
 
     axios.defaults.xsrfHeaderName = "X-CSRFToken";
     axios.defaults.xsrfCookieName = 'csrftoken';
+
+    {% if not loggedin %}
+    var user_authenticated = false;
+    {% else %}
+    var user_authenticated = true;
+    {% endif %}
 </script>

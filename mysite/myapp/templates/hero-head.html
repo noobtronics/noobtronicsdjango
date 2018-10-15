@@ -151,6 +151,9 @@
     var csrfmiddlewaretoken = getCookie('csrftoken');
 
     function onSignIn(googleUser) {
+        if(user_authenticated){
+            return;
+        }
         var auth2 = gapi.auth2.getAuthInstance();
         var profile = auth2.currentUser.get().getBasicProfile();
 
@@ -159,14 +162,13 @@
             first_name: profile.getGivenName(),
             last_name: profile.getFamilyName(),
             email: profile.getEmail(),
-            csrfmiddlewaretoken: csrfmiddlewaretoken
+            uri: location.pathname.substring(1),
         };
         processLogin(d);
     }
 
     var processLogin = function(d){
         head_app.loading = true;
-        console.log(d);
         axios({
             method: 'post',
             url: '/api/login',
