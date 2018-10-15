@@ -1,0 +1,5 @@
+#!/bin/sh
+cd /root/inventorywebsite/mysite
+kill -9 `cat gunicorn_pid.txt`
+rm gunicorn_pid.txt
+
