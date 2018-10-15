@@ -5,12 +5,12 @@
     {% include "header.html" %}
 </head>
 <body>
-<section class="hero is-success is-fullheight" id="app">
+<section class="hero is-success is-fullheight">
     <!-- Hero head: will stick at the top -->
     {% include "hero-head.html" %}
 
     <!-- Hero content: will be in the middle -->
-    <div class="hero-body">
+    <div class="hero-body" id="app">
         <div class="container has-text-centered">
             <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true">
                 <div class='carousel-container'>
@@ -59,7 +59,6 @@
 </section>
 
 <script>
-    Vue.config.delimiters = ['[%', '%]']
     var app = new Vue({
         el: '#app',
         data: {

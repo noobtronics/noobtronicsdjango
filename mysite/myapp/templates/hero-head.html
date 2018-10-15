@@ -1,3 +1,4 @@
+<section id="head_app">
 <div class="hero-head">
     <header class="navbar is-transparent">
         <div class="container">
@@ -23,7 +24,7 @@
                             Shop
                         </a>
                         {% if not loggedin %}
-                        <a class="navbar-item" style="margin-right: 10px;">
+                        <a class="navbar-item" style="margin-right: 10px;" v-on:click="ModalLogin=true">
                             Login
                         </a>
                         {% else %}
@@ -119,3 +120,29 @@
     </header>
 
 </div>
+
+
+<div class="modal" v-bind:class="{'is-active': ModalLogin}">
+    <div class="modal-card loginmodal bShadow-10">
+        <section class="modal-card-body">
+            Login
+            <div class="modalclose">
+                    <span v-on:click="ModalLogin=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+            </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </section>
+    </div>
+</div>
+
+</section>
+
+<script>
+    var head_app = new Vue({
+        el: '#head_app',
+        data: {
+            ModalLogin: false,
+        }
+    })
+</script>
