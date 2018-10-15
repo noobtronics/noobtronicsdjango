@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def home_page(request):
-    return HttpResponse("Hello World!")
+    context = {}
+    return render(request, 'home-page.html', context)
 
 
 def login_view(request):
