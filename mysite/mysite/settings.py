@@ -84,7 +84,8 @@ DATABASES = {
         'NAME': 'noobdb',
         'USER': 'noobuser',
         'PASSWORD': '123123',
-
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
