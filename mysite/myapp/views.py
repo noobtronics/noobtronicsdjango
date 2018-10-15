@@ -4,8 +4,11 @@ from pprint import pprint
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+import json
 
 
+@ensure_csrf_cookie
 def home_page(request):
     context = {
         'loggedin': request.user.is_authenticated
@@ -14,6 +17,13 @@ def home_page(request):
 
 
 def login_view(request):
+    data = json.loads(request.body.decode('utf-8'))
+    pprint(data)
+
+
+def login_viewa(request):
+    pprint(request.POST.dict())
+
     if request.method == 'GET':
         return render(request, 'login_page.html')
     if request.method == 'POST':

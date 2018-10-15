@@ -136,6 +136,7 @@
     </div>
 </div>
 
+    <div class="lds-dual-ring" v-if="loading"></div>
 </section>
 
 <script>
@@ -143,6 +144,36 @@
         el: '#head_app',
         data: {
             ModalLogin: false,
+            loading: false
         }
     })
+
+    var csrfmiddlewaretoken = getCookie('csrftoken');
+
+    function onSignIn(googleUser) {
+        var auth2 = gapi.auth2.getAuthInstance();
+        var profile = auth2.currentUser.get().getBasicProfile();
+
+        var d = {
+            id_token: googleUser.getAuthResponse().id_token,
+            first_name: profile.getGivenName(),
+            last_name: profile.getFamilyName(),
+            email: profile.getEmail(),
+            csrfmiddlewaretoken: csrfmiddlewaretoken
+        };
+        processLogin(d);
+    }
+
+    var processLogin = function(d){
+        head_app.loading = true;
+        console.log(d);
+        axios({
+            method: 'post',
+            url: '/api/login',
+            data: d
+        }).then(function(response) {
+            console.log(response);
+            head_app.loading = false;
+        });
+    };
 </script>

@@ -7,10 +7,12 @@
 <link rel="stylesheet" href="/static/css/plugin/balloon.min.css">
 <link rel="stylesheet" href="/static/css/plugin/box-shadows.min.css">
 
+<link rel="stylesheet" href="/static/css/loading.css">
 <link rel="stylesheet" href="/static/css/bulma/mystyle.css">
 <script defer src="/static/css/fontawesome/js/all.js"></script>
 <script type="text/javascript" src="/static/css/bulma/bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
 <script src="/static/js/vue/vue.js"></script>
+<script src="/static/js/axios/axios.js"></script>
 <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
@@ -26,4 +28,24 @@
 
 <script>
     Vue.config.delimiters = ['[%', '%]'];
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
+    axios.defaults.xsrfCookieName = 'csrftoken';
 </script>
