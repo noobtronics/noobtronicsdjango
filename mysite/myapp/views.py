@@ -31,7 +31,9 @@ def login_view(request):
         return HttpResponseForbidden()
     user = User.objects.filter(email=idinfo['email'])
     if not user.exists():
-        user = User(email=idinfo['email'], first_name=idinfo['given_name'], last_name=idinfo['family_name'])
+        user = User(email=idinfo['email'], username=idinfo['email'],
+                    first_name=idinfo['given_name'],
+                    last_name=idinfo['family_name'])
         user.save()
     else:
         user = user[0]
