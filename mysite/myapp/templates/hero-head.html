@@ -131,7 +131,7 @@
                         <i class="fa fa-window-close" aria-hidden="true"></i>
                     </span>
             </div>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div id="my-signin2"></div>
         </section>
     </div>
 </div>
@@ -172,6 +172,22 @@
         processLogin(d);
     }
 
+    function renderButton() {
+        gapi.signin2.render('my-signin2', {
+            'scope': 'profile email',
+            'width': 180,
+            'height': 40,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSignIn,
+            'onfailure': onFailure
+        });
+    }
+
+    function onFailure(){
+        alert('Error - Please refresh / Delete Cache');
+    }
+
     var processLogin = function(d){
         head_app.loading = true;
         axios({
@@ -204,3 +220,4 @@
         });
     };
 </script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

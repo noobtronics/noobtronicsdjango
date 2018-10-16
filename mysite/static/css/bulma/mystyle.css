@@ -9101,11 +9101,9 @@ label.panel-block:hover {
   width: 250px;
   height: 150px;
 }
-.loginmodal .g-signin2 {
-  width: 120px;
-  height: 36px;
-  margin: auto;
-  margin-top: 30px;
+.loginmodal #my-signin2 {
+  margin-top: 25px;
+  margin-left: 20px;
 }
 
 /*# sourceMappingURL=mystyle.css.map */
