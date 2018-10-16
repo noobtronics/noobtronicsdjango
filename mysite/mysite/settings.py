@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha_admin',
+    'captcha',
     'myapp',
     'products',
     'orders'
@@ -139,3 +141,6 @@ STATICFILES_DIRS = [
 LOGIN_URL = '/login'
 
 GOOGLE_API_CLIENT_ID = '436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com'
+
+RECAPTCHA_PUBLIC_KEY = '6Lf4QWgUAAAAAKeoRqnrPqyo6bL3hTwhBkR3ml95'
+RECAPTCHA_PRIVATE_KEY = '6Lf4QWgUAAAAAF2rn6N8P5f1Z5cWnwXkjJsDaKsu'
