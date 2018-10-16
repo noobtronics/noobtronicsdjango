@@ -135,3 +135,5 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = '/login'
+
+GOOGLE_API_CLIENT_ID = '436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com'

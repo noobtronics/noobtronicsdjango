@@ -39,7 +39,7 @@
                                 <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
                                     Refer and Earn
                                 </a>
-                                <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                                <a class="navbar-item" v-on:click="processLogout()">
                                     Logout
                                 </a>
                             </div>
@@ -145,6 +145,11 @@
         data: {
             ModalLogin: false,
             loading: false
+        },
+        methods: {
+            processLogout: function () {
+                processLogout();
+            }
         }
     })
 
@@ -162,7 +167,7 @@
             first_name: profile.getGivenName(),
             last_name: profile.getFamilyName(),
             email: profile.getEmail(),
-            uri: location.pathname.substring(1),
+            uri: location.pathname.substring(1)
         };
         processLogin(d);
     }
@@ -176,6 +181,26 @@
         }).then(function(response) {
             console.log(response);
             head_app.loading = false;
+            if(response.data.success){
+                location.reload();
+            }
+        });
+    };
+
+    var processLogout = function(){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/logout'
+        }).then(function(response) {
+            head_app.loading = false;
+            if(response.data.success){
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    location.reload();
+                });
+                console.log('logging out...')
+            }
         });
     };
 </script>
