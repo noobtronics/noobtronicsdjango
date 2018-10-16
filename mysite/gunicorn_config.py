@@ -123,8 +123,9 @@ spew = False
 
 daemon = True
 raw_env = [
-    'DJANGO_SECRET_KEY=somethinfaksdhfoasg',
+    'DJANGO_SECRET_KEY=somethinfaksdd1241234hfoasg',
     'SPAM=eggs',
+    'DJANGO_SETTINGS_MODULE=mysite.prod_settings'
 ]
 pidfile = 'gunicorn_pid.txt'
 umask = 0
