@@ -53,3 +53,19 @@ def logout_view(request):
     }
     print('logout')
     return JsonResponse(resp)
+
+@csrf_exempt
+def serve_legalcontent(request):
+    return render(request, 'legalcontent.html')
+
+@csrf_exempt
+def serve_returnpolicy(request):
+    return render(request, 'returnpolicy.html')
+
+@csrf_exempt
+def serve_tandc(request):
+    return render(request, 'termsandconditions.html')
+
+@csrf_exempt
+def serve_privacy_policy(request):
+    return render(request, 'privacypolicy.html')

@@ -9025,8 +9025,9 @@ label.panel-block:hover {
 }
 
 .tc-modal {
-  width: 600px;
-  margin-top: -100px;
+  width: 800px;
+  margin-top: 0px;
+  height: 500px;
 }
 
 .paymentt-modal {
@@ -9104,6 +9105,16 @@ label.panel-block:hover {
 .loginmodal #my-signin2 {
   margin-top: 25px;
   margin-left: 20px;
+}
+
+#footer_app nav li {
+  color: #3273dc !important;
+}
+#footer_app nav li:hover {
+  color: #4a4a4a !important;
+}
+#footer_app nav .is-active {
+  color: #4a4a4a !important;
 }
 
 /*# sourceMappingURL=mystyle.css.map */
