@@ -21,5 +21,6 @@ admin.site.site_title = 'Noobtronics Administration'
 
 urlpatterns = [
     path('', include('myapp.urls')),
+    path('', include('products.urls')),
     path('myadmin/', admin.site.urls),
 ]

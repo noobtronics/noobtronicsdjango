@@ -24,11 +24,7 @@ class Thumbnail(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
 
-class Details(models.Model):
+class MainImage(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    order = models.IntegerField()
-    data = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-
+    img_id = models.ForeignKey(Image, on_delete=models.CASCADE)
 

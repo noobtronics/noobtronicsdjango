@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Noobtronics Store Admin</title>
+    <link rel="stylesheet" href="/static/js/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/static/css/bulma/bulma-0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/loading.css">
+    <script defer src="/static/css/fontawesome/js/all.js"></script>
+    <script src="/static/js/vue/vue.js"></script>
+    <script src="/static/js/axios/axios.js"></script>
+    <script src="/static/js/jquery/jquery.min.js"></script>
+    <script src="/static/js/select2/js/select2.min.js"></script>
+    <style>
+        .displaybutton svg {
+            margin-right: 10px;
+        }
+        .tabledivwidth{
+            width: 100px
+        }
+        table th{
+            border-width: 0 0 1px !important;
+            font-weight:600 !important;
+        }
+        .tablebutton {
+            width: 40px;
+        }
+        table thead {
+            border-width: 0 0 1px !important;
+            border: 1px solid #DBDBDB;
+        }
+        table {
+            table-layout:fixed;
+            width: auto;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .filterrow input{
+            height: 20px;
+        }
+        .filterrow th{
+            border-width: 0 0 0px !important;
+        }
+
+        .modal-background {
+            background-color: rgba(10,10,10,.50);
+        }
+
+        .select2-selection--single {
+            border: 1px solid #dbdbdb !important;
+            box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
+            height: 36px !important;
+            font-size: 1em;
+            padding-top: calc(.375em - 1px);
+        }
+    </style>
+</head>
+<body>
+<section class="hero">
+
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item">
+                        Noobtronics Store Admin
+                    </a>
+                    <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+                </div>
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item" href="/admin/dump">
+                            Backup
+                        </a>
+                        <a class="navbar-item" href="/logout">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="hero-body" id="app">
+        <div class="lds-dual-ring" v-if="loading"></div>
+        <div class="container">
+            <div class="columns">
+            </div>
+            <div class="columns">
+                <div class="column is-one-fifth">
+                    <aside class="menu">
+                        <p class="menu-label">
+                            Overview
+                        </p>
+                    </aside>
+                </div>
+                <div class="column is-four-fifths">
+                    <div class="columns displaybutton">
+                        <div class="column is-half">
+                        </div>
+                        <div class="column is-half has-text-right">
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto;padding-bottom: 20px; min-height: 200px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        delimiters: ["[%","%]"],
+        data: {
+            loading: true
+        }
+        });
+    app.loading = false;
+
+</script>
+</body>
+</html>
