@@ -5,7 +5,7 @@
         <div class="container">
             <div class="columns has-text-centered footerc">
                 <div class="column"><span v-on:click="ModalDelivery=true">Express Delivery</span></div>
-                <div class="column"><span v-on:click="ModalTC=true">Legal</span></div>
+                <div class="column"><span v-on:click="openLegalWindow()">Legal</span></div>
                 <div class="column"><span v-on:click="ModalPayment=true">COD Available</span></div>
             </div>
         </div>
@@ -99,6 +99,34 @@
 
 </section>
 
+
+<script>
+    var openLegalWindow = function(){
+        if(footer_app.downloadTC){
+            head_app.loading = true;
+            axios({
+                method: 'get',
+                url: '/api/legalcontent'
+            }).then(function(response) {
+                console.log(response);
+                var mydata = document.getElementById("legalcontent").innerHTML = response.data;
+                footer_app.downloadTC = false;
+                footer_app.Legaldata = [
+                    document.getElementById("legalr").innerHTML,
+                    document.getElementById("legalt").innerHTML,
+                    document.getElementById("legalp").innerHTML
+                ];
+                head_app.loading = false;
+                footer_app.ModalTC = true;
+            });
+        }
+        else{
+            footer_app.ModalTC = true;
+        }
+    };
+</script>
+
+
 <script>
     var footer_app = new Vue({
         el: '#footer_app',
@@ -107,10 +135,8 @@
             ModalPayment: false,
             ModalTC: false,
             LegalactivePage:0,
-            Legaldata:[document.getElementById("legalr").innerHTML,
-                document.getElementById("legalt").innerHTML,
-                document.getElementById("legalp").innerHTML,
-            ],
+            Legaldata:['', '', ''],
+            downloadTC: true
         },
         computed: {
             Legaldisplay: function () {
@@ -120,7 +146,11 @@
         methods: {
             LegalchangePage:function(pageNumber){
                 this.LegalactivePage=pageNumber;
+            },
+
+            openLegalWindow:function(){
+                openLegalWindow();
             }
-        },
+        }
     })
 </script>
