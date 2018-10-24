@@ -39,8 +39,8 @@ def store_image_files(prod, media_path, img, store_main):
     mini_path = media_path + '/' + file_name_s
     micro_path = media_path + '/' + file_name_u
 
-    img_m = img.thumbnail((300,300))
-    img_u = img.thumbnail((64, 64))
+    img_m = img.resize([300,300],PIL.Image.ANTIALIAS)
+    img_u = img.resize([64,64],PIL.Image.ANTIALIAS)
 
     img.save(main_path)
     img_m.save(mini_path)

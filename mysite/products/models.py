@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from pathlib import Path
+import os
 
 
 class Product(models.Model):
@@ -29,11 +30,22 @@ class Image(models.Model):
     image = models.ImageField()
     created = models.DateTimeField(auto_now_add=True)
 
+@receiver(pre_delete, sender=Image, dispatch_uid='delete_image_signal')
+def delete_image(sender, instance, using, **kwargs):
+    if os.path.isfile(instance.image.url):
+        os.remove(instance.image.url)
+
 
 class Thumbnail(models.Model):
     img_id = models.ForeignKey(Image, on_delete=models.CASCADE)
     image = models.ImageField()
     created = models.DateTimeField(auto_now_add=True)
+
+
+@receiver(pre_delete, sender=Thumbnail, dispatch_uid='delete_thumbnail_signal')
+def delete_thumbnail(sender, instance, using, **kwargs):
+    if os.path.isfile(instance.image.url):
+        os.remove(instance.image.url)
 
 
 class MainImage(models.Model):
