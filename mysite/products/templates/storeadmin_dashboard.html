@@ -55,6 +55,50 @@
             font-size: 1em;
             padding-top: calc(.375em - 1px);
         }
+
+        .productcard {
+            height: 280px;
+            width: 200px;
+            display: inline-block;
+            margin: 10px;
+        }
+        .productcard:hover {
+        }
+        .productcard .card-footer {
+            border-top: 0px solid black;
+        }
+        .productcard .cardhead {
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .productcard .cardsubtitle {
+            font-size: 14px;
+            font-weight: 600;
+            color: #808080;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .productcard .cardprice {
+            text-align: center;
+        }
+
+        .productcard .price {
+            color: #c02843;
+            font-size: 20px;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+        }
+
+        .productcard .mrpprice {
+            color: rgba(0, 0, 0, 0.6);
+            margin-left: 10px;
+            text-decoration: line-through;
+            font-size: 17px;
+        }
     </style>
 </head>
 <body>
@@ -98,17 +142,191 @@
                         <p class="menu-label">
                             Overview
                         </p>
+                        <ul class="menu-list">
+                            <li><a v-bind:class="{ 'is-active': selected=='Products'}" v-on:click="selected='Products'">Products</a></li>
+                        </ul>
                     </aside>
                 </div>
                 <div class="column is-four-fifths">
                     <div class="columns displaybutton">
                         <div class="column is-half">
+                            <a class="button is-link" ><i class="fa fa-eye"></i>Product Page</a>
+                            <a class="button is-link"><i class="fa fa-eye"></i>Home Page</a>
                         </div>
                         <div class="column is-half has-text-right">
+                            <a class="button is-warning" ><i class="fa fa-minus"></i>Unselect</a>
+                            <a class="button is-link" ><i class="fa fa-plus"></i>Add</a>
                         </div>
                     </div>
                     <div style="overflow-x:auto;padding-bottom: 20px; min-height: 200px;">
+
+                        <div v-if="show_table"></div>
+                        <div v-if="!show_table">
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno 16Mhz</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                        <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+                            <div class="card productcard">
+                                <div class="card-image">
+                                    <figure class="image is-square">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="cardhead">Smartduino Uno</p>
+
+                                </footer>
+                                <footer class="card-footer">
+                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
+                                </footer>
+                                <footer class="card-footer ">
+                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                </footer>
+                            </div>
+
+                        </div>
                     </div>
+                    <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+                        <a class="pagination-previous" v-if="table_page > 1" v-on:click="change_page(table_page-1)">Previous</a>
+                        <a class="pagination-next" v-if="table_page < total_pages" v-on:click="change_page(table_page+1)">Next page</a>
+                        <ul class="pagination-list">
+                            <li v-if="table_page>5"><span class="pagination-ellipsis">&hellip;</span></li>
+                            <li v-for="p in get_pages()"><a class="pagination-link" v-bind:class="{'is-current': (table_page==p)}" v-bind:aria-label="'Goto page '+p" v-on:click="change_page(p)">[%p%]</a></li>
+                            <li v-if="total_pages-table_page>5"><span class="pagination-ellipsis">&hellip;</span></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -122,9 +340,43 @@
         el: '#app',
         delimiters: ["[%","%]"],
         data: {
-            loading: true
+            loading: true,
+            show_table: false,
+            selected: '',
+            itemselected : 0,
+            table_page: 2,
+            total_pages: 10
+        },
+        methods: {
+            get_pages: function(){
+                var start_page = this.max(this.table_page-5, 1);
+                var end_page = this.min(this.table_page+5, this.total_pages);
+                var ls = [];
+                for(var i=start_page; i <= end_page; i++){
+                    ls.push(i);
+                }
+                return ls;
+            },
+            min: function(a,b){
+                if(a>=b){
+                    return b;
+                }
+                return a;
+            },
+            max: function(a,b){
+                if(a>=b){
+                    return a;
+                }
+                return b;
+            },
+            change_page: function(new_page){
+                if(this.table_page != new_page){
+                    this.table_page = new_page;
+                }
+            }
         }
         });
+    app.selected = 'Products';
     app.loading = false;
 
 </script>
