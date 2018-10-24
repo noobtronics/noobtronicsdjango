@@ -372,6 +372,95 @@
         </div>
 </section>
 
+
+<script>
+    Vue.config.delimiters = ['[%', '%]'];
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
+    axios.defaults.xsrfCookieName = 'csrftoken';
+</script>
+
+
+
+<script>
+    function serializeForm(form) {
+        var objects = [];
+        var formData = new FormData();
+
+        if (typeof form == 'object' && form.nodeName.toLowerCase() == "form") {
+            var fields = form.getElementsByTagName("input");
+            for(var i=0;i<fields.length;i++){
+                if(fields[i].type == 'file'){
+                    var file = fields[i].files[0];
+                    if(file.size > 20000000){
+                        console.log('File size is too big !');
+                        return;
+                    }
+                    else{
+                        formData.append(fields[i].name, file);
+                    }
+                }
+                else if(fields[i].type == 'checkbox'){
+                    formData.append(fields[i].name, fields[i].checked);
+                }
+                else{
+                    formData.append(fields[i].name, fields[i].value);
+                }
+            }
+
+            fields = form.getElementsByTagName("select");
+            for(var i=0;i<fields.length;i++){
+                formData.append(fields[i].name, fields[i].value);
+            }
+        }
+        return formData;
+    }
+
+
+    var submit_add_form = function(model){
+        app.loading = true;
+        var form = document.getElementById('addform');
+        var form_data = serializeForm(form);
+        axios({
+            method: 'post',
+            url: '/adminapi/add_product',
+            data: form_data,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(function(response) {
+            app.loading = false;
+            if(response.data.success){
+                app.show_add_modal = false;
+                location.reload();
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+
+        });
+    };
+</script>
+
+
 <script>
     var app = new Vue({
         el: '#app',
@@ -411,6 +500,9 @@
                 if(this.table_page != new_page){
                     this.table_page = new_page;
                 }
+            },
+            submit_add_form : function(){
+                submit_add_form(this.selected);
             }
         }
         });

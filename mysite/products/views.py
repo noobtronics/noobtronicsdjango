@@ -13,10 +13,83 @@ from google.auth.transport import requests
 from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
+import PIL
+from .models import *
+import pathlib
+import uuid
+from io import BytesIO
 
 
 @staff_or_404
+@ensure_csrf_cookie
 def show_storeadmin(request):
     context = {
     }
     return render(request, 'storeadmin_dashboard.html', context)
+
+
+
+
+def store_image_files(prod, media_path, img, store_main):
+    uuid_name = str(uuid.uuid4())
+    file_name =  uuid_name + '.png'
+    file_name_s = uuid_name + '_300.png'
+    file_name_u = uuid_name + '_64.png'
+    main_path = media_path + '/' + file_name
+    mini_path = media_path + '/' + file_name_s
+    micro_path = media_path + '/' + file_name_u
+
+    img_m = img.thumbnail((300,300))
+    img_u = img.thumbnail((64, 64))
+
+    img.save(main_path)
+    img_m.save(mini_path)
+    img_u.save(micro_path)
+    img_main = Image(prod_id=prod, image=main_path)
+    img_main.save()
+    if store_main:
+        main_ = MainImage(prod_id = prod, img_id = img_main)
+        main_.save()
+    tn_mini = Thumbnail(img_id=img_main, image=mini_path)
+    tn_mini.save()
+    tn_micro = Thumbnail(img_id=img_main, image=micro_path)
+    tn_micro.save()
+
+
+@staff_or_404
+def admin_add_product(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = request.POST.dict()
+        image = request.FILES['image']
+        if image.content_type != 'image/png':
+            resp['reason'] = 'Only PNG Image are supported'
+            return JsonResponse(resp)
+
+        if image.size > 512000:
+            resp['reason'] = 'Image size should be < 500KB'
+            return JsonResponse(resp)
+
+        im = PIL.Image.open(image)
+        im_w, im_h = im.size
+
+
+        if im_w != im_h:
+            resp['reason'] = 'Image is not square'
+            return JsonResponse(resp)
+
+        prod = Product(name=data['name'], cardtitle=data['cardsubtitle'],
+                       pagetitle=data['prodsubtitle'], slug=data['slug'],
+                       price=data['price'], mrp_price=data['mrpprice'])
+        prod.save()
+        media_path = 'media/'+data['slug']
+        pathlib.Path(media_path).mkdir(parents=True, exist_ok=True)
+        store_image_files(prod, media_path, im, True)
+        resp['success'] = True
+
+    except Exception as e:
+        resp['reason'] = str(e)
+    return JsonResponse(resp)
