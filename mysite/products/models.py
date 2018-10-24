@@ -2,8 +2,10 @@ from django.db import models
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    subtitle = models.CharField(max_length=100)
+    name = models.CharField(max_length=21)
+    slug = models.CharField(max_length=100, unique=True)
+    pagetitle = models.CharField(max_length=50)
+    cardtitle = models.CharField(max_length=24)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
