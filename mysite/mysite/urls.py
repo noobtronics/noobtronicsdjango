@@ -15,6 +15,8 @@ Including another URLconf
 """
 from captcha_admin import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.site.site_header = 'Noobtronics Administration'
 admin.site.site_title = 'Noobtronics Administration'
@@ -24,3 +26,6 @@ urlpatterns = [
     path('', include('products.urls')),
     path('myadmin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
