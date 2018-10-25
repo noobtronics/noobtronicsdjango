@@ -172,56 +172,22 @@
                     <div style="overflow-x:auto;padding-bottom: 20px; min-height: 200px;">
 
                         <div v-if="show_table"></div>
-                        <div v-if="!show_table">
-                            <div class="card productcard" v-on:click="itemselected=1"  v-bind:class="{ 'is-shady': itemselected=='1'}">
+                        <div>
+                            <div v-for="p in products" class="card productcard"  v-on:click="itemselected=p.id"  v-bind:class="{ 'is-shady': itemselected==p.id}">
                                 <div class="card-image">
                                     <figure class="image is-square">
-                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                                        <img v-bind:src="p.thumb" alt="Placeholder image">
                                     </figure>
                                 </div>
                                 <footer class="card-footer">
-                                    <p class="cardhead">123456789123456789123</p>
+                                    <p class="cardhead">[%p.name%]</p>
 
                                 </footer>
                                 <footer class="card-footer">
-                                    <p class="cardsubtitle">123456789123456789123456</p>
+                                    <p class="cardsubtitle">[%p.cardtitle%]</p>
                                 </footer>
                                 <footer class="card-footer ">
-                                        <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
-                                </footer>
-                            </div>
-                            <div class="card productcard" v-on:click="itemselected=2"  v-bind:class="{ 'is-shady': itemselected=='2'}">
-                                <div class="card-image">
-                                    <figure class="image is-square">
-                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
-                                    </figure>
-                                </div>
-                                <footer class="card-footer">
-                                    <p class="cardhead">Smartduino Uno 16Mhz</p>
-
-                                </footer>
-                                <footer class="card-footer">
-                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
-                                </footer>
-                                <footer class="card-footer ">
-                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
-                                </footer>
-                            </div>
-                            <div class="card productcard" v-on:click="itemselected=3"  v-bind:class="{ 'is-shady': itemselected=='3'}">
-                                <div class="card-image">
-                                    <figure class="image is-square">
-                                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
-                                    </figure>
-                                </div>
-                                <footer class="card-footer">
-                                    <p class="cardhead">Smartduino Uno 16Mhz</p>
-
-                                </footer>
-                                <footer class="card-footer">
-                                    <p class="cardsubtitle">ATMega328P 	&#181;Controller</p>
-                                </footer>
-                                <footer class="card-footer ">
-                                    <h2 class="price">₹400<span class="mrpprice">&nbsp;₹600&nbsp;&nbsp;</span></h2>
+                                    <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
                                 </footer>
                             </div>
                         </div>
@@ -374,8 +340,6 @@
 
 
 <script>
-    Vue.config.delimiters = ['[%', '%]'];
-
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -458,13 +422,34 @@
 
         });
     };
+
+
+    var get_products_data = function get_products_data(){
+        app.loading = true;
+        axios({
+            method: 'post',
+            url: '/adminapi/fetch/products',
+            data: {
+            }
+        }).then(function(response) {
+            app.products = response.data.data;
+            app.loading = false;
+        });
+    };
+
+    var get_model_data = function get_model_data(model) {
+        if(model =='Products'){
+            get_products_data();
+            return;
+        }
+    };
 </script>
 
 
 <script>
     var app = new Vue({
         el: '#app',
-        delimiters: ["[%","%]"],
+        delimiters: ['[%','%]'],
         data: {
             loading: true,
             show_table: false,
@@ -472,7 +457,15 @@
             itemselected : 0,
             table_page: 2,
             total_pages: 10,
-            show_add_modal: false
+            show_add_modal: false,
+            products: []
+        },
+        watch: {
+            selected: function (val, oldVal) {
+                this.table_page = 1;
+                this.table_filter = {};
+                get_model_data(val);
+            }
         },
         methods: {
             get_pages: function(){

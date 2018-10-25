@@ -45,13 +45,13 @@ def store_image_files(prod, media_path, img, store_main):
     img.save(main_path)
     img_m.save(mini_path)
     img_u.save(micro_path)
-    img_main = Image(prod_id=prod, image=main_path)
+    img_main = Image(prod_id=prod, image = main_path)
     img_main.save()
-    if store_main:
-        main_ = MainImage(prod_id = prod, img_id = img_main)
-        main_.save()
     tn_mini = Thumbnail(img_id=img_main, image=mini_path)
     tn_mini.save()
+    if store_main:
+        main_ = MainImage(prod_id = prod, main_img=img_main, main_thumb=tn_mini)
+        main_.save()
     tn_micro = Thumbnail(img_id=img_main, image=micro_path)
     tn_micro.save()
 
@@ -92,4 +92,24 @@ def admin_add_product(request):
 
     except Exception as e:
         resp['reason'] = str(e)
+    return JsonResponse(resp)
+
+
+@staff_or_404
+def admin_fetch_product(request):
+    prods = Product.objects.all().order_by('-id')[:5]
+    data = []
+    for prod in prods:
+        t = {
+            'id': prod.id,
+            'name': prod.name,
+            'cardtitle': prod.cardtitle,
+            'price': prod.price,
+            'mrp': prod.mrp_price,
+            'thumb': prod.mainimage.main_thumb.image.url
+        }
+        data.append(t)
+    resp = {
+        'data': data
+    }
     return JsonResponse(resp)
