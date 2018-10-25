@@ -104,8 +104,10 @@ def admin_add_to_home(request):
     }
     try:
         data = request.POST.dict()
-        print(data)
         prod = Product.objects.get(id=data['prod_id'])
+        if not prod.is_published:
+            resp['reason'] = 'Product is unpublished'
+            return JsonResponse(resp)
         hp = HomePage(prod_id=prod, rank=data['rank'])
         hp.save()
         resp['success'] = True

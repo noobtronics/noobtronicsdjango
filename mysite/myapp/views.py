@@ -12,12 +12,26 @@ from google.auth.transport import requests
 from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
-
+from products.models import *
 
 @ensure_csrf_cookie
 def home_page(request):
+    ps = HomePage.objects.all().order_by('rank')
+    data = []
+    for p in ps:
+        t = {
+            'id': p.prod_id.id,
+            'name': p.prod_id.name,
+            'pagetitle': p.prod_id.pagetitle,
+            'price': p.prod_id.price,
+            'mrp': p.prod_id.mrp_price,
+            'image': p.prod_id.mainimage.main_img.image.url,
+            'slug': p.prod_id.slug
+        }
+        data.append(t)
     context = {
-        'loggedin': request.user.is_authenticated
+        'loggedin': request.user.is_authenticated,
+        'data': data
     }
     return render(request, 'home-page.html', context)
 
