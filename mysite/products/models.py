@@ -12,6 +12,7 @@ class Product(models.Model):
     cardtitle = models.CharField(max_length=24)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
+    is_published = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -54,4 +55,9 @@ class MainImage(models.Model):
     prod_id = models.OneToOneField(Product, on_delete=models.CASCADE)
     main_img = models.ForeignKey(Image, on_delete=models.CASCADE)
     main_thumb = models.ForeignKey(Thumbnail, on_delete=models.CASCADE)
+
+
+class HomePage(models.Model):
+    prod_id = models.OneToOneField(Product, on_delete=models.CASCADE)
+    rank = models.IntegerField()
 

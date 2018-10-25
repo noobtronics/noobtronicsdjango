@@ -97,6 +97,24 @@ def admin_add_product(request):
 
 
 @staff_or_404
+def admin_add_to_home(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = request.POST.dict()
+        print(data)
+        prod = Product.objects.get(id=data['prod_id'])
+        hp = HomePage(prod_id=prod, rank=data['rank'])
+        hp.save()
+        resp['success'] = True
+
+    except Exception as e:
+        resp['reason'] = str(e)
+    return JsonResponse(resp)
+
+@staff_or_404
 def admin_fetch_product(request):
     prods = Product.objects.all().order_by('-id')[:5]
     data = []
