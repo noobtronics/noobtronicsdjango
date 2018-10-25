@@ -161,7 +161,7 @@
                     <div class="columns displaybutton">
                         <div class="column is-half">
                             <a class="button is-link" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Product Page</a>
-                            <a class="button is-link" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Home Page</a>
+                            <a class="button is-link" v-on:click="open_demo_home()" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Home Page</a>
                         </div>
                         <div class="column is-half has-text-right">
                             <a class="button is-link" v-if="selected=='Products' && itemselected == 0"  v-on:click="show_add_modal=true"><i class="fa fa-plus"></i>Add</a>
@@ -356,6 +356,11 @@
         return cookieValue;
     }
 
+    function openInNewTab(url) {
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+
 
     axios.defaults.xsrfHeaderName = "X-CSRFToken";
     axios.defaults.xsrfCookieName = 'csrftoken';
@@ -496,6 +501,11 @@
             },
             submit_add_form : function(){
                 submit_add_form(this.selected);
+            },
+            open_demo_home : function(){
+                if(this.itemselected > 0){
+                    openInNewTab('/storeadmin/demohome/'+this.itemselected);
+                }
             }
         }
         });

@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, post_delete
 from django.dispatch import receiver
 from pathlib import Path
 import os
@@ -17,7 +17,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-@receiver(pre_delete, sender=Product, dispatch_uid='delete_product_signal')
+@receiver(post_delete, sender=Product, dispatch_uid='delete_product_signal')
 def delete_product(sender, instance, using, **kwargs):
     media_path = 'media/'+instance.slug
     p = Path(media_path)
@@ -32,8 +32,9 @@ class Image(models.Model):
 
 @receiver(pre_delete, sender=Image, dispatch_uid='delete_image_signal')
 def delete_image(sender, instance, using, **kwargs):
-    if os.path.isfile(instance.image.url):
-        os.remove(instance.image.url)
+    p = '.' + instance.image.url
+    if os.path.isfile(p):
+        os.remove(p)
 
 
 class Thumbnail(models.Model):
@@ -44,8 +45,9 @@ class Thumbnail(models.Model):
 
 @receiver(pre_delete, sender=Thumbnail, dispatch_uid='delete_thumbnail_signal')
 def delete_thumbnail(sender, instance, using, **kwargs):
-    if os.path.isfile(instance.image.url):
-        os.remove(instance.image.url)
+    p = '.' + instance.image.url
+    if os.path.isfile(p):
+        os.remove(p)
 
 
 class MainImage(models.Model):
