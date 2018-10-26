@@ -160,7 +160,7 @@
                 <div class="column is-four-fifths">
                     <div class="columns displaybutton">
                         <div class="column is-half">
-                            <a class="button is-link" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Product Page</a>
+                            <a class="button is-link" v-on:click="open_prod_page()" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Product Page</a>
                             <a class="button is-link" v-on:click="open_demo_home()" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Home Page</a>
                         </div>
                         <div class="column is-half has-text-right">
@@ -570,6 +570,11 @@
             open_demo_home : function(){
                 if(this.itemselected > 0){
                     openInNewTab('/storeadmin/demohome/'+this.itemselected);
+                }
+            },
+            open_prod_page : function(){
+                if(this.itemselected > 0){
+                    openInNewTab('/storeadmin/demoprod/'+this.itemselected);
                 }
             }
         }

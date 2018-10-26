@@ -155,3 +155,21 @@ def show_demo_home(request, prod_id):
         'data': data
     }
     return render(request, 'admin-demo-home-page.html', context)
+
+
+@staff_or_404
+def show_demo_prod(request, prod_id):
+    prod = get_object_or_404(Product,id=prod_id)
+    data = {
+        'id': prod.id,
+        'name': prod.name,
+        'pagetitle': prod.pagetitle,
+        'price': prod.price,
+        'mrp': prod.mrp_price,
+        'image': prod.mainimage.main_img.image.url
+    }
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'data': data
+    }
+    return render(request, 'product-page.html', context)
