@@ -8952,6 +8952,23 @@ label.panel-block:hover {
   min-height: 310px;
 }
 
+.pswp__bg {
+  background-color: white;
+}
+
+.pswp__top-bar {
+  background-color: rgba(35, 209, 96, 0.8) !important;
+  color: white;
+}
+
+.pswp__counter, .pswp__button {
+  opacity: 1;
+}
+
+.pswp__img {
+  background: white !important;
+}
+
 .productpagebody {
   margin-bottom: 40px;
 }
@@ -9004,6 +9021,7 @@ label.panel-block:hover {
 .proddisplay {
   display: inline-block;
   vertical-align: top;
+  cursor: zoom-in;
 }
 
 .socialbutton {
