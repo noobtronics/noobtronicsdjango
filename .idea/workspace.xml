@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/default-skin.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/default-skin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/default-skin.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/preloader.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe-ui-default.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe-ui-default.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
@@ -89,8 +76,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
+            <state relative-caret-position="215">
+              <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -293,8 +280,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
+        <state relative-caret-position="215">
+          <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
         </state>
       </provider>
     </entry>

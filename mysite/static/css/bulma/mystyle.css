@@ -8980,6 +8980,32 @@ label.panel-block:hover {
   color: #3273dc !important;
 }
 
+.prodimagecol {
+  vertical-align: top;
+}
+
+.prodicons {
+  width: 65px;
+  display: inline-block;
+  vertical-align: top;
+}
+.prodicons .prodicon {
+  display: block;
+  margin: 5px 0px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+}
+.prodicons .prodicon:hover {
+  border: 3px solid white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.proddisplay {
+  display: inline-block;
+  vertical-align: top;
+}
+
 .socialbutton {
   position: fixed;
   display: block;
