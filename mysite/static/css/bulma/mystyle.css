@@ -8952,25 +8952,31 @@ label.panel-block:hover {
   min-height: 310px;
 }
 
-.product {
+.productpagebody {
+  margin-bottom: 40px;
+}
+
+.productdetails {
   background-color: white;
   color: black;
+  min-height: 300px;
+  margin-bottom: 30px;
 }
-.product .breadcrumb li {
+.productdetails .breadcrumb li {
   color: #3273dc !important;
 }
-.product .breadcrumb li:hover {
+.productdetails .breadcrumb li:hover {
   color: #4a4a4a !important;
 }
-.product .breadcrumb .is-active {
+.productdetails .breadcrumb .is-active {
   color: #4a4a4a !important;
 }
-.product .content {
+.productdetails .content {
   text-align: left;
   font-size: 14px;
   padding: 0px 20px;
 }
-.product .content a {
+.productdetails .content a {
   color: #3273dc !important;
 }
 
@@ -9011,7 +9017,15 @@ label.panel-block:hover {
 }
 
 .modal-background {
-  background-color: rgba(10, 10, 10, 0);
+  background-color: rgba(10, 10, 10, 0.8);
+}
+
+.bShadow-65, .bShadow-65h:hover {
+  box-shadow: 0px 0px 80px 71px rgba(51, 51, 51, 0.59);
+}
+
+.bShadow-66, .bShadow-66h:hover {
+  box-shadow: 0px 5px 67px -5px rgba(100, 100, 100, 0.43);
 }
 
 .modal-card {

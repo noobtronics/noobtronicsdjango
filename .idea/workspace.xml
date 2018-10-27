@@ -2,9 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mysite/products/admin_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/products/admin_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/products/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/products/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/default-skin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/default-skin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/default-skin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/default-skin/preloader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe-ui-default.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe-ui-default.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/static/css/plugin/photoswipe/photoswipe.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,8 +34,10 @@
     <session id="-848316021">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -46,11 +63,11 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
+            <state relative-caret-position="10368">
               <caret line="576" column="54" selection-start-line="576" selection-start-column="54" selection-end-line="576" selection-end-column="54" />
             </state>
           </provider>
@@ -59,7 +76,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/prod_sample.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
+            <state relative-caret-position="252">
               <caret line="14" column="63" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="63" />
               <folding>
                 <element signature="n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" />
@@ -72,11 +89,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-              <folding>
-                <element signature="e#5783#6588#0" />
-              </folding>
+            <state relative-caret-position="233">
+              <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -85,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="936">
-              <caret line="52" column="4" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="36" />
+              <caret line="60" column="4" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -121,9 +135,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="3" />
-    <option name="width" value="1386" />
-    <option name="height" value="785" />
+    <option name="x" value="28" />
+    <option name="y" value="4" />
+    <option name="width" value="1346" />
+    <option name="height" value="731" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -210,24 +225,21 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1540545847197</updated>
-      <workItem from="1540545848856" duration="774000" />
+      <workItem from="1540545848856" duration="1383000" />
+      <workItem from="1540611617527" duration="1216000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="774000" />
+    <option name="totallyTimeSpent" value="2599000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25074404" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -235,6 +247,10 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -247,9 +263,16 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10368">
+          <caret line="576" column="54" selection-start-line="576" selection-start-column="54" selection-end-line="576" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/prod_sample.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
+        <state relative-caret-position="252">
           <caret line="14" column="63" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="63" />
           <folding>
             <element signature="n#div#0;n#section#0;n#body#0;n#html#0;n#!!top" />
@@ -258,30 +281,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="576" column="54" selection-start-line="576" selection-start-column="54" selection-end-line="576" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="936">
-          <caret line="52" column="4" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="36" />
+          <caret line="60" column="4" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="36" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-          <folding>
-            <element signature="e#5783#6588#0" />
-          </folding>
+        <state relative-caret-position="233">
+          <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
         </state>
       </provider>
     </entry>
