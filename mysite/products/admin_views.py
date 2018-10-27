@@ -31,30 +31,47 @@ def show_storeadmin(request):
 
 
 
-def store_image_files(prod, media_path, img, store_main):
+def store_image_files(prod, media_path, img, store_main, rank):
     uuid_name = str(uuid.uuid4())
     file_name =  uuid_name + '.png'
+    file_name_h = uuid_name + '_500.png'
     file_name_s = uuid_name + '_300.png'
     file_name_u = uuid_name + '_64.png'
+
     main_path = media_path + '/' + file_name
+    im_home_path = media_path + '/' + file_name_h
     mini_path = media_path + '/' + file_name_s
     micro_path = media_path + '/' + file_name_u
 
+    img_h = img.resize([500, 500], PIL.Image.ANTIALIAS)
     img_m = img.resize([300,300],PIL.Image.ANTIALIAS)
     img_u = img.resize([64,64],PIL.Image.ANTIALIAS)
 
     img.save(main_path)
+    img_h.save(im_home_path)
     img_m.save(mini_path)
     img_u.save(micro_path)
+
     img_main = Image(prod_id=prod, image = main_path)
     img_main.save()
+    tn_home = Thumbnail(img_id=img_main, image=im_home_path)
+    tn_home.save()
     tn_mini = Thumbnail(img_id=img_main, image=mini_path)
     tn_mini.save()
-    if store_main:
-        main_ = MainImage(prod_id = prod, main_img=img_main, main_thumb=tn_mini)
-        main_.save()
     tn_micro = Thumbnail(img_id=img_main, image=micro_path)
     tn_micro.save()
+
+    if store_main:
+        rank = 1
+
+    imgData = ImageData(prod_id=prod, img_id=img_main, tn_home=tn_home,
+                        tn_mini = tn_mini, tn_micro=tn_micro, rank=rank)
+    imgData.save()
+
+    if store_main:
+        main_ = MainImage(prod_id = prod, image_data=imgData)
+        main_.save()
+
 
 
 @staff_or_404

@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" afterDir="false" />
-    </list>
+    <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />

@@ -51,10 +51,18 @@ def delete_thumbnail(sender, instance, using, **kwargs):
         os.remove(p)
 
 
+class ImageData(models.Model):
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    img_id = models.OneToOneField(Image, on_delete=models.CASCADE)
+    th_home = models.ForeignKey(Thumbnail, on_delete=models.CASCADE, related_name='image_data_home')
+    th_mini = models.ForeignKey(Thumbnail, on_delete=models.CASCADE, related_name='image_data_mini')
+    th_micro = models.ForeignKey(Thumbnail, on_delete=models.CASCADE, related_name='image_data_micro')
+    rank = models.IntegerField()
+
+
 class MainImage(models.Model):
     prod_id = models.OneToOneField(Product, on_delete=models.CASCADE)
-    main_img = models.ForeignKey(Image, on_delete=models.CASCADE)
-    main_thumb = models.ForeignKey(Thumbnail, on_delete=models.CASCADE)
+    img_data = models.ForeignKey(ImageData, on_delete=models.CASCADE)
 
 
 class HomePage(models.Model):
