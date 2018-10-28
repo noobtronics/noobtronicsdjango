@@ -145,7 +145,7 @@ def admin_fetch_product(request):
             'cardtitle': prod.cardtitle,
             'price': prod.price,
             'mrp': prod.mrp_price,
-            'thumb': prod.mainimage.main_thumb.image.url
+            'thumb': prod.mainimage.img_data.th_mini.image.url
         }
         data.append(t)
     resp = {
@@ -163,7 +163,7 @@ def show_demo_home(request, prod_id):
         'pagetitle': prod.pagetitle,
         'price': prod.price,
         'mrp': prod.mrp_price,
-        'image': prod.mainimage.main_img.image.url
+        'image': prod.mainimage.img_data.th_home.image.url
     }
     data = []
     data.append(t)
@@ -184,7 +184,7 @@ def show_demo_prod(request, prod_id):
         'pagetitle': prod.pagetitle,
         'price': prod.price,
         'mrp': prod.mrp_price,
-        'image': prod.mainimage.main_img.image.url
+        'image': prod.mainimage.img_data.th_home.image.url
     }
     context = {
         'loggedin': request.user.is_authenticated,

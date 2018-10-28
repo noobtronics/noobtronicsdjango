@@ -61,7 +61,7 @@ class ImageData(models.Model):
 
 
 class MainImage(models.Model):
-    prod_id = models.OneToOneField(Product, on_delete=models.CASCADE)
+    prod_id = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='mainimage')
     img_data = models.ForeignKey(ImageData, on_delete=models.CASCADE)
 
 
