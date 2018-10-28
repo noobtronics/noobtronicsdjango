@@ -13,6 +13,7 @@ from google.auth.transport import requests
 from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
+import traceback
 import PIL
 from .models import *
 import pathlib
@@ -64,12 +65,12 @@ def store_image_files(prod, media_path, img, store_main, rank):
     if store_main:
         rank = 1
 
-    imgData = ImageData(prod_id=prod, img_id=img_main, tn_home=tn_home,
-                        tn_mini = tn_mini, tn_micro=tn_micro, rank=rank)
+    imgData = ImageData(prod_id=prod, img_id=img_main, th_home=tn_home,
+                        th_mini=tn_mini, th_micro=tn_micro, rank=rank)
     imgData.save()
 
     if store_main:
-        main_ = MainImage(prod_id = prod, image_data=imgData)
+        main_ = MainImage(prod_id = prod, img_data=imgData)
         main_.save()
 
 
@@ -87,8 +88,8 @@ def admin_add_product(request):
             resp['reason'] = 'Only PNG Image are supported'
             return JsonResponse(resp)
 
-        if image.size > 512000:
-            resp['reason'] = 'Image size should be < 500KB'
+        if image.size > 4096000:
+            resp['reason'] = 'Image size should be < 4000KB'
             return JsonResponse(resp)
 
         im = PIL.Image.open(image)
@@ -105,11 +106,11 @@ def admin_add_product(request):
         prod.save()
         media_path = 'media/'+data['slug']
         pathlib.Path(media_path).mkdir(parents=True, exist_ok=True)
-        store_image_files(prod, media_path, im, True)
+        store_image_files(prod, media_path, im, True, 1)
         resp['success'] = True
 
     except Exception as e:
-        resp['reason'] = str(e)
+        resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
 
 
@@ -130,7 +131,7 @@ def admin_add_to_home(request):
         resp['success'] = True
 
     except Exception as e:
-        resp['reason'] = str(e)
+        resp['reason'] = traceback.print_exception()
     return JsonResponse(resp)
 
 @staff_or_404
