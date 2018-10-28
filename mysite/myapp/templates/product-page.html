@@ -25,11 +25,16 @@
 
                     <div class="prodicons">
                         {% for i in icon_images %}
-                        <div class="prodicon"><img src="{{i}}" width="64" v-on:click="image_selected={{forloop.counter0}}"></div>
+                        <div class="prodicon" v-on:click="image_selected={{forloop.counter0}}"><img src="{{i}}" width="64" ></div>
                         {% endfor %}
                     </div>
                     <div class="proddisplay" v-on:click="openPhotoSwipe()">
-                        <img src="{{home_images.0}}" width="400" id="proddisplay">
+                        <div class="displayb">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                        <div class="displayi" id="proddisplayi">
+                            <img src="{{home_images.0}}" width="400" >
+                        </div>
                     </div>
 
                 </div>
@@ -252,7 +257,11 @@
         watch:{
             image_selected: function(newVal, oldVal){
                 var url = image_data.home_images[newVal];
-                document.getElementById("proddisplay").src=url;
+                var doc_img = document.createElement("img");
+                doc_img.src = url;
+                var ele =document.getElementById("proddisplayi");
+                ele.childNodes[0].remove();
+                ele.appendChild(doc_img);
             }
         }
     })

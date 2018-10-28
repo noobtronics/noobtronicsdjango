@@ -9002,18 +9002,19 @@ label.panel-block:hover {
 }
 
 .prodicons {
-  width: 65px;
+  width: 68px;
   display: inline-block;
   vertical-align: top;
 }
 .prodicons .prodicon {
   display: block;
-  margin: 5px 0px;
+  margin: 6px 0px;
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 5px;
 }
 .prodicons .prodicon:hover {
-  border: 3px solid white;
+  border: 1px solid white;
+  box-shadow: 0 0 0 2px white;
   cursor: pointer;
   border-radius: 5px;
 }
@@ -9022,6 +9023,31 @@ label.panel-block:hover {
   display: inline-block;
   vertical-align: top;
   cursor: zoom-in;
+  height: 400px;
+  width: 406px;
+  position: relative;
+}
+.proddisplay .displayb, .proddisplay .displayi {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0);
+}
+.proddisplay .displayi {
+  z-index: 2;
+}
+.proddisplay .displayb {
+  z-index: 1;
+  color: white;
+  font-size: 30px;
+  display: flex;
+}
+.proddisplay .displayb svg {
+  display: block;
+  margin: auto auto;
+  vertical-align: middle;
 }
 
 .socialbutton {
