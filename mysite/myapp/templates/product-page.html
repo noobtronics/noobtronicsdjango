@@ -200,23 +200,22 @@
 
     // build items array
     var pswp_items = [
-        {
-            src: '{{data.image}}',
+    ];
+
+    for(var i=0; i< image_data.large_images.length; i++){
+        var temp = {
+            src: image_data.large_images[i],
             w: 1000,
             h: 1000
-        },
-        {
-            src: 'https://placekitten.com/1200/900',
-            w: 1200,
-            h: 900
-        }
-    ];
+        };
+        pswp_items.push(temp);
+    }
 
 
 
     var openPhotoSwipe = function(){
         var pswp_options = {
-            index: 0,
+            index: prodapp.image_selected,
             timeToIdle: 3000,
             showAnimationDuration: 0.5
         };
