@@ -373,6 +373,14 @@
 
 
 <script>
+    $( document ).ready(function() {
+        $('input[type=file]').change(function () {
+            $(this).next().find('.file-label').html($(this).val());
+        });
+    });
+</script>
+
+<script>
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
