@@ -134,6 +134,53 @@ def admin_add_to_home(request):
         resp['reason'] = traceback.print_exception()
     return JsonResponse(resp)
 
+
+@staff_or_404
+def admin_upload_images(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = request.POST.dict()
+        prod = Product.objects.get(id=data['prod_id'])
+        files = request.FILES
+
+        im_data = []
+
+        for name in files:
+            image = request.FILES[name]
+
+            if image.content_type != 'image/png':
+                resp['reason'] = 'Only PNG Image are supported '+image.name
+                return JsonResponse(resp)
+
+            if image.size > 4096000:
+                resp['reason'] = 'Image size should be < 4000KB '+ image.name
+                return JsonResponse(resp)
+
+            im = PIL.Image.open(image)
+            im_w, im_h = im.size
+
+
+            if im_w != im_h:
+                resp['reason'] = 'Image is not square '+image.name
+                return JsonResponse(resp)
+
+            im_data.append(im)
+
+        media_path = 'media/' + prod.slug
+        rank = 1
+        for im in im_data:
+            rank += 1
+            store_image_files(prod, media_path, im, False, rank)
+        resp['success'] = True
+
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
 @staff_or_404
 def admin_fetch_product(request):
     prods = Product.objects.all().order_by('-id')[:5]
@@ -178,16 +225,42 @@ def show_demo_home(request, prod_id):
 @staff_or_404
 def show_demo_prod(request, prod_id):
     prod = get_object_or_404(Product,id=prod_id)
+
+    icon_images = []
+    home_images = []
+    large_images = []
+
+    main_id = prod.mainimage.img_data.id
+    icon_images.append(prod.mainimage.img_data.th_micro.image.url)
+    home_images.append(prod.mainimage.img_data.th_home.image.url)
+    large_images.append(prod.mainimage.img_data.img_id.image.url)
+
+    imgdatas = prod.imagesdata.all().order_by('rank')
+    for imgdata in imgdatas:
+        if imgdata.id == main_id:
+            continue
+        icon_images.append(imgdata.th_micro.image.url)
+        home_images.append(imgdata.th_home.image.url)
+        large_images.append(imgdata.img_id.image.url)
+
     data = {
         'id': prod.id,
         'name': prod.name,
         'pagetitle': prod.pagetitle,
         'price': prod.price,
         'mrp': prod.mrp_price,
-        'image': prod.mainimage.img_data.th_home.image.url
+    }
+
+    image_data = {
+        'icon_images': icon_images,
+        'home_images': home_images,
+        'large_images': large_images
     }
     context = {
         'loggedin': request.user.is_authenticated,
-        'data': data
+        'data': data,
+        'image_data': json.dumps(image_data)
     }
+    for key in image_data:
+        context[key]=image_data[key]
     return render(request, 'product-page.html', context)

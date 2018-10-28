@@ -24,15 +24,12 @@
                 <div class="column prodimagecol">
 
                     <div class="prodicons">
-                        <div class="prodicon"><img src="{{data.image}}" width="64"></div>
-                        <div class="prodicon"><img src="{{data.image}}" width="64"></div>
-                        <div class="prodicon"><img src="{{data.image}}" width="64"></div>
-                        <div class="prodicon"><img src="{{data.image}}" width="64"></div>
-                        <div class="prodicon"><img src="{{data.image}}" width="64"></div>
-
+                        {% for i in icon_images %}
+                        <div class="prodicon"><img src="{{i}}" width="64" v-on:click="image_selected={{forloop.counter0}}"></div>
+                        {% endfor %}
                     </div>
                     <div class="proddisplay" v-on:click="openPhotoSwipe()">
-                        <img src="{{data.image}}" width="400">
+                        <img src="{{home_images.0}}" width="400" id="proddisplay">
                     </div>
 
                 </div>
@@ -188,6 +185,10 @@
     </div>
 </div>
 
+<script>
+    var image_data = {{image_data | safe}};
+</script>
+
 
 <script>
     var pswpElement = document.querySelectorAll('.pswp')[0];
@@ -232,6 +233,8 @@
                 document.getElementById("pack").innerHTML,
                 document.getElementById("downl").innerHTML
             ],
+            image_data: image_data,
+            image_selected: 0
         },
         computed: {
             display: function () {
@@ -244,6 +247,12 @@
             },
             openPhotoSwipe:function(){
                 openPhotoSwipe();
+            }
+        },
+        watch:{
+            image_selected: function(newVal, oldVal){
+                var url = image_data.home_images[newVal];
+                document.getElementById("proddisplay").src=url;
             }
         }
     })

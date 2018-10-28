@@ -52,7 +52,7 @@ def delete_thumbnail(sender, instance, using, **kwargs):
 
 
 class ImageData(models.Model):
-    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='imagesdata')
     img_id = models.OneToOneField(Image, on_delete=models.CASCADE)
     th_home = models.ForeignKey(Thumbnail, on_delete=models.CASCADE, related_name='image_data_home')
     th_mini = models.ForeignKey(Thumbnail, on_delete=models.CASCADE, related_name='image_data_mini')

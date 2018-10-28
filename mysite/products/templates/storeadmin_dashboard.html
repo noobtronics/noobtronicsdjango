@@ -16,6 +16,9 @@
         .displaybutton svg {
             margin-right: 10px;
         }
+        .displaybutton a{
+            margin-top: 5px;
+        }
         .tabledivwidth{
             width: 100px
         }
@@ -166,6 +169,7 @@
                         <div class="column is-half has-text-right">
                             <a class="button is-link" v-if="selected=='Products' && itemselected == 0"  v-on:click="show_add_modal=true"><i class="fa fa-plus"></i>Add</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_add_to_home_modal=true"><i class="fa fa-home"></i>Add to Home</a>
+                            <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_uimages_modal=true"><i class="fas fa-image"></i>Upload Images</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="itemselected=0"><i class="fa fa-minus"></i>Unselect</a>
                             <a class="button is-link" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-plus"></i>Edit Details</a>
                         </div>
@@ -369,15 +373,71 @@
         </div>
     </div>
 
+    <div class="modal" v-bind:class="{ 'is-active': show_uimages_modal}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Upload Images</p>
+                <button class="delete" aria-label="close" v-on:click="show_uimages_modal=false"></button>
+            </header>
+            <section class="modal-card-body">
+                <form id="uploadimageform">
+                    <div class="field is-horizontal" >
+                        <div class="field-label is-normal">
+                            <label class="label">Image</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                <div class="file has-name">
+                                    <label class="file-label">
+                                        <input class="file-input" type="file" name="image1">
+                                        <span class="file-cta">
+                                                <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                                </span>
+                                                <span class="file-label">
+                                                Choose a file…
+                                                </span>
+                                                </span>
+                                    </label>
+                                </div>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="field-label is-normal">
+                        </div>
+                    </div>
+                    <a class="button duplicate_previous_file_input" style="margin-left: 40px">Add more</a>
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" v-on:click="submit_uimage_form()">Save changes</button>
+                <button class="button" v-on:click="show_uimages_modal=false">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
 </section>
 
 
 <script>
+    var counter = 1;
+
     $( document ).ready(function() {
-        $('input[type=file]').change(function () {
-            $(this).next().find('.file-label').html($(this).val());
+        $(document).on('change', 'input[type=file]', function() {
+            $(this).next().find("span.file-label").text($(this).val());
+        });
+
+        $(".duplicate_previous_file_input").on('click',function(){
+            counter = counter + 1;
+            var clone = $(this).prev().clone();
+            clone.find('input[type=file]').val('').attr('name', 'image'+counter);
+            clone.find("span.file-label").text('Choose a file...');
+            $(this).prev().after(clone);
         });
     });
+
 </script>
 
 <script>
@@ -497,6 +557,33 @@
     };
 
 
+    var submit_uimage_form = function(model){
+        app.loading = true;
+        var form = document.getElementById('uploadimageform');
+        var form_data = serializeForm(form);
+        form_data.append('prod_id',app.itemselected);
+        axios({
+            method: 'post',
+            url: '/adminapi/uploadimages',
+            data: form_data,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(function(response) {
+            app.loading = false;
+            if(response.data.success){
+                app.show_uimage_modal = false;
+                location.reload();
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+
+        });
+    };
+
+
 
     var get_products_data = function get_products_data(){
         app.loading = true;
@@ -533,6 +620,7 @@
             total_pages: 10,
             show_add_modal: false,
             show_add_to_home_modal: false,
+            show_uimages_modal: false,
             products: []
         },
         watch: {
@@ -584,6 +672,9 @@
                 if(this.itemselected > 0){
                     openInNewTab('/storeadmin/demoprod/'+this.itemselected);
                 }
+            },
+            submit_uimage_form: function(){
+                submit_uimage_form();
             }
         }
         });
