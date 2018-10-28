@@ -74,18 +74,18 @@ class HomePage(models.Model):
 
 
 class Cart(models.Model):
-    user_id = models.OneToOneField(User)
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
 
 class CartObjects(models.Model):
-    cart_id = models.ForeignKey(Cart)
-    prod_id = models.ForeignKey(Product)
+    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
 
 
 class Waitlist(models.Model):
-    prod_id = models.ForeignKey(Product)
-    user_id = models.ForeignKey(User)
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)

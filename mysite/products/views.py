@@ -29,7 +29,7 @@ def add_to_cart(request):
         'reason': '',
     }
     try:
-        data = request.POST.dict()
+        data = json.loads(request.body)
         prod = Product.objects.get(id=data['prod_id'])
         cart_filter = Cart.objects.filter(user_id=request.user)
         if cart_filter.count() == 0:
@@ -39,7 +39,7 @@ def add_to_cart(request):
             cart = cart_filter[0]
         cartobj = CartObjects(cart_id=cart, prod_id=prod, quantity=data['quantity'])
         cartobj.save()
-        resp['cartcount'] = CartObjects.filter(cart_id=cart).count()
+        resp['cartcount'] = CartObjects.objects.filter(cart_id=cart).count()
         resp['success'] = True
 
     except Exception as e:
@@ -55,7 +55,7 @@ def add_to_waitlist(request):
         'reason': ''
     }
     try:
-        data = request.POST.dict()
+        data = json.loads(request.body)
         prod = Product.objects.get(id=data['prod_id'])
         wl = Waitlist(prod_id=prod, user_id=request.user)
         wl.save()

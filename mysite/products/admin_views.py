@@ -243,14 +243,22 @@ def show_demo_prod(request, prod_id):
         home_images.append(imgdata.th_home.image.url)
         large_images.append(imgdata.img_id.image.url)
 
+    in_stock = prod.in_stock
+    waitlisted = False
+    if not in_stock:
+        if request.user.is_authenticated:
+            if Waitlist.objects.filter(prod_id=prod, user_id = request.user).count() > 0:
+                waitlisted = True
+
+
     data = {
         'id': prod.id,
         'name': prod.name,
         'pagetitle': prod.pagetitle,
         'price': prod.price,
         'mrp': prod.mrp_price,
-        'in_stock': True,
-        'waitlisted': False
+        'in_stock': in_stock,
+        'waitlisted': waitlisted
     }
 
     image_data = {
