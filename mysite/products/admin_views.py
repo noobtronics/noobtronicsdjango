@@ -249,6 +249,8 @@ def show_demo_prod(request, prod_id):
         'pagetitle': prod.pagetitle,
         'price': prod.price,
         'mrp': prod.mrp_price,
+        'in_stock': True,
+        'waitlisted': False
     }
 
     image_data = {

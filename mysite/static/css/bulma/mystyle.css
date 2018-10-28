@@ -9168,6 +9168,34 @@ label.panel-block:hover {
   margin-top: 95px;
 }
 
+.prodquant {
+  margin-top: 15px;
+  display: inline-block;
+}
+.prodquant a {
+  font-size: 12px;
+  width: 25px;
+  height: 25px;
+}
+.prodquant .cart_qty {
+  margin: 0px 5px;
+  font-size: 18px;
+  color: white;
+}
+
+.prodaddcart {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.prodstatus {
+  color: white !important;
+  font-size: 12px !important;
+  font-family: "Lucida Console";
+  font-weight: 600;
+  margin-top: 10px;
+}
+
 .prodimage {
   width: 500px;
   height: 375px;

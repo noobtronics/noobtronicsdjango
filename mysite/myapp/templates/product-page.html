@@ -40,7 +40,32 @@
                 </div>
                 <div class="column">
                     <h2 class="title is-3" style="margin-top:30px;">Smartduino Uno</h2>
-                    <h3 class="subtitle is-5">Atmega 328 Microcontroller</h3>
+                    <h3 class="subtitle is-5">Atmega 328 Microcontroller Board</h3>
+                    <h2 class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></h2>
+                    <div class="prodquant">
+                        <a class="button is-success is-inverted increment" v-on:click="increaseQty">
+                            <span class="icon">
+                              <i class="fas fa-plus"></i>
+                            </span>
+                        </a>
+                        <span class="cart_qty" v-html="quantity"></span>
+                        <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
+                            <span class="icon">
+                              <i class="fas fa-minus"></i>
+                            </span>
+                        </a>
+                    </div>
+                    {% if data.in_stock %}
+                    <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Add to Cart</a>
+                    <h3 class="subtitle is-5 prodstatus">Status: In Stock</h3>
+                    {% else %}
+                    {% if data.waitlisted %}
+                    <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Waitlisted</a>
+                    {% else %}
+                    <a class="button is-link prodaddcart">Join Waitlist</a>
+                    {% endif %}
+                    <h3 class="subtitle is-5 prodstatus">Status: Out of Stock</h3>
+                    {% endif %}
                 </div>
             </div>
             <div class="columns productdetails">
@@ -238,7 +263,8 @@
                 document.getElementById("downl").innerHTML
             ],
             image_data: image_data,
-            image_selected: 0
+            image_selected: 0,
+            quantity: 1
         },
         computed: {
             display: function () {
@@ -251,6 +277,14 @@
             },
             openPhotoSwipe:function(){
                 openPhotoSwipe();
+            },
+            increaseQty: function(){
+                this.quantity = this.quantity + 1;
+            },
+            decreaseQty: function(){
+                if(this.quantity >= 2){
+                    this.quantity = this.quantity - 1;
+                }
             }
         },
         watch:{

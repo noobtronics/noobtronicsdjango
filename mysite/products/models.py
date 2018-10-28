@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_delete, post_delete
 from django.dispatch import receiver
 from pathlib import Path
+from django.contrib.auth.models import User
 import os
 
 
@@ -12,6 +13,8 @@ class Product(models.Model):
     cardtitle = models.CharField(max_length=24)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
+    quantity_available = models.IntegerField(default=0)
+    in_stock = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -69,3 +72,20 @@ class HomePage(models.Model):
     prod_id = models.OneToOneField(Product, on_delete=models.CASCADE)
     rank = models.IntegerField()
 
+
+class Cart(models.Model):
+    user_id = models.OneToOneField(User)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class CartObjects(models.Model):
+    cart_id = models.ForeignKey(Cart)
+    prod_id = models.ForeignKey(Product)
+    quantity = models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class Waitlist(models.Model):
+    prod_id = models.ForeignKey(Product)
+    user_id = models.ForeignKey(User)
+    created = models.DateTimeField(auto_now_add=True)
