@@ -269,7 +269,8 @@
         }).then(function(response) {
             head_app.loading = false;
             if(response.data.success){
-                location.reload();
+                animate_by_id('cartnav', 'animated rubberBand');
+                head_app.cartqty = response.data.cartqty;
             }
             else{
                 console.log(response);

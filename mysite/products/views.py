@@ -39,7 +39,7 @@ def add_to_cart(request):
             cart = cart_filter[0]
         cartobj = CartObjects(cart_id=cart, prod_id=prod, quantity=data['quantity'])
         cartobj.save()
-        resp['cartcount'] = CartObjects.objects.filter(cart_id=cart).count()
+        resp['cartqty'] = CartObjects.objects.filter(cart_id=cart).count()
         resp['success'] = True
 
     except Exception as e:

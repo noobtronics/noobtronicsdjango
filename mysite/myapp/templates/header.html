@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/static/css/bulma/mystyle.css">
 <script src="/static/css/fontawesome/js/all.js"></script>
 <script type="text/javascript" src="/static/css/bulma/bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
+<link rel="stylesheet" href="/static/css/plugin/animate/animate.min.css">
 <script src="/static/js/vue/vue.js"></script>
 <script src="/static/js/axios/axios.js"></script>
 <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
@@ -42,6 +43,20 @@
         }
         return cookieValue;
     }
+
+    var setClassName = function(el, class_name){
+        console.log(class_name);
+        el.className = class_name;
+    };
+
+    var animate_by_id = function(id, animation){
+        var el = document.getElementById(id);
+        var orig_class = el.className;
+        el.className = el.className + ' '+animation;
+        setTimeout(function () {
+            setClassName(el, orig_class);
+        }, 1000);
+    };
 
 
     axios.defaults.xsrfHeaderName = "X-CSRFToken";
