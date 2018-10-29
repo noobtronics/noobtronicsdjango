@@ -250,6 +250,11 @@ def show_demo_prod(request, prod_id):
             if Waitlist.objects.filter(prod_id=prod, user_id = request.user).count() > 0:
                 waitlisted = True
 
+    cartqty = 0
+    if request.user.is_authenticated:
+        cart_query = Cart.objects.filter(user_id=request.user)
+        if cart_query.count() > 0:
+            cartqty = CartObjects.objects.filter(cart_id=cart_query[0]).count()
 
     data = {
         'id': prod.id,
@@ -269,7 +274,8 @@ def show_demo_prod(request, prod_id):
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
-        'image_data': json.dumps(image_data)
+        'image_data': json.dumps(image_data),
+        'cartqty': cartqty
     }
     for key in image_data:
         context[key]=image_data[key]

@@ -46,75 +46,18 @@
                         </div>
                         {% endif %}
 
-                        <div class="navbar-item has-dropdown is-hoverable">
+                        <div class="navbar-item">
                             <div class="dropdown-trigger">
-                                <a class="button is-success is-inverted badge is-badge-danger" data-badge="8" >
+                                <a class="button is-success is-inverted" href='/mycart' target='_blank' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
                                     <span class="icon">
                                       <i class="fas fa-shopping-cart"></i>
                                     </span>
                                 </a>
                             </div>
-                            <div class="navbar-dropdown is-boxed cart" >
-
-
-                                <article class="media">
-                                    <figure class="media-left">
-                                        <p class="image is-64x64">
-                                            <img src="/static/images/cart/cart1.jpg">
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <a href="#">
-                                                <strong>Smartduino Uno - Atmega328 dosivjow</strong>
-                                            </a>
-                                            <nav class="level">
-                                                <div class="level-left">
-                                                    <a class="button is-success is-inverted increment" >
-                                                        <span class="icon">
-                                                          <i class="fas fa-plus"></i>
-                                                        </span>
-                                                    </a>
-                                                    <span class="cart_qty">10</span>
-                                                    <a class="button is-success is-inverted increment" >
-                                                        <span class="icon">
-                                                          <i class="fas fa-minus"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="level-right">
-                                                    <span>&#8377;</span>
-                                                    <span>100</span>
-                                                </div>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                    <div class="media-right">
-                                        <button class="delete"></button>
-                                    </div>
-                                </article>
-
-                                <article class="media subtotal">
-                                    <div class="media-content">
-                                        <nav class="level">
-                                            <div class="level-left">
-                                                <a class="button is-danger ">Checkout</a>
-                                            </div>
-                                            <div class="level-right">
-                                                <span><strong>Subtotal:</strong></span>
-                                                <span>&#8377;</span>
-                                                <span>1000</span>
-                                            </div>
-                                        </nav>
-                                    </div>
-                                </article>
-                            </div>
                         </div>
 
                     </nav>
-
                 </div>
-
             </div>
         </div>
     </header>
@@ -144,7 +87,8 @@
         el: '#head_app',
         data: {
             ModalLogin: false,
-            loading: false
+            loading: false,
+            cartqty: cartqty
         },
         methods: {
             processLogout: function () {
