@@ -171,7 +171,7 @@
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_add_to_home_modal=true"><i class="fa fa-home"></i>Add to Home</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_uimages_modal=true"><i class="fas fa-image"></i>Upload Images</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="itemselected=0"><i class="fa fa-minus"></i>Unselect</a>
-                            <a class="button is-link" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-plus"></i>Edit Details</a>
+                            <a class="button is-link" v-if="selected=='Products' && itemselected > 0" v-on:click="show_details_modal=true"><i class="fa fa-plus"></i>Add Details</a>
                         </div>
                     </div>
                     <div style="overflow-x:auto;padding-bottom: 20px; min-height: 200px;">
@@ -418,6 +418,53 @@
         </div>
     </div>
 
+
+    <div class="modal" v-bind:class="{ 'is-active': show_details_modal}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add Details</p>
+                <button class="delete" aria-label="close" v-on:click="show_details_modal=false"></button>
+            </header>
+            <section class="modal-card-body">
+                <form id="uploaddetailsform">
+                    <div class="field is-horizontal" >
+                        <div class="field-label is-normal">
+                            <label class="label">Name</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <input class="input" type="text" name="name1">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="field-label is-normal">
+                        </div>
+                    </div>
+                    <div class="field is-horizontal" >
+                        <div class="field-label is-normal">
+                            <label class="label">Html</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <textarea name="html1" class="textarea" placeholder="e.g. Hello world"></textarea>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="field-label is-normal">
+                        </div>
+                    </div>
+                    <a class="button duplicate_details_input" style="margin-left: 40px">Add more</a>
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" v-on:click="submit_uimage_form()">Save changes</button>
+                <button class="button" v-on:click="show_details_modal=false">Cancel</button>
+            </footer>
+        </div>
+    </div>
 </section>
 
 
@@ -435,6 +482,15 @@
             clone.find('input[type=file]').val('').attr('name', 'image'+counter);
             clone.find("span.file-label").text('Choose a file...');
             $(this).prev().after(clone);
+        });
+
+        $(".duplicate_details_input").on('click',function(){
+            counter = counter + 1;
+            var name_clone = $(this).prev().prev().clone();
+            var html_clone = $(this).prev().clone();
+            name_clone.find('input[type=text]').val('').attr('name', 'name'+counter);
+            html_clone.find('textarea').val('').attr('name', 'html'+counter);
+            $(this).prev().after(name_clone, html_clone);
         });
     });
 
@@ -621,6 +677,7 @@
             show_add_modal: false,
             show_add_to_home_modal: false,
             show_uimages_modal: false,
+            show_details_modal: false,
             products: []
         },
         watch: {

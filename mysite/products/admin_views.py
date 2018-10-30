@@ -280,3 +280,20 @@ def show_demo_prod(request, prod_id):
     for key in image_data:
         context[key]=image_data[key]
     return render(request, 'product-page.html', context)
+
+
+@staff_or_404
+def admin_add_product_details(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = request.POST.dict()
+        pprint(data)
+        resp['success'] = True
+
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+

@@ -89,3 +89,11 @@ class Waitlist(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+
+
+class ProductDetails(models.Model):
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    rank = models.IntegerField()
+    name = models.CharField(max_length=50)
+    html = models.TextField()
+
