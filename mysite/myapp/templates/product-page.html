@@ -253,6 +253,18 @@
 
 
 <script>
+
+    function offset(el) {
+        var rect = el.getBoundingClientRect(),
+            scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+    }
+
+</script>
+
+
+<script>
     var add_to_cart = function(model){
         head_app.loading = true;
         data = {
@@ -269,8 +281,8 @@
         }).then(function(response) {
             head_app.loading = false;
             if(response.data.success){
-                animate_by_id('cartnav', 'animated rubberBand');
                 head_app.cartqty = response.data.cartqty;
+                animate_by_id('cartnav', 'animated rubberBand');
             }
             else{
                 console.log(response);
@@ -303,6 +315,9 @@
             }
         });
     };
+
+
+
 </script>
 
 
