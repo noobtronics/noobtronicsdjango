@@ -72,93 +72,19 @@
                 <div class="column">
                     <nav class="breadcrumb" aria-label="breadcrumbs">
                         <ul>
-                            <li v-bind:class="{ 'is-active': (activePage==0) }" v-on:click="changePage(0)"><a>Information</a></li>
-                            <li v-bind:class="{ 'is-active': (activePage==1) }" v-on:click="changePage(1)"><a>Specifications</a></li>
-                            <li v-bind:class="{ 'is-active': (activePage==2) }" v-on:click="changePage(2)"><a>Package</a></li>
-                            <li v-bind:class="{ 'is-active': (activePage==3) }" v-on:click="changePage(3)"><a>Downloads</a></li>
+                            {% for t in data.prod_details %}
+                            <li v-bind:class="{ 'is-active': (activePage=={{forloop.counter0}}) }" v-on:click="changePage({{forloop.counter0}})"><a>{{t.name}}</a></li>
+                            {% endfor %}
                         </ul>
                     </nav>
                     <div class="content" v-html="display">
-                        Hi
-                    </div>
-                    <div id="info" style="display: none;">
-                        <p>
-                            Smartduino Uno is an entry level microcontroller which you can use in your electronics project. It is based on <a target="_blank" href="http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Datasheet.pdf">Atmel's Atmega 328</a> chip. It has 14 digital input/output pins (of which 6 can be used as PWM outputs), 6 analog inputs, a 20 MHz quartz crystal, a USB connection, a power jack, an ICSP header and a reset button.
-                        </p>
-                        <p>Features:</p>
-                        <ul>
-                            <li>Cost effective and 25% faster than Arduino UNO</li>
-                            <li>microUSB Connector - now you won't have to worry about losing the scarce USB cable</li>
-                        </ul>
-                    </div>
-                    <div id="specs" style="display: none;">
-                        <table class="table is-bordered is-narrow" style="width:400px; margin-left: 10px;">
-                            <tbody>
-                            <tr>
-                                <td>Microcontroller</td>
-                                <td><a target="_blank" href="http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Datasheet.pdf">Atmel's Atmega 328</a></td>
-                            </tr>
-                            <tr>
-                                <td>Computing Speed</td>
-                                <td>20 MIPS</td>
-                            </tr>
-                            <tr>
-                                <td>Clock Rate</td>
-                                <td>20 Mhz</td>
-                            </tr>
-                            <tr>
-                                <td>Flash Memory</td>
-                                <td>32 KBytes</td>
-                            </tr>
-                            <tr>
-                                <td>SRAM</td>
-                                <td>2 KBytes</td>
-                            </tr>
-                            <tr>
-                                <td>EEPROM</td>
-                                <td>1 KBytes</td>
-                            </tr>
-                            <tr>
-                                <td>Digital I/O Pins</td>
-                                <td>14</td>
-                            </tr>
-                            <tr>
-                                <td>Analog Input Pins</td>
-                                <td>6</td>
-                            </tr>
-                            <tr>
-                                <td>PWM Output Pins (Analog)</td>
-                                <td>6</td>
-                            </tr>
-                            <tr>
-                                <td>Operating Voltage</td>
-                                <td>5V</td>
-                            </tr>
-                            <tr>
-                                <td>Power Source</td>
-                                <td>microUSB (5V) <br> or <br>Power Jack (6-16V)</td>
-                            </tr>
-                            </tbody>
-                        </table>
 
                     </div>
-                    <div id="pack" style="display: none;">
-                        <p>Package Contents:</p>
-                        <ul>
-                            <li>1 Smartduino Uno Board</li>
-                            <li>1 microUSB Cable</li>
-                            <li>1 LED for testing</li>
-                        </ul>
+                    {% for t in data.prod_details %}
+                    <div id="pd{{t.rank}}" style="display: none;">
+                        {{t.html | safe}}
                     </div>
-                    <div id="downl" style="display: none;">
-                        <p>Arduino Software:</p>
-                        <ul>
-                            <li><a>Windows</a></li>
-                            <li><a>Mac</a></li>
-                            <li><a>Ubuntu</a></li>
-                        </ul>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -351,17 +277,22 @@
 
 </script>
 
+<script>
+
+    var prod_details_data =  [
+        {% for t in data.prod_details %}
+    document.getElementById("pd{{t.rank}}").innerHTML,
+        {% endfor %}
+    ];
+</script>
+
 
 <script>
     var prodapp = new Vue({
         el: '#prodapp',
         data: {
             activePage:0,
-            data:[document.getElementById("info").innerHTML,
-                document.getElementById("specs").innerHTML,
-                document.getElementById("pack").innerHTML,
-                document.getElementById("downl").innerHTML
-            ],
+            data: prod_details_data,
             image_data: image_data,
             image_selected: 0,
             quantity: 1

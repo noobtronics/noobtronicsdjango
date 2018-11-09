@@ -460,7 +460,7 @@
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success" v-on:click="submit_uimage_form()">Save changes</button>
+                <button class="button is-success" v-on:click="submit_add_details_form()">Save changes</button>
                 <button class="button" v-on:click="show_details_modal=false">Cancel</button>
             </footer>
         </div>
@@ -555,6 +555,11 @@
             for(var i=0;i<fields.length;i++){
                 formData.append(fields[i].name, fields[i].value);
             }
+
+            fields = form.getElementsByTagName("textarea");
+            for(var i=0;i<fields.length;i++){
+                formData.append(fields[i].name, fields[i].value);
+            }
         }
         return formData;
     }
@@ -585,6 +590,32 @@
         });
     };
 
+
+    var submit_add_details_form = function(model){
+        app.loading = true;
+        var form = document.getElementById('uploaddetailsform');
+        var form_data = serializeForm(form);
+        form_data.append('prod_id',app.itemselected);
+        axios({
+            method: 'post',
+            url: '/adminapi/add_product_details',
+            data: form_data,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(function(response) {
+            app.loading = false;
+            if(response.data.success){
+                app.show_add_modal = false;
+                location.reload();
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+
+        });
+    };
 
     var submit_add_to_home_form = function(model){
         app.loading = true;
@@ -720,6 +751,10 @@
             submit_add_to_home_form: function(){
                 submit_add_to_home_form();
             },
+            submit_add_details_form:function(){
+                submit_add_details_form();
+            },
+
             open_demo_home : function(){
                 if(this.itemselected > 0){
                     openInNewTab('/storeadmin/demohome/'+this.itemselected);

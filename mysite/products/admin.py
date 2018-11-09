@@ -10,3 +10,6 @@ admin.site.register(HomePage)
 admin.site.register(Cart)
 admin.site.register(CartObjects)
 admin.site.register(Waitlist)
+
+
+admin.site.register(ProductDetails)

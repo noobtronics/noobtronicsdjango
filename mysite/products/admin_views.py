@@ -256,6 +256,21 @@ def show_demo_prod(request, prod_id):
         if cart_query.count() > 0:
             cartqty = CartObjects.objects.filter(cart_id=cart_query[0]).count()
 
+
+    pds = ProductDetails.objects.filter(prod_id=prod).order_by('rank')
+    prod_details = []
+    pd_counter = 0
+    for pd in pds:
+        pd_counter += 1
+        t = {
+            'name': pd.name,
+            'rank':  pd_counter,
+            'html': pd.html
+        }
+        prod_details.append(t)
+
+    pprint(prod_details)
+
     data = {
         'id': prod.id,
         'name': prod.name,
@@ -263,7 +278,8 @@ def show_demo_prod(request, prod_id):
         'price': prod.price,
         'mrp': prod.mrp_price,
         'in_stock': in_stock,
-        'waitlisted': waitlisted
+        'waitlisted': waitlisted,
+        'prod_details': prod_details
     }
 
     image_data = {
@@ -290,7 +306,20 @@ def admin_add_product_details(request):
     }
     try:
         data = request.POST.dict()
-        pprint(data)
+        prod = Product.objects.get(id=data['prod_id'])
+        name_list = [i for i in data.keys() if i.startswith('name')]
+        name_list.sort()
+        form_data = []
+        for nm in name_list:
+            key = nm[4:]
+            temp = [data[nm], data['html'+key]]
+            form_data.append(temp)
+        rank = 0
+        for d in form_data:
+            rank += 1
+            name, html = d
+            pd = ProductDetails(prod_id=prod, rank=rank, name=name, html=html)
+            pd.save()
         resp['success'] = True
 
     except Exception as e:
