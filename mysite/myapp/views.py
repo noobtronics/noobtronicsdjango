@@ -11,8 +11,11 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.conf import settings
 from django.http import HttpResponseForbidden
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from products.models import *
+from products.admin_views import get_cart_qty, process_prod_page
+from django.shortcuts import get_list_or_404, get_object_or_404
+
 
 @ensure_csrf_cookie
 def home_page(request):
@@ -25,17 +28,24 @@ def home_page(request):
             'pagetitle': p.prod_id.pagetitle,
             'price': p.prod_id.price,
             'mrp': p.prod_id.mrp_price,
-            'image': p.prod_id.mainimage.main_img.image.url,
+            'image': p.prod_id.mainimage.img_data.th_home.image.url,
             'slug': p.prod_id.slug
         }
         data.append(t)
     context = {
         'loggedin': request.user.is_authenticated,
-        'data': data
+        'data': data,
+        'cartqty': get_cart_qty(request)
     }
     return render(request, 'home-page.html', context)
 
-
+@ensure_csrf_cookie
+def product_page(request, prod_slug):
+    prod = get_object_or_404(Product, slug=prod_slug)
+    if prod.is_published:
+        return process_prod_page(request, prod.id)
+    else:
+        raise Http404
 
 def login_view(request):
     signed_in = False

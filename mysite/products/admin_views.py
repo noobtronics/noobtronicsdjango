@@ -217,14 +217,24 @@ def show_demo_home(request, prod_id):
     data.append(t)
     context = {
         'loggedin': request.user.is_authenticated,
-        'data': data
+        'data': data,
+        'cartqty': get_cart_qty(request)
     }
     return render(request, 'admin-demo-home-page.html', context)
 
 
-@staff_or_404
-def show_demo_prod(request, prod_id):
-    prod = get_object_or_404(Product,id=prod_id)
+
+def get_cart_qty(request):
+    cartqty = 0
+    if request.user.is_authenticated:
+        cart_query = Cart.objects.filter(user_id=request.user)
+        if cart_query.count() > 0:
+            cartqty = CartObjects.objects.filter(cart_id=cart_query[0]).count()
+    return cartqty
+
+
+def process_prod_page(request, prod_id):
+    prod = get_object_or_404(Product, id=prod_id)
 
     icon_images = []
     home_images = []
@@ -247,15 +257,8 @@ def show_demo_prod(request, prod_id):
     waitlisted = False
     if not in_stock:
         if request.user.is_authenticated:
-            if Waitlist.objects.filter(prod_id=prod, user_id = request.user).count() > 0:
+            if Waitlist.objects.filter(prod_id=prod, user_id=request.user).count() > 0:
                 waitlisted = True
-
-    cartqty = 0
-    if request.user.is_authenticated:
-        cart_query = Cart.objects.filter(user_id=request.user)
-        if cart_query.count() > 0:
-            cartqty = CartObjects.objects.filter(cart_id=cart_query[0]).count()
-
 
     pds = ProductDetails.objects.filter(prod_id=prod).order_by('rank')
     prod_details = []
@@ -264,7 +267,7 @@ def show_demo_prod(request, prod_id):
         pd_counter += 1
         t = {
             'name': pd.name,
-            'rank':  pd_counter,
+            'rank': pd_counter,
             'html': pd.html
         }
         prod_details.append(t)
@@ -291,11 +294,17 @@ def show_demo_prod(request, prod_id):
         'loggedin': request.user.is_authenticated,
         'data': data,
         'image_data': json.dumps(image_data),
-        'cartqty': cartqty
+        'cartqty': get_cart_qty(request)
     }
     for key in image_data:
-        context[key]=image_data[key]
+        context[key] = image_data[key]
     return render(request, 'product-page.html', context)
+
+
+@staff_or_404
+def show_demo_prod(request, prod_id):
+    process_prod_page(request, prod_id)
+
 
 
 @staff_or_404

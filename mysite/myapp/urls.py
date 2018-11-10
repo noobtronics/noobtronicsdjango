@@ -3,6 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('', home_page),
+    path('product/<slug:prod_slug>', product_page),
     path('api/login', login_view),
     path('api/logout', logout_view),
     path('api/legalcontent', serve_legalcontent),
