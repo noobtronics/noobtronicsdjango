@@ -12,7 +12,8 @@ urlpatterns = [
     path('adminapi/add_to_home', admin_add_to_home),
     path('adminapi/uploadimages', admin_upload_images),
     path('adminapi/fetch/products', admin_fetch_product),
-
+    path('adminapi/fetch/menulist', admin_fetch_menulist),
+    path('adminapi/add_menu', admin_add_menu),
 
     path('api/add/add_to_cart', add_to_cart),
     path('api/add/add_to_waitlist', add_to_waitlist)

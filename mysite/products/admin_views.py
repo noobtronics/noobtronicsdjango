@@ -326,3 +326,61 @@ def admin_add_product_details(request):
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
 
+
+@staff_or_404
+def admin_fetch_menulist(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        info = ''
+        parent = None
+        parents = []
+        if data['parent_id'] == '':
+            ml = Tags.objects.filter(parent__isnull=True).order_by('rank')
+        else:
+            parent = Tags.objects.get(id=data['parent_id'])
+            ml = Tags.objects.filter(parent=parent).order_by('rank')
+        while parent:
+            parents.append(parent.name)
+            parent = parent.parent
+        parents.reverse()
+        parents.append('')
+        info = ' &rarr; '.join(parents)
+        output = []
+        for tag in ml:
+            temp = {
+                'id': tag.id,
+                'name': tag.name,
+                'type': tag.type
+            }
+            output.append(temp)
+        resp['data'] = output
+        resp['info'] = info
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+@staff_or_404
+def admin_add_menu(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = request.POST.dict()
+        parent = None
+        rank = Tags.objects.filter(parent__isnull=True).count()+1
+        if data['parent_id'] != '':
+            parent = Tags.objects.get(id=data['parent_id'])
+            rank = Tags.objects.filter(parent=parent).count() + 1
+
+        t = Tags(parent=parent, name=data['name'], type=data['type'], rank=rank)
+        t.save()
+        resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)

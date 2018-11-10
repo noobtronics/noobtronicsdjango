@@ -97,3 +97,13 @@ class ProductDetails(models.Model):
     name = models.CharField(max_length=50)
     html = models.TextField()
 
+
+class Tags(models.Model):
+    parent = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    rank = models.IntegerField()
+    type = models.CharField(max_length=3, choices=(
+        ('M', 'Menu'),
+        ('S', 'Section'),
+        ('T', 'Tag'),
+    ))

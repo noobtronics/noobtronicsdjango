@@ -157,11 +157,12 @@
                         </p>
                         <ul class="menu-list">
                             <li><a v-bind:class="{ 'is-active': selected=='Products'}" v-on:click="selected='Products'">Products</a></li>
+                            <li><a v-bind:class="{ 'is-active': selected=='Menu'}" v-on:click="selected='Menu'">Menu</a></li>
                         </ul>
                     </aside>
                 </div>
                 <div class="column is-four-fifths">
-                    <div class="columns displaybutton">
+                    <div class="columns displaybutton" v-if="selected=='Products'">
                         <div class="column is-half">
                             <a class="button is-link" v-on:click="open_prod_page()" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Product Page</a>
                             <a class="button is-link" v-on:click="open_demo_home()" v-if="selected=='Products' && itemselected > 0"><i class="fa fa-eye"></i>Home Page</a>
@@ -174,10 +175,25 @@
                             <a class="button is-link" v-if="selected=='Products' && itemselected > 0" v-on:click="show_details_modal=true"><i class="fa fa-plus"></i>Add Details</a>
                         </div>
                     </div>
+                    <div class="columns displaybutton" v-if="selected=='Menu'">
+                        <div class="column is-half">
+                            <p v-html="menu_info"></p>
+                        </div>
+                        <div class="column is-half has-text-right">
+                            <a class="button is-link"  v-on:click="show_addmenu_modal=true"><i class="fa fa-plus"></i>Add Menu</a>
+                        </div>
+                    </div>
                     <div style="overflow-x:auto;padding-bottom: 20px; min-height: 200px;">
-
-                        <div v-if="show_table"></div>
-                        <div>
+                        <div  v-if="selected=='Menu'">
+                            <div class="column is-one-fifth">
+                                <aside class="menu">
+                                    <ul class="menu-list">
+                                        <li v-for="m in menu_list" v-on:dblclick="change_menu(m.id)"><a v-html="m.name"></a></li>
+                                    </ul>
+                                </aside>
+                            </div>
+                        </div>
+                        <div  v-if="selected=='Products'">
                             <div v-for="p in products" class="card productcard"  v-on:click="itemselected=p.id"  v-bind:class="{ 'is-shady': itemselected==p.id}">
                                 <div class="card-image">
                                     <figure class="image is-square">
@@ -465,6 +481,58 @@
             </footer>
         </div>
     </div>
+
+    <div class="modal" v-bind:class="{ 'is-active': show_addmenu_modal}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add Menu</p>
+                <button class="delete" aria-label="close" v-on:click="show_addmenu_modal=false"></button>
+            </header>
+            <section class="modal-card-body">
+                <form id="addmenuform">
+                    <div class="field is-horizontal" >
+                        <div class="field-label is-normal">
+                            <label class="label">Name</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <input class="input" type="text" name="name">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="field-label is-normal">
+                        </div>
+                    </div>
+                    <div class="field is-horizontal" >
+                        <div class="field-label is-normal">
+                            <label class="label">Type</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                <div class="select">
+                                    <select name="type">
+                                        <option value="M">Menu</option>
+                                        <option value="S">Section</option>
+                                        <option value="T">Tag</option>
+                                    </select>
+                                </div>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="field-label is-normal">
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" v-on:click="submit_addmenu_form()">Save changes</button>
+                <button class="button" v-on:click="show_addmenu_modal=false">Cancel</button>
+            </footer>
+        </div>
+    </div>
 </section>
 
 
@@ -617,6 +685,34 @@
         });
     };
 
+
+    var submit_addmenu_form = function(){
+        app.loading = true;
+        var form = document.getElementById('addmenuform');
+        var form_data = serializeForm(form);
+        form_data.append('parent_id',app.menuparent);
+        axios({
+            method: 'post',
+            url: '/adminapi/add_menu',
+            data: form_data,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(function(response) {
+            app.loading = false;
+            if(response.data.success){
+                app.show_addmenu_modal = false;
+                location.reload();
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+
+        });
+    };
+
+
     var submit_add_to_home_form = function(model){
         app.loading = true;
         var form = document.getElementById('addtohomeform');
@@ -685,9 +781,30 @@
         });
     };
 
+    var get_menu_data = function get_menu_data(parent_id){
+        app.loading = true;
+        axios({
+            method: 'post',
+            url: '/adminapi/fetch/menulist',
+            data: {
+                'parent_id': parent_id
+            }
+        }).then(function(response) {
+            console.log(response);
+            app.menu_list = response.data.data;
+            app.menu_info = response.data.info;
+            app.loading = false;
+        });
+    };
+
+
     var get_model_data = function get_model_data(model) {
         if(model =='Products'){
             get_products_data();
+            return;
+        }
+        else if(model =='Menu'){
+            get_menu_data('');
             return;
         }
     };
@@ -700,21 +817,22 @@
         delimiters: ['[%','%]'],
         data: {
             loading: true,
-            show_table: false,
             selected: '',
             itemselected : 0,
+            menuparent: '',
+            menu_info: '',
+            menu_list: [],
             table_page: 2,
             total_pages: 10,
             show_add_modal: false,
             show_add_to_home_modal: false,
             show_uimages_modal: false,
             show_details_modal: false,
+            show_addmenu_modal: false,
             products: []
         },
         watch: {
             selected: function (val, oldVal) {
-                this.table_page = 1;
-                this.table_filter = {};
                 get_model_data(val);
             }
         },
@@ -745,6 +863,10 @@
                     this.table_page = new_page;
                 }
             },
+            change_menu: function(mid){
+                this.menuparent = mid;
+                get_menu_data(mid);
+            },
             submit_add_form : function(){
                 submit_add_form(this.selected);
             },
@@ -754,7 +876,9 @@
             submit_add_details_form:function(){
                 submit_add_details_form();
             },
-
+            submit_addmenu_form: function(){
+                submit_addmenu_form();
+            },
             open_demo_home : function(){
                 if(this.itemselected > 0){
                     openInNewTab('/storeadmin/demohome/'+this.itemselected);
