@@ -62,14 +62,14 @@
 
 <script>
     $( document ).ready(function() {
-        $(".productcard").hover(
-            function () {
-                $(this).find('.shopcartbutton').addClass("showshopcartbutton");
-            },
-            function () {
-                $(this).find('.shopcartbutton').removeClass("showshopcartbutton");
-            }
-        );
+
+        $(document).on("mouseenter", ".productcard", function(e) {
+            $(this).find('.shopcartbutton').addClass("showshopcartbutton");
+        });
+
+        $(document).on("mouseleave", ".productcard", function(e) {
+            $(this).find('.shopcartbutton').removeClass("showshopcartbutton");
+        });
     });
 </script>
 
