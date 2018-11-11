@@ -13,3 +13,5 @@ admin.site.register(Waitlist)
 
 
 admin.site.register(ProductDetails)
+
+admin.site.register(Tags)

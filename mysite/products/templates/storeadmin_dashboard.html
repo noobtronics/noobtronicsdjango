@@ -194,7 +194,7 @@
                             </div>
                         </div>
                         <div  v-if="selected=='Products'">
-                            <div v-for="p in products" class="card productcard"  v-on:click="itemselected=p.id"  v-bind:class="{ 'is-shady': itemselected==p.id}">
+                            <div v-for="p in products" class="card productcard"  v-on:click="itemselected=p.id"    v-bind:class="{ 'is-shady': itemselected==p.id}">
                                 <div class="card-image">
                                     <figure class="image is-square">
                                         <img v-bind:src="p.thumb" alt="Placeholder image">

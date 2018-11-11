@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Noobtronics Shop</title>
+    {% include "header.html" %}
+</head>
+<body >
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body" id="app">
+        <div class="container shopcontainer">
+            <div class="columns">
+            <div class="column is-one-quarters">
+                <aside class="menu">
+                    <ul class="menu-list">
+                        <form id="shopmenu">
+                        <li><a v-on:click="change_menu(0, 0)" v-bind:class="{'is-active': menu_selected[0]==0}">All Products</a></li>
+                        {{ data.tags.html | safe }}
+                        </form>
+                    </ul>
+                </aside>
+            </div>
+            <div class="column is-three-quarters prodcolumn">
+                <div v-for="p in products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                    <div class="card-image">
+                        <figure class="image is-square">
+                            <img v-bind:src="p.thumb" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="cardhead">[%p.name%]</p>
+
+                    </footer>
+                    <footer class="card-footer">
+                        <p class="cardsubtitle">[%p.cardtitle%]</p>
+                    </footer>
+                    <footer class="card-footer ">
+                        <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+        {% include "hero-footer.html" %}
+
+<script>
+    var products_data = {{ prod_data | safe}};
+
+    var menu_data = {{data.tags_selected | safe}};
+</script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        delimiters: ['[%', '%]'],
+        data: {
+            products: products_data,
+            menu_selected: menu_data
+        },
+        methods :{
+            change_menu: function(idx, val) {
+                Vue.set(this.menu_selected, idx, val);
+            },
+            open_prod_page: function(slug){
+                var url = '/product/'+slug;
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+        }
+    });
+</script>
+</section>
+</body>
+</html>
