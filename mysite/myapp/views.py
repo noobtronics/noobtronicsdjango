@@ -13,7 +13,7 @@ from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse, Http404
 from products.models import *
-from products.admin_views import get_cart_qty, process_prod_page
+from products.admin_views import get_cart_qty, process_prod_page, get_alltags_data
 from django.shortcuts import get_list_or_404, get_object_or_404
 
 
@@ -47,69 +47,6 @@ def product_page(request, prod_slug):
     else:
         raise Http404
 
-
-def get_parents_tags(parent, depth):
-    if parent:
-        tgs = Tags.objects.filter(parent=parent).order_by('rank')
-    else:
-        tgs = Tags.objects.filter(parent__isnull=True).order_by('rank')
-    data = {}
-    childs = []
-    for t in tgs:
-        cdepth = depth
-        if t.type == 'M':
-            cdepth = depth + 1
-        t = {
-            'data': get_parents_tags(t, cdepth),
-            'name': t.name,
-            'id': t.id,
-            'type': t.type
-        }
-        childs.append(t)
-
-    html = ''
-    if parent:
-        if len(childs) == 0:
-            if parent.type == 'T':
-                html = '<li><label class="checkbox">' \
-                       '<input name="{0}" type="checkbox">{1}' \
-                       '</label></li>'.format(parent.id, parent.name)
-        else:
-            html = ''
-            child_html = ''
-            for c in childs:
-                child_html += c['data']['html']
-
-            if parent.type=='S':
-                html = '<li class="menusection">{0}</li>'.format(parent.name)
-                html += child_html
-            elif parent.type=='M':
-                html = '<li><a class="" v-on:click="change_menu({2},{1})" v-bind:class="{{ \'is-active\': menu_selected[{2}]=={1}}}">{0}</a></li>'.format(parent.name, parent.id, depth-1)
-                if child_html != '':
-                    html += '<ul class="menu-list children" v-bind:class="{{\'showchildren\': menu_selected[{1}]=={0}}}">'.format(parent.id, depth-1)
-                    html += child_html
-                    html += '</ul>'
-    else:
-        html = ''
-        for c in childs:
-            html += c['data']['html']
-    id = ''
-    if parent:
-        id = parent.id
-    selected_id = ''
-    if len(childs)>0:
-        selected_id = childs[0]['data']['id']
-
-    data = {
-       # 'childs': childs,
-        'html': html,
-        'depth': depth,
-        'id': id,
-        'selected_id': selected_id
-    }
-    return data
-
-
 def get_prod_data():
     prods = Product.objects.all().order_by('-id')[:5]
     data = []
@@ -135,9 +72,6 @@ def get_prod_data():
         data.append(t)
 
     return data
-
-def get_alltags_data():
-    return get_parents_tags(None, 0)
 
 
 @ensure_csrf_cookie

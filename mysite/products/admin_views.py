@@ -31,6 +31,71 @@ def show_storeadmin(request):
 
 
 
+def get_parents_tags(parent, depth):
+    if parent:
+        tgs = Tags.objects.filter(parent=parent).order_by('rank')
+    else:
+        tgs = Tags.objects.filter(parent__isnull=True).order_by('rank')
+    data = {}
+    childs = []
+    for t in tgs:
+        cdepth = depth
+        if t.type == 'M':
+            cdepth = depth + 1
+        t = {
+            'data': get_parents_tags(t, cdepth),
+            'name': t.name,
+            'id': t.id,
+            'type': t.type
+        }
+        childs.append(t)
+
+    html = ''
+    if parent:
+        if len(childs) == 0:
+            if parent.type == 'T':
+                html = '<li><label class="checkbox">' \
+                       '<input name="{0}" value="{0}" type="checkbox">{1}' \
+                       '</label></li>'.format(parent.id, parent.name)
+        else:
+            html = ''
+            child_html = ''
+            for c in childs:
+                child_html += c['data']['html']
+
+            if parent.type=='S':
+                html = '<li class="menusection">{0}</li>'.format(parent.name)
+                html += child_html
+            elif parent.type=='M':
+                html = '<li><a class="" v-on:click="change_menu({2},{1})" v-bind:class="{{ \'is-active\': menu_selected[{2}]=={1}}}">{0}</a></li>'.format(parent.name, parent.id, depth-1)
+                if child_html != '':
+                    html += '<ul class="menu-list children" v-bind:class="{{\'showchildren\': menu_selected[{1}]=={0}}}">'.format(parent.id, depth-1)
+                    html += child_html
+                    html += '</ul>'
+    else:
+        html = ''
+        for c in childs:
+            html += c['data']['html']
+    id = ''
+    if parent:
+        id = parent.id
+    selected_id = ''
+    if len(childs)>0:
+        selected_id = childs[0]['data']['id']
+
+    data = {
+       # 'childs': childs,
+        'html': html,
+        'depth': depth,
+        'id': id,
+        'selected_id': selected_id
+    }
+    return data
+
+def get_alltags_data():
+    return get_parents_tags(None, 0)
+
+
 
 def store_image_files(prod, media_path, img, store_main, rank):
     uuid_name = str(uuid.uuid4())
@@ -390,6 +455,73 @@ def admin_add_menu(request):
         t = Tags(parent=parent, name=data['name'], type=data['type'], rank=rank)
         t.save()
         resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+@staff_or_404
+@ensure_csrf_cookie
+def show_demo_shop(request, prod_id):
+    prod = Product.objects.get(id=prod_id)
+    data = {}
+    data['tags'] = get_alltags_data()
+    data['tags_selected'] = [data['tags']['selected_id'], 0, 0, 0, 0]
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'data': data,
+        'cartqty': get_cart_qty(request),
+        'prod_data': [
+            {
+                'id': prod.id,
+                'name': prod.name,
+                'cardtitle': prod.cardtitle,
+                'in_stock': 'true' if prod.in_stock else 'false',
+                'price': prod.price,
+                'slug': prod.slug,
+                'mrp': prod.mrp_price,
+                'thumb': prod.mainimage.img_data.th_mini.image.url
+            }
+        ]
+    }
+    return render(request, 'admin-shop-page.html', context)
+
+
+@staff_or_404
+def admin_add_prod_tags(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = request.POST.dict()
+        prod = Product.objects.get(id=data['prod_id'])
+        ProductTags.objects.filter(prod_id=prod).delete()
+
+        menu_data = data['menu_data'].split(',')
+        tags_list = []
+        for mid in menu_data:
+            if int(mid) > 0:
+                tg = Tags.objects.get(id=mid)
+                tags_list.append(tg)
+            else:
+                break
+
+        del data['prod_id']
+        del data['menu_data']
+
+        for key in data:
+            if data[key] == 'true':
+                tg = Tags.objects.get(id=key)
+                tags_list.append(tg)
+
+        for tg in tags_list:
+            ptg = ProductTags(prod_id=prod, tag_id = tg)
+            ptg.save()
+
+
+        resp['success'] = True
+
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)

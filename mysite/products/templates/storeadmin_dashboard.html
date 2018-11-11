@@ -169,6 +169,7 @@
                         </div>
                         <div class="column is-half has-text-right">
                             <a class="button is-link" v-if="selected=='Products' && itemselected == 0"  v-on:click="show_add_modal=true"><i class="fa fa-plus"></i>Add</a>
+                            <a class="button is-link" v-if="selected=='Products' && itemselected > 0"  v-on:click="open_add_tags()"><i class="fa fa-plus"></i>Add Tags</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_add_to_home_modal=true"><i class="fa fa-home"></i>Add to Home</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_uimages_modal=true"><i class="fas fa-image"></i>Upload Images</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="itemselected=0"><i class="fa fa-minus"></i>Unselect</a>
@@ -533,6 +534,7 @@
             </footer>
         </div>
     </div>
+
 </section>
 
 
@@ -891,6 +893,11 @@
             },
             submit_uimage_form: function(){
                 submit_uimage_form();
+            },
+            open_add_tags: function(){
+                var url = '/storeadmin/addtags/'+this.itemselected;
+                var win = window.open(url, '_blank');
+                win.focus();
             }
         }
         });

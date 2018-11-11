@@ -107,3 +107,11 @@ class Tags(models.Model):
         ('S', 'Section'),
         ('T', 'Tag'),
     ))
+
+
+class ProductTags(models.Model):
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    tag_id = models.ForeignKey(Tags, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('prod_id', 'tag_id',)
