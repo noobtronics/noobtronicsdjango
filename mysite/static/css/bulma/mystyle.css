@@ -9358,4 +9358,17 @@ label.panel-block:hover {
   margin-bottom: 40px;
 }
 
+.pagination-previous, .pagination-next, .pagination-link {
+  border-color: rgba(255, 255, 255, 0.9);
+  border-width: 2px;
+}
+.pagination-previous:hover, .pagination-next:hover, .pagination-link:hover {
+  border-color: white;
+}
+
+.is-current {
+  border-color: white !important;
+  background-color: #0031FF !important;
+}
+
 /*# sourceMappingURL=mystyle.css.map */

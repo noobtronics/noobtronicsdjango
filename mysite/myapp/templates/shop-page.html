@@ -41,6 +41,15 @@
                         <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
                     </footer>
                 </div>
+                <nav class="pagination is-rounded" role="navigation" aria-label="pagination" v-if="total_pages>1">
+                    <a class="pagination-previous" v-if="table_page > 1" v-on:click="change_page(table_page-1)">Previous</a>
+                    <a class="pagination-next" v-if="table_page < total_pages" v-on:click="change_page(table_page+1)">Next page</a>
+                    <ul class="pagination-list">
+                        <li v-if="table_page>5"><span class="pagination-ellipsis">&hellip;</span></li>
+                        <li v-for="p in get_pages()"><a class="pagination-link" v-bind:class="{'is-current': (table_page==p)}" v-bind:aria-label="'Goto page '+p" v-on:click="change_page(p)">[%p%]</a></li>
+                        <li v-if="total_pages-table_page>5"><span class="pagination-ellipsis">&hellip;</span></li>
+                    </ul>
+                </nav>
             </div>
         </div>
         </div>
@@ -61,7 +70,9 @@
         delimiters: ['[%', '%]'],
         data: {
             products: products_data,
-            menu_selected: menu_data
+            menu_selected: menu_data,
+            table_page: 1,
+            total_pages: 2
         },
         methods :{
             change_menu: function(idx, val) {
@@ -71,6 +82,32 @@
                 var url = '/product/'+slug;
                 var win = window.open(url, '_blank');
                 win.focus();
+            },
+            change_page: function(new_page){
+                if(this.table_page != new_page){
+                    this.table_page = new_page;
+                }
+            },
+            min: function(a,b){
+                if(a>=b){
+                    return b;
+                }
+                return a;
+            },
+            max: function(a,b){
+                if(a>=b){
+                    return a;
+                }
+                return b;
+            },
+            get_pages: function(){
+                var start_page = this.max(this.table_page-5, 1);
+                var end_page = this.min(this.table_page+5, this.total_pages);
+                var ls = [];
+                for(var i=start_page; i <= end_page; i++){
+                    ls.push(i);
+                }
+                return ls;
             }
         }
     });
