@@ -50,7 +50,6 @@ def product_page(request, prod_slug):
         raise Http404
 
 def get_prod_data(menu_data, tag_query, page_number):
-
     last_idx = 0
     for i in menu_data:
         if i > 0:

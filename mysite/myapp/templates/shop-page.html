@@ -239,6 +239,7 @@
                     Vue.set(this.menu_selected, i, 0);
                 }
                 Vue.set(this.menu_selected, idx, val);
+                document.getElementById("shopmenu").reset();
                 update_menu_prods(1);
             },
             update_menu_prods: function(page_number){
