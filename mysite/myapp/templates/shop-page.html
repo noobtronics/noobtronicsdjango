@@ -121,6 +121,50 @@
     var products_data = {{ prod_data | safe}};
 
     var menu_data = {{data.tags_selected | safe}};
+
+    var total_pages = {{total_pages}};
+
+    var page_number = {{page_number}};
+</script>
+
+<script>
+    function serializeForm(form) {
+        var objects = [];
+        var formData = new FormData();
+
+        if (typeof form == 'object' && form.nodeName.toLowerCase() == "form") {
+            var fields = form.getElementsByTagName("input");
+            for(var i=0;i<fields.length;i++){
+                if(fields[i].type == 'file'){
+                    var file = fields[i].files[0];
+                    if(file.size > 20000000){
+                        console.log('File size is too big !');
+                        return;
+                    }
+                    else{
+                        formData.append(fields[i].name, file);
+                    }
+                }
+                else if(fields[i].type == 'checkbox'){
+                    formData.append(fields[i].name, fields[i].checked);
+                }
+                else{
+                    formData.append(fields[i].name, fields[i].value);
+                }
+            }
+
+            fields = form.getElementsByTagName("select");
+            for(var i=0;i<fields.length;i++){
+                formData.append(fields[i].name, fields[i].value);
+            }
+
+            fields = form.getElementsByTagName("textarea");
+            for(var i=0;i<fields.length;i++){
+                formData.append(fields[i].name, fields[i].value);
+            }
+        }
+        return formData;
+    }
 </script>
 
 <script>
@@ -148,6 +192,35 @@
             }
         });
     };
+
+
+    var update_menu_prods = function(page_number){
+        head_app.loading = true;
+        var form = document.getElementById('shopmenu');
+        var form_data = serializeForm(form);
+        form_data.append('menu_data', app.menu_selected);
+        form_data.append('page_number', page_number);
+
+        axios({
+            method: 'post',
+            url: '/api/fetch/catalog',
+            data: form_data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(response) {
+            head_app.loading = false;
+            if(response.data.success){
+                app.products = response.data.products;
+                app.table_page = response.data.page_number;
+                app.total_pages = response.data.total_pages;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
 </script>
 
 <script>
@@ -157,12 +230,19 @@
         data: {
             products: products_data,
             menu_selected: menu_data,
-            table_page: 1,
-            total_pages: 2
+            table_page: page_number,
+            total_pages: total_pages
         },
         methods :{
             change_menu: function(idx, val) {
+                for(var i = idx+1; i<= 5; ++i){
+                    Vue.set(this.menu_selected, i, 0);
+                }
                 Vue.set(this.menu_selected, idx, val);
+                update_menu_prods(1);
+            },
+            update_menu_prods: function(page_number){
+                update_menu_prods(page_number);
             },
             open_prod_page: function(slug){
                 var url = '/product/'+slug;

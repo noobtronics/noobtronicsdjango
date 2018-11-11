@@ -15,6 +15,8 @@ from django.http import JsonResponse, Http404
 from products.models import *
 from products.admin_views import get_cart_qty, process_prod_page, get_alltags_data
 from django.shortcuts import get_list_or_404, get_object_or_404
+import math
+import traceback
 
 
 @ensure_csrf_cookie
@@ -47,8 +49,41 @@ def product_page(request, prod_slug):
     else:
         raise Http404
 
-def get_prod_data():
-    prods = Product.objects.all().order_by('-id')[:5]
+def get_prod_data(menu_data, tag_query, page_number):
+
+    last_idx = 0
+    for i in menu_data:
+        if i > 0:
+            last_idx = i
+        else:
+            break
+    if last_idx == 0:
+        prods = Product.objects.all().order_by('rank')
+    else:
+        tag = Tags.objects.get(id=last_idx)
+        prodids = set(tag.producttags_set.all().values_list('prod_id__id', flat=True))
+
+        or_tags = []
+        for key in tag_query:
+            if tag_query[key] != 'true':
+                continue
+            tg = Tags.objects.get(id=key)
+            if tg.is_standalone:
+                new_prodids = set(tg.producttags_set.all().values_list('prod_id__id', flat=True))
+                prodids = prodids.intersection(new_prodids)
+            else:
+                or_tags.append(tg)
+        or_prod_ids = set()
+        for tg in or_tags:
+            new_prodids = set(tg.producttags_set.all().values_list('prod_id__id', flat=True))
+            or_prod_ids = or_prod_ids.union(new_prodids)
+        if len(or_tags) > 0:
+            prodids = prodids.intersection(or_prod_ids)
+        prods = Product.objects.filter(id__in=prodids).order_by('rank')
+
+    total_count = prods.count()
+    total_pages = math.ceil(total_count*1.0/12.0)
+    prods = prods[(page_number-1)*12:(page_number)*12]
     data = []
     for prod in prods:
         t = {
@@ -62,16 +97,7 @@ def get_prod_data():
             'thumb': prod.mainimage.img_data.th_mini.image.url
         }
         data.append(t)
-        data.append(t)
-        data.append(t)
-        data.append(t)
-        data.append(t)
-        data.append(t)
-        data.append(t)
-        data.append(t)
-        data.append(t)
-
-    return data
+    return data, page_number, total_pages
 
 
 @ensure_csrf_cookie
@@ -79,11 +105,14 @@ def shop_page(request):
     data = {}
     data['tags'] = get_alltags_data()
     data['tags_selected'] = [data['tags']['selected_id'], 0, 0, 0, 0]
+    prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
         'cartqty': get_cart_qty(request),
-        'prod_data': get_prod_data()
+        'prod_data': prod_data,
+        'total_pages': total_pages,
+        'page_number': page_number
     }
     pprint(data)
     return render(request, 'shop-page.html', context)
@@ -139,4 +168,24 @@ def serve_tandc(request):
 def serve_privacy_policy(request):
     return render(request, 'privacypolicy.html')
 
+
+def fetch_catalog(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = request.POST.dict()
+        menu_data = map(int, data['menu_data'].split(','))
+        page_number = int(data['page_number'])
+        del data['menu_data']
+        del data['page_number']
+        prod_data, page_number, total_pages = get_prod_data(menu_data, data, page_number)
+        resp['products'] = prod_data
+        resp['page_number'] = page_number
+        resp['total_pages'] = total_pages
+        resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
 

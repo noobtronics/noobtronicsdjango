@@ -17,6 +17,7 @@ class Product(models.Model):
     in_stock = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
+    rank = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -107,7 +108,10 @@ class Tags(models.Model):
         ('S', 'Section'),
         ('T', 'Tag'),
     ))
+    is_standalone = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
 
 class ProductTags(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -115,3 +119,6 @@ class ProductTags(models.Model):
 
     class Meta:
         unique_together = ('prod_id', 'tag_id',)
+
+    def __str__(self):
+        return self.prod_id.name + ' ' + self.tag_id.name

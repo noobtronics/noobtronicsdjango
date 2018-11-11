@@ -496,31 +496,31 @@ def admin_add_prod_tags(request):
     try:
         data = request.POST.dict()
         prod = Product.objects.get(id=data['prod_id'])
-        ProductTags.objects.filter(prod_id=prod).delete()
-
-        menu_data = data['menu_data'].split(',')
-        tags_list = []
-        for mid in menu_data:
-            if int(mid) > 0:
-                tg = Tags.objects.get(id=mid)
-                tags_list.append(tg)
-            else:
-                break
-
-        del data['prod_id']
-        del data['menu_data']
-
-        for key in data:
-            if data[key] == 'true':
-                tg = Tags.objects.get(id=key)
-                tags_list.append(tg)
-
-        for tg in tags_list:
-            ptg = ProductTags(prod_id=prod, tag_id = tg)
-            ptg.save()
-
-
-        resp['success'] = True
+        # ProductTags.objects.filter(prod_id=prod).delete()
+        #
+        # menu_data = data['menu_data'].split(',')
+        # tags_list = []
+        # for mid in menu_data:
+        #     if int(mid) > 0:
+        #         tg = Tags.objects.get(id=mid)
+        #         tags_list.append(tg)
+        #     else:
+        #         break
+        #
+        # del data['prod_id']
+        # del data['menu_data']
+        #
+        # for key in data:
+        #     if data[key] == 'true':
+        #         tg = Tags.objects.get(id=key)
+        #         tags_list.append(tg)
+        #
+        # for tg in tags_list:
+        #     ptg = ProductTags(prod_id=prod, tag_id = tg)
+        #     ptg.save()
+        #
+        #
+        # resp['success'] = True
 
     except Exception as e:
         resp['reason'] = traceback.format_exc()

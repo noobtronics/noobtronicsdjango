@@ -11,4 +11,5 @@ urlpatterns = [
     path('legal/returnpolicy', serve_returnpolicy),
     path('legal/termsandconditions', serve_tandc),
     path('legal/privacypolicy', serve_privacy_policy),
+    path('api/fetch/catalog', fetch_catalog),
 ]
