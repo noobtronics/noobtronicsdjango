@@ -9371,4 +9371,21 @@ label.panel-block:hover {
   background-color: #0031FF !important;
 }
 
+.pagination {
+  margin-top: 10px;
+}
+
+.shopcartbutton {
+  z-index: 4;
+  position: absolute;
+  top: 150px;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  left: 50px;
+}
+
+.showshopcartbutton {
+  visibility: visible;
+}
+
 /*# sourceMappingURL=mystyle.css.map */

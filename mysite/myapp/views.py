@@ -118,6 +118,7 @@ def get_prod_data():
             'id': prod.id,
             'name': prod.name,
             'cardtitle': prod.cardtitle,
+            'in_stock': 'true' if prod.in_stock else 'false',
             'price': prod.price,
             'slug': prod.slug,
             'mrp': prod.mrp_price,
