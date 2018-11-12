@@ -117,15 +117,44 @@ def shop_page(request):
     return render(request, 'shop-page.html', context)
 
 
+def get_cart_prods(usr):
+    cartprods = []
+    subtotal = 0
+    try:
+        cart = Cart.objects.get(user_id=usr)
+        cartprodids = cart.cartobjects_set.all()
+        for cprod in cartprodids:
+            temp = {
+                'id': cprod.id,
+                'qty': cprod.quantity,
+                'title': cprod.prod_id.name,
+                'subtitle': cprod.prod_id.pagetitle,
+                'img': cprod.prod_id.mainimage.img_data.th_mini.image.url,
+                'price': cprod.prod_id.price
+            }
+            temp['total'] = temp['price']*temp['qty']
+            subtotal += temp['total']
+            cartprods.append(temp)
+    except:
+        None
+    return cartprods, subtotal
+
+
 @ensure_csrf_cookie
+@login_required
 def cart_page(request):
     data = {}
+    cartprods, subtotal = get_cart_prods(request.user)
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
         'cartqty': get_cart_qty(request),
+        'cartprods': cartprods,
+        'subtotal': subtotal,
+        'deliverycharge': 0,
+        'extracharge': 0
     }
-    pprint(data)
+    context['total'] = context['subtotal']+context['deliverycharge']+context['extracharge']
     return render(request, 'cart-page.html', context)
 
 

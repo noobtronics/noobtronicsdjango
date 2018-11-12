@@ -10,7 +10,7 @@
     {% include "hero-head.html" %}
 
     <!-- Hero content: will be in the middle -->
-    <div class="hero-body" id="app">
+    <div class="hero-body" id="cartapp">
         <div class="container shopcontainer">
             <div class="columns">
                 <div class="column progresssteps">
@@ -79,15 +79,15 @@
                                 <tbody>
                                 <tr>
                                     <th>Subtotal:</th>
-                                    <td>₹100</td>
+                                    <td v-html="rsubtotal"></td>
                                 </tr>
                                 <tr>
                                     <th>Delivery Charges:</th>
-                                    <td>₹100</td>
+                                    <td v-html="rdeliverycharge"></td>
                                 </tr>
                                 <tr>
                                     <th>Extra Charges:</th>
-                                    <td>₹0</td>
+                                    <td v-html="rextracharge"></td>
                                 </tr>
 
                                 </tbody>
@@ -95,7 +95,7 @@
                             <table class="table cartmenu">
                                 <tr class="totalrow">
                                     <th>Total:</th>
-                                    <td>₹200<br><div class="content is-small">(GST inclusive)</div></td>
+                                    <td><span v-html="rtotal"></span><br><div class="content is-small">(GST inclusive)</div></td>
                                 </tr>
                             </table>
                         </table>
@@ -114,38 +114,38 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr v-for="prod in products">
                             <td><div class="cartproddiv"><article class="media is-shady">
                                 <figure class="media-left">
                                     <p class="image is-96x96">
-                                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                                        <img v-bind:src="prod.img">
                                     </p>
                                 </figure>
                                 <div class="media-content">
                                     <div class="content">
-                                        <p class="cardhead">Smartduino Uno 16Mhz</p>
-                                        <p class="cardsubtitle">ATMega328P Microcontroller Board</p>
+                                        <p class="cardhead">[%prod.title%]</p>
+                                        <p class="cardsubtitle">[%prod.subtitle%]</p>
                                     </div>
                                 </div>
                             </article></div></td>
                             <td><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
-                            <td>₹100</td>
+                            <td>₹[%prod.price%]</td>
                             <td>
                                 <div class="prodquant cartquant">
-                                    <a class="button is-success is-inverted increment" v-on:click="increaseQty">
+                                    <a class="button is-success is-inverted increment">
                                 <span class="icon">
                                   <i class="fas fa-plus"></i>
                                 </span>
                                     </a>
                                     <span class="cart_qty">1</span>
-                                    <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
+                                    <a class="button is-success is-inverted increment">
                                 <span class="icon">
                                   <i class="fas fa-minus"></i>
                                 </span>
                                     </a>
                                 </div>
                             </td>
-                            <td>₹100</td>
+                            <td>₹[%prod.total%]</td>
                         </tr>
                         <tr>
                             <td><div class="cartproddiv"><article class="media is-shady">
@@ -174,6 +174,50 @@
     </div>
 
     {% include "hero-footer.html" %}
+
+<script>
+    var subtotal = {{subtotal}};
+
+    var deliverycharge = {{deliverycharge}};
+
+    var extracharge = {{extracharge}};
+
+    var total = {{total}};
+
+    var products = {{cartprods | safe}};
+</script>
+
+<script>
+    var cartapp = new Vue({
+        el: '#cartapp',
+        delimiters: ['[%', '%]'],
+        data: {
+            subtotal: subtotal,
+            deliverycharge: deliverycharge,
+            extracharge: extracharge,
+            total: total,
+            products: products
+        },
+        computed: {
+            rsubtotal: function () {
+                return '₹' + this.subtotal.toString();
+            },
+            rdeliverycharge: function () {
+                return '₹' + this.deliverycharge.toString();
+            },
+            rextracharge: function () {
+                return '₹' + this.extracharge.toString();
+            },
+            rtotal: function () {
+                return '₹' + this.total.toString();
+            }
+
+        }
+    });
+
+</script>
+
+
 </section>
 </body>
 </html>
