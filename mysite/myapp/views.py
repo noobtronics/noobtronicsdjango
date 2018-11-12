@@ -117,6 +117,17 @@ def shop_page(request):
     return render(request, 'shop-page.html', context)
 
 
+@ensure_csrf_cookie
+def cart_page(request):
+    data = {}
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'data': data,
+        'cartqty': get_cart_qty(request),
+    }
+    pprint(data)
+    return render(request, 'cart-page.html', context)
+
 
 
 def login_view(request):

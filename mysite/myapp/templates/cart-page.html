@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cart</title>
+    {% include "header.html" %}
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body" id="app">
+        <div class="container shopcontainer">
+            <div class="columns">
+                <div class="column progresssteps">
+
+
+                    <ul class="steps is-narrow is-medium is-centered has-content-centered">
+                        <li class="steps-segment is-active has-gaps">
+                            <a href="#" class="has-text-dark">
+                                <span class="steps-marker">
+                                <span class="icon">
+                                <i class="fa fa-shopping-cart"></i>
+                                </span>
+                                </span>
+                                <div class="steps-content">
+                                    <p class="heading">Shopping Cart</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="steps-segment has-gaps">
+                            <a href="#" class="has-text-dark">
+                                <span class="steps-marker">
+                                <span class="icon">
+                                <i class="fa fa-user"></i>
+                                </span>
+                                </span>
+                                <div class="steps-content">
+                                    <p class="heading">User Information</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="steps-segment has-gaps">
+                                <span class="steps-marker">
+                                <span class="icon">
+                                <i class="fas fa-rupee-sign"></i>
+                                </span>
+                                </span>
+                                <div class="steps-content">
+                                <p class="heading">Payment</p>
+                            </div>
+                        </li>
+                        <li class="steps-segment">
+                            <span class="steps-marker">
+                            <span class="icon">
+                            <i class="fa fa-check"></i>
+                            </span>
+                            </span>
+                            <div class="steps-content">
+                                <p class="heading">Confirmation</p>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <h2 class="title is-4 carttitle">Shopping Cart</h2>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-one-quarters">
+                    <aside class="menu">
+                        <table class="table">
+                            <table class="table cartmenu">
+                                <tbody>
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td>₹100</td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Charges:</th>
+                                    <td>₹100</td>
+                                </tr>
+                                <tr>
+                                    <th>Extra Charges:</th>
+                                    <td>₹0</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <table class="table cartmenu">
+                                <tr class="totalrow">
+                                    <th>Total:</th>
+                                    <td>₹200<br><div class="content is-small">(GST inclusive)</div></td>
+                                </tr>
+                            </table>
+                        </table>
+                    </aside>
+                </div>
+                <div class="column is-three-quarters prodcolumn">
+
+                    <table class="table carttable">
+                        <thead>
+                        <tr>
+                            <td>Product</td>
+                            <td></td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Total</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><div class="cartproddiv"><article class="media is-shady">
+                                <figure class="media-left">
+                                    <p class="image is-96x96">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                                    </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p class="cardhead">Smartduino Uno 16Mhz</p>
+                                        <p class="cardsubtitle">ATMega328P Microcontroller Board</p>
+                                    </div>
+                                </div>
+                            </article></div></td>
+                            <td><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
+                            <td>₹100</td>
+                            <td>
+                                <div class="prodquant cartquant">
+                                    <a class="button is-success is-inverted increment" v-on:click="increaseQty">
+                                <span class="icon">
+                                  <i class="fas fa-plus"></i>
+                                </span>
+                                    </a>
+                                    <span class="cart_qty">1</span>
+                                    <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
+                                <span class="icon">
+                                  <i class="fas fa-minus"></i>
+                                </span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>₹100</td>
+                        </tr>
+                        <tr>
+                            <td><div class="cartproddiv"><article class="media is-shady">
+                                <figure class="media-left">
+                                    <p class="image is-96x96">
+                                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                                    </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p class="cardhead">Smartduino Uno 16Mhz</p>
+                                        <p class="cardsubtitle">ATMega328P Microcontroller Board</p>
+                                    </div>
+                                </div>
+                            </article></div></td>
+                            <td><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
+                            <td>₹100</td>
+                            <td>1</td>
+                            <td>₹100</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "hero-footer.html" %}
+</section>
+</body>
+</html>
