@@ -156,7 +156,7 @@
                                 <div class="field">
                                     <label class="label">Name</label>
                                     <p class="control is-expanded has-icons-left">
-                                        <input name="name" class="input" type="text" maxlength="30" placeholder="e.g. Donald Trump">
+                                        <input name="name" v-model="address_name" class="input" type="text" maxlength="30" placeholder="e.g. Donald Trump">
                                         <span class="icon is-small is-left">
                                           <i class="fas fa-user"></i>
                                         </span>
@@ -171,7 +171,7 @@
                                             </a>
                                         </p>
                                         <p class="control is-expanded">
-                                            <input name="mobile" class="input" type="tel" placeholder="e.g. 9123456789" maxlength="10">
+                                            <input name="mobile" v-model="address_mobile" class="input" type="tel" placeholder="e.g. 9123456789" maxlength="10">
                                         </p>
                                     </div>
                                 </div>
@@ -181,21 +181,21 @@
                         <div class="field">
                             <label class="label">Address Line 1</label>
                             <div class="control">
-                                <input name="address1" class="input" type="text" placeholder="e.g. Flat No. / Bldg No / Area">
+                                <input name="address1" v-model="address_address1" class="input" type="text" placeholder="e.g. Flat No. / Bldg No / Area">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Address Line 2</label>
                             <div class="control">
-                                <input name="address2" class="input" type="text" placeholder="e.g. Street Name / Landmark">
+                                <input name="address2" v-model="address_address2" class="input" type="text" placeholder="e.g. Street Name / Landmark">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Pincode</label>
                             <div class="control">
-                                <input name="pincode" v-model="pincode" class="input pincode" type="text" placeholder="e.g. 110006">
+                                <input name="pincode" v-model="pincode" maxlength="6" class="input pincode" type="text" placeholder="e.g. 110006">
                                 <span class="pincodedisp" v-html="pincodedisplay"></span>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                         <div class="buttons is-centered" v-cloak>
                             <span class="button is-warning" v-if="cart_state==0" v-on:click="checkout">Checkout</span>
                             <span class="button is-warning" v-if="cart_state==1" v-on:click="undocheckout">Back</span>
-                            <span class="button is-warning" v-if="cart_state==1" v-on:click="checkout">Save</span>
+                            <span class="button is-warning" v-if="cart_state==1" v-on:click="submit_address">Save</span>
                         </div>
                     </div>
                 </div>
@@ -233,6 +233,24 @@
             </footer>
         </div>
     </div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalAlert}">
+        <div class="modal-card alert-modal bShadow-66 is-shady">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalAlert=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2 class="title is-6" v-html="alert_title"></h2>
+                <p v-html="alert_message"></p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info" v-on:click="ModalAlert=false">Let me fix</button>
+            </footer>
+        </div>
+    </div>
+
 </section>
 
     {% include "hero-footer.html" %}
@@ -336,12 +354,88 @@
                 cartapp.pincodedisplay = response.data.pincodedisplay;
             }
             else{
+                cartapp.pincodedisplay = '';
+            }
+        });
+    };
+
+
+    var submit_address = function submit_address() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/address',
+            data: {
+                'name': cartapp.address_name,
+                'mobile': cartapp.address_mobile,
+                'address1': cartapp.address_address1,
+                'address2': cartapp.address_address2,
+                'pincode': cartapp.pincode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.cart_state = response.data.cart_state;
+            }
+            else{
                 console.log(response);
-                alert('Error - ' + response.data.reason);
             }
         });
     };
 </script>
+
+
+<script>
+    var validate_address = function validate_address() {
+        if(cartapp.address_name.length < 4){
+            alert_msg('Invalid Name', 'Name should have atleast 4 characters');
+            return;
+        }
+
+        if(cartapp.address_mobile.length != 10){
+            alert_msg('Invalid Mobile', 'Mobile should have exact 10 digits');
+            return;
+        }
+        if(isNaN(cartapp.address_mobile)){
+            alert_msg('Invalid Mobile', 'Mobile should contain only numbers');
+            return;
+        }
+
+        if(cartapp.address_address1.length < 10){
+            alert_msg('Invalid Address1', 'Address Line 1 should contain atleast 10 characters');
+            return;
+        }
+
+        if(cartapp.address_address2.length < 10){
+            alert_msg('Invalid Address2', 'Address Line 2 should contain atleast 10 characters');
+            return;
+        }
+
+
+        if(cartapp.pincode.length != 6){
+            alert_msg('Invalid Pincode', 'Pincode should contain exact 6 digits');
+            return;
+        }
+
+        if(isNaN(cartapp.pincode)){
+            alert_msg('Invalid Pincode', 'Pincode should contain only numbers');
+            return;
+        }
+
+        if(cartapp.pincodedisplay.length==0){
+            alert_msg('Invalid Pincode', 'Pincode was not found in India Database');
+            return;
+        }
+        submit_address();
+    };
+
+    var alert_msg = function alert_msg(title, message){
+        cartapp.alert_title = title;
+        cartapp.alert_message = message;
+        cartapp.ModalAlert = true;
+    }
+</script>
+
 
 <script>
     var cartapp = new Vue({
@@ -355,12 +449,21 @@
             products: products,
             prod_id_index: prod_id_index,
             ModalDeleteConfirm: false,
+            ModalAlert: false,
             cart_state: cart_state,
             confirm_name: '',
             confirm_sub: '',
             confirm_qty: '',
+            alert_title: '',
+            alert_message: '',
             pincode: '',
-            pincodedisplay: ''
+            pincodedisplay: '',
+
+            address_name:'',
+            address_mobile:'',
+            address_address1:'',
+            address_address2:'',
+
         },
         computed: {
             rsubtotal: function () {
@@ -430,6 +533,9 @@
             undocheckout: function(){
                 undocheckout();
             },
+            submit_address: function(){
+                validate_address();
+            }
         },
         watch: {
             pincode: function(newVal, oldVal){

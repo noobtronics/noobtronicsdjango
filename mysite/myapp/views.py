@@ -328,3 +328,30 @@ def get_pincode_data(request):
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
+
+
+@login_required
+def save_address(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        zc = ZipCodes.objects.get(zipcode=data['pincode'])
+        cart = Cart.objects.get(user_id=request.user)
+        cart.address_name = data['name']
+        cart.mobile = data['mobile']
+        cart.address1 = data['address1']
+        cart.address2 = data['address2']
+        cart.zipcode = data['pincode']
+        cart.district = zc.district
+        cart.state = zc.state
+        cart.save()
+        cart.cart_state = 'P'
+        cart.save()
+        resp['success'] = True
+        resp['cart_state'] = get_cart_state(request)
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)

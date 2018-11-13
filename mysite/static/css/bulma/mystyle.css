@@ -10615,6 +10615,15 @@ label.panel-block:hover {
   margin-top: -150px;
 }
 
+.alert-modal {
+  width: 400px;
+  height: 200px;
+  margin-top: -150px;
+}
+.alert-modal .button {
+  margin: 0 auto;
+}
+
 .confirm-modal {
   width: 400px;
   height: 260px;
@@ -11005,7 +11014,7 @@ label.panel-block:hover {
 
 .addressform {
   width: 400px;
-  margin-left: 40px;
+  margin: 0 auto;
   margin-bottom: 20px;
 }
 .addressform .label {

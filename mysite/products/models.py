@@ -83,6 +83,7 @@ class Cart(models.Model):
         ('P', 'Payment'),
         ('D', 'Done'),
     ),default='C')
+    address_name = models.CharField(max_length=100, default='')
     address1 = models.CharField(max_length=100, default='')
     address2 = models.CharField(max_length=100, default='')
     district = models.CharField(max_length=100, default='')
