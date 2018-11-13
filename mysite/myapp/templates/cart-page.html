@@ -9,8 +9,9 @@
     <!-- Hero head: will stick at the top -->
     {% include "hero-head.html" %}
 
+<section id="cartapp">
     <!-- Hero content: will be in the middle -->
-    <div class="hero-body" id="cartapp">
+    <div class="hero-body">
         <div class="container shopcontainer">
             <div class="columns">
                 <div class="column progresssteps">
@@ -128,18 +129,18 @@
                                     </div>
                                 </div>
                             </article></div></td>
-                            <td><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
+                            <td><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right" v-on:click="remove_prod(prod.id)"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
                             <td>₹[%prod.price%]</td>
                             <td>
                                 <div class="prodquant cartquant">
                                     <a class="button is-success is-inverted increment">
-                                <span class="icon">
+                                <span class="icon" v-on:click="increase_qty(prod.id)">
                                   <i class="fas fa-plus"></i>
                                 </span>
                                     </a>
-                                    <span class="cart_qty">1</span>
+                                    <span class="cart_qty">[%prod.qty%]</span>
                                     <a class="button is-success is-inverted increment">
-                                <span class="icon">
+                                <span class="icon" v-on:click="decrease_qty(prod.id)">
                                   <i class="fas fa-minus"></i>
                                 </span>
                                     </a>
@@ -173,6 +174,28 @@
         </div>
     </div>
 
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalDeleteConfirm}">
+        <div class="modal-card confirm-modal bShadow-66 is-shady">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalDeleteConfirm=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2 class="title is-6">Confirm</h2>
+                <p>Do you want to remove following from the cart ?</p>
+                <p class="cardhead">[%confirm_name%]</p>
+                <p class="cardsubtitle">[%confirm_sub%]</p>
+                <p class="cardsubtitle" style="margin-left: 10px;">Quantity: [%confirm_qty%]</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" v-on:click="remove()">Remove</button>
+                <button class="button" v-on:click="ModalDeleteConfirm=false">Cancel</button>
+            </footer>
+        </div>
+    </div>
+</section>
+
     {% include "hero-footer.html" %}
 
 <script>
@@ -185,6 +208,36 @@
     var total = {{total}};
 
     var products = {{cartprods | safe}};
+    var prod_id_index = {{cartprods_ids | safe}};
+</script>
+
+<script>
+    var edit_cart = function edit_cart(action, cp_id) {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/edit_cart',
+            data: {
+                'action': action,
+                'cp_id': cp_id
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.products = response.data.cartprods;
+                cartapp.prod_id_index = response.data.cartprods_ids;
+                cartapp.subtotal = response.data.subtotal;
+                cartapp.deliverycharge = response.data.deliverycharge;
+                cartapp.extracharge = response.data.extracharge;
+                cartapp.total = response.data.total;
+                head_app.cartqty = cartapp.products.length;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
 </script>
 
 <script>
@@ -196,7 +249,13 @@
             deliverycharge: deliverycharge,
             extracharge: extracharge,
             total: total,
-            products: products
+            products: products,
+            prod_id_index: prod_id_index,
+            ModalDeleteConfirm: false,
+            confirm_name: '',
+            confirm_sub: '',
+            confirm_qty: '',
+
         },
         computed: {
             rsubtotal: function () {
@@ -210,6 +269,35 @@
             },
             rtotal: function () {
                 return '₹' + this.total.toString();
+            }
+
+        },
+        methods: {
+            increase_qty: function(cp_id){
+                edit_cart('increase', cp_id);
+            },
+            decrease_qty: function(cp_id){
+                var idx = this.prod_id_index[cp_id];
+                var qty = this.products[idx].qty;
+                if(qty==1) {
+                    this.remove_prod(cp_id);
+                }
+                else{
+                    edit_cart('decrease', cp_id);
+                }
+            },
+            remove_prod: function(cp_id){
+                var idx = this.prod_id_index[cp_id];
+                var prod = this.products[idx];
+                this.confirm_name = prod.title;
+                this.confirm_sub = prod.subtitle;
+                this.confirm_qty = prod.qty;
+                this.confirm_id = cp_id;
+                this.ModalDeleteConfirm = true;
+            },
+            remove: function(){
+                edit_cart('remove', this.confirm_id);
+                this.ModalDeleteConfirm = false;
             }
 
         }

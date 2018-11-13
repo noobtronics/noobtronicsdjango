@@ -10615,6 +10615,31 @@ label.panel-block:hover {
   margin-top: -150px;
 }
 
+.confirm-modal {
+  width: 400px;
+  height: 260px;
+  margin-top: -150px;
+}
+.confirm-modal .cardhead {
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  margin-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.confirm-modal .cardsubtitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #808080;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.blackmodal {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .modalclose {
   position: absolute;
   right: 10px;

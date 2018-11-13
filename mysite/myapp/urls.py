@@ -6,6 +6,7 @@ urlpatterns = [
     path('product/<slug:prod_slug>', product_page),
     path('shop', shop_page),
     path('cart', cart_page),
+    path('api/cart/edit_cart', edit_cart),
     path('api/login', login_view),
     path('api/logout', logout_view),
     path('api/legalcontent', serve_legalcontent),

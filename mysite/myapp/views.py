@@ -119,10 +119,12 @@ def shop_page(request):
 
 def get_cart_prods(usr):
     cartprods = []
+    cartprods_ids = {}
     subtotal = 0
+    count_id = -1
     try:
         cart = Cart.objects.get(user_id=usr)
-        cartprodids = cart.cartobjects_set.all()
+        cartprodids = cart.cartobjects_set.all().order_by('id')
         for cprod in cartprodids:
             temp = {
                 'id': cprod.id,
@@ -135,26 +137,39 @@ def get_cart_prods(usr):
             temp['total'] = temp['price']*temp['qty']
             subtotal += temp['total']
             cartprods.append(temp)
+            count_id += 1
+            cartprods_ids[cprod.id] = count_id
     except:
         None
-    return cartprods, subtotal
+    return cartprods, cartprods_ids, subtotal
+
+
+def process_cart_json(usr):
+    cartprods, cartprods_ids, subtotal = get_cart_prods(usr)
+    data = {
+        'cartprods': cartprods,
+        'cartprods_ids': cartprods_ids,
+        'subtotal': subtotal,
+        'deliverycharge': 0,
+        'extracharge': 0
+    }
+    data['total'] = data['subtotal'] + data['deliverycharge'] + data['extracharge']
+    return data
 
 
 @ensure_csrf_cookie
 @login_required
 def cart_page(request):
     data = {}
-    cartprods, subtotal = get_cart_prods(request.user)
+
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
-        'cartqty': get_cart_qty(request),
-        'cartprods': cartprods,
-        'subtotal': subtotal,
-        'deliverycharge': 0,
-        'extracharge': 0
+        'cartqty': get_cart_qty(request)
     }
-    context['total'] = context['subtotal']+context['deliverycharge']+context['extracharge']
+
+    cart_json = process_cart_json(request.user)
+    context.update(cart_json)
     return render(request, 'cart-page.html', context)
 
 
@@ -228,3 +243,31 @@ def fetch_catalog(request):
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
 
+
+
+@login_required
+def edit_cart(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        action = data['action']
+        cp_id = data['cp_id']
+        cp = CartObjects.objects.get(id=cp_id)
+        if action == 'remove':
+            cp.delete()
+        elif action == 'increase':
+            cp.quantity += 1
+            cp.save()
+        elif  action == 'decrease':
+            if cp.quantity > 1:
+                cp.quantity -= 1
+                cp.save()
+        cart_json = process_cart_json(request.user)
+        resp.update(cart_json)
+        resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
