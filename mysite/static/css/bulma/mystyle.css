@@ -10949,6 +10949,9 @@ label.panel-block:hover {
   background: white;
   width: 400px;
 }
+.carttable .cartproddiv article:hover {
+  cursor: pointer;
+}
 .carttable .cartproddiv article .content {
   margin-top: 0px;
 }
@@ -10998,6 +11001,31 @@ label.panel-block:hover {
 .cartmenu .totalrow td {
   font-size: 22px;
   text-align: right;
+}
+
+.addressform {
+  width: 400px;
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+.addressform .label {
+  color: white;
+}
+.addressform .name {
+  width: 200px;
+}
+.addressform .pincode {
+  width: 150px;
+}
+.addressform .pincodedisp {
+  margin-left: 10px;
+  vertical-align: middle;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+[v-cloak] {
+  display: none;
 }
 
 /*# sourceMappingURL=mystyle.css.map */

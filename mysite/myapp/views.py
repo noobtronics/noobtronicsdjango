@@ -13,7 +13,7 @@ from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse, Http404
 from products.models import *
-from products.admin_views import get_cart_qty, process_prod_page, get_alltags_data
+from products.admin_views import get_cart_qty, process_prod_page, get_alltags_data, get_cart_state
 from django.shortcuts import get_list_or_404, get_object_or_404
 import math
 import traceback
@@ -132,7 +132,8 @@ def get_cart_prods(usr):
                 'title': cprod.prod_id.name,
                 'subtitle': cprod.prod_id.pagetitle,
                 'img': cprod.prod_id.mainimage.img_data.th_mini.image.url,
-                'price': cprod.prod_id.price
+                'price': cprod.prod_id.price,
+                'slug': cprod.prod_id.slug
             }
             temp['total'] = temp['price']*temp['qty']
             subtotal += temp['total']
@@ -144,15 +145,32 @@ def get_cart_prods(usr):
     return cartprods, cartprods_ids, subtotal
 
 
+def get_delivery_charge(subtotal):
+    delivery_charge = 59
+    if subtotal > 200:
+        delivery_charge = 49
+    if subtotal > 950:
+        delivery_charge = 39
+    return delivery_charge
+
+
+def get_cart_extracharge(usr):
+    extra_chage = 0
+    cart = Cart.objects.get(user_id=usr)
+    if cart.paymode == 'COD':
+        extra_chage = 31
+    return extra_chage
+
+
 def process_cart_json(usr):
     cartprods, cartprods_ids, subtotal = get_cart_prods(usr)
     data = {
         'cartprods': cartprods,
         'cartprods_ids': cartprods_ids,
-        'subtotal': subtotal,
-        'deliverycharge': 0,
-        'extracharge': 0
+        'subtotal': subtotal
     }
+    data['deliverycharge'] = get_delivery_charge(data['subtotal'])
+    data['extracharge'] = get_cart_extracharge(usr)
     data['total'] = data['subtotal'] + data['deliverycharge'] + data['extracharge']
     return data
 
@@ -161,13 +179,12 @@ def process_cart_json(usr):
 @login_required
 def cart_page(request):
     data = {}
-
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
-        'cartqty': get_cart_qty(request)
+        'cartqty': get_cart_qty(request),
+        'state': get_cart_state(request)
     }
-
     cart_json = process_cart_json(request.user)
     context.update(cart_json)
     return render(request, 'cart-page.html', context)
@@ -268,6 +285,29 @@ def edit_cart(request):
         cart_json = process_cart_json(request.user)
         resp.update(cart_json)
         resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+@login_required
+def handle_checkout(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        usr_cart = Cart.objects.get(user_id=request.user)
+        if data['checkout'] == True:
+            usr_cart.cart_state = 'A'
+            usr_cart.save()
+            resp['success'] = True
+        elif data['checkout'] == False:
+            usr_cart.cart_state = 'C'
+            usr_cart.save()
+            resp['success'] = True
+        resp['cart_state'] = get_cart_state(request)
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)

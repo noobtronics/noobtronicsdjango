@@ -77,6 +77,24 @@ class HomePage(models.Model):
 class Cart(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    cart_state = models.CharField(max_length=3, choices=(
+        ('C', 'Cart'),
+        ('A', 'Address'),
+        ('P', 'Payment'),
+        ('D', 'Done'),
+    ),default='C')
+    address1 = models.CharField(max_length=100, default='')
+    address2 = models.CharField(max_length=100, default='')
+    district = models.CharField(max_length=100, default='')
+    state = models.CharField(max_length=100, default='')
+    zipcode = models.CharField(max_length=6, default='')
+    mobile = models.CharField(max_length=10, default='')
+    paymode = models.CharField(max_length=10, choices=(
+        ('COD', 'COD'),
+        ('PayTM', 'PayTM'),
+        ('PayU', 'PayU'),
+        ('InstaM', 'InstaM'),
+    ), null=True, blank=True)
 
 
 class CartObjects(models.Model):
@@ -122,3 +140,11 @@ class ProductTags(models.Model):
 
     def __str__(self):
         return self.prod_id.name + ' ' + self.tag_id.name
+
+
+
+class ZipCodes(models.Model):
+    zipcode = models.CharField(max_length=6, unique=True)
+    district = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+

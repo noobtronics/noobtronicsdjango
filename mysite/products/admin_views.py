@@ -298,6 +298,21 @@ def get_cart_qty(request):
     return cartqty
 
 
+def get_cart_state(request):
+    cart_state = 0
+    if request.user.is_authenticated:
+        cart_query = Cart.objects.filter(user_id=request.user)
+        if cart_query.count() > 0:
+            cart = cart_query[0]
+            if cart.cart_state == 'A':
+                cart_state = 1
+            elif cart.cart_state == 'P':
+                cart_state = 2
+            elif cart.cart_state == 'D':
+                cart_state = 3
+    return cart_state
+
+
 def process_prod_page(request, prod_id):
     prod = get_object_or_404(Product, id=prod_id)
 
