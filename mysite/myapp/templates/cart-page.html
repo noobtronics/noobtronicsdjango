@@ -63,8 +63,6 @@
                             </div>
                         </li>
                     </ul>
-
-
                 </div>
             </div>
             <div class="columns">
@@ -197,8 +195,8 @@
                         <div class="field">
                             <label class="label">Pincode</label>
                             <div class="control">
-                                <input name="pincode" class="input pincode" type="text" placeholder="e.g. 110006">
-                                <span class="pincodedisp">Aurangabad, Maharashtra</span>
+                                <input name="pincode" v-model="pincode" class="input pincode" type="text" placeholder="e.g. 110006">
+                                <span class="pincodedisp" v-html="pincodedisplay"></span>
                             </div>
                         </div>
                     </div>
@@ -322,6 +320,27 @@
             }
         });
     };
+
+
+    var get_pincode_details = function get_pincode_details(pincode) {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/pincode',
+            data: {
+                'pincode': pincode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.pincodedisplay = response.data.pincodedisplay;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
 </script>
 
 <script>
@@ -339,7 +358,9 @@
             cart_state: cart_state,
             confirm_name: '',
             confirm_sub: '',
-            confirm_qty: ''
+            confirm_qty: '',
+            pincode: '',
+            pincodedisplay: ''
         },
         computed: {
             rsubtotal: function () {
@@ -409,6 +430,15 @@
             undocheckout: function(){
                 undocheckout();
             },
+        },
+        watch: {
+            pincode: function(newVal, oldVal){
+                if(newVal.length==6){
+                    if(!isNaN(newVal)){
+                        get_pincode_details(newVal);
+                    }
+                }
+            }
         }
     });
 

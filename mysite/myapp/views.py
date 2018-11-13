@@ -311,3 +311,20 @@ def handle_checkout(request):
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
+
+
+
+@login_required
+def get_pincode_data(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        zc = ZipCodes.objects.get(zipcode=data['pincode'])
+        resp['pincodedisplay'] = '{0}, {1}'.format(zc.district, zc.state)
+        resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
