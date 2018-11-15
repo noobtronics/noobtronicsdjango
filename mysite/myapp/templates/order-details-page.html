@@ -140,10 +140,41 @@
 
                 <div class="columns">
                     <div class="column">
+                        <aside class="menu">
+                                <table class="table cartmenu">
+                                    <tbody>
+                                    <tr>
+                                        <th>Subtotal:</th>
+                                        <td>₹{{order.subtotal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Delivery Charges:</th>
+                                        <td>₹{{order.delivery_charge}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Extra Charges:</th>
+                                        <td>₹{{order.extra_charge}}</td>
+                                    </tr>
 
+
+                                    </tbody>
+                                </table>
+                                <table class="table cartmenu">
+                                    <tr class="totalrow">
+                                        <th>Total:</th>
+                                        <td><span>₹{{order.amount}}</span><br><div class="content is-small">(GST inclusive)</div></td>
+                                    </tr>
+                                </table>
+                        </aside>
                     </div>
                     <div class="column">
-
+                        <p><b>Payment Method</b>: {{order.paymode}}</p>
+                        <br>
+                        <p><b>Delivery Address:</b></p>
+                        <p>{{order.address_name}} (Ph - {{order.address_mobile}})</p>
+                        <p>{{order.address1}}</p>
+                        <p>{{order.address2}}</p>
+                        <p>{{order.pincodedisplay}} - {{order.pincode}}</p>
                     </div>
                 </div>
             </div>

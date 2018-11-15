@@ -657,7 +657,14 @@ def order_details_page(request, order_id):
         'delivery_charge': ordr.delivery_charge,
         'extra_charge': ordr.extra_charge,
         'subtotal': ordr.total_amount - (ordr.delivery_charge+ordr.extra_charge),
-        'paymode': ordr.get_paymode_display()
+        'paymode': ordr.get_paymode_display(),
+ 
+        'address_name': ordr.address_name,
+        'address_mobile': ordr.mobile,
+        'address1': ordr.address1,
+        'address2': ordr.address2,
+        'pincode': ordr.zipcode,
+        'pincodedisplay': ordr.pincodedisplay,
     }
     temp['tracking'] = '123123123123123'
     temp['courier'] = 'DelhiveryDeli'
