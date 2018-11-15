@@ -183,6 +183,7 @@ def process_cart_json(usr):
 @login_required
 def cart_page(request):
     data = {}
+    cart = get_object_or_404(Cart, user_id=request.user)
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
