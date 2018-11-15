@@ -4,9 +4,9 @@
     <nav class="tabs">
         <div class="container">
             <div class="columns has-text-centered footerc">
-                <div class="column"><span v-on:click="ModalDelivery=true">Express Delivery</span></div>
+                <div class="column"><span v-on:click="openDeliveryWindow()">Express Delivery</span></div>
                 <div class="column"><span v-on:click="openLegalWindow()">Legal</span></div>
-                <div class="column"><span v-on:click="ModalPayment=true">COD Available</span></div>
+                <div class="column"><span v-on:click="openPaymentWindow()">COD Available</span></div>
             </div>
         </div>
     </nav>
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="modal" v-bind:class="{'is-active': ModalDelivery}">
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalDelivery}" v-cloak>
     <div class="modal-card delivery-modal bShadow-66">
         <section class="modal-card-body">
             <div class="modalclose">
@@ -30,24 +30,12 @@
                     </span>
             </div>
             <h2 class="title is-6">Express Delivery</h2>
-            <p>
-                All shipments to major cities are express delivered using Delhivery
-                Takes 1-4 business days after order is shipped
-                <br><br>
-                All India delivery supported using Speed Post
-                <br><br>
-                All shipments are Tracked online
-                <br><br>
-                Standard Delivery Charges Applicable
-                <br>
-            <li>Below 500gm: ₹49</li>
-            <li>Additional 500gm: ₹30</li>
-            </p>
+            <div id="footdelcontent"></div>
         </section>
     </div>
 </div>
 
-<div class="modal" v-bind:class="{'is-active': ModalPayment}">
+<div class="modal" v-bind:class="{'is-active': ModalPayment}" v-cloak>
     <div class="modal-card paymentt-modal bShadow-66">
         <section class="modal-card-body">
             <div class="modalclose">
@@ -55,31 +43,12 @@
                         <i class="fa fa-window-close" aria-hidden="true"></i>
                     </span>
             </div>
-            <h2 class="title is-6">Payment Methods</h2>
-            <p>
-            <li>Cash on Delivery supported</li>
-            <br>
-            <li>Secured payment gateways</li>
-            <br>
-            </p>
-            <div class="columns">
-                <div class="column"></div>
-                <div class="column" style="padding: 0px 0px;">
-                    <a class="logoPaytm" href="https://paytm.com/" target="_blank"></a>
-                </div>
-                <div class="column" style="padding: 0px 0px;">
-                    <a class="logoInstamojo" href="https://www.instamojo.com/" target="_blank"></a>
-                </div>
-                <div class="column" style="padding: 0px 0px;">
-                    <a class="logoPayU" href="https://www.payumoney.com" target="_blank"></a>
-                </div>
-                <div class="column"></div>
-            </div>
+            <div id="footpaycontent"></div>
         </section>
     </div>
 </div>
 
-<div class="modal" v-bind:class="{'is-active': ModalTC}">
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalTC}" v-cloak>
     <div class="modal-card tc-modal bShadow-66">
         <section class="modal-card-body">
             <div class="modalclose">
@@ -114,7 +83,6 @@
                 method: 'get',
                 url: '/api/legalcontent'
             }).then(function(response) {
-                console.log(response);
                 var mydata = document.getElementById("legalcontent").innerHTML = response.data;
                 footer_app.downloadTC = false;
                 footer_app.Legaldata = [
@@ -130,6 +98,43 @@
             footer_app.ModalTC = true;
         }
     };
+
+    var openDeliveryWindow = function(){
+        if(footer_app.downloadDelivery){
+            head_app.loading = true;
+            axios({
+                method: 'get',
+                url: '/api/deliverycontent'
+            }).then(function(response) {
+                var mydata = document.getElementById("footdelcontent").innerHTML = response.data;
+                footer_app.downloadDelivery = false;
+                head_app.loading = false;
+                footer_app.ModalDelivery = true;
+            });
+        }
+        else{
+            footer_app.ModalDelivery = true;
+        }
+    };
+
+
+    var openPaymentWindow = function(){
+        if(footer_app.downloadPayment){
+            head_app.loading = true;
+            axios({
+                method: 'get',
+                url: '/api/paymentcontent'
+            }).then(function(response) {
+                var mydata = document.getElementById("footpaycontent").innerHTML = response.data;
+                footer_app.downloadPayment = false;
+                head_app.loading = false;
+                footer_app.ModalPayment = true;
+            });
+        }
+        else{
+            footer_app.ModalPayment = true;
+        }
+    };
 </script>
 
 
@@ -142,7 +147,9 @@
             ModalTC: false,
             LegalactivePage:0,
             Legaldata:['', '', ''],
-            downloadTC: true
+            downloadTC: true,
+            downloadDelivery: true,
+            downloadPayment: true,
         },
         computed: {
             Legaldisplay: function () {
@@ -156,6 +163,12 @@
 
             openLegalWindow:function(){
                 openLegalWindow();
+            },
+            openDeliveryWindow:function(){
+                openDeliveryWindow();
+            },
+            openPaymentWindow:function(){
+                openPaymentWindow();
             }
         }
     })

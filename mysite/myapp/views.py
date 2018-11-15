@@ -237,6 +237,14 @@ def serve_legalcontent(request):
     return render(request, 'legalcontent.html')
 
 @csrf_exempt
+def serve_deliverycontent(request):
+    return render(request, 'deliverycontent.html')
+
+@csrf_exempt
+def serve_paymentcontent(request):
+    return render(request, 'paymentcontent.html')
+
+@csrf_exempt
 def serve_returnpolicy(request):
     return render(request, 'returnpolicy.html')
 

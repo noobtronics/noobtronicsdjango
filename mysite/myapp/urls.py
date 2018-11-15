@@ -23,6 +23,8 @@ urlpatterns = [
     path('api/login', login_view),
     path('api/logout', logout_view),
     path('api/legalcontent', serve_legalcontent),
+    path('api/deliverycontent', serve_deliverycontent),
+    path('api/paymentcontent', serve_paymentcontent),
     path('legal/returnpolicy', serve_returnpolicy),
     path('legal/termsandconditions', serve_tandc),
     path('legal/privacypolicy', serve_privacy_policy),
