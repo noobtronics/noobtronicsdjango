@@ -97,6 +97,16 @@ class Cart(models.Model):
         ('InstaM', 'InstaM'),
     ), null=True, blank=True)
 
+    @property
+    def pincodedisplay(self):
+        pincodedisplay = ''
+        if self.zipcode != '':
+            zc = ZipCodes.objects.filter(zipcode=self.zipcode)
+            if zc.count() > 0:
+                zc = zc[0]
+                pincodedisplay = '{0}, {1}'.format(zc.district, zc.state)
+        return pincodedisplay
+
 
 class CartObjects(models.Model):
     cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -149,3 +159,53 @@ class ZipCodes(models.Model):
     district = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
 
+
+
+class UserCode(models.Model):
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    code = models.CharField(max_length=10)
+
+
+
+class Orders(models.Model):
+    order_id = models.CharField(max_length=20, unique=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    order_state = models.CharField(max_length=3, choices=(
+        ('P', 'Processing'),
+        ('PS', 'Preparing Shipment'),
+        ('S', 'Shipped'),
+        ('D', 'Delivered'),
+    ), default='P')
+
+    paymode = models.CharField(max_length=10)
+    delivery_charge = models.IntegerField()
+    extra_charge = models.IntegerField()
+    total_amount = models.IntegerField()
+
+    courier = models.CharField(max_length=100, default='')
+    tracking_no = models.CharField(max_length=100, default='')
+
+    address_name = models.CharField(max_length=100)
+    address1 = models.CharField(max_length=100)
+    address2 = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zipcode = models.CharField(max_length=6)
+    mobile = models.CharField(max_length=10)
+
+
+    @property
+    def pincodedisplay(self):
+        return '{0}, {1}'.format(self.district, self.state)
+
+
+class OrderProducts(models.Model):
+    order_id = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name='orderprods')
+    prod_id = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    quantity = models.IntegerField()
+    price = models.IntegerField()
+
+    @property
+    def subtotal(self):
+        return self.quantity * self.price

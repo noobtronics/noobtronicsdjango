@@ -17,6 +17,9 @@ from products.admin_views import get_cart_qty, process_prod_page, get_alltags_da
 from django.shortcuts import get_list_or_404, get_object_or_404
 import math
 import traceback
+import random
+import time
+
 
 
 @ensure_csrf_cookie
@@ -192,6 +195,9 @@ def cart_page(request):
 
 
 def login_view(request):
+    resp = {
+        'success': False
+    }
     signed_in = False
     data = json.loads(request.body.decode('utf-8'))
     idinfo = id_token.verify_oauth2_token(data['id_token'], requests.Request(), settings.GOOGLE_API_CLIENT_ID)
@@ -206,11 +212,13 @@ def login_view(request):
         user.save()
     else:
         user = user[0]
+
+    user_code = get_user_code(user)
+    if not user_code:
+        return JsonResponse(resp)
+
     login(request, user)
-    resp = {
-        'success': True
-    }
-    print('login')
+    resp['success'] = True
     return JsonResponse(resp)
 
 
@@ -290,6 +298,30 @@ def edit_cart(request):
     return JsonResponse(resp)
 
 
+def get_address_data(usr):
+    data = {
+        'name': '',
+        'mobile': '',
+        'address1': '',
+        'address2': '',
+        'pincode': '',
+        'pincodedisplay': ''
+    }
+    try:
+        cart = Cart.objects.filter(user_id=usr)
+        if cart.count() > 0:
+            cart = cart[0]
+            data['name'] = cart.address_name
+            data['mobile'] = cart.mobile
+            data['address1'] = cart.address1
+            data['address2'] = cart.address2
+            data['pincode'] = cart.zipcode
+            data['pincodedisplay'] = cart.pincodedisplay
+    except:
+        pass
+    return data
+
+
 @login_required
 def handle_checkout(request):
     resp = {
@@ -307,6 +339,8 @@ def handle_checkout(request):
             usr_cart.cart_state = 'C'
             usr_cart.save()
             resp['success'] = True
+        address_data = get_address_data(request.user)
+        resp.update(address_data)
         resp['cart_state'] = get_cart_state(request)
     except Exception as e:
         resp['reason'] = traceback.format_exc()
@@ -352,6 +386,179 @@ def save_address(request):
         cart.save()
         resp['success'] = True
         resp['cart_state'] = get_cart_state(request)
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+@login_required
+def save_paymode(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        cart = Cart.objects.get(user_id=request.user)
+        paymode = data['paymode']
+        if paymode == 'cod':
+            cart.paymode = 'COD'
+            cart.save()
+        elif paymode == 'paytm':
+            cart.paymode = 'PayTM'
+            cart.save()
+        elif paymode == 'payu':
+            cart.paymode = 'PayU'
+            cart.save()
+        elif paymode == 'instamojo':
+            cart.paymode = 'InstaM'
+            cart.save()
+        elif paymode == '':
+            cart.paymode = ''
+            cart.save()
+        else:
+            paymode = ''
+        cart_json = process_cart_json(request.user)
+        resp.update(cart_json)
+        resp['paymode'] = paymode
+        resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+
+@login_required
+def handle_undoaddress(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        cart = Cart.objects.get(user_id=request.user)
+        if data['address'] == False:
+            cart.cart_state = 'A'
+            cart.save()
+            address_data = get_address_data(request.user)
+            resp.update(address_data)
+            resp['cart_state'] = get_cart_state(request)
+            resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+def get_rand_number(n):
+    n = int(n)
+    random.seed(int(time.time()*100)+random.randint(1,100))
+    num = random.randint(10**n, 10**(n+1)-1)
+    return str(num)
+
+
+def get_user_code(usr):
+    found_code = None
+    try:
+        uc = UserCode.objects.filter(user_id=usr)
+        if uc.count() > 0:
+            found_code = uc[0].code
+        else:
+            found_uniq = False
+            while not found_uniq:
+                code = get_rand_number(6)
+                uc = UserCode.objects.filter(code=code)
+                if uc.count() == 0:
+                    found_uniq = True
+                    uc = UserCode(user_id = usr, code=code)
+                    uc.save()
+                    found_code = uc.code
+    except Exception as e:
+        print(traceback.format_exc())
+        pass
+    return found_code
+
+
+def generate_order_id(usr):
+    found_uniq = False
+    found_order_id = None
+    user_code = get_user_code(usr)
+    while not found_uniq:
+        prefix = get_rand_number(4)
+        order_id = prefix+user_code
+        oc = Orders.objects.filter(user_id = usr, order_id=order_id)
+        if oc.count() == 0:
+            found_uniq = True
+            found_order_id = order_id
+    return found_order_id
+
+
+
+def add_cart_to_order(usr):
+    cart = Cart.objects.get(user_id=usr)
+    order_id = generate_order_id(usr)
+
+    _, _, subtotal = get_cart_prods(usr)
+    delivery_charge = get_delivery_charge(subtotal)
+    extra_charge = get_cart_extracharge(usr)
+    total = subtotal + delivery_charge + extra_charge
+
+    success = False
+    try:
+        ordr = Orders(order_id=order_id, user_id=usr,
+                      paymode=cart.paymode, delivery_charge=delivery_charge,
+                      extra_charge=extra_charge, total_amount=total,
+                      address_name=cart.address_name,address1=cart.address1,
+                      address2=cart.address2,district=cart.district, state=cart.state,
+                      zipcode=cart.zipcode,mobile=cart.mobile
+                      )
+        ordr.save()
+
+        cartobjs = cart.cartobjects_set.all().order_by('id')
+        for cartobj in cartobjs:
+            ordr_prd = OrderProducts(order_id=ordr, prod_id=cartobj.prod_id,
+                                     quantity=cartobj.quantity,
+                                     price=cartobj.prod_id.price)
+            ordr_prd.save()
+        cart.delete()
+        success = True
+    except Exception as e:
+        print(traceback.format_exc())
+        pass
+
+    if success:
+        return order_id
+    return
+
+
+def get_order_data(order_id):
+    data = {}
+    try:
+        ordr = Orders.objects.get(order_id=order_id)
+        ordr_prods = ordr.orderprods.all().order_by('id')
+    except Exception as e:
+        print(traceback.format_exc())
+        pass
+    return data
+
+
+@login_required
+def handle_payment(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        pprint(data)
+        paymode = data['paymode']
+        if paymode == 'cod':
+            order_id = add_cart_to_order(request.user)
+            if order_id:
+                order_data = get_order_data(order_id)
+                resp.update(order_data)
+                resp['cartqty'] = get_cart_qty(request)
+                resp['cart_state'] = 3
+                resp['success'] = True
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)

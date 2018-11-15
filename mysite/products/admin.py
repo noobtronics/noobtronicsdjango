@@ -7,6 +7,7 @@ admin.site.register(Image)
 admin.site.register(Thumbnail)
 admin.site.register(HomePage)
 
+admin.site.register(UserCode)
 admin.site.register(Cart)
 admin.site.register(CartObjects)
 admin.site.register(Waitlist)

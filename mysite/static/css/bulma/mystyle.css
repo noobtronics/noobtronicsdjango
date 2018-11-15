@@ -10616,11 +10616,29 @@ label.panel-block:hover {
 }
 
 .alert-modal {
-  width: 400px;
-  height: 200px;
+  width: 500px;
+  height: 250px;
   margin-top: -150px;
 }
 .alert-modal .button {
+  margin: 0 auto;
+}
+
+.codcon-modal {
+  width: 350px;
+  height: 190px;
+  margin-top: -150px;
+}
+.codcon-modal .button {
+  margin: 0 auto;
+}
+
+.cod-modal {
+  width: 350px;
+  height: 270px;
+  margin-top: -150px;
+}
+.cod-modal .button {
   margin: 0 auto;
 }
 
@@ -11035,6 +11053,69 @@ label.panel-block:hover {
 
 [v-cloak] {
   display: none;
+}
+
+.paymentform {
+  width: 500px;
+  height: 220px;
+  margin: 0 auto;
+}
+.paymentform input[type=radio] {
+  margin-top: -15px;
+  vertical-align: middle;
+}
+.paymentform .control {
+  margin-top: 10px;
+}
+.paymentform .checkbox:hover, .paymentform .radio:hover {
+  color: white !important;
+}
+
+.payCashInp {
+  margin-top: 0px !important;
+}
+
+.payCash {
+  display: inline-block;
+  height: 30px;
+  width: 150px;
+  font-weight: 600;
+}
+.payCash:hover {
+  color: white !important;
+}
+
+.payPaytm {
+  width: 85px;
+  height: 27px;
+  display: inline-block;
+  background: url(/static/images/main/wp-sprite.png) no-repeat 0 0;
+}
+
+.payInstamojo {
+  width: 131px;
+  display: inline-block;
+  height: 30px;
+  background: url(/static/images/main/payInstaMojo.png) no-repeat 0 0;
+  background-size: 100% 100%;
+}
+
+.payPayU {
+  width: 133px;
+  height: 30px;
+  display: inline-block;
+  background-color: white;
+  background: url(/static/images/main/payU.svg) no-repeat 0 0;
+  background-size: 100% 100%;
+}
+
+.paybtn {
+  color: white;
+  background: #384ec5;
+  border: 0;
+}
+.paybtn:hover {
+  color: white;
 }
 
 /*# sourceMappingURL=mystyle.css.map */

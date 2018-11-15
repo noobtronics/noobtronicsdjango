@@ -201,11 +201,49 @@
                         </div>
                     </div>
                     </form>
+
+                    <div class="paymentform" v-show="cart_state==2" v-cloak>
+                        <div class="columns">
+                            <div class="column">
+                                <h2 class="title is-5">Pay Online</h2>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="foobar" v-model="paymode" value="paytm">
+                                        <a class="payPaytm"></a>
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="foobar"  v-model="paymode" value="payu">
+                                        <a class="payPayU"></a>
+                                    </label>
+                                </div>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="foobar"  v-model="paymode" value="instamojo">
+                                        <a class="payInstamojo"></a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <h2 class="title is-5">Pay Offline</h2>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" class="payCashInp" name="foobar"  v-model="paymode" value="cod">
+                                        <a  class="payCash">Cash on Delivery*</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div style="text-align: center;">
                         <div class="buttons is-centered" v-cloak>
                             <span class="button is-warning" v-if="cart_state==0" v-on:click="checkout">Checkout</span>
                             <span class="button is-warning" v-if="cart_state==1" v-on:click="undocheckout">Back</span>
                             <span class="button is-warning" v-if="cart_state==1" v-on:click="submit_address">Save</span>
+                            <span class="button is-warning" v-if="cart_state==2" v-on:click="undoaddress">Back</span>
+                            <span class="button paybtn" v-if="cart_state==2" v-on:click="handle_pay">Pay</span>
                         </div>
                     </div>
                 </div>
@@ -250,6 +288,38 @@
             </footer>
         </div>
     </div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalCod}">
+    <div class="modal-card cod-modal bShadow-66 is-shady">
+        <section class="modal-card-body">
+            <div class="modalclose">
+
+            </div>
+            <h2 class="title is-6">Extra Charges</h2>
+            <p>For Cash On Delivery, extra handling charges of ₹​31 are applicable.<br><br>Is it fine ?</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-info" v-on:click="update_paymode();ModalCod=false;">Ok</button>
+            <button class="button is-info" v-on:click="paymode='';ModalCod=false;">No, I'll Pay Online</button>
+        </footer>
+    </div>
+</div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalCodConfirm}" v-cloak>
+    <div class="modal-card codcon-modal bShadow-66 is-shady">
+        <section class="modal-card-body">
+            <div class="modalclose">
+
+            </div>
+            <h2 class="title is-6">Confirmation</h2>
+            <p>Pay ₹​[%total%] by Cash on Delivery ?</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-info" v-on:click="submit_pay">Yes</button>
+            <button class="button is-info" v-on:click="ModalCodConfirm=false;">No</button>
+        </footer>
+    </div>
+</div>
 
 </section>
 
@@ -311,6 +381,13 @@
             head_app.loading = false;
             if(response.data.success){
                 cartapp.cart_state = response.data.cart_state;
+
+                cartapp.address_name = response.data.name;
+                cartapp.address_mobile = response.data.mobile;
+                cartapp.address_address1 = response.data.address1;
+                cartapp.address_address2 = response.data.address2;
+                cartapp.pincode = response.data.pincode;
+                cartapp.pincodedisplay = response.data.pincodedisplay;
             }
             else{
                 console.log(response);
@@ -331,6 +408,33 @@
             head_app.loading = false;
             if(response.data.success){
                 cartapp.cart_state = response.data.cart_state;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
+
+    var undoaddress = function undoaddress() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/undoaddress',
+            data: {
+                'address': false,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.cart_state = response.data.cart_state;
+
+                cartapp.address_name = response.data.name;
+                cartapp.address_mobile = response.data.mobile;
+                cartapp.address_address1 = response.data.address1;
+                cartapp.address_address2 = response.data.address2;
+                cartapp.pincode = response.data.pincode;
+                cartapp.pincodedisplay = response.data.pincodedisplay;
             }
             else{
                 console.log(response);
@@ -376,6 +480,57 @@
             head_app.loading = false;
             if(response.data.success){
                 cartapp.cart_state = response.data.cart_state;
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
+    var update_paymode = function update_paymode() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/paymode',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.deliverycharge = response.data.deliverycharge;
+                cartapp.extracharge = response.data.extracharge;
+                cartapp.total = response.data.total;
+                cartapp.paymode = response.data.paymode;
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
+    var submit_pay = function submit_pay(){
+        if(cartapp.paymode != 'cod'){
+            return;
+        }
+        if(cartapp.ModalCodConfirm){
+            cartapp.ModalCodConfirm = false;
+        }
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/pay',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.cart_state = response.data.cart_state;
+                head_app.cartqty = response.data.cartqty;
+                window.location = '/orders';
             }
             else{
                 console.log(response);
@@ -433,7 +588,7 @@
         cartapp.alert_title = title;
         cartapp.alert_message = message;
         cartapp.ModalAlert = true;
-    }
+    };
 </script>
 
 
@@ -464,6 +619,9 @@
             address_address1:'',
             address_address2:'',
 
+            paymode: '',
+            ModalCod: false,
+            ModalCodConfirm: false
         },
         computed: {
             rsubtotal: function () {
@@ -533,8 +691,29 @@
             undocheckout: function(){
                 undocheckout();
             },
+            undoaddress: function(){
+                undoaddress();
+            },
             submit_address: function(){
                 validate_address();
+            },
+            update_paymode: function(){
+                update_paymode();
+            },
+            handle_pay: function(){
+                if(this.paymode=='cod'){
+                    this.ModalCodConfirm = true;
+                }
+                else{
+                    this.submit_pay();
+                }
+            },
+            submit_pay: function(){
+                if(this.paymode==''){
+                    alert_msg('Error', 'Please select Payment Method first')
+                } else{
+                    submit_pay();
+                }
             }
         },
         watch: {
@@ -542,6 +721,16 @@
                 if(newVal.length==6){
                     if(!isNaN(newVal)){
                         get_pincode_details(newVal);
+                    }
+                }
+            },
+            paymode: function(newVal, oldVal){
+                if(newVal == 'cod') {
+                    this.ModalCod = true;
+                }
+                else{
+                    if(newVal != oldVal){
+                        update_paymode();
                     }
                 }
             }
