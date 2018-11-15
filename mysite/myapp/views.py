@@ -19,7 +19,9 @@ import math
 import traceback
 import random
 import time
+import pytz
 
+IST_TZ = pytz.timezone('Asia/Kolkata')
 
 
 @ensure_csrf_cookie
@@ -573,7 +575,7 @@ def orders_page(request):
     for ordr in ordrs:
         temp = {
             'order_id': ordr.order_id,
-            'order_time': ordr.created.strftime('%d %b %Y %I:%M%p'),
+            'order_time': ordr.created.astimezone(IST_TZ).strftime('%d %b %Y %I:%M%p'),
             'amount': ordr.total_amount,
             'status': ordr.get_order_state_display()
         }
@@ -645,7 +647,7 @@ def order_details_page(request, order_id):
 
     temp = {
         'order_id': ordr.order_id,
-        'order_time': ordr.created.strftime('%d %b %Y %I:%M%p'),
+        'order_time': ordr.created.astimezone(IST_TZ).strftime('%d %b %Y %I:%M%p'),
         'amount': ordr.total_amount,
         'status': ordr.get_order_state_display(),
         'order_state': ordr.order_state,
