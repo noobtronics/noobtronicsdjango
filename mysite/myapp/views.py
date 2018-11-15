@@ -62,7 +62,7 @@ def get_prod_data(menu_data, tag_query, page_number):
         else:
             break
     if last_idx == 0:
-        prods = Product.objects.all().order_by('rank')
+        prods = Product.objects.filter(is_published=True).order_by('rank')
     else:
         tag = Tags.objects.get(id=last_idx)
         prodids = set(tag.producttags_set.all().values_list('prod_id__id', flat=True))
@@ -83,7 +83,7 @@ def get_prod_data(menu_data, tag_query, page_number):
             or_prod_ids = or_prod_ids.union(new_prodids)
         if len(or_tags) > 0:
             prodids = prodids.intersection(or_prod_ids)
-        prods = Product.objects.filter(id__in=prodids).order_by('rank')
+        prods = Product.objects.filter(id__in=prodids, is_published=True).order_by('rank')
 
     total_count = prods.count()
     total_pages = math.ceil(total_count*1.0/12.0)
@@ -658,7 +658,7 @@ def order_details_page(request, order_id):
         'extra_charge': ordr.extra_charge,
         'subtotal': ordr.total_amount - (ordr.delivery_charge+ordr.extra_charge),
         'paymode': ordr.get_paymode_display(),
- 
+
         'address_name': ordr.address_name,
         'address_mobile': ordr.mobile,
         'address1': ordr.address1,
