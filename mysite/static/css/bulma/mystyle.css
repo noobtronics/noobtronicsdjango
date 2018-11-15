@@ -10633,6 +10633,15 @@ label.panel-block:hover {
   margin: 0 auto;
 }
 
+.cancon-modal {
+  width: 400px;
+  height: 240px;
+  margin-top: -150px;
+}
+.cancon-modal .button {
+  margin: 0 auto;
+}
+
 .cod-modal {
   width: 350px;
   height: 270px;
@@ -10938,6 +10947,16 @@ label.panel-block:hover {
   color: black;
 }
 
+.orderprogress {
+  background: white;
+  border-radius: 40px;
+  padding-bottom: 1px;
+  padding-top: 10px;
+}
+.orderprogress p {
+  color: black;
+}
+
 .carttitle {
   margin-top: 20px;
   margin-bottom: 15px !important;
@@ -11116,6 +11135,38 @@ label.panel-block:hover {
 }
 .paybtn:hover {
   color: white;
+}
+
+.ordercontainer {
+  margin-top: 0;
+  min-height: 600px;
+  padding-top: 30px;
+}
+.ordercontainer .ordertitle {
+  margin-top: 0px;
+  margin-bottom: 30px !important;
+  margin-left: 40px;
+}
+.ordercontainer .orders {
+  width: 1000px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+.ordercontainer .orders .headingr {
+  background: rgba(255, 255, 255, 0.1);
+}
+.ordercontainer .orders .valname {
+  font-weight: 700;
+  font-size: 14px;
+}
+.ordercontainer .orders .money {
+  font-weight: 700;
+}
+.ordercontainer .orders .ordertable {
+  width: 600px;
+}
+.ordercontainer .orders .ordertable td {
+  border-bottom: 0;
 }
 
 /*# sourceMappingURL=mystyle.css.map */

@@ -116,7 +116,6 @@ def shop_page(request):
         'total_pages': total_pages,
         'page_number': page_number
     }
-    pprint(data)
     return render(request, 'shop-page.html', context)
 
 
@@ -562,3 +561,132 @@ def handle_payment(request):
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
+
+
+
+@login_required
+def orders_page(request):
+    order_data = []
+
+    ordrs = Orders.objects.filter(user_id=request.user).order_by('-id')[:50]
+
+    for ordr in ordrs:
+        temp = {
+            'order_id': ordr.order_id,
+            'order_time': ordr.created.strftime('%d %b %Y %I:%M%p'),
+            'amount': ordr.total_amount,
+            'status': ordr.get_order_state_display()
+        }
+        prod_data = []
+        ord_prds = ordr.orderprods.all().order_by('id')
+        for ord_prd in ord_prds:
+            t = {
+                'img': '',
+                'title': '',
+                'subtitle': '',
+                'slug': '',
+                'qty': ord_prd.quantity,
+                'price': ord_prd.price
+            }
+            try:
+                if ord_prd.prod_id:
+                    t['img'] = ord_prd.prod_id.mainimage.img_data.th_mini.image.url
+                    t['title'] = ord_prd.prod_id.name
+                    t['subtitle'] = ord_prd.prod_id.pagetitle
+                    t['slug'] = ord_prd.prod_id.slug
+            except:
+                pass
+            prod_data.append(t)
+        temp['prod_data'] = prod_data
+        order_data.append(temp)
+
+    order_data = order_data
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'cartqty': get_cart_qty(request),
+        'order_data': order_data
+    }
+    return render(request, 'orders-page.html', context)
+
+
+@login_required
+def process_cancel_order(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+        order_id = data['order_id']
+        ordr = Orders.objects.get(user_id=request.user, order_id=order_id)
+        if ordr.order_state == 'P':
+            ordr.order_state = 'C'
+            ordr.save()
+            resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+def get_order_state_num(order_state):
+    if order_state == 'P':
+        return 0
+    elif order_state == 'PS':
+        return 1
+    elif order_state == 'S':
+        return 2
+    elif order_state == 'D':
+        return 3
+    return -1
+
+@login_required
+def order_details_page(request, order_id):
+    ordr = get_object_or_404(Orders, user_id=request.user, order_id=order_id)
+
+    temp = {
+        'order_id': ordr.order_id,
+        'order_time': ordr.created.strftime('%d %b %Y %I:%M%p'),
+        'amount': ordr.total_amount,
+        'status': ordr.get_order_state_display(),
+        'order_state': ordr.order_state,
+        'order_state_no': get_order_state_num(ordr.order_state),
+        'tracking': ordr.tracking_no,
+        'courier': ordr.courier,
+        'delivery_charge': ordr.delivery_charge,
+        'extra_charge': ordr.extra_charge,
+        'subtotal': ordr.total_amount - (ordr.delivery_charge+ordr.extra_charge),
+        'paymode': ordr.get_paymode_display()
+    }
+    temp['tracking'] = '123123123123123'
+    temp['courier'] = 'DelhiveryDeli'
+    temp['order_state_no'] = 3
+    prod_data = []
+    ord_prds = ordr.orderprods.all().order_by('id')
+    for ord_prd in ord_prds:
+        t = {
+            'img': '',
+            'title': '',
+            'subtitle': '',
+            'slug': '',
+            'qty': ord_prd.quantity,
+            'price': ord_prd.price
+        }
+        try:
+            if ord_prd.prod_id:
+                t['img'] = ord_prd.prod_id.mainimage.img_data.th_mini.image.url
+                t['title'] = ord_prd.prod_id.name
+                t['subtitle'] = ord_prd.prod_id.pagetitle
+                t['slug'] = ord_prd.prod_id.slug
+        except:
+            pass
+        prod_data.append(t)
+    temp['prod_data'] = prod_data
+
+    order_data = temp
+
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'cartqty': get_cart_qty(request),
+        'order': order_data
+    }
+    return render(request, 'order-details-page.html', context)

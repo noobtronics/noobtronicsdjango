@@ -91,10 +91,10 @@ class Cart(models.Model):
     zipcode = models.CharField(max_length=6, default='')
     mobile = models.CharField(max_length=10, default='')
     paymode = models.CharField(max_length=10, choices=(
-        ('COD', 'COD'),
+        ('COD', 'Cash on Delivery'),
         ('PayTM', 'PayTM'),
-        ('PayU', 'PayU'),
-        ('InstaM', 'InstaM'),
+        ('PayU', 'PayU Money'),
+        ('InstaM', 'Instamojo'),
     ), null=True, blank=True)
 
     @property
@@ -176,9 +176,15 @@ class Orders(models.Model):
         ('PS', 'Preparing Shipment'),
         ('S', 'Shipped'),
         ('D', 'Delivered'),
+        ('C', 'Cancelled'),
     ), default='P')
 
-    paymode = models.CharField(max_length=10)
+    paymode = models.CharField(max_length=10, choices=(
+        ('COD', 'Cash on Delivery'),
+        ('PayTM', 'PayTM'),
+        ('PayU', 'PayU Money'),
+        ('InstaM', 'Instamojo'),
+    ))
     delivery_charge = models.IntegerField()
     extra_charge = models.IntegerField()
     total_amount = models.IntegerField()

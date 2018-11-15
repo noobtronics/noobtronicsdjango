@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Your Order: {{order.order_id}}</title>
+    {% include "header.html" %}
+
+    <script>
+    </script>
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+<section id="orderapp">
+    <div class="hero-body" >
+        <div class="container ordercontainer">
+            <h2 class="title is-4 ordertitle">Your Order</h2>
+
+            {% if order.order_state != 'C' %}
+            <div class="columns">
+                <div class="column is-2"></div>
+            <div class="column orderprogress" >
+                <ul class="steps is-small is-centered has-content-centered">
+                    <li class="steps-segment" v-bind:class="{'has-gaps': order_state_no < 1, 'is-active':order_state_no ==0}">
+                        <a class="has-text-dark">
+                                <span class="steps-marker">
+                                <span class="icon">
+                                <i class="fas fa-cogs"></i>
+                                </span>
+                                </span>
+                            <div class="steps-content">
+                                <p class="heading">Processing</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="steps-segment"  v-bind:class="{'has-gaps': order_state_no < 2, 'is-active':order_state_no ==1}">
+                        <a class="has-text-dark">
+                                <span class="steps-marker">
+                                <span class="icon">
+                                <i class="fas fa-box-open"></i>
+                                </span>
+                                </span>
+                            <div class="steps-content">
+                                <p class="heading">Preparing Shipment</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="steps-segment"  v-bind:class="{'has-gaps': order_state_no < 3, 'is-active':order_state_no ==2}">
+                                <span class="steps-marker">
+                                <span class="icon">
+                                <i class="fas fa-truck"></i>
+                                </span>
+                                </span>
+                        <div class="steps-content">
+                            <p class="heading">Shipped</p>
+                        </div>
+                    </li>
+                    <li class="steps-segment">
+                            <span class="steps-marker">
+                            <span class="icon">
+                            <i class="fa fa-check"></i>
+                            </span>
+                            </span>
+                        <div class="steps-content">
+                            <p class="heading">Delivered</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+                <div class="column is-2"></div>
+            </div>
+            {% endif %}
+            <div class="orders">
+                <div class="columns">
+                    {% if order.courier != '' %}
+                    <div class="column is-3"><span class="valname">Courier</span> - {{order.courier}}</div>
+                    {% endif %}
+                    <div class="column"></div>
+                    {% if order.tracking != '' %}
+                    <div class="column is-4"><span class="valname">Tracking No.</span> - {{order.tracking}}</div>
+                    {% endif %}
+                </div>
+                <div class="columns headingr">
+                    <div class="column has-text-left">
+                        <p class="valname">OrderID:</p>
+                        <p>{{order.order_id}}</p>
+                    </div>
+                    <div class="column">
+                        <p class="valname">Order Time:</p>
+                        <p>{{order.order_time}}</p>
+                    </div>
+                    <div class="column has-text-left is-2">
+                        <p class="valname">Total:</p>
+                        <p class="money">₹{{order.amount}}</p>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <table class="table carttable ordertable">
+                            <tbody>
+                            {% for prod in order.prod_data %}
+                            <tr>
+                                <td><div class="cartproddiv" style="width: 400px;">
+                                    <article class="media is-shady" v-on:click="open_prod_page('{{prod.slug}}')">
+                                    <figure class="media-left">
+                                        <p class="image is-96x96">
+                                            <img src="{{prod.img}}">
+                                        </p>
+                                    </figure>
+                                    <div class="media-content">
+                                        <div class="content">
+                                            <p class="cardhead">{{prod.title}}</p>
+                                            <p class="cardsubtitle">{{prod.subtitle}}</p>
+                                        </div>
+                                    </div>
+                                </article></div></td>
+                                <td>₹{{prod.price}}</td>
+                                <td>
+                                    <div class="prodquant cartquant">
+                                        <span class="cart_qty">x{{prod.qty}}</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column is-2">
+                        <p class="valname">Status:</p>
+                        <p>{{order.status}}</p>
+                    </div>
+                    <div class="column is-2">
+                        <p class="buttons">
+                        </p>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+
+                    </div>
+                    <div class="column">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal blackmodal" v-bind:class="{'is-active': ModalCancel}" v-cloak>
+        <div class="modal-card cancon-modal bShadow-66 is-shady">
+            <section class="modal-card-body">
+                <div class="modalclose">
+
+                </div>
+                <h2 class="title is-6">Confirm Cancel</h2>
+                <p>Do you want to Cancel Order no. [% order_id %] ?</p>
+                <br>
+                <p class="content is-small">Paid money will be refunded within 5 business days.</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-danger" v-on:click="cancel_order">Yes</button>
+                <button class="button is-info" v-on:click="ModalCancel=false;">No</button>
+            </footer>
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+    var order_state = '{{order.order_state}}';
+    var order_state_no = {{order.order_state_no}};
+</script>
+
+<script>
+    var orderapp = new Vue({
+        el: '#orderapp',
+        delimiters: ['[%', '%]'],
+        data: {
+            ModalCancel: false,
+            order_id: '',
+            order_state_no: order_state_no
+        },
+        computed: {
+        },
+        methods: {
+            confirm_cancel: function(order_id){
+                this.order_id = order_id;
+                this.ModalCancel = true;
+            },
+            cancel_order: function(){
+                cancel_order();
+            },
+            open_prod_page: function(slug){
+                var url = '/product/'+slug;
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+        }
+    });
+
+</script>
+
+
+    {% include "hero-footer.html" %}
+</section>
+</body>
+</html>

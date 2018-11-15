@@ -6,6 +6,9 @@ urlpatterns = [
     path('product/<slug:prod_slug>', product_page),
     path('shop', shop_page),
     path('cart', cart_page),
+    path('orders', orders_page),
+    path('order/<slug:order_id>', order_details_page),
+
     path('api/cart/edit_cart', edit_cart),
     path('api/cart/checkout', handle_checkout),
     path('api/cart/pincode', get_pincode_data),
@@ -13,6 +16,10 @@ urlpatterns = [
     path('api/cart/paymode', save_paymode),
     path('api/cart/pay', handle_payment),
     path('api/cart/undoaddress', handle_undoaddress),
+
+
+    path('api/order/cancel', process_cancel_order),
+
     path('api/login', login_view),
     path('api/logout', logout_view),
     path('api/legalcontent', serve_legalcontent),
