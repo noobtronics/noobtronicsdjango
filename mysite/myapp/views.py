@@ -675,9 +675,6 @@ def order_details_page(request, order_id):
         'pincode': ordr.zipcode,
         'pincodedisplay': ordr.pincodedisplay,
     }
-    temp['tracking'] = '123123123123123'
-    temp['courier'] = 'DelhiveryDeli'
-    temp['order_state_no'] = 3
     prod_data = []
     ord_prds = ordr.orderprods.all().order_by('id')
     for ord_prd in ord_prds:
