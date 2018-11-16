@@ -14,7 +14,7 @@ from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
 import traceback
-import PIL
+from PIL import Image as PIL_IMAGE
 from .models import *
 import pathlib
 import uuid
@@ -109,9 +109,9 @@ def store_image_files(prod, media_path, img, store_main, rank):
     mini_path = media_path + '/' + file_name_s
     micro_path = media_path + '/' + file_name_u
 
-    img_h = img.resize([500, 500], PIL.Image.ANTIALIAS)
-    img_m = img.resize([300,300],PIL.Image.ANTIALIAS)
-    img_u = img.resize([64,64],PIL.Image.ANTIALIAS)
+    img_h = img.resize([500, 500], PIL_IMAGE.ANTIALIAS)
+    img_m = img.resize([300,300],PIL_IMAGE.ANTIALIAS)
+    img_u = img.resize([64,64],PIL_IMAGE.ANTIALIAS)
 
     img.save(main_path)
     img_h.save(im_home_path)
@@ -157,7 +157,7 @@ def admin_add_product(request):
             resp['reason'] = 'Image size should be < 4000KB'
             return JsonResponse(resp)
 
-        im = PIL.Image.open(image)
+        im = PIL_IMAGE.open(image)
         im_w, im_h = im.size
 
 
@@ -224,7 +224,7 @@ def admin_upload_images(request):
                 resp['reason'] = 'Image size should be < 4000KB '+ image.name
                 return JsonResponse(resp)
 
-            im = PIL.Image.open(image)
+            im = PIL_IMAGE.open(image)
             im_w, im_h = im.size
 
 
