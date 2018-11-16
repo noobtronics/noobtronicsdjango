@@ -10,7 +10,14 @@
 
 <script type="text/javascript" src="/static/css/bulma/bulma-extensions/bulma-carousel/dist/js/bulma-carousel.min.js"></script>
 <link rel="stylesheet" href="/static/css/plugin/animate/animate.min.css">
+
+{% if DEBUG %}
 <script src="/static/js/vue/vue.js"></script>
+{% else %}
+<script src="/static/js/vue/vue.min.js"></script>
+{% endif %}
+
+
 <script src="/static/js/axios/axios.js"></script>
 <script src="/static/js/jquery/jquery.min.js"></script>
 <script src="/static/js/jquery-ui/jquery-ui.min.js"></script>
