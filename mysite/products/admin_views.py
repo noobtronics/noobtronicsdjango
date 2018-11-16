@@ -383,7 +383,7 @@ def process_prod_page(request, prod_id):
 
 @staff_or_404
 def show_demo_prod(request, prod_id):
-    process_prod_page(request, prod_id)
+    return process_prod_page(request, prod_id)
 
 
 
