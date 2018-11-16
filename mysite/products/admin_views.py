@@ -57,8 +57,9 @@ def get_parents_tags(parent, depth):
                 html = '<li><label class="checkbox">' \
                        '<input name="{0}" value="{0}" type="checkbox" v-on:change="update_menu_prods(1)">{1}' \
                        '</label></li>'.format(parent.id, parent.name)
+            if parent.type == 'M':
+                html = '<li><a class="" v-on:click="change_menu({2},{1})" v-bind:class="{{ \'is-active\': menu_selected[{2}]=={1}}}">{0}</a></li>'.format(parent.name, parent.id, depth-1)
         else:
-            html = ''
             child_html = ''
             for c in childs:
                 child_html += c['data']['html']
@@ -69,7 +70,7 @@ def get_parents_tags(parent, depth):
             elif parent.type=='M':
                 html = '<li><a class="" v-on:click="change_menu({2},{1})" v-bind:class="{{ \'is-active\': menu_selected[{2}]=={1}}}">{0}</a></li>'.format(parent.name, parent.id, depth-1)
                 if child_html != '':
-                    html += '<ul class="menu-list children" v-bind:class="{{\'showchildren\': menu_selected[{1}]=={0}}}">'.format(parent.id, depth-1)
+                    html += '<ul class="menu-list" v-bind:class="{{\'nochildren\': menu_selected[{1}]!={0}}}">'.format(parent.id, depth-1)
                     html += child_html
                     html += '</ul>'
     else:
@@ -84,7 +85,7 @@ def get_parents_tags(parent, depth):
         selected_id = childs[0]['data']['id']
 
     data = {
-       # 'childs': childs,
+        'childs': childs,
         'html': html,
         'depth': depth,
         'id': id,
@@ -93,7 +94,9 @@ def get_parents_tags(parent, depth):
     return data
 
 def get_alltags_data():
-    return get_parents_tags(None, 0)
+    data = get_parents_tags(None, 0)
+    pprint(data)
+    return data
 
 
 

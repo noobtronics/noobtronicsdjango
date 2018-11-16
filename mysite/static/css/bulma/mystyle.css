@@ -10829,11 +10829,8 @@ label.panel-block:hover {
   margin-left: 5px;
   margin-right: 10px;
 }
-.shopcontainer .menu .children {
-  visibility: hidden;
-}
-.shopcontainer .menu .showchildren {
-  visibility: visible;
+.shopcontainer .menu .nochildren {
+  display: none;
 }
 .shopcontainer .menu ul {
   margin-left: 20px;
