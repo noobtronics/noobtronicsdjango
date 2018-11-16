@@ -20,6 +20,9 @@
                         <a class="navbar-item is-active" href="/">
                             Home
                         </a>
+                        <a class="navbar-item" v-on:click="openAboutWindow">
+                            About Us
+                        </a>
                         <a class="navbar-item" href="/shop">
                             Shop
                         </a>
@@ -76,8 +79,45 @@
     </div>
 </div>
 
+
+    <div class="modal blackmodal" v-bind:class="{'is-active': ModalAbout}">
+        <div class="modal-card aboutus-modal bShadow-10">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalAbout=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div id="headaboutcontent"></div>
+            </section>
+        </div>
+    </div>
+
+
     <div class="lds-dual-ring" v-if="loading"></div>
 </section>
+
+
+<script>
+    var openAboutWindow = function(){
+        if(head_app.downloadAbout){
+            head_app.loading = true;
+            axios({
+                method: 'get',
+                url: '/api/aboutuscontent'
+            }).then(function(response) {
+                var mydata = document.getElementById("headaboutcontent").innerHTML = response.data;
+                head_app.downloadAbout = false;
+                head_app.loading = false;
+                head_app.ModalAbout = true;
+            });
+        }
+        else{
+            head_app.ModalAbout = true;
+        }
+    };
+</script>
+
 
 <script>
     var head_app = new Vue({
@@ -85,7 +125,9 @@
         data: {
             ModalLogin: false,
             loading: false,
-            cartqty: cartqty
+            cartqty: cartqty,
+            ModalAbout: false,
+            downloadAbout: true
         },
         methods: {
             processLogout: function () {
@@ -98,6 +140,9 @@
                 else{
 
                 }
+            },
+            openAboutWindow:function(){
+                openAboutWindow();
             }
         }
     })
