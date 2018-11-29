@@ -20,6 +20,8 @@ import traceback
 import random
 import time
 import pytz
+from paytm import Checksum as PaytmChecksum
+
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
@@ -729,15 +731,28 @@ def get_paytm_details(request):
         cart_json = process_cart_json(request.user)
         total = cart_json['total']
         if cart.to_be_order_id == '' or cart.to_be_order_id is None:
-            cart.to_be_order_id = generate_order_id(usr)
+            cart.to_be_order_id = generate_order_id(request.user)
             cart.save()
+
+        user_code = get_user_code(request.user)
+        if not user_code:
+            return JsonResponse(resp)
+
         data = {
-            "MID": settings.PAYTM['MID'],
-            "ORDER_ID": cart.to_be_order_id,
-            "MID": settings.PAYTM['MID'],
-            "MID": settings.PAYTM['MID'],
+            "MID": settings.PAYTM['MID'].encode("utf8"),
+            "ORDER_ID": cart.to_be_order_id.encode("utf8"),
+            "CUST_ID": user_code.encode("utf8"),
+            "TXN_AMOUNT": str(int(total)).encode("utf8"),
+            "CHANNEL_ID": settings.PAYTM['CHANNEL_ID'].encode("utf8"),
+            "WEBSITE": settings.PAYTM['WEBSITE'].encode("utf8"),
+            "INDUSTRY_TYPE_ID": settings.PAYTM['INDUSTRY_TYPE_ID'].encode("utf8"),
         }
 
+        checksum = PaytmChecksum.generate_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"))
+        data['CHECKSUMHASH'] = checksum
+        for key in data:
+            data[key] = data[key].decode('utf8')
+        resp['data'] = data
     except Exception as e:
         resp['reason'] = traceback.print_exception()
     return JsonResponse(resp)

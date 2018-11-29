@@ -157,5 +157,5 @@ PAYTM = {
     "CHANNEL_ID": "WEB",
     "WEBSITE": "WEBSTAGING",
     "INDUSTRY_TYPE_ID": "Retail",
-    "CALLBACK_URL": "https://merchant.com/callback/",
+    "MERCHANT_KEY": "9bz1jMoShd5bLiQC"
 }
