@@ -511,10 +511,7 @@
     };
 
 
-    var submit_pay = function submit_pay(){
-        if(cartapp.paymode != 'cod'){
-            return;
-        }
+    var process_cod_payment = function(){
         if(cartapp.ModalCodConfirm){
             cartapp.ModalCodConfirm = false;
         }
@@ -536,6 +533,35 @@
                 console.log(response);
             }
         });
+    };
+
+
+    var process_paytm_payment = function(){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/get_paytm_details',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+    var submit_pay = function submit_pay(){
+        if(cartapp.paymode == 'cod'){
+            process_cod_payment();
+        }
+        if(cartapp.paymode == 'paytm'){
+            process_paytm_payment();
+        }
     };
 </script>
 
