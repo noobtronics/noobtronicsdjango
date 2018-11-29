@@ -20,6 +20,8 @@ import pathlib
 import uuid
 from io import BytesIO
 from django.shortcuts import get_list_or_404, get_object_or_404
+import tarfile
+from django.utils.encoding import smart_str
 
 
 @staff_or_404
@@ -543,3 +545,17 @@ def admin_add_prod_tags(request):
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
+
+
+def handle_media_backup(request):
+    dt = timezone.now()
+    archive_name = 'media_'+dt.strftime("%d-%b-%Y_%H-%M-%S")
+    fil_name = archive_name + '.tar.bz2'
+    fil_path = "backup/"+fil_name
+    with tarfile.open(fil_name, mode='w:bz2') as archive:
+        archive.add('media')
+    response = HttpResponse(content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(fil_name)
+    response['X-Accel-Redirect'] = smart_str(fil_path)
+
+    return response

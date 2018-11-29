@@ -96,6 +96,7 @@ class Cart(models.Model):
         ('PayU', 'PayU Money'),
         ('InstaM', 'Instamojo'),
     ), null=True, blank=True)
+    to_be_order_id = models.CharField(max_length=20, blank=True, null=True)
 
     @property
     def pincodedisplay(self):

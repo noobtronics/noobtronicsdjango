@@ -150,3 +150,12 @@ NOCAPTCHA = True
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
+
+
+PAYTM = {
+    "MID": "LUMINO30908270212107",
+    "CHANNEL_ID": "WEB",
+    "WEBSITE": "WEBSTAGING",
+    "INDUSTRY_TYPE_ID": "Retail",
+    "CALLBACK_URL": "https://merchant.com/callback/",
+}
