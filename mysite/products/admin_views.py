@@ -553,10 +553,7 @@ def handle_media_backup(request):
     archive_name = 'media_'+dt.strftime("%d-%b-%Y_%H-%M-%S")
     fil_name = archive_name + '.tar.bz2'
     fil_path = "backup/"+fil_name
-    with tarfile.open(fil_name, mode='w:bz2') as archive:
+    with tarfile.open(fil_path, mode='w:bz2') as archive:
         archive.add('media')
-    response = HttpResponse(content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(fil_name)
-    response['X-Accel-Redirect'] = smart_str(fil_path)
 
-    return response
+    return HttpResponse("Media Backup done")
