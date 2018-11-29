@@ -511,7 +511,10 @@ def generate_order_id(usr):
 
 def add_cart_to_order(usr):
     cart = Cart.objects.get(user_id=usr)
-    order_id = generate_order_id(usr)
+    if cart.to_be_order_id == '' or cart.to_be_order_id is None:
+        order_id = generate_order_id(usr)
+    else:
+        order_id = cart.to_be_order_id
 
     _, _, subtotal = get_cart_prods(usr)
     delivery_charge = get_delivery_charge(subtotal)
@@ -711,3 +714,30 @@ def order_details_page(request, order_id):
         'order': order_data
     }
     return render(request, 'order-details-page.html', context)
+
+
+
+
+@login_required
+def get_paytm_details(request):
+    resp = {
+        'success': False,
+        'reason': '',
+    }
+    try:
+        cart = Cart.objects.get(user_id=request.user)
+        cart_json = process_cart_json(request.user)
+        total = cart_json['total']
+        if cart.to_be_order_id == '' or cart.to_be_order_id is None:
+            cart.to_be_order_id = generate_order_id(usr)
+            cart.save()
+        data = {
+            "MID": settings.PAYTM['MID'],
+            "ORDER_ID": cart.to_be_order_id,
+            "MID": settings.PAYTM['MID'],
+            "MID": settings.PAYTM['MID'],
+        }
+
+    except Exception as e:
+        resp['reason'] = traceback.print_exception()
+    return JsonResponse(resp)

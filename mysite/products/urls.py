@@ -21,5 +21,7 @@ urlpatterns = [
     path('adminapi/add_menu', admin_add_menu),
 
     path('api/add/add_to_cart', add_to_cart),
-    path('api/add/add_to_waitlist', add_to_waitlist)
+    path('api/add/add_to_waitlist', add_to_waitlist),
+
+
 ]

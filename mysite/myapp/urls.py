@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/cart/paymode', save_paymode),
     path('api/cart/pay', handle_payment),
     path('api/cart/undoaddress', handle_undoaddress),
+    path('api/cart/get_paytm_details', get_paytm_details),
 
 
     path('api/order/cancel', process_cancel_order),

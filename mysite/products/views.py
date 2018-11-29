@@ -64,3 +64,5 @@ def add_to_waitlist(request):
     except Exception as e:
         resp['reason'] = traceback.print_exception()
     return JsonResponse(resp)
+
+
