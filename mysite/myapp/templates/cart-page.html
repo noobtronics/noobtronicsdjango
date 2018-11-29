@@ -535,6 +535,14 @@
         });
     };
 
+    {% verbatim %}
+    String.prototype.format = function (){
+        var args = arguments;
+        return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function (curlyBrack, index) {
+            return ((curlyBrack == "{{") ? "{" : ((curlyBrack == "}}") ? "}" : args[index]));
+        });
+    };
+    {% endverbatim %}
 
     var process_paytm_payment = function(){
         head_app.loading = true;
@@ -547,7 +555,24 @@
         }).then(function (response) {
             head_app.loading = false;
             if(response.data.success){
+                var form = document.createElement("form");
 
+                form.method = "POST";
+                form.action = response.data.txn_url;
+                form.innerHTML = "";
+                var d = response.data.data;
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('MID', d['MID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('WEBSITE', d['WEBSITE']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('ORDER_ID', d['ORDER_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CUST_ID', d['CUST_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('INDUSTRY_TYPE_ID', d['INDUSTRY_TYPE_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CHANNEL_ID', d['CHANNEL_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('TXN_AMOUNT', d['TXN_AMOUNT']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CALLBACK_URL', d['CALLBACK_URL']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CHECKSUMHASH', d['CHECKSUMHASH']);
+
+                document.body.appendChild(form);
+                form.submit();
             }
             else{
                 console.log(response);
