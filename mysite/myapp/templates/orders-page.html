@@ -17,6 +17,15 @@
     <div class="hero-body" >
         <div class="container ordercontainer">
             <h2 class="title is-4 ordertitle">Your Orders</h2>
+            {% if order_data|length < 1%}
+            <div class="orders">
+                <div class="columns">
+                    <div class="column"></div>
+                    <div class="column">You do not have any orders with us</div>
+                    <div class="column"></div>
+                </div>
+            </div>
+            {% endif %}
             {% for order in order_data %}
             <div class="orders">
                 <div class="columns headingr">
