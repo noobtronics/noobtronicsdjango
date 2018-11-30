@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from pprint import pprint
+from pprint import pprint, pformat
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -23,6 +23,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 import tarfile
 from django.utils.encoding import smart_str
 from django.utils import timezone
+import requests
+from paytm import Checksum as PaytmChecksum
 
 
 @staff_or_404
@@ -548,6 +550,7 @@ def admin_add_prod_tags(request):
     return JsonResponse(resp)
 
 
+@staff_or_404
 def handle_media_backup(request):
     dt = timezone.now()
     archive_name = 'media_'+dt.strftime("%d-%b-%Y_%H-%M-%S")
@@ -557,3 +560,26 @@ def handle_media_backup(request):
         archive.add('media')
 
     return HttpResponse("Media Backup done")
+
+
+@staff_or_404
+def admin_paytm_status(request):
+    order_id = request.GET.get("order_id")
+    paytm = get_object_or_404(PaytmHistory, order_id=order_id)
+    data = {
+        "MID": settings.PAYTM['MID'].encode("utf8"),
+        "ORDERID": paytm.paytm_orderid.encode("utf8"),
+    }
+    checksum = PaytmChecksum.generate_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"))
+
+    for key in data:
+        data[key] = data[key].decode('utf8')
+    data['CHECKSUMHASH'] = checksum
+    pprint(data)
+    response = requests.post(settings.PAYTM["Status_URL"],
+                            headers={"content-type": "application/json"},
+                             json=data
+                             )
+    json_resp = json.loads(response.text)
+    output = pformat(json_resp)
+    return HttpResponse(output, content_type="application/json")
