@@ -172,9 +172,9 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 PAYTM = {
     "MID": "LUMINO65914372097499",
     "CHANNEL_ID": "WEB",
-    "WEBSITE": "WEBSTAGING",
+    "WEBSITE": "WEBPROD",
     "INDUSTRY_TYPE_ID": "Retail",
-    "MERCHANT_KEY": "9bz1jMoShd5bLiQC",
+    "MERCHANT_KEY": "dKFylaPL@kSlyIti",
     "Transaction_URL": "https://securegw.paytm.in/theia/processTransaction",
     "Status_URL": "https://securegw.paytm.in/merchant-status/getTxnStatus",
     "CALLBACK_URL": "http://localhost:8000/cart/paytm/callback"
