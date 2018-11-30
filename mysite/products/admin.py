@@ -16,3 +16,6 @@ admin.site.register(Waitlist)
 admin.site.register(ProductDetails)
 
 admin.site.register(Tags)
+
+
+admin.site.register(PaytmHistory)
