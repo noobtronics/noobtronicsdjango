@@ -749,7 +749,7 @@ def get_paytm_details(request):
         }
         data["CALLBACK_URL"] = settings.PAYTM['CALLBACK_URL'].encode('utf8')
         checksum = PaytmChecksum.generate_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"))
-
+        print(PaytmChecksum.verify_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"), checksum))
         for key in data:
             data[key] = data[key].decode('utf8')
 

@@ -20,8 +20,8 @@ def generate_checksum(param_dict, merchant_key, salt=None):
     hash_string = hasher.hexdigest()
     hash_string += salt
 
-    print('final string - '+final_string)
-    print('hash_string - ' + hash_string)
+    #print('final string - '+final_string)
+    #print('hash_string - ' + hash_string)
 
     out = __encode__(hash_string, IV, merchant_key)
 
@@ -83,7 +83,7 @@ def verify_checksum_by_str(param_str, merchant_key, checksum):
 
 
 def __id_generator__(size=6, chars=string.ascii_uppercase + string.digits + string.ascii_lowercase):
-    print(chars)
+    #print(chars)
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -103,26 +103,26 @@ __unpad__ = lambda s: s[0:-ord(s[-1])]
 
 
 def __encode__(to_encode, iv, key):
-    print('before = '+to_encode)
+    #print('before = '+to_encode)
     # Pad
     to_encode = __pad__(to_encode)
-    print('after = ' + str(to_encode.encode()))
-    print('key = '+str(key))
+    #print('after = ' + str(to_encode.encode()))
+    #print('key = '+str(key))
     # Encrypt
     c = AES.new(key, AES.MODE_CBC, iv.encode())
 
     to_encode = c.encrypt(to_encode.encode())
     # Encode
     to_encode = base64.b64encode(to_encode)
-    print('base64 '+str(to_encode))
-    print('encoded ' + to_encode.decode())
+    #print('base64 '+str(to_encode))
+    #print('encoded ' + to_encode.decode())
     return to_encode.decode()
 
 def __decode__(to_decode, iv, key):
     # Decode
     to_decode = base64.b64decode(to_decode)
     # Decrypt
-    c = AES.new(key, AES.MODE_CBC, iv)
+    c = AES.new(key, AES.MODE_CBC, iv.encode())
     to_decode = c.decrypt(to_decode)
     if type(to_decode) == bytes:
         # convert bytes array to str.
