@@ -15,11 +15,16 @@ class Product(models.Model):
     quantity_available = models.IntegerField(default=0)
     in_stock = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
+    updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     rank = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return '/product/'+self.slug
+
 
 @receiver(post_delete, sender=Product, dispatch_uid='delete_product_signal')
 def delete_product(sender, instance, using, **kwargs):

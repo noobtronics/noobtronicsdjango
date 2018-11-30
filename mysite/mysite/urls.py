@@ -17,14 +17,29 @@ from captcha_admin import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import GenericSitemap
+from products.models import *
 
 admin.site.site_header = 'Noobtronics Administration'
 admin.site.site_title = 'Noobtronics Administration'
+
+product_sitemap = {
+    'queryset': Product.objects.filter(is_published=True),
+    'date_field': 'updated',
+}
+
+sitemaps = {
+    'product': GenericSitemap(product_sitemap, priority=1.0),
+}
+
+
 
 urlpatterns = [
     path('', include('myapp.urls')),
     path('', include('products.urls')),
     path('myadmin/', admin.site.urls),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap')
 ]
 
 if settings.DEBUG:
