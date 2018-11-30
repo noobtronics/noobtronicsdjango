@@ -1,6 +1,6 @@
 from django.contrib import sitemaps
 from products.models import *
-from datetime import datetime
+from django.urls import reverse
 
 
 class ProductSitemap(sitemaps.Sitemap):
@@ -17,3 +17,13 @@ class ProductSitemap(sitemaps.Sitemap):
     def location(self, item):
         return '/product/'+item.slug
 
+
+class StaticViewSitemap(sitemaps.Sitemap):
+    priority = 0.5
+    changefreq = 'daily'
+
+    def items(self):
+        return ['home', 'shop']
+
+    def location(self, item):
+        return reverse(item)

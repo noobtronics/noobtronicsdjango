@@ -27,6 +27,7 @@ admin.site.site_title = 'Noobtronics Administration'
 
 sitemaps = {
     'product': ProductSitemap,
+    'static': StaticViewSitemap
 }
 
 
