@@ -236,7 +236,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div style="text-align: center;">
                         <div class="buttons is-centered" v-cloak>
                             <span class="button is-warning" v-if="cart_state==0" v-on:click="checkout">Checkout</span>
@@ -245,7 +244,16 @@
                             <span class="button is-warning" v-if="cart_state==2" v-on:click="undoaddress">Back</span>
                             <span class="button paybtn" v-if="cart_state==2" v-on:click="handle_pay">Pay</span>
                         </div>
+                        {% if show_payment_failed %}
+                        <div class="columns" >
+                            <div class="column">
+                                <p style="margin-bottom:20px;">Your payment attempt is failed<br>Please contact if balance is deducted or try again</p>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
+
+
                 </div>
             </div>
         </div>

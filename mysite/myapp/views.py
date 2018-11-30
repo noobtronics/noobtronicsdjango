@@ -185,12 +185,17 @@ def process_cart_json(usr):
 @login_required
 def cart_page(request):
     data = {}
+    show_payment_failed = False
+    txn_status = request.GET.get('success')
+    if txn_status == 'fail':
+        show_payment_failed = True
     cart = get_object_or_404(Cart, user_id=request.user)
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
         'cartqty': get_cart_qty(request),
-        'state': get_cart_state(request)
+        'state': get_cart_state(request),
+        'show_payment_failed': show_payment_failed
     }
     cart_json = process_cart_json(request.user)
     context.update(cart_json)
@@ -784,12 +789,23 @@ def paytm_callback(request):
         if not verify_checksum:
             return Http404
         if data['STATUS'] == 'TXN_SUCCESS':
-            txn_success = True
+            order_id = data['ORDERID'][:12]
+            user_code = order_id[-7:]
+            user_id = UserCode.objects.get(code=user_code)
+            cart = Cart.objects.get(user_id = user_id.user_id)
+            if cart.to_be_order_id == order_id:
+                txn_success = True
+                cart.cart_state = 'D'
+                cart.payment_amount = int(data['TXNAMOUNT'])
+                cart.paymode = 'PayTM'
+                cart.save()
         success = True
     except:
         pass
     if not success:
-        return Http404
+        return HttpResponse(status=500)
     else:
-        return HttpResponseRedirect('/cart')
-
+        if txn_success:
+            return HttpResponseRedirect('/cart?status=success')
+        else:
+            return HttpResponseRedirect('/cart?status=fail')
