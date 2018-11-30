@@ -10,7 +10,7 @@ import json
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.conf import settings
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.http import JsonResponse, Http404
 from products.models import *
 from products.admin_views import get_cart_qty, process_prod_page, get_alltags_data, get_cart_state
@@ -738,18 +738,20 @@ def get_paytm_details(request):
         if not user_code:
             return JsonResponse(resp)
 
+        order_id = cart.to_be_order_id +'_'+get_rand_number(4)
+
         data = {
             "MID": settings.PAYTM['MID'].encode("utf8"),
-            "ORDER_ID": cart.to_be_order_id.encode("utf8"),
+            "ORDER_ID": order_id.encode("utf8"),
             "CUST_ID": user_code.encode("utf8"),
             "TXN_AMOUNT": str(int(total)).encode("utf8"),
             "CHANNEL_ID": settings.PAYTM['CHANNEL_ID'].encode("utf8"),
             "WEBSITE": settings.PAYTM['WEBSITE'].encode("utf8"),
-            "INDUSTRY_TYPE_ID": settings.PAYTM['INDUSTRY_TYPE_ID'].encode("utf8")
+            "INDUSTRY_TYPE_ID": settings.PAYTM['INDUSTRY_TYPE_ID'].encode("utf8"),
+            "CALLBACK_URL": settings.PAYTM['CALLBACK_URL'].encode('utf8')
         }
-        data["CALLBACK_URL"] = settings.PAYTM['CALLBACK_URL'].encode('utf8')
         checksum = PaytmChecksum.generate_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"))
-        print(PaytmChecksum.verify_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"), checksum))
+        #print(PaytmChecksum.verify_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"), checksum))
         for key in data:
             data[key] = data[key].decode('utf8')
 
@@ -769,6 +771,25 @@ def get_paytm_details(request):
 
 @csrf_exempt
 def paytm_callback(request):
-    pprint(request.POST.dict())
-    return None
+    success = True
+    txn_success = False
+    try:
+        data = request.POST.dict()
+        checksum = data['CHECKSUMHASH']
+        d_data = {}
+        for key in data:
+            d_data[key] = data[key].encode('utf8')
+        verify_checksum = PaytmChecksum.verify_checksum(d_data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"), checksum)
+
+        if not verify_checksum:
+            return Http404
+        if data['STATUS'] == 'TXN_SUCCESS':
+            txn_success = True
+        success = True
+    except:
+        pass
+    if not success:
+        return Http404
+    else:
+        return HttpResponseRedirect('/cart')
 
