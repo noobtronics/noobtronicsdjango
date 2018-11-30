@@ -5,7 +5,6 @@ from pathlib import Path
 from django.contrib.auth.models import User
 import os
 
-
 class Product(models.Model):
     name = models.CharField(max_length=21)
     slug = models.CharField(max_length=100, unique=True)
