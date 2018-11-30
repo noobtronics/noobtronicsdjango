@@ -6,6 +6,7 @@ urlpatterns = [
     path('product/<slug:prod_slug>', product_page),
     path('shop', shop_page),
     path('cart', cart_page),
+    path('cart/paytm/success', paytm_callback),
     path('orders', orders_page),
     path('order/<slug:order_id>', order_details_page),
 
