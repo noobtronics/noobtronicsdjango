@@ -153,14 +153,29 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 
 
+
+# # Stagging
+# PAYTM = {
+#     "MID": "LUMINO30908270212107",
+#     "CHANNEL_ID": "WEB",
+#     "WEBSITE": "WEBSTAGING",
+#     "INDUSTRY_TYPE_ID": "Retail",
+#     "MERCHANT_KEY": "9bz1jMoShd5bLiQC",
+#     "Transaction_URL": "https://securegw-stage.paytm.in/theia/processTransaction",
+#     "Status_URL": "https://securegw-stage.paytm.in/merchant-status/getTxnStatus",
+#     "CALLBACK_URL": "http://localhost:8000/cart/paytm/callback"
+# }
+
+
+
+# Production
 PAYTM = {
-    "MID": "LUMINO30908270212107",
+    "MID": "LUMINO65914372097499",
     "CHANNEL_ID": "WEB",
     "WEBSITE": "WEBSTAGING",
     "INDUSTRY_TYPE_ID": "Retail",
     "MERCHANT_KEY": "9bz1jMoShd5bLiQC",
-    "Transaction_URL": "https://securegw-stage.paytm.in/theia/processTransaction",
-    "Status_URL": "https://securegw-stage.paytm.in/merchant-status/getTxnStatus",
+    "Transaction_URL": "https://securegw.paytm.in/theia/processTransaction",
+    "Status_URL": "https://securegw.paytm.in/merchant-status/getTxnStatus",
     "CALLBACK_URL": "http://localhost:8000/cart/paytm/callback"
 }
-
