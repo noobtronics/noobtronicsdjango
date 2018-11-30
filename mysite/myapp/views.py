@@ -810,7 +810,7 @@ def paytm_callback(request):
 
         if not verify_checksum:
             return Http404
-        if data['STATUS'] == 'TXN_SUCCESS':
+        if data['STATUS'] in ['TXN_SUCCESS', 'PENDING']:
             order_id = data['ORDERID'][:12]
             user_code = order_id[-7:]
             user_id = UserCode.objects.get(code=user_code)
