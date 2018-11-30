@@ -745,17 +745,16 @@ def get_paytm_details(request):
             "TXN_AMOUNT": str(int(total)).encode("utf8"),
             "CHANNEL_ID": settings.PAYTM['CHANNEL_ID'].encode("utf8"),
             "WEBSITE": settings.PAYTM['WEBSITE'].encode("utf8"),
-            "INDUSTRY_TYPE_ID": settings.PAYTM['INDUSTRY_TYPE_ID'].encode("utf8"),
-
+            "INDUSTRY_TYPE_ID": settings.PAYTM['INDUSTRY_TYPE_ID'].encode("utf8")
         }
-
+        data["CALLBACK_URL"] = settings.PAYTM['CALLBACK_URL'].encode('utf8')
         checksum = PaytmChecksum.generate_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"))
 
         for key in data:
             data[key] = data[key].decode('utf8')
 
         data['CHECKSUMHASH'] = checksum
-        data["CALLBACK_URL"] = settings.PAYTM['CALLBACK_URL']
+
 
         resp['data'] = data
         pprint(data)

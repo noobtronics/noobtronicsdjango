@@ -103,17 +103,20 @@ __unpad__ = lambda s: s[0:-ord(s[-1])]
 
 
 def __encode__(to_encode, iv, key):
-
+    print('before = '+to_encode)
     # Pad
     to_encode = __pad__(to_encode)
+    print('after = ' + str(to_encode.encode()))
+    print('key = '+str(key))
     # Encrypt
     c = AES.new(key, AES.MODE_CBC, iv.encode())
 
     to_encode = c.encrypt(to_encode.encode())
     # Encode
     to_encode = base64.b64encode(to_encode)
-    return to_encode.decode("UTF-8")
-
+    print('base64 '+str(to_encode))
+    print('encoded ' + to_encode.decode())
+    return to_encode.decode()
 
 def __decode__(to_decode, iv, key):
     # Decode
