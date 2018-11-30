@@ -97,7 +97,7 @@ class Cart(models.Model):
         ('InstaM', 'Instamojo'),
     ), null=True, blank=True)
     to_be_order_id = models.CharField(max_length=20, blank=True, null=True)
-    payment_amount = models.IntegerField(default = 0)
+    payment_amount = models.FloatField(default = 0)
 
     @property
     def pincodedisplay(self):
@@ -217,3 +217,16 @@ class OrderProducts(models.Model):
     @property
     def subtotal(self):
         return self.quantity * self.price
+
+
+
+class PaytmHistory(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    txn_amount = models.FloatField()
+    txn_date = models.DateTimeField()
+    txn_id = models.CharField(max_length = 400)
+    status = models.CharField(max_length = 40)
+    paytm_orderid = models.CharField(max_length = 40)
+    order_id = models.CharField(max_length = 40)
+    currency = models.CharField(max_length=10)
+    created = models.DateTimeField(auto_now_add=True)

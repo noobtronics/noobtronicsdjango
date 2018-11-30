@@ -21,6 +21,8 @@ import random
 import time
 import pytz
 from paytm import Checksum as PaytmChecksum
+from django.utils.timezone import make_aware
+from datetime import datetime
 
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
@@ -185,21 +187,45 @@ def process_cart_json(usr):
 @login_required
 def cart_page(request):
     data = {}
-    show_payment_failed = False
-    txn_status = request.GET.get('success')
-    if txn_status == 'fail':
-        show_payment_failed = True
+
     cart = get_object_or_404(Cart, user_id=request.user)
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
-        'cartqty': get_cart_qty(request),
-        'state': get_cart_state(request),
-        'show_payment_failed': show_payment_failed
+        'state': get_cart_state(request)
     }
+
     cart_json = process_cart_json(request.user)
     context.update(cart_json)
+
+    show_payment_failed = False
+    txn_status = request.GET.get('status')
+    if txn_status == 'fail':
+        show_payment_failed = True
+    context['show_payment_failed'] = show_payment_failed
+
+    if txn_status == 'success':
+        paymode = request.GET.get('mode')
+        if paymode == 'paytm':
+            finalize_paytm_payment(request.user)
+
+    context['cartqty'] = get_cart_qty(request)
     return render(request, 'cart-page.html', context)
+
+
+
+def finalize_paytm_payment(usr):
+    verified = False
+    try:
+        cart = Cart.objects.get(user_id = usr)
+        order_id = cart.to_be_order_id
+        paytm_hist = PaytmHistory.objects.filter(user_id=usr, order_id=order_id, status='TXN_SUCCESS')
+        if paytm_hist.count() > 0:
+            verified = True
+    except:
+        pass
+    if verified:
+        add_cart_to_order(usr)
 
 
 
@@ -761,11 +787,7 @@ def get_paytm_details(request):
             data[key] = data[key].decode('utf8')
 
         data['CHECKSUMHASH'] = checksum
-
-
         resp['data'] = data
-        pprint(data)
-        print(checksum)
         resp['txn_url'] = settings.PAYTM['Transaction_URL']
         resp['success'] = True
     except Exception as e:
@@ -794,18 +816,28 @@ def paytm_callback(request):
             user_id = UserCode.objects.get(code=user_code)
             cart = Cart.objects.get(user_id = user_id.user_id)
             if cart.to_be_order_id == order_id:
-                txn_success = True
+                txn_amount = float(data['TXNAMOUNT'])
+                txn_date = make_aware(datetime.strptime(data['TXNDATE'], '%Y-%m-%d %H:%M:%S.%f'))
+
                 cart.cart_state = 'D'
-                cart.payment_amount = int(data['TXNAMOUNT'])
+                cart.payment_amount = txn_amount
                 cart.paymode = 'PayTM'
                 cart.save()
+
+                paytm_hist = PaytmHistory(user_id = user_id.user_id, txn_amount = txn_amount,
+                                          txn_date=txn_date, txn_id=data['TXNID'],
+                                          status=data['STATUS'], paytm_orderid = data['ORDERID'],
+                                          order_id=order_id, currency=data['CURRENCY'])
+                paytm_hist.save()
+
+                txn_success = True
         success = True
     except:
-        pass
+        print(traceback.format_exc())
     if not success:
         return HttpResponse(status=500)
     else:
         if txn_success:
-            return HttpResponseRedirect('/cart?status=success')
+            return HttpResponseRedirect('/cart?status=success&mode=paytm')
         else:
             return HttpResponseRedirect('/cart?status=fail')

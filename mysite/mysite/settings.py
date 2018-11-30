@@ -159,6 +159,6 @@ PAYTM = {
     "INDUSTRY_TYPE_ID": "Retail",
     "MERCHANT_KEY": "9bz1jMoShd5bLiQC",
     "Transaction_URL": "https://securegw-stage.paytm.in/theia/processTransaction",
-    "CALLBACK_URL": "http://localhost:8000/cart/paytm/success"
+    "CALLBACK_URL": "http://localhost:8000/cart/paytm/callback"
 }
 

@@ -236,6 +236,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="paymentform" v-show="cart_state==3" v-cloak>
+                        <div class="columns">
+                            <div class="column has-text-centered">
+                                <h2 class="subtitle" style="color: white !important;">Payment Received</h2>
+                                <p>You will be redirected to Orders page</p>
+                            </div>
+                        </div>
+                    </div>
                     <div style="text-align: center;">
                         <div class="buttons is-centered" v-cloak>
                             <span class="button is-warning" v-if="cart_state==0" v-on:click="checkout">Checkout</span>
@@ -346,6 +354,12 @@
     var prod_id_index = {{cartprods_ids | safe}};
 
     var cart_state = {{state}};
+
+    if(cart_state == 3){
+        $( document ).ready(function() {
+            setTimeout(function(){ window.location = '/orders'; }, 1000);
+        });
+    }
 </script>
 
 <script>
