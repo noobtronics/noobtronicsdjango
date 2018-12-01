@@ -83,6 +83,7 @@
                     </div>
                     {% for t in data.prod_details %}
                     <div id="pd{{t.rank}}" style="display: none;">
+                        <h1 class="is-invisible" style="height:0px;margin:0;">{{t.name}}:</h1>
                         {{t.html | safe}}
                     </div>
                     {% endfor %}
