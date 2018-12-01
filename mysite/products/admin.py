@@ -32,7 +32,11 @@ class WaitlistAdmin(admin.ModelAdmin):
 admin.site.register(Waitlist, WaitlistAdmin)
 
 
-admin.site.register(ProductDetails)
+class ProductDetailsAdmin(admin.ModelAdmin):
+    list_display = ('name','prod_id', 'rank')
+    search_fields = ('prod_id',)
+admin.site.register(ProductDetails, ProductDetailsAdmin)
+
 
 admin.site.register(Tags)
 
