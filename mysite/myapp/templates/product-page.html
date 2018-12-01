@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
     <title>{{data.name}} | {{data.pagetitle}}</title>
+    <meta property="description" content="{{data.description}}">
+
+    <meta property="og:title" content="{{data.name}} | {{data.pagetitle}}">
+    <meta property="og:description" content="{{data.description}}">
+    <meta property="og:image" content="https://noobtronics.ltd{{home_images.0}}">
+    <meta property="og:url" content="{{data.url}}">
 
     <!-- Photoswipe Core CSS file -->
     <link rel="stylesheet" href="/static/css/plugin/photoswipe/photoswipe.css">
@@ -350,6 +356,9 @@
 </script>
 
 
+<script type="application/ld+json">
+    {{page_structured_data | safe}}
+</script>
 
 </body>
 </html>

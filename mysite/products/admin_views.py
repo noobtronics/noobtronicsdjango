@@ -25,6 +25,7 @@ from django.utils.encoding import smart_str
 from django.utils import timezone
 import requests
 from paytm import Checksum as PaytmChecksum
+from myapp.structured_data import *
 
 
 @staff_or_404
@@ -366,11 +367,13 @@ def process_prod_page(request, prod_id):
         'id': prod.id,
         'name': prod.name,
         'pagetitle': prod.pagetitle,
+        'description': prod.description,
         'price': prod.price,
         'mrp': prod.mrp_price,
         'in_stock': in_stock,
         'waitlisted': waitlisted,
-        'prod_details': prod_details
+        'prod_details': prod_details,
+        'url': 'https://noobtronics.ltd/product/'+prod.slug,
     }
 
     image_data = {
@@ -382,7 +385,8 @@ def process_prod_page(request, prod_id):
         'loggedin': request.user.is_authenticated,
         'data': data,
         'image_data': json.dumps(image_data),
-        'cartqty': get_cart_qty(request)
+        'cartqty': get_cart_qty(request),
+        'page_structured_data': get_product_structured_data(prod.id)
     }
     for key in image_data:
         context[key] = image_data[key]
