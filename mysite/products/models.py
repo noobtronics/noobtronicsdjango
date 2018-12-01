@@ -8,7 +8,7 @@ import os
 class Product(models.Model):
     name = models.CharField(max_length=21)
     slug = models.CharField(max_length=100, unique=True)
-    description = models.CharField(max_length=50, default='')
+    description = models.CharField(max_length=300, default='')
     pagetitle = models.CharField(max_length=50)
     cardtitle = models.CharField(max_length=24)
     price = models.IntegerField()
