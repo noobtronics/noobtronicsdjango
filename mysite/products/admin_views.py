@@ -100,7 +100,6 @@ def get_parents_tags(parent, depth):
 
 def get_alltags_data():
     data = get_parents_tags(None, 0)
-    pprint(data)
     return data
 
 
@@ -576,7 +575,6 @@ def admin_paytm_status(request):
     for key in data:
         data[key] = data[key].decode('utf8')
     data['CHECKSUMHASH'] = checksum
-    pprint(data)
     response = requests.post(settings.PAYTM["Status_URL"],
                             headers={"content-type": "application/json"},
                              json=data

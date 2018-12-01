@@ -70,7 +70,6 @@ def get_prod_data(menu_data, tag_query, page_number):
     else:
         tag = Tags.objects.get(id=last_idx)
         prodids = set(tag.producttags_set.all().values_list('prod_id__id', flat=True))
-
         or_tags = []
         for key in tag_query:
             if tag_query[key] != 'true':
@@ -80,9 +79,10 @@ def get_prod_data(menu_data, tag_query, page_number):
                 new_prodids = set(tg.producttags_set.all().values_list('prod_id__id', flat=True))
                 prodids = prodids.intersection(new_prodids)
             else:
-                or_tags.append(tg)
+                or_tags.append(key)
         or_prod_ids = set()
-        for tg in or_tags:
+        for key in or_tags:
+            tg = Tags.objects.get(id=key)
             new_prodids = set(tg.producttags_set.all().values_list('prod_id__id', flat=True))
             or_prod_ids = or_prod_ids.union(new_prodids)
         if len(or_tags) > 0:
@@ -601,7 +601,6 @@ def handle_payment(request):
     }
     try:
         data = json.loads(request.body)
-        pprint(data)
         paymode = data['paymode']
         if paymode == 'cod':
             order_id = add_cart_to_order(request.user)
