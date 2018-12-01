@@ -2,4 +2,6 @@ User-agent: *
 
 Disallow: /static/
 
+Disallow: /api/
+
 Sitemap: /sitemap.xml
