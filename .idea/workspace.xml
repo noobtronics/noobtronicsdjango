@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,28 +28,28 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cgi" value="7" />
-          <entry key="html" value="11" />
+          <entry key="html" value="12" />
           <entry key="py" value="41" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="11" />
+          <entry key="HTML" value="12" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="Python" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="288" />
+          <entry key="html" value="324" />
           <entry key="py" value="6000" />
           <entry key="txt" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="288" />
+          <entry key="HTML" value="324" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="Python" value="6000" />
         </counts>
@@ -83,11 +82,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
+            <state relative-caret-position="211">
+              <caret line="65" selection-start-line="65" selection-end-line="74" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/shop-page.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="488">
+              <caret line="299" column="53" selection-start-line="299" selection-start-column="53" selection-end-line="299" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -167,6 +175,7 @@
         <option value="$PROJECT_DIR$/mysite/myapp/structured_data.py" />
         <option value="$PROJECT_DIR$/mysite/products/models.py" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
       </list>
     </option>
   </component>
@@ -278,12 +287,12 @@
       <updated>1540545847197</updated>
       <workItem from="1540545848856" duration="1383000" />
       <workItem from="1540611617527" duration="1216000" />
-      <workItem from="1543666465992" duration="5036000" />
+      <workItem from="1543666465992" duration="5215000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7635000" />
+    <option name="totallyTimeSpent" value="7814000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -505,8 +514,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
+        <state relative-caret-position="211">
+          <caret line="65" selection-start-line="65" selection-end-line="74" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/shop-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="299" column="53" selection-start-line="299" selection-start-column="53" selection-end-line="299" selection-end-column="53" />
         </state>
       </provider>
     </entry>
