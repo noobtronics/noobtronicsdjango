@@ -174,6 +174,7 @@ def admin_add_product(request):
             return JsonResponse(resp)
 
         prod = Product(name=data['name'], cardtitle=data['cardsubtitle'],
+                       description=data['description'],
                        pagetitle=data['prodsubtitle'], slug=data['slug'],
                        price=data['price'], mrp_price=data['mrpprice'])
         prod.save()
