@@ -4,4 +4,4 @@ Disallow: /static/
 
 Disallow: /api/
 
-Sitemap: /sitemap.xml
+sitemap: https://noobtronics.ltd/sitemap.xml
