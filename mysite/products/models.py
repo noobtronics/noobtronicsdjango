@@ -114,6 +114,9 @@ class Cart(models.Model):
                 pincodedisplay = '{0}, {1}'.format(zc.district, zc.state)
         return pincodedisplay
 
+    def email(self):
+        return self.user_id.email
+
 
 class CartObjects(models.Model):
     cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -126,6 +129,16 @@ class Waitlist(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+
+    def email(self):
+        return self.user_id.email
+
+    def prod_name(self):
+        return self.prod_id.name
+
+    def prod_title(self):
+        return self.prod_id.pagetitle
+
 
 
 class ProductDetails(models.Model):
@@ -172,6 +185,9 @@ class UserCode(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=10)
 
+    def email(self):
+        return self.user_id.email
+
 
 
 class Orders(models.Model):
@@ -212,6 +228,9 @@ class Orders(models.Model):
     def pincodedisplay(self):
         return '{0}, {1}'.format(self.district, self.state)
 
+    def email(self):
+        return self.user_id.email
+
 
 class OrderProducts(models.Model):
     order_id = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name='orderprods')
@@ -235,3 +254,8 @@ class PaytmHistory(models.Model):
     order_id = models.CharField(max_length = 40)
     currency = models.CharField(max_length=10)
     created = models.DateTimeField(auto_now_add=True)
+
+
+    def email(self):
+        return self.user_id.email
+
