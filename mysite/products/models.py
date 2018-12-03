@@ -11,6 +11,7 @@ class Product(models.Model):
     description = models.CharField(max_length=300, default='')
     pagetitle = models.CharField(max_length=50)
     cardtitle = models.CharField(max_length=24)
+    sku = models.CharField(max_length=8, unique=True)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
     quantity_available = models.IntegerField(default=0)

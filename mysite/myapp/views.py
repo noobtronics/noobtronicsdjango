@@ -841,3 +841,34 @@ def paytm_callback(request):
             return HttpResponseRedirect('/cart?status=success&mode=paytm')
         else:
             return HttpResponseRedirect('/cart?status=fail')
+
+
+
+
+def generate_merchant_data(request):
+    prods = Product.objects.filter(is_published=True)
+    data = []
+    heading = ['id','title','description','price','condition','link','availability','image_link']
+    data.append(heading)
+    for p in prods:
+        available = 'in stock'
+        if not p.in_stock:
+            available = 'out of stock'
+
+        t = [p.sku,
+             '{0} | {1}'.format(p.name, p.pagetitle),
+             p.description,
+             str(p.price),
+             'new',
+             'https://noobtronics.ltd/product/'+p.slug,
+             available,
+             'https://noobtronics.ltd'+p.mainimage.img_data.th_home.image.url
+             ]
+        data.append(t)
+
+    output = ''
+    for r in data:
+        output += '\t'.join(r)
+        output += '\n'
+
+    return HttpResponse(output, content_type='text/plain; charset=utf8')
