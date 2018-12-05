@@ -20,11 +20,14 @@
                         <a class="navbar-item is-active" href="/">
                             Home
                         </a>
+                        <a class="navbar-item" href="/shop">
+                            Shop
+                        </a>
                         <a class="navbar-item" v-on:click="openAboutWindow">
                             About Us
                         </a>
-                        <a class="navbar-item" href="/shop">
-                            Shop
+                        <a class="navbar-item" v-on:click="openContactUsWindow">
+                            Contact
                         </a>
                         {% if not loggedin %}
                         <a class="navbar-item" style="margin-right: 10px;" v-on:click="ModalLogin=true">
@@ -93,6 +96,25 @@
         </div>
     </div>
 
+    <div class="modal blackmodal" v-bind:class="{'is-active': ModalContactUs}">
+        <div class="modal-card bShadow-10">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalContactUs=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="content">
+                    <p>
+                        <b>Email</b>: info@noobtronics.ltd
+                    </p>
+                    <p>
+                        <b>WhatsApp</b>: <a style="color: blue" href="https://wa.me/919833870385/?text=Hi%20Noobtroncis" target="_blank">+91-9833870385</a>
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
 
     <div class="lds-dual-ring" v-if="loading"></div>
 </section>
@@ -127,7 +149,8 @@
             loading: false,
             cartqty: cartqty,
             ModalAbout: false,
-            downloadAbout: true
+            downloadAbout: true,
+            ModalContactUs: false,
         },
         methods: {
             processLogout: function () {
@@ -143,6 +166,9 @@
             },
             openAboutWindow:function(){
                 openAboutWindow();
+            },
+            openContactUsWindow: function(){
+                this.ModalContactUs = true;
             }
         }
     })
