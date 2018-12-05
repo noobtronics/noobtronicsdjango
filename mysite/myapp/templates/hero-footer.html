@@ -2,11 +2,11 @@
 
 <div class="hero-foot">
     <nav class="tabs">
-        <div class="container">
+        <div class="container footcontainer">
             <div class="columns has-text-centered footerc">
-                <div class="column"><span v-on:click="openDeliveryWindow()">Express Delivery</span></div>
-                <div class="column"><span v-on:click="openLegalWindow()">Legal</span></div>
-                <div class="column"><span v-on:click="openPaymentWindow()">COD Available</span></div>
+                <div class="column"><span v-on:click="openDeliveryWindow()">Shipping & Delivery</span></div>
+                <div class="column"><span v-on:click="openLegalWindow()">Returns & Replacements</span></div>
+                <div class="column"><span v-on:click="openPaymentWindow()">Terms & Conditions</span></div>
             </div>
         </div>
     </nav>
@@ -36,14 +36,23 @@
 </div>
 
 <div class="modal blackmodal" v-bind:class="{'is-active': ModalPayment}" v-cloak>
-    <div class="modal-card paymentt-modal bShadow-66">
+    <div class="modal-card tc-modal bShadow-66">
         <section class="modal-card-body">
-            <div class="modalclose">
+        <div class="modalclose">
                     <span v-on:click="ModalPayment=false">
                         <i class="fa fa-window-close" aria-hidden="true"></i>
                     </span>
-            </div>
-            <div id="footpaycontent"></div>
+        </div>
+
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li v-bind:class="{ 'is-active': (LegalactivePage==1) }" v-on:click="LegalchangePage(1)"><a>Terms & Conditions</a></li>
+                <li v-bind:class="{ 'is-active': (LegalactivePage==2) }" v-on:click="LegalchangePage(2)"><a>Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="content" v-html="Legaldisplay">
+        </div>
+        <div id="footpaycontent"></div>
         </section>
     </div>
 </div>
@@ -60,8 +69,6 @@
             <nav class="breadcrumb" aria-label="breadcrumbs">
                 <ul>
                     <li v-bind:class="{ 'is-active': (LegalactivePage==0) }" v-on:click="LegalchangePage(0)"><a>Returns & Replacements</a></li>
-                    <li v-bind:class="{ 'is-active': (LegalactivePage==1) }" v-on:click="LegalchangePage(1)"><a>Terms & Conditions</a></li>
-                    <li v-bind:class="{ 'is-active': (LegalactivePage==2) }" v-on:click="LegalchangePage(2)"><a>Privacy Policy</a></li>
                 </ul>
             </nav>
             <div class="content" v-html="Legaldisplay">
@@ -91,10 +98,12 @@
                     document.getElementById("legalp").innerHTML
                 ];
                 head_app.loading = false;
+                footer_app.LegalactivePage = 0;
                 footer_app.ModalTC = true;
             });
         }
         else{
+            footer_app.LegalactivePage = 0;
             footer_app.ModalTC = true;
         }
     };
@@ -123,15 +132,22 @@
             head_app.loading = true;
             axios({
                 method: 'get',
-                url: '/api/paymentcontent'
+                url: '/api/legalcontent'
             }).then(function(response) {
                 var mydata = document.getElementById("footpaycontent").innerHTML = response.data;
-                footer_app.downloadPayment = false;
+                footer_app.downloadTC = false;
+                footer_app.Legaldata = [
+                    document.getElementById("legalr").innerHTML,
+                    document.getElementById("legalt").innerHTML,
+                    document.getElementById("legalp").innerHTML
+                ];
                 head_app.loading = false;
+                footer_app.LegalactivePage = 1;
                 footer_app.ModalPayment = true;
             });
         }
         else{
+            footer_app.LegalactivePage = 1;
             footer_app.ModalPayment = true;
         }
     };

@@ -10569,6 +10569,11 @@ label.panel-block:hover {
   align-items: center;
 }
 
+.footcontainer {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .footerc {
   background: rgba(0, 0, 0, 0.1);
   color: white;

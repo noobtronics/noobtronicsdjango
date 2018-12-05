@@ -179,3 +179,11 @@ PAYTM = {
     "Status_URL": "https://securegw.paytm.in/merchant-status/getTxnStatus",
     "CALLBACK_URL": "http://localhost:8000/cart/paytm/callback"
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'mail14.mymailcheap.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'no-reply@noobtronics.ltd'
+EMAIL_HOST_PASSWORD = 'Nikhil123'

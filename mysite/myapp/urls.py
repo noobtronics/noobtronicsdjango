@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from .email import *
 
 urlpatterns = [
     path('', home_page, name='home'),
@@ -34,4 +35,7 @@ urlpatterns = [
     path('legal/termsandconditions', serve_tandc),
     path('legal/privacypolicy', serve_privacy_policy),
     path('api/fetch/catalog', fetch_catalog),
+
+    #path('testemail', test_mail),
+    #path('testemail_web', test_mail_web)
 ]
