@@ -10432,6 +10432,11 @@ label.panel-block:hover {
   margin-right: 5px;
 }
 
+.HeroLogo {
+  width: 300px;
+  height: 100px;
+}
+
 .hero-body {
   padding: 0;
 }
@@ -11182,6 +11187,51 @@ label.panel-block:hover {
 }
 .ordercontainer .orders .ordertable td {
   border-bottom: 0;
+}
+
+@media only screen and (max-width: 450px) {
+  .HeroLogo {
+    width: 200px;
+    height: 67px;
+  }
+
+  #footer_app {
+    height: 0px;
+  }
+
+  .navbar-burger {
+    width: 80px;
+    margin-left: -10px;
+  }
+
+  .mobilecart {
+    margin-left: 5px;
+  }
+
+  .navbar-menu {
+    margin-left: 200px;
+    margin-top: -10px;
+    width: 200px;
+    background-color: #24ce60 !important;
+    padding: 0;
+  }
+  .navbar-menu .is-invisible-mobile {
+    height: 0;
+  }
+  .navbar-menu .navbar-dropdown .navbar-item {
+    color: white !important;
+    width: 150px;
+  }
+  .modal-card {
+    max-width: 300px !important;
+    max-height: 600px !important;
+    margin-left: -100px;
+    margin-top: -500px;
+  }
+
+  .aboutus-modal {
+    margin-top: -200px;
+  }
 }
 
 /*# sourceMappingURL=mystyle.css.map */

@@ -2,6 +2,10 @@
 @import "header.sass"
 
 
+.HeroLogo
+  width: 300px
+  height: 100px
+
 .hero-body
   padding: 0
 
@@ -730,3 +734,52 @@
 
       td
         border-bottom: 0
+
+
+
+$mq-mobile-portrait		: 450px !default
+$mq-mobile-landscape	: 480px !default
+$mq-tablet-portrait		: 768px !default
+$mq-tablet-landscape	: 1024px !default
+$mq-desktop				: 1382px !default
+
+
+@media only screen and (max-width : $mq-mobile-portrait)
+  .HeroLogo
+    width: 200px
+    height: 67px
+
+  #footer_app
+    height: 0px
+
+  .navbar-burger
+    width: 80px
+    margin-left: -10px
+
+  .mobilecart
+    margin-left: 5px
+
+  .navbar-menu
+    margin-left: 200px
+    margin-top: -10px
+    width: 200px
+    background-color: #24ce60 !important
+    padding: 0
+
+    .is-invisible-mobile
+      height: 0
+
+    .navbar-dropdown .navbar-item
+      color: white !important
+      width: 150px
+
+    .navbar-item.has-dropdown
+
+  .modal-card
+    max-width: 300px !important
+    max-height: 600px !important
+    margin-left: -100px
+    margin-top: -500px
+
+  .aboutus-modal
+    margin-top: -200px

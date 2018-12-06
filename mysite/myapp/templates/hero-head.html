@@ -4,17 +4,24 @@
         <div class="container">
             <div class="navbar-brand ">
                 <a class="navbar-item " href="/">
-                    <img src="/static/images/Logo.png" alt="Noobtronics Logo" width="300" height="100">
+                    <img src="/static/images/Logo.png" alt="Noobtronics Logo" class="HeroLogo">
                 </a>
-                <span class="navbar-burger burger" data-target="navbarMenuHeroC">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+                <span class="navbar-burger burger" data-target="navbarMenuHeroC" v-on:click="show_mob_nav=!show_mob_nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <div class="navbar-item has-dropdown is-hoverable is-invisible-desktop" >
+                    <div class="dropdown-trigger">
+                        <a :data-balloon="cartqty==0 ? 'Your cart is Empty!': false " data-balloon-pos="down" id='cartnav' class="button is-success is-inverted" v-on:click='handle_cart_click()' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
+                                    <span class="icon">
+                                      <i class="fas fa-shopping-cart"></i>
+                                    </span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div id="navbarMenuHeroC" class="navbar-menu">
-
-
+            <div id="navbarMenuHeroC" class="navbar-menu" v-bind:class="{'is-active':show_mob_nav}">
                 <div class="navbar-end">
                     <nav class="level">
                         <a class="navbar-item is-active" href="/">
@@ -35,10 +42,10 @@
                         </a>
                         {% else %}
                         <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link" href="/documentation/overview/start/">
+                            <a class="navbar-link" v-on:click="show_mob_acct=!show_mob_acct">
                                 My Account
                             </a>
-                            <div class="navbar-dropdown is-boxed myaccount">
+                            <div class="navbar-dropdown is-boxed myaccount" v-bind:class="{'is-invisible-mobile': !show_mob_acct}">
                                 <a class="navbar-item" href="/orders">
                                     Orders
                                 </a>
@@ -49,7 +56,7 @@
                         </div>
                         {% endif %}
 
-                        <div class="navbar-item has-dropdown is-hoverable">
+                        <div class="mobilecart navbar-item has-dropdown is-hoverable is-invisible-mobile">
                             <div class="dropdown-trigger">
                                 <a :data-balloon="cartqty==0 ? 'Your cart is Empty!': false " data-balloon-pos="down" id='cartnav' class="button is-success is-inverted" v-on:click='handle_cart_click()' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
                                     <span class="icon">
@@ -151,6 +158,8 @@
             ModalAbout: false,
             downloadAbout: true,
             ModalContactUs: false,
+            show_mob_nav: false,
+            show_mob_acct: false
         },
         methods: {
             processLogout: function () {
