@@ -209,7 +209,7 @@
     }
 
     var fly_to_cart = function(cartqty){
-        var cart = $('#cartnav');
+        var cart = get_cart_nav_menu();
         var img = $('#proddisplayi').find("img").eq(0);
         var clone_img = img.clone()
             .offset({

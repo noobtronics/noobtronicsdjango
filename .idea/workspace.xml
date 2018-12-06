@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,7 +32,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cgi" value="7" />
-          <entry key="html" value="29" />
+          <entry key="html" value="32" />
           <entry key="py" value="53" />
           <entry key="sass" value="5" />
           <entry key="txt" value="1" />
@@ -43,7 +40,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="29" />
+          <entry key="HTML" value="32" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="Python" value="53" />
           <entry key="Sass" value="5" />
@@ -51,7 +48,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="2036" />
+          <entry key="html" value="2246" />
           <entry key="py" value="7884" />
           <entry key="sass" value="649" />
           <entry key="txt" value="12" />
@@ -59,7 +56,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="2036" />
+          <entry key="HTML" value="2246" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="Python" value="7884" />
           <entry key="Sass" value="649" />
@@ -72,8 +69,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="43" column="60" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="60" />
+            <state relative-caret-position="431">
+              <caret line="260" column="23" selection-start-line="260" selection-start-column="23" selection-end-line="260" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#p#1;n#div#1;n#section#0;n#div#0;n#div#3;n#section#0;n#!!top" expanded="true" />
               </folding>
@@ -91,6 +88,27 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/cart-page.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="211" column="40" selection-start-line="211" selection-start-column="40" selection-end-line="211" selection-end-column="64" />
+              <folding>
+                <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/shop-page.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="85" column="40" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/header.sass">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
@@ -98,6 +116,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/bulma-0.7.1/bulma.sass">
           <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="211" column="19" lean-forward="true" selection-start-line="211" selection-start-column="19" selection-end-line="211" selection-end-column="38" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -111,7 +138,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>finali</find>
       <find>Order</find>
       <find>Wait</find>
       <find>cart_page</find>
@@ -141,6 +167,7 @@
       <find>whatsapp</find>
       <find>whats</find>
       <find>nav</find>
+      <find>animate</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -156,7 +183,6 @@
         <option value="$PROJECT_DIR$/mysite/mysite/sitemaps.py" />
         <option value="$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html" />
         <option value="$PROJECT_DIR$/mysite/products/admin_views.py" />
-        <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
         <option value="$PROJECT_DIR$/mysite/static/robots.txt" />
         <option value="$PROJECT_DIR$/mysite/products/admin.py" />
@@ -172,10 +198,11 @@
         <option value="$PROJECT_DIR$/mysite/products/urls.py" />
         <option value="$PROJECT_DIR$/mysite/myapp/urls.py" />
         <option value="$PROJECT_DIR$/mysite/myapp/structured_data.py" />
-        <option value="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" />
-        <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" />
         <option value="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" />
       </list>
     </option>
   </component>
@@ -324,12 +351,12 @@
       <workItem from="1540611617527" duration="1216000" />
       <workItem from="1543666465992" duration="5994000" />
       <workItem from="1544007888521" duration="10078000" />
-      <workItem from="1544086914139" duration="5711000" />
+      <workItem from="1544086914139" duration="6697000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24382000" />
+    <option name="totallyTimeSpent" value="25368000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -433,13 +460,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="115" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/shop-page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="299" column="54" lean-forward="true" selection-start-line="299" selection-start-column="54" selection-end-line="299" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -586,13 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/cart-page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3798">
-          <caret line="211" column="40" selection-start-line="211" selection-start-column="40" selection-end-line="211" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/structured_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
@@ -611,13 +624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -641,10 +647,34 @@
     <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/bulma-0.7.1/bulma.sass">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="211" column="19" lean-forward="true" selection-start-line="211" selection-start-column="19" selection-end-line="211" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/cart-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="211" column="40" selection-start-line="211" selection-start-column="40" selection-end-line="211" selection-end-column="64" />
+          <folding>
+            <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/shop-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="85" column="40" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="43" column="60" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="60" />
+        <state relative-caret-position="431">
+          <caret line="260" column="23" selection-start-line="260" selection-start-column="23" selection-end-line="260" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#a#0;n#p#1;n#div#1;n#section#0;n#div#0;n#div#3;n#section#0;n#!!top" expanded="true" />
           </folding>

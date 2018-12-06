@@ -13,7 +13,7 @@
                 </span>
                 <div class="navbar-item has-dropdown is-hoverable is-invisible-desktop" >
                     <div class="dropdown-trigger">
-                        <a :data-balloon="cartqty==0 ? 'Your cart is Empty!': false " data-balloon-pos="down" id='cartnav' class="button is-success is-inverted" v-on:click='handle_cart_click()' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
+                        <a :data-balloon="cartqty==0 ? 'Your cart is Empty!': false " data-balloon-pos="down" id='cartnav1' class="button is-success is-inverted" v-on:click='handle_cart_click()' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
                                     <span class="icon">
                                       <i class="fas fa-shopping-cart"></i>
                                     </span>
@@ -58,7 +58,7 @@
 
                         <div class="mobilecart navbar-item has-dropdown is-hoverable is-invisible-mobile">
                             <div class="dropdown-trigger">
-                                <a :data-balloon="cartqty==0 ? 'Your cart is Empty!': false " data-balloon-pos="down" id='cartnav' class="button is-success is-inverted" v-on:click='handle_cart_click()' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
+                                <a :data-balloon="cartqty==0 ? 'Your cart is Empty!': false " data-balloon-pos="down" id='cartnav2' class="button is-success is-inverted" v-on:click='handle_cart_click()' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
                                     <span class="icon">
                                       <i class="fas fa-shopping-cart"></i>
                                     </span>
@@ -248,5 +248,17 @@
             }
         });
     };
+</script>
+
+
+<script>
+    var get_cart_nav_menu = function(){
+        var cartnav1 = $('#cartnav1');
+        var cartnav2 = $('#cartnav2');
+        if($(cartnav1).parent().parent().css("visibility")=='hidden'){
+            return cartnav2;
+        }
+        return cartnav1;
+    }
 </script>
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

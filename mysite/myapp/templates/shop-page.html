@@ -83,7 +83,7 @@
         }
 
         var fly_to_cart = function(cartqty, img_id){
-            var cart = $('#cartnav');
+            var cart = get_cart_nav_menu();
             var img = $(img_id).find("img").eq(0);
             var clone_img = img.clone()
                 .offset({
