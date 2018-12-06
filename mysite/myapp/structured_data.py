@@ -46,7 +46,8 @@ def get_product_structured_data(prod_id):
             "@type": "Offer",
             "availability": availability,
             "price": prod.price,
-            "priceCurrency": "INR"
+            "priceCurrency": "INR",
+            "itemCondition": "http://schema.org/NewCondition"
         },
     }
 
