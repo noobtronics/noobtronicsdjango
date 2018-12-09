@@ -749,6 +749,10 @@ $mq-desktop				: 1382px !default
     width: 200px
     height: 67px
 
+  html, body
+    max-width: 100%
+    overflow-x: hidden
+
   #footer_app
     height: 0px
 
@@ -765,6 +769,8 @@ $mq-desktop				: 1382px !default
     width: 200px
     background-color: #24ce60 !important
     padding: 0
+    z-index: 10
+    position: absolute
 
     .is-invisible-mobile
       height: 0
@@ -772,8 +778,6 @@ $mq-desktop				: 1382px !default
     .navbar-dropdown .navbar-item
       color: white !important
       width: 150px
-
-    .navbar-item.has-dropdown
 
   .modal-card
     max-width: 300px !important
@@ -783,3 +787,46 @@ $mq-desktop				: 1382px !default
 
   .aboutus-modal
     margin-top: -200px
+
+  .container
+    width: 100%
+    padding: 0
+    margin: 0
+
+  .columns
+    width: 100%
+    margin: 0
+    padding: 0
+
+    .column
+      margin: 0
+      padding: 0
+
+  .prodtitle
+    margin-top: 0px
+    font-size: 24px
+    width: 100%
+    text-align: center
+
+  .subtitle
+    margin-top: 0
+    font-size: 18px
+    width: 100%
+    text-align: center
+
+  .carousel-item
+    .columns
+      width: 100%
+      margin: 0
+      padding: 0
+
+  .prodimage
+    width: 300px
+    margin: 0 auto
+
+    img
+      width: 300px
+      margin: 0
+
+  .carousel-navigation
+    margin-top: 10px

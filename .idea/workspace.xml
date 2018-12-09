@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,34 +34,34 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cgi" value="7" />
-          <entry key="html" value="34" />
+          <entry key="html" value="35" />
           <entry key="py" value="53" />
-          <entry key="sass" value="5" />
+          <entry key="sass" value="6" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="34" />
+          <entry key="HTML" value="35" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="Python" value="53" />
-          <entry key="Sass" value="5" />
+          <entry key="Sass" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="2246" />
+          <entry key="html" value="2258" />
           <entry key="py" value="7884" />
-          <entry key="sass" value="649" />
+          <entry key="sass" value="1134" />
           <entry key="txt" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="2246" />
+          <entry key="HTML" value="2258" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="Python" value="7884" />
-          <entry key="Sass" value="649" />
+          <entry key="Sass" value="1134" />
         </counts>
       </usages-collector>
     </session>
@@ -68,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="2052">
               <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#a#4;n#nav#0;n#div#0;n#div#1;n#div#0;n#header#0;n#div#0;n#section#0;n#!!top" expanded="true" />
@@ -78,11 +81,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
               <caret line="3" column="315" selection-start-line="3" selection-start-column="315" selection-end-line="3" selection-end-column="315" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="461">
+              <caret line="772" column="22" selection-start-line="772" selection-start-column="22" selection-end-line="772" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="23" column="112" selection-start-line="23" selection-start-column="112" selection-end-line="23" selection-end-column="112" />
             </state>
           </provider>
         </entry>
@@ -143,7 +164,6 @@
         <option value="$PROJECT_DIR$/mysite/mysite/sitemaps.py" />
         <option value="$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html" />
         <option value="$PROJECT_DIR$/mysite/products/admin_views.py" />
-        <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
         <option value="$PROJECT_DIR$/mysite/static/robots.txt" />
         <option value="$PROJECT_DIR$/mysite/products/admin.py" />
         <option value="$PROJECT_DIR$/mysite/products/models.py" />
@@ -159,11 +179,12 @@
         <option value="$PROJECT_DIR$/mysite/myapp/urls.py" />
         <option value="$PROJECT_DIR$/mysite/myapp/structured_data.py" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" />
-        <option value="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html" />
+        <option value="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
       </list>
     </option>
   </component>
@@ -304,12 +325,12 @@
       <workItem from="1543666465992" duration="5994000" />
       <workItem from="1544007888521" duration="10078000" />
       <workItem from="1544086914139" duration="7909000" />
-      <workItem from="1544337452571" duration="97000" />
+      <workItem from="1544337452571" duration="2718000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26677000" />
+    <option name="totallyTimeSpent" value="29298000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -568,13 +589,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="751" column="3" selection-start-line="751" selection-start-column="3" selection-end-line="751" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/header.sass">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -602,16 +616,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+        <state relative-caret-position="54">
+          <caret line="3" column="315" selection-start-line="3" selection-start-column="315" selection-end-line="3" selection-end-column="315" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="772" column="22" selection-start-line="772" selection-start-column="22" selection-end-line="772" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
+        <state relative-caret-position="2052">
           <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#a#4;n#nav#0;n#div#0;n#div#1;n#div#0;n#header#0;n#div#0;n#section#0;n#!!top" expanded="true" />
@@ -620,10 +641,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html">
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="315" selection-start-line="3" selection-start-column="315" selection-end-line="3" selection-end-column="315" />
+        <state relative-caret-position="365">
+          <caret line="23" column="112" selection-start-line="23" selection-start-column="112" selection-end-line="23" selection-end-column="112" />
         </state>
       </provider>
     </entry>

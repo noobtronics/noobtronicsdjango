@@ -11195,6 +11195,11 @@ label.panel-block:hover {
     height: 67px;
   }
 
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   #footer_app {
     height: 0px;
   }
@@ -11214,6 +11219,8 @@ label.panel-block:hover {
     width: 200px;
     background-color: #24ce60 !important;
     padding: 0;
+    z-index: 10;
+    position: absolute;
   }
   .navbar-menu .is-invisible-mobile {
     height: 0;
@@ -11222,6 +11229,7 @@ label.panel-block:hover {
     color: white !important;
     width: 150px;
   }
+
   .modal-card {
     max-width: 300px !important;
     max-height: 600px !important;
@@ -11231,6 +11239,55 @@ label.panel-block:hover {
 
   .aboutus-modal {
     margin-top: -200px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .columns {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .columns .column {
+    margin: 0;
+    padding: 0;
+  }
+
+  .prodtitle {
+    margin-top: 0px;
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .subtitle {
+    margin-top: 0;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .carousel-item .columns {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .prodimage {
+    width: 300px;
+    margin: 0 auto;
+  }
+  .prodimage img {
+    width: 300px;
+    margin: 0;
+  }
+
+  .carousel-navigation {
+    margin-top: 10px;
   }
 }
 

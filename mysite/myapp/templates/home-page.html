@@ -10,7 +10,6 @@
         var carousels = '';
         document.addEventListener('DOMContentLoaded', function() {
             bulmaCarousel.attach();
-
         });
     </script>
 </head>
@@ -22,7 +21,7 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body" id="app">
         <div class="container has-text-centered">
-            <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true">
+            <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true" data-delay="8000">
                 <div class='carousel-container'>
 
                     {% for p in data %}
