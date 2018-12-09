@@ -11189,6 +11189,14 @@ label.panel-block:hover {
   border-bottom: 0;
 }
 
+.orderpaymethod {
+  width: 200px;
+  margin: 40px auto auto;
+}
+.orderpaymethod .level {
+  margin-top: 5px;
+}
+
 @media only screen and (max-width: 450px) {
   .HeroLogo {
     width: 200px;
@@ -11196,12 +11204,17 @@ label.panel-block:hover {
   }
 
   html, body {
-    max-width: 100%;
     overflow-x: hidden;
+  }
+
+  .hero .is-fullheight {
+    margin: 0;
+    padding: 0;
   }
 
   #footer_app {
     height: 0px;
+    display: none;
   }
 
   .navbar-burger {
@@ -11233,12 +11246,7 @@ label.panel-block:hover {
   .modal-card {
     max-width: 300px !important;
     max-height: 600px !important;
-    margin-left: -100px;
-    margin-top: -500px;
-  }
-
-  .aboutus-modal {
-    margin-top: -200px;
+    margin: 0 auto;
   }
 
   .container {
@@ -11288,6 +11296,62 @@ label.panel-block:hover {
 
   .carousel-navigation {
     margin-top: 10px;
+  }
+
+  .productpagebody .prodicons {
+    width: 100%;
+  }
+  .productpagebody .prodicons .prodicon {
+    width: 68px;
+    display: inline-block;
+  }
+  .productpagebody .proddisplay {
+    height: 300px;
+    width: 300px;
+  }
+  .productpagebody .title {
+    font-size: 24px !important;
+  }
+  .productpagebody .subtitle {
+    font-size: 18px !important;
+  }
+  .productpagebody .prodstatus {
+    font-size: 14px !important;
+    margin-top: 10px;
+  }
+  .productpagebody .orderpaymethod {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+  .productpagebody .orderpaymethod p {
+    margin: 0;
+  }
+  .productpagebody .orderpaymethod .level, .productpagebody .orderpaymethod .level-right, .productpagebody .orderpaymethod .level-left {
+    margin: 0;
+  }
+  .productpagebody .orderpaymethod .level-item {
+    width: 85px;
+    display: inline-block;
+    margin: 0 5px;
+  }
+  .productpagebody .productdetails {
+    margin: 0 5px;
+    width: calc(100% - 10px);
+    padding-bottom: 30px;
+  }
+  .productpagebody .productdetails ul {
+    margin: 10px;
+  }
+  .productpagebody .productdetails ul li {
+    margin-top: 5px;
+  }
+  .productpagebody .productdetails .content {
+    word-break: break-all;
+  }
+  .productpagebody .productdetails .content table {
+    width: 300px !important;
+    margin-bottom: 20px;
   }
 }
 

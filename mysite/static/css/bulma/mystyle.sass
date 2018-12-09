@@ -737,6 +737,15 @@
 
 
 
+.orderpaymethod
+  width: 200px
+  margin: 40px auto auto
+
+  .level
+    margin-top: 5px
+
+
+
 $mq-mobile-portrait		: 450px !default
 $mq-mobile-landscape	: 480px !default
 $mq-tablet-portrait		: 768px !default
@@ -750,11 +759,18 @@ $mq-desktop				: 1382px !default
     height: 67px
 
   html, body
-    max-width: 100%
     overflow-x: hidden
+
+
+  .hero
+    .is-fullheight
+      margin: 0
+      padding: 0
+      //height: 100%
 
   #footer_app
     height: 0px
+    display: none
 
   .navbar-burger
     width: 80px
@@ -782,11 +798,8 @@ $mq-desktop				: 1382px !default
   .modal-card
     max-width: 300px !important
     max-height: 600px !important
-    margin-left: -100px
-    margin-top: -500px
+    margin: 0 auto
 
-  .aboutus-modal
-    margin-top: -200px
 
   .container
     width: 100%
@@ -830,3 +843,65 @@ $mq-desktop				: 1382px !default
 
   .carousel-navigation
     margin-top: 10px
+
+
+
+  .productpagebody
+    .prodicons
+      width: 100%
+
+
+      .prodicon
+        width: 68px
+        display: inline-block
+
+    .proddisplay
+      height: 300px
+      width: 300px
+
+    .title
+      font-size: 24px !important
+
+    .subtitle
+      font-size: 18px !important
+
+    .prodstatus
+      font-size: 14px !important
+      margin-top: 10px
+
+
+    .orderpaymethod
+      width: 100%
+      margin-top: 0
+      margin-bottom: 30px
+
+      p
+        margin: 0
+
+      .level, .level-right, .level-left
+        margin: 0
+
+
+      .level-item
+        width: 85px
+        display: inline-block
+        margin: 0 5px
+
+
+    .productdetails
+      margin: 0 5px
+      width: calc(100% - 10px)
+      padding-bottom: 30px
+
+      ul
+        margin: 10px
+
+        li
+          margin-top: 5px
+
+      .content
+        word-break: break-all
+
+        table
+          width: 300px !important
+          margin-bottom: 20px
