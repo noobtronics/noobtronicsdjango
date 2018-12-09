@@ -11216,6 +11216,10 @@ label.panel-block:hover {
     padding: 0;
   }
 
+  #head_app .container {
+    width: 100%;
+  }
+
   #footer_app {
     height: 0px;
     display: none;
@@ -11422,6 +11426,24 @@ label.panel-block:hover {
     vertical-align: top;
     padding-top: 10px;
     width: 240px;
+  }
+  .shopcontainer .progresssteps {
+    margin: 0px 5px;
+    padding: 10px 0px;
+  }
+  .shopcontainer .progresssteps .steps-content .heading {
+    display: none;
+  }
+  .shopcontainer .progresssteps ul {
+    height: auto;
+  }
+  .shopcontainer .progresssteps ul li {
+    width: 50px;
+  }
+  .shopcontainer .progresssteps .steps-segment {
+    width: 40px;
+    height: 44px;
+    min-width: 4em !important;
   }
 }
 
