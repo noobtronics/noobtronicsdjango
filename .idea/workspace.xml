@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,20 +18,20 @@
     <session id="-848316021">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.1" value="5" />
-          <entry key="project.open.time.5" value="3" />
+          <entry key="project.open.time.5" value="4" />
           <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.8" value="2" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cgi" value="7" />
-          <entry key="html" value="32" />
+          <entry key="html" value="34" />
           <entry key="py" value="53" />
           <entry key="sass" value="5" />
           <entry key="txt" value="1" />
@@ -40,7 +39,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="32" />
+          <entry key="HTML" value="34" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="Python" value="53" />
           <entry key="Sass" value="5" />
@@ -66,63 +65,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="260" column="23" selection-start-line="260" selection-start-column="23" selection-end-line="260" selection-end-column="23" />
+            <state relative-caret-position="19">
+              <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
               <folding>
+                <element signature="n#style#0;n#a#4;n#nav#0;n#div#0;n#div#1;n#div#0;n#header#0;n#div#0;n#section#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#p#1;n#div#1;n#section#0;n#div#0;n#div#3;n#section#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="751" column="3" selection-start-line="751" selection-start-column="3" selection-end-line="751" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/cart-page.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="211" column="40" selection-start-line="211" selection-start-column="40" selection-end-line="211" selection-end-column="64" />
-              <folding>
-                <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/shop-page.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="85" column="40" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/header.sass">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/bulma-0.7.1/bulma.sass">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/product-page.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="211" column="19" lean-forward="true" selection-start-line="211" selection-start-column="19" selection-end-line="211" selection-end-column="38" />
+            <state relative-caret-position="54">
+              <caret line="3" column="315" selection-start-line="3" selection-start-column="315" selection-end-line="3" selection-end-column="315" />
             </state>
           </provider>
         </entry>
@@ -138,7 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Order</find>
       <find>Wait</find>
       <find>cart_page</find>
       <find>admin_add_</find>
@@ -168,6 +127,7 @@
       <find>whats</find>
       <find>nav</find>
       <find>animate</find>
+      <find>cartnav</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -203,6 +163,7 @@
         <option value="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html" />
       </list>
     </option>
   </component>
@@ -233,7 +194,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -298,19 +258,11 @@
               <item name="css" type="462c0819:PsiDirectoryNode" />
               <item name="bulma" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="noobtronicsdjango" type="b2602c69:ProjectViewProjectNode" />
-              <item name="noobtronicsdjango" type="462c0819:PsiDirectoryNode" />
-              <item name="mysite" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-              <item name="bulma" type="462c0819:PsiDirectoryNode" />
-              <item name="bulma-0.7.1" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -351,12 +303,13 @@
       <workItem from="1540611617527" duration="1216000" />
       <workItem from="1543666465992" duration="5994000" />
       <workItem from="1544007888521" duration="10078000" />
-      <workItem from="1544086914139" duration="6697000" />
+      <workItem from="1544086914139" duration="7909000" />
+      <workItem from="1544337452571" duration="97000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25368000" />
+    <option name="totallyTimeSpent" value="26677000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -453,13 +406,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="470">
           <caret line="298" column="30" lean-forward="true" selection-start-line="298" selection-start-column="30" selection-end-line="298" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="115" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="115" />
         </state>
       </provider>
     </entry>
@@ -598,11 +544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -610,13 +551,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
           <caret line="50" column="10" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1289">
-          <caret line="72" column="133" lean-forward="true" selection-start-line="72" selection-start-column="133" selection-end-line="72" selection-end-column="133" />
         </state>
       </provider>
     </entry>
@@ -658,9 +592,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="211" column="40" selection-start-line="211" selection-start-column="40" selection-end-line="211" selection-end-column="64" />
-          <folding>
-            <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -671,13 +602,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="260" column="23" selection-start-line="260" selection-start-column="23" selection-end-line="260" selection-end-column="23" />
+        <state relative-caret-position="19">
+          <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
           <folding>
+            <element signature="n#style#0;n#a#4;n#nav#0;n#div#0;n#div#1;n#div#0;n#header#0;n#div#0;n#section#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#p#1;n#div#1;n#section#0;n#div#0;n#div#3;n#section#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/aboutuscontent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="315" selection-start-line="3" selection-start-column="315" selection-end-line="3" selection-end-column="315" />
         </state>
       </provider>
     </entry>
