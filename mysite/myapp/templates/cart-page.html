@@ -12,7 +12,7 @@
 <section id="cartapp">
     <!-- Hero content: will be in the middle -->
     <div class="hero-body" >
-        <div class="container shopcontainer">
+        <div class="container shopcontainer cartcontainer">
             <div class="columns">
                 <div class="column progresssteps" >
 
@@ -114,7 +114,7 @@
                         </thead>
                         <tbody>
                         <tr v-for="prod in products">
-                            <td><div class="cartproddiv"><article class="media is-shady" v-on:click="open_prod_page(prod.slug)">
+                            <td class="tdimg"><div class="cartproddiv"><article class="media is-shady" v-on:click="open_prod_page(prod.slug)">
                                 <figure class="media-left">
                                     <p class="image is-96x96">
                                         <img v-bind:src="prod.img">
@@ -127,9 +127,9 @@
                                     </div>
                                 </div>
                             </article></div></td>
-                            <td><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right" v-on:click="remove_prod(prod.id)"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
-                            <td>₹[%prod.price%]</td>
-                            <td>
+                            <td class="tdcross"><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right" v-on:click="remove_prod(prod.id)"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
+                            <td class="tdprice">₹[%prod.price%]</td>
+                            <td class="tdqty">
                                 <div class="prodquant cartquant">
                                     <a class="button is-success is-inverted increment">
                                 <span class="icon" v-on:click="increase_qty(prod.id)">
@@ -144,7 +144,7 @@
                                     </a>
                                 </div>
                             </td>
-                            <td>₹[%prod.total%]</td>
+                            <td class="tdtotal">₹[%prod.total%]</td>
                         </tr>
                         </tbody>
                     </table>
@@ -244,7 +244,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="text-align: center;">
+                    <div class="cartbtndiv" style="text-align: center;">
                         <div class="buttons is-centered" v-cloak>
                             <span class="button is-warning" v-if="cart_state==0" v-on:click="checkout">Checkout</span>
                             <span class="button is-warning" v-if="cart_state==1" v-on:click="undocheckout">Back</span>

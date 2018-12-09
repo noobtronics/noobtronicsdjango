@@ -11214,6 +11214,7 @@ label.panel-block:hover {
   .hero .is-fullheight {
     margin: 0;
     padding: 0;
+    height: 100%;
   }
 
   #head_app .container {
@@ -11427,23 +11428,78 @@ label.panel-block:hover {
     padding-top: 10px;
     width: 240px;
   }
-  .shopcontainer .progresssteps {
+
+  .cartcontainer {
+    margin: 0;
+  }
+  .cartcontainer .progresssteps {
     margin: 0px 5px;
     padding: 10px 0px;
   }
-  .shopcontainer .progresssteps .steps-content .heading {
+  .cartcontainer .progresssteps .steps-content .heading {
     display: none;
   }
-  .shopcontainer .progresssteps ul {
+  .cartcontainer .progresssteps ul {
     height: auto;
   }
-  .shopcontainer .progresssteps ul li {
+  .cartcontainer .progresssteps ul li {
     width: 50px;
   }
-  .shopcontainer .progresssteps .steps-segment {
+  .cartcontainer .progresssteps .steps-segment {
     width: 40px;
     height: 44px;
     min-width: 4em !important;
+  }
+  .cartcontainer .menu {
+    border: 0;
+    margin: 0 auto;
+    height: 200px;
+  }
+  .cartcontainer .cartproddiv article {
+    width: 330px;
+    overflow-x: hidden;
+  }
+  .cartcontainer .carttable {
+    margin-top: 10px;
+    width: 360px;
+  }
+  .cartcontainer .carttable thead {
+    display: none;
+  }
+  .cartcontainer .carttable td {
+    display: block;
+    border: 0;
+    text-align: right;
+    width: 330px;
+  }
+  .cartcontainer .carttable .tdcross {
+    width: 50px;
+    margin: 0;
+    display: inline-block;
+  }
+  .cartcontainer .carttable .tdprice {
+    width: 100px;
+    display: inline-block;
+  }
+  .cartcontainer .carttable .tdqty {
+    display: inline-block;
+    width: 150px;
+  }
+  .cartcontainer .cartbtndiv {
+    martin-bottom: 20px;
+    height: 80px;
+  }
+  .cartcontainer .addressform {
+    width: 330px;
+    margin-top: 10px;
+  }
+  .cartcontainer .paymentform {
+    width: 300px;
+    margin: 20px auto;
+    height: 210px;
+  }
+  .cartcontainer .paymentform .column {
+    height: 100px;
   }
 }
 
