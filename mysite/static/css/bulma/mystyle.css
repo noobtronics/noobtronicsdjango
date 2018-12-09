@@ -11332,7 +11332,7 @@ label.panel-block:hover {
   }
   .productpagebody .orderpaymethod .level-item {
     width: 85px;
-    display: inline-block;
+    display: inline-block !important;
     margin: 0 5px;
   }
   .productpagebody .productdetails {
