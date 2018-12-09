@@ -12,8 +12,15 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body" id="app">
         <div class="container shopcontainer">
+            <div class="columns filtbtncont">
+                <div class="column">
+                    <div class="filtbutton" v-bind:class="{'filtbtnactive': filterbtnactive}" v-on:click="filterbtnactive=!filterbtnactive">
+                        Filter <span class="fa fa-angle-down"></span>
+                    </div>
+                </div>
+            </div>
             <div class="columns">
-            <div class="column is-one-quarters">
+            <div class="column is-one-quarters filtermenu" v-bind:class="{'filteractive': filterbtnactive}">
                 <aside class="menu">
                     <ul class="menu-list">
                         <form id="shopmenu" v-cloak>
@@ -32,16 +39,18 @@
                         <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
                         <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
                     </div>
-                    <footer class="card-footer">
-                        <p class="cardhead">[%p.name%]</p>
+                    <div class="footerblock">
+                        <footer class="card-footer">
+                            <p class="cardhead">[%p.name%]</p>
 
-                    </footer>
-                    <footer class="card-footer">
-                        <p class="cardsubtitle">[%p.cardtitle%]</p>
-                    </footer>
-                    <footer class="card-footer ">
-                        <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
-                    </footer>
+                        </footer>
+                        <footer class="card-footer">
+                            <p class="cardsubtitle">[%p.cardtitle%]</p>
+                        </footer>
+                        <footer class="card-footer ">
+                            <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                        </footer>
+                    </div>
                 </div>
                 <nav class="pagination is-rounded" role="navigation" aria-label="pagination" v-if="total_pages>1">
                     <a class="pagination-previous" v-if="table_page > 1" v-on:click="change_page(table_page-1)">Previous</a>
@@ -231,7 +240,8 @@
             products: products_data,
             menu_selected: menu_data,
             table_page: page_number,
-            total_pages: total_pages
+            total_pages: total_pages,
+            filterbtnactive: false
         },
         methods :{
             change_menu: function(idx, val) {

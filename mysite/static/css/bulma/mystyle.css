@@ -10832,6 +10832,10 @@ label.panel-block:hover {
   min-height: 600px;
   padding-top: 30px;
 }
+.shopcontainer .filtbtncont {
+  height: 0;
+  visibility: hidden;
+}
 .shopcontainer .menu {
   height: 400px;
   width: 250px;
@@ -11352,6 +11356,72 @@ label.panel-block:hover {
   .productpagebody .productdetails .content table {
     width: 300px !important;
     margin-bottom: 20px;
+  }
+
+  .shopcontainer {
+    width: 100%;
+  }
+  .shopcontainer .filtbtncont {
+    visibility: visible;
+    height: auto;
+    text-align: center;
+  }
+  .shopcontainer .filtbtncont .filtbutton {
+    width: 300px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    margin: 0 auto;
+    font-size: 18px;
+  }
+  .shopcontainer .filtbtncont .filtbutton svg {
+    color: blue;
+    margin-left: 10px;
+  }
+  .shopcontainer .filtbtncont .filtbtnactive {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .shopcontainer .prodcolumn {
+    width: 100%;
+    text-align: center;
+  }
+  .shopcontainer .shopcartbutton {
+    display: none;
+  }
+  .shopcontainer .filtermenu {
+    visibility: hidden;
+    height: 0;
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+  }
+  .shopcontainer .filtermenu .menu {
+    border: 0;
+    margin: 0 auto;
+    background-color: #24d262;
+    box-shadow: 0 8px 16px rgba(10, 10, 10, 0.2);
+    height: 0;
+    min-height: 300px;
+  }
+  .shopcontainer .filtermenu .menu .menu-list {
+    margin: 0 5px;
+  }
+  .shopcontainer .filteractive {
+    visibility: visible;
+    min-height: 300px;
+  }
+  .shopcontainer .productcard {
+    width: 345px;
+    height: 100px;
+    margin: 5px auto;
+  }
+  .shopcontainer .productcard .card-image {
+    width: 100px;
+    display: inline-block;
+  }
+  .shopcontainer .productcard .footerblock {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 10px;
+    width: 240px;
   }
 }
 
