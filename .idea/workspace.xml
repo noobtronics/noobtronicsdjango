@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/cart-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/cart-page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,7 +48,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="2756" />
+          <entry key="html" value="2780" />
           <entry key="py" value="7884" />
           <entry key="sass" value="2556" />
           <entry key="txt" value="12" />
@@ -59,7 +56,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="2756" />
+          <entry key="HTML" value="2780" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="Python" value="7884" />
           <entry key="Sass" value="2556" />
@@ -69,11 +66,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="137" column="49" selection-start-line="117" selection-start-column="23" selection-end-line="137" selection-end-column="49" />
+            <state relative-caret-position="448">
+              <caret line="216" column="108" selection-start-line="216" selection-start-column="108" selection-end-line="216" selection-end-column="108" />
               <folding>
                 <element signature="n#style#0;n#a#4;n#nav#0;n#div#0;n#div#1;n#div#0;n#header#0;n#div#0;n#section#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#p#1;n#div#1;n#section#0;n#div#0;n#div#3;n#section#0;n#!!top" expanded="true" />
@@ -82,7 +79,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="382">
@@ -114,7 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>admin_add_prod</find>
       <find>filter</find>
       <find>Product.objects.fil</find>
       <find>print</find>
@@ -144,6 +140,7 @@
       <find>shopcar</find>
       <find>.shopcontia</find>
       <find>head</find>
+      <find>cartapp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,12 +171,12 @@
         <option value="$PROJECT_DIR$/mysite/myapp/structured_data.py" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/product-page.html" />
-        <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/returnpolicy.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/cart-page.html" />
         <option value="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-head.html" />
       </list>
     </option>
   </component>
@@ -321,12 +318,12 @@
       <workItem from="1544007888521" duration="10078000" />
       <workItem from="1544086914139" duration="7909000" />
       <workItem from="1544347433780" duration="4989000" />
-      <workItem from="1544367558090" duration="4598000" />
+      <workItem from="1544367558090" duration="5631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36167000" />
+    <option name="totallyTimeSpent" value="37200000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -639,17 +636,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="137" column="49" selection-start-line="117" selection-start-column="23" selection-end-line="137" selection-end-column="49" />
-          <folding>
-            <element signature="n#style#0;n#a#4;n#nav#0;n#div#0;n#div#1;n#div#0;n#header#0;n#div#0;n#section#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#p#1;n#div#1;n#section#0;n#div#0;n#div#3;n#section#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/cart-page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -664,6 +650,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="382">
           <caret line="1065" column="15" selection-start-line="1065" selection-start-column="15" selection-end-line="1065" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/hero-head.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="216" column="108" selection-start-line="216" selection-start-column="108" selection-end-line="216" selection-end-column="108" />
+          <folding>
+            <element signature="n#style#0;n#a#4;n#nav#0;n#div#0;n#div#1;n#div#0;n#header#0;n#div#0;n#section#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#1;n#div#1;n#section#0;n#div#0;n#div#3;n#section#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
