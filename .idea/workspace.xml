@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/returnpolicy.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/returnpolicy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,7 +33,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cgi" value="7" />
-          <entry key="html" value="35" />
+          <entry key="html" value="36" />
           <entry key="py" value="53" />
           <entry key="sass" value="6" />
           <entry key="txt" value="1" />
@@ -45,7 +41,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="35" />
+          <entry key="HTML" value="36" />
           <entry key="PLAIN_TEXT" value="8" />
           <entry key="Python" value="53" />
           <entry key="Sass" value="6" />
@@ -53,7 +49,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="2610" />
+          <entry key="html" value="2651" />
           <entry key="py" value="7884" />
           <entry key="sass" value="1665" />
           <entry key="txt" value="12" />
@@ -61,7 +57,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="2610" />
+          <entry key="HTML" value="2651" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="Python" value="7884" />
           <entry key="Sass" value="1665" />
@@ -101,11 +97,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
               <caret line="958" column="25" selection-start-line="958" selection-start-column="25" selection-end-line="958" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -149,8 +154,8 @@
       <find>nav</find>
       <find>animate</find>
       <find>cartnav</find>
-      <find>.shopcontia</find>
       <find>shopcar</find>
+      <find>.shopcontia</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,7 +171,6 @@
         <option value="$PROJECT_DIR$/mysite/mysite/sitemaps.py" />
         <option value="$PROJECT_DIR$/mysite/products/templates/storeadmin_dashboard.html" />
         <option value="$PROJECT_DIR$/mysite/products/admin_views.py" />
-        <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
         <option value="$PROJECT_DIR$/mysite/static/robots.txt" />
         <option value="$PROJECT_DIR$/mysite/products/admin.py" />
         <option value="$PROJECT_DIR$/mysite/products/models.py" />
@@ -186,6 +190,7 @@
         <option value="$PROJECT_DIR$/mysite/myapp/templates/returnpolicy.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
         <option value="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" />
+        <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
       </list>
     </option>
   </component>
@@ -326,12 +331,12 @@
       <workItem from="1543666465992" duration="5994000" />
       <workItem from="1544007888521" duration="10078000" />
       <workItem from="1544086914139" duration="7909000" />
-      <workItem from="1544347433780" duration="4027000" />
+      <workItem from="1544347433780" duration="4989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30607000" />
+    <option name="totallyTimeSpent" value="31569000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -630,13 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/returnpolicy.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -674,6 +672,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="958" column="25" selection-start-line="958" selection-start-column="25" selection-end-line="958" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
         </state>
       </provider>
     </entry>
