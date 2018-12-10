@@ -393,6 +393,79 @@ def process_prod_page(request, prod_id):
     return render(request, 'product-page.html', context)
 
 
+
+def process_print_prod_page(request, prod_id):
+    prod = get_object_or_404(Product, id=prod_id)
+
+    icon_images = []
+    home_images = []
+    large_images = []
+
+    main_id = prod.mainimage.img_data.id
+    icon_images.append(prod.mainimage.img_data.th_micro.image.url)
+    home_images.append(prod.mainimage.img_data.th_home.image.url)
+    large_images.append(prod.mainimage.img_data.img_id.image.url)
+
+    imgdatas = prod.imagesdata.all().order_by('rank')
+    for imgdata in imgdatas:
+        if imgdata.id == main_id:
+            continue
+        icon_images.append(imgdata.th_micro.image.url)
+        home_images.append(imgdata.th_home.image.url)
+        large_images.append(imgdata.img_id.image.url)
+
+    in_stock = prod.in_stock
+    waitlisted = False
+    if not in_stock:
+        if request.user.is_authenticated:
+            if Waitlist.objects.filter(prod_id=prod, user_id=request.user).count() > 0:
+                waitlisted = True
+
+    pds = ProductDetails.objects.filter(prod_id=prod).order_by('rank')
+    prod_details = []
+    pd_counter = 0
+    for pd in pds:
+        pd_counter += 1
+        t = {
+            'name': pd.name,
+            'rank': pd_counter,
+            'html': pd.html
+        }
+        prod_details.append(t)
+
+    pprint(prod_details)
+
+    data = {
+        'id': prod.id,
+        'name': prod.name,
+        'pagetitle': prod.pagetitle,
+        'description': prod.description,
+        'price': prod.price,
+        'mrp': prod.mrp_price,
+        'in_stock': in_stock,
+        'waitlisted': waitlisted,
+        'prod_details': prod_details,
+        'url': 'https://noobtronics.ltd/product/'+prod.slug,
+    }
+
+    image_data = {
+        'icon_images': icon_images,
+        'home_images': home_images,
+        'large_images': large_images
+    }
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'data': data,
+        'image_data': json.dumps(image_data),
+        'cartqty': get_cart_qty(request),
+        'page_structured_data': get_product_structured_data(prod.id)
+    }
+    for key in image_data:
+        context[key] = image_data[key]
+    return render(request, 'print-product-page.html', context)
+
+
+
 @staff_or_404
 def show_demo_prod(request, prod_id):
     return process_prod_page(request, prod_id)

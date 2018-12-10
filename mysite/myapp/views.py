@@ -13,7 +13,7 @@ from django.conf import settings
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.http import JsonResponse, Http404
 from products.models import *
-from products.admin_views import get_cart_qty, process_prod_page, get_alltags_data, get_cart_state
+from products.admin_views import get_cart_qty, process_prod_page, process_print_prod_page, get_alltags_data, get_cart_state
 from django.shortcuts import get_list_or_404, get_object_or_404
 import math
 import traceback
@@ -58,6 +58,16 @@ def product_page(request, prod_slug):
         return process_prod_page(request, prod.id)
     else:
         raise Http404
+
+
+@ensure_csrf_cookie
+def print_product_page(request, prod_slug):
+    prod = get_object_or_404(Product, slug=prod_slug)
+    if prod.is_published:
+        return process_print_prod_page(request, prod.id)
+    else:
+        raise Http404
+
 
 def get_prod_data(menu_data, tag_query, page_number):
     last_idx = 0
