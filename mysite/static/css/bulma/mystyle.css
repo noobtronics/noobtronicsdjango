@@ -11501,6 +11501,54 @@ label.panel-block:hover {
   .cartcontainer .paymentform .column {
     height: 100px;
   }
+
+  .ordercontainer .ordertitle {
+    font-size: 18px;
+    margin-left: 20px;
+  }
+  .ordercontainer .orders {
+    width: 100%;
+  }
+  .ordercontainer .orders .headingr {
+    width: calc(100% - 10px);
+    margin: 5px;
+  }
+  .ordercontainer .orders .cartproddiv article {
+    width: 330px;
+    overflow-x: hidden;
+  }
+  .ordercontainer .orders .ordershead1 {
+    width: 130px;
+    display: inline-block;
+  }
+  .ordercontainer .orders .ordershead2 {
+    width: 200px;
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .ordercontainer .orders .ordershead3 {
+    display: none;
+  }
+  .ordercontainer .orders .ordersprice {
+    display: none;
+  }
+  .ordercontainer .orders .ordersqty {
+    display: none;
+  }
+  .ordercontainer .orders .ordersstatus {
+    display: none;
+  }
+  .ordercontainer .orders .buttons {
+    margin: 5px auto;
+    text-align: center;
+  }
+  .ordercontainer .orders .buttons a {
+    margin: 0px auto;
+  }
+
+  .cancon-modal {
+    height: 255px;
+  }
 }
 
 /*# sourceMappingURL=mystyle.css.map */

@@ -29,15 +29,15 @@
             {% for order in order_data %}
             <div class="orders">
                 <div class="columns headingr">
-                    <div class="column has-text-left">
+                    <div class="column has-text-left ordershead1">
                         <p class="valname">OrderID:</p>
                         <p>{{order.order_id}}</p>
                     </div>
-                    <div class="column">
+                    <div class="column ordershead2">
                         <p class="valname">Order Time:</p>
                         <p>{{order.order_time}}</p>
                     </div>
-                    <div class="column has-text-left is-2">
+                    <div class="column has-text-left is-2 ordershead3">
                         <p class="valname">Total:</p>
                         <p class="money">₹{{order.amount}}</p>
                     </div>
@@ -62,8 +62,8 @@
                                         </div>
                                     </div>
                                 </article></div></td>
-                                <td>₹{{prod.price}}</td>
-                                <td>
+                                <td class="ordersprice">₹{{prod.price}}</td>
+                                <td class="ordersqty">
                                     <div class="prodquant cartquant">
                                         <span class="cart_qty">x{{prod.qty}}</span>
                                         </a>
@@ -74,7 +74,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="column is-2">
+                    <div class="column is-2 ordersstatus">
                         <p class="valname">Status:</p>
                         <p>{{order.status}}</p>
                     </div>
