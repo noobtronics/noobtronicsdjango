@@ -11545,6 +11545,55 @@ label.panel-block:hover {
   .ordercontainer .orders .buttons a {
     margin: 0px auto;
   }
+  .ordercontainer .ordertable {
+    width: 100% !important;
+  }
+  .ordercontainer .ordertable td {
+    display: block;
+  }
+  .ordercontainer .ordertable .tdprice {
+    width: 100px;
+    display: inline-block;
+    margin-left: 150px;
+  }
+  .ordercontainer .ordertable .tdqty {
+    width: 100px;
+    display: inline-block;
+  }
+  .ordercontainer .ordersstatus1 {
+    margin: auto;
+    width: 100px !important;
+    margin-top: 10px;
+  }
+  .ordercontainer .menu {
+    width: 250px;
+    margin: 0 auto;
+  }
+  .ordercontainer .ordersdelivery {
+    width: 250px;
+    margin: 20px auto;
+  }
+
+  .orderprogress {
+    margin: 0px 5px;
+    height: 46px;
+    margin-bottom: 20px;
+  }
+  .orderprogress .steps-content .heading {
+    display: none;
+  }
+  .orderprogress ul {
+    height: auto;
+  }
+  .orderprogress ul li {
+    width: 50px;
+    margin-top: 10px;
+  }
+  .orderprogress .steps-segment {
+    width: 40px;
+    height: 44px;
+    min-width: 4em !important;
+  }
 
   .cancon-modal {
     height: 255px;

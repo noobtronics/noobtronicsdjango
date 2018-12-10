@@ -22,7 +22,7 @@
             <div class="columns">
                 <div class="column is-2"></div>
             <div class="column orderprogress" >
-                <ul class="steps is-small is-centered has-content-centered">
+                <ul class="steps is-small is-horizontal is-centered has-content-centered">
                     <li class="steps-segment" v-bind:class="{'has-gaps': order_state_no < 1, 'is-active':order_state_no ==0}">
                         <a class="has-text-dark">
                                 <span class="steps-marker">
@@ -83,15 +83,15 @@
                     {% endif %}
                 </div>
                 <div class="columns headingr">
-                    <div class="column has-text-left">
+                    <div class="column has-text-left ordershead1">
                         <p class="valname">OrderID:</p>
                         <p>{{order.order_id}}</p>
                     </div>
-                    <div class="column">
+                    <div class="column ordershead2">
                         <p class="valname">Order Time:</p>
                         <p>{{order.order_time}}</p>
                     </div>
-                    <div class="column has-text-left is-2">
+                    <div class="column has-text-left is-2 ordershead3">
                         <p class="valname">Total:</p>
                         <p class="money">₹{{order.amount}}</p>
                     </div>
@@ -116,8 +116,8 @@
                                         </div>
                                     </div>
                                 </article></div></td>
-                                <td>₹{{prod.price}}</td>
-                                <td>
+                                <td class="tdprice">₹{{prod.price}}</td>
+                                <td class="tdqty">
                                     <div class="prodquant cartquant">
                                         <span class="cart_qty">x{{prod.qty}}</span>
                                         </a>
@@ -128,7 +128,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="column is-2">
+                    <div class="column is-2 ordersstatus1">
                         <p class="valname">Status:</p>
                         <p>{{order.status}}</p>
                     </div>
@@ -167,7 +167,7 @@
                                 </table>
                         </aside>
                     </div>
-                    <div class="column">
+                    <div class="column ordersdelivery">
                         <p><b>Payment Method</b>: {{order.paymode}}</p>
                         <br>
                         <p><b>Delivery Address:</b></p>
