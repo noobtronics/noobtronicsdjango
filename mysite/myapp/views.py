@@ -23,6 +23,7 @@ import pytz
 from paytm import Checksum as PaytmChecksum
 from django.utils.timezone import make_aware
 from datetime import datetime
+from django.utils import timezone
 
 
 
@@ -624,6 +625,21 @@ def handle_payment(request):
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
+
+
+
+
+@login_required
+def new_orders_page(request):
+    order_data = []
+
+    ordr = Orders.objects.filter(user_id=request.user).order_by('-id')[0]
+    
+    if ordr.order_state == 'P':
+        if (timezone.now() - ordr.created).total_seconds() < 1800:
+            return orders_page(request)
+
+    return HttpResponseRedirect('/orders')
 
 
 

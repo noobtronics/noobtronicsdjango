@@ -357,7 +357,7 @@
 
     if(cart_state == 3){
         $( document ).ready(function() {
-            setTimeout(function(){ window.location = '/orders'; }, 1000);
+            setTimeout(function(){ window.location = '/neworder'; }, 1000);
         });
     }
 </script>
@@ -549,7 +549,7 @@
             if(response.data.success){
                 cartapp.cart_state = response.data.cart_state;
                 head_app.cartqty = response.data.cartqty;
-                window.location = '/orders';
+                window.location = '/neworder';
             }
             else{
                 console.log(response);

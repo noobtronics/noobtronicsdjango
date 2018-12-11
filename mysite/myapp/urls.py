@@ -10,6 +10,7 @@ urlpatterns = [
     path('cart', cart_page),
     path('cart/paytm/callback', paytm_callback),
     path('orders', orders_page),
+    path('neworder', new_orders_page),
     path('order/<slug:order_id>', order_details_page),
 
     path('merchant-data.txt', generate_merchant_data),
