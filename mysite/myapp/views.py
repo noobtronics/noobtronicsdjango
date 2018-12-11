@@ -645,7 +645,7 @@ def new_orders_page(request):
 
 def handle_qr_code(request, qrcode):
     try:
-        prod = Product.objects.filter(qrcode = qrcode)[0]
+        prod = Product.objects.filter(sku = qrcode)[0]
         return HttpResponseRedirect('/product/'+prod.slug)
     except:
         pass

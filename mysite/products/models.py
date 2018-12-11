@@ -13,7 +13,6 @@ class Product(models.Model):
     pagetitle = models.CharField(max_length=50)
     cardtitle = models.CharField(max_length=24)
     sku = models.CharField(max_length=8, unique=True)
-    qrcode = models.CharField(max_length=40)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
     quantity_available = models.IntegerField(default=0)
