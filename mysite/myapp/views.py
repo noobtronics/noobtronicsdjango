@@ -643,6 +643,16 @@ def new_orders_page(request):
 
 
 
+def handle_qr_code(request, qrcode):
+    try:
+        prod = Product.objects.filter(qrcode = qrcode)[0]
+        return HttpResponseRedirect('/product/'+prod.slug)
+    except:
+        pass
+    return HttpResponseRedirect('/')
+
+
+
 @login_required
 def orders_page(request):
     order_data = []

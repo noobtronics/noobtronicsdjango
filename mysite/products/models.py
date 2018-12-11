@@ -5,6 +5,7 @@ from pathlib import Path
 from django.contrib.auth.models import User
 import os
 
+
 class Product(models.Model):
     name = models.CharField(max_length=21)
     slug = models.CharField(max_length=100, unique=True)
@@ -12,6 +13,7 @@ class Product(models.Model):
     pagetitle = models.CharField(max_length=50)
     cardtitle = models.CharField(max_length=24)
     sku = models.CharField(max_length=8, unique=True)
+    qrcode = models.CharField(max_length=40)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
     quantity_available = models.IntegerField(default=0)
