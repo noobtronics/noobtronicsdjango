@@ -48,7 +48,8 @@ def home_page(request):
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
-        'cartqty': get_cart_qty(request)
+        'cartqty': get_cart_qty(request),
+        'whatsapp_on_mobile': True
     }
     return render(request, 'home-page.html', context)
 

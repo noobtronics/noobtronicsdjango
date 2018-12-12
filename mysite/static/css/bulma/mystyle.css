@@ -11201,6 +11201,11 @@ label.panel-block:hover {
   margin-top: 5px;
 }
 
+.mobilewhatsapp {
+  height: 0;
+  visibility: hidden;
+}
+
 @media only screen and (max-width: 450px) {
   .HeroLogo {
     width: 200px;
@@ -11296,6 +11301,7 @@ label.panel-block:hover {
 
   .prodimage {
     width: 300px;
+    height: 300px;
     margin: 0 auto;
   }
   .prodimage img {
@@ -11597,6 +11603,40 @@ label.panel-block:hover {
 
   .cancon-modal {
     height: 255px;
+  }
+
+  .mobilewhatsapp {
+    margin: 0;
+    width: 100%;
+    display: block;
+    height: 50px;
+    visibility: visible;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    background-color: #44b854;
+    z-index: 10;
+  }
+  .mobilewhatsapp .container {
+    width: 200px;
+    margin: auto;
+  }
+  .mobilewhatsapp .container svg {
+    font-size: 30px;
+  }
+  .mobilewhatsapp .container p {
+    display: inline-block;
+    height: 30px;
+  }
+  .mobilewhatsapp .container .firstwp {
+    vertical-align: middle;
+    margin-top: 10px;
+  }
+  .mobilewhatsapp .container .secndwp {
+    margin-top: 10px;
+    vertical-align: middle;
   }
 }
 
