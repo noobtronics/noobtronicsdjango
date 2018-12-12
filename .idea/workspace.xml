@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d5bfd44-bb3f-4099-99f0-3c8f2ae2a981" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/mysite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/products/admin_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/products/admin_views.py" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,7 +35,7 @@
         <counts>
           <entry key="cgi" value="7" />
           <entry key="html" value="46" />
-          <entry key="py" value="62" />
+          <entry key="py" value="63" />
           <entry key="sass" value="9" />
           <entry key="txt" value="1" />
         </counts>
@@ -50,14 +44,14 @@
         <counts>
           <entry key="HTML" value="46" />
           <entry key="PLAIN_TEXT" value="8" />
-          <entry key="Python" value="62" />
+          <entry key="Python" value="63" />
           <entry key="Sass" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="3087" />
-          <entry key="py" value="8316" />
+          <entry key="py" value="8318" />
           <entry key="sass" value="3653" />
           <entry key="txt" value="12" />
         </counts>
@@ -66,7 +60,7 @@
         <counts>
           <entry key="HTML" value="3087" />
           <entry key="PLAIN_TEXT" value="12" />
-          <entry key="Python" value="8316" />
+          <entry key="Python" value="8318" />
           <entry key="Sass" value="3653" />
         </counts>
       </usages-collector>
@@ -86,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/myapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+            <state relative-caret-position="359">
+              <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="34" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -96,6 +90,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/products/admin_views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="389" column="34" selection-start-line="389" selection-start-column="34" selection-end-line="389" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysite/mysite/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="456">
@@ -146,17 +149,17 @@
       <find>shopcar</find>
       <find>.shopcontia</find>
       <find>process_pro</find>
-      <find>process_prod_page</find>
       <find>cart</find>
       <find>orders</find>
       <find>new_order</find>
-      <find>prod_page</find>
       <find>prod</find>
       <find>home</find>
       <find>whatsapp</find>
       <find>Whatsapp</find>
       <find>prodimage</find>
       <find>home_page</find>
+      <find>process_prod_page</find>
+      <find>prod_page</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -183,7 +186,6 @@
         <option value="$PROJECT_DIR$/mysite/myapp/templates/returnpolicy.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/shop-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/home-page.html" />
-        <option value="$PROJECT_DIR$/mysite/products/admin_views.py" />
         <option value="$PROJECT_DIR$/mysite/static/css/custom/print_style.sass" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/print-product-page.html" />
         <option value="$PROJECT_DIR$/mysite/myapp/templates/header.html" />
@@ -197,6 +199,7 @@
         <option value="$PROJECT_DIR$/mysite/myapp/templates/hero-footer.html" />
         <option value="$PROJECT_DIR$/mysite/static/css/bulma/mystyle.sass" />
         <option value="$PROJECT_DIR$/mysite/mysite/settings.py" />
+        <option value="$PROJECT_DIR$/mysite/products/admin_views.py" />
       </list>
     </option>
   </component>
@@ -591,13 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/products/admin_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="464" column="51" selection-start-line="464" selection-start-column="28" selection-end-line="464" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/header.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -664,16 +660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/myapp/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/myapp/templates/home-page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -706,6 +692,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
           <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/myapp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/products/admin_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="389" column="34" selection-start-line="389" selection-start-column="34" selection-end-line="389" selection-end-column="34" />
         </state>
       </provider>
     </entry>

@@ -386,7 +386,8 @@ def process_prod_page(request, prod_id):
         'data': data,
         'image_data': json.dumps(image_data),
         'cartqty': get_cart_qty(request),
-        'page_structured_data': get_product_structured_data(prod.id)
+        'page_structured_data': get_product_structured_data(prod.id),
+        'whatsapp_on_mobile': True
     }
     for key in image_data:
         context[key] = image_data[key]
