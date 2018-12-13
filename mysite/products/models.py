@@ -10,7 +10,7 @@ class Product(models.Model):
     name = models.CharField(max_length=21)
     slug = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=300, default='')
-    pagetitle = models.CharField(max_length=50)
+    pagetitle = models.CharField(max_length=100)
     cardtitle = models.CharField(max_length=24)
     sku = models.CharField(max_length=8, unique=True)
     price = models.IntegerField()
