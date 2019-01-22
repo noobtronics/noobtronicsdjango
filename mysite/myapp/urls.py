@@ -39,6 +39,6 @@ urlpatterns = [
     path('legal/privacypolicy', serve_privacy_policy),
     path('api/fetch/catalog', fetch_catalog),
 
-    #path('testemail', test_mail),
-    #path('testemail_web', test_mail_web)
+    path('testemail', test_mail),
+    path('testemail_web', test_mail_web)
 ]

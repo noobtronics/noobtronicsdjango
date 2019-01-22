@@ -12,10 +12,10 @@ def test_mail(request):
     rendered_data = get_order_confirm_data(ordr)
 
     send_mail(
-        subject='Your noobtronics.ltd order - #'+ordr.order_id,
+        subject='Your noobtronics.ltd order - #{0} has been received'.format(ordr.order_id),
         html_message = rendered_data,
         message = '',
-        from_email = 'no-reply@noobtronics.ltd',
+        from_email = 'Noobtronics Shop <no-reply@noobtronics.ltd>',
         recipient_list = ['nikhil.raut94@gmail.com'],
         fail_silently=False,
     )
