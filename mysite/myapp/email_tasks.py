@@ -5,13 +5,27 @@ from django.template import Context, Template
 from django.template.loader import get_template
 from django.http import HttpResponse
 from email.mime.image import MIMEImage
+import queue
+import time
+from datetime import datetime
+from background_task import background
+
+
 
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
 
-def test_mail(request):
-    ordr = Orders.objects.all()[0]
+
+EMAIL_QUEUE = queue.Queue()
+
+
+@background(schedule=10)
+def send_confirm_mail(ordr_id):
+    ordr = Orders.objects.get(id=ordr_id)
+
+    if ordr.email_sent_confirm:
+        return
 
     rendered_data, images_data = get_order_confirm_data(ordr)
 
@@ -19,7 +33,8 @@ def test_mail(request):
         subject='Your noobtronics.ltd order - #{0} has been received'.format(ordr.order_id),
         body='',
         from_email='Noobtronics Shop <no-reply@noobtronics.ltd>',
-        to=['nikhil.raut94@gmail.com'],
+        to=[ordr.user_id.email],
+        bcc=['noobtronics12@gmail.com'],
     )
 
     message.content_subtype = "html"
@@ -29,6 +44,8 @@ def test_mail(request):
         message.attach(get_img_data(img['path'], img['id']))
 
     message.send(fail_silently=False)
+    ordr.email_sent_confirm = True
+    ordr.save()
 
 
 
@@ -41,7 +58,7 @@ def logo_data():
 
 
 def get_img_data(path, cid):
-    with open(path, 'rb') as f:
+    with open('media/..'+path, 'rb') as f:
         logo_data = f.read()
     logo = MIMEImage(logo_data)
     logo.add_header('Content-ID', '<{0}>'.format(cid))
@@ -50,8 +67,6 @@ def get_img_data(path, cid):
 
 
 def get_order_confirm_data(ordr):
-    ordr = Orders.objects.all()[0]
-
     order_prods = OrderProducts.objects.filter(order_id=ordr)
 
     products = []
@@ -64,7 +79,7 @@ def get_order_confirm_data(ordr):
 
         temp_i = {
             'id': op.prod_id.id,
-            'path': op.prod_id.mainimage.img_data.th_micro.image.path
+            'path': op.prod_id.mainimage.img_data.th_micro.image.url
         }
         images_data.append(temp_i)
 

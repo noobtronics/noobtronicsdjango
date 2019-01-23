@@ -24,6 +24,7 @@ from paytm import Checksum as PaytmChecksum
 from django.utils.timezone import make_aware
 from datetime import datetime
 from django.utils import timezone
+from .email_tasks import send_confirm_mail
 
 
 
@@ -585,6 +586,8 @@ def add_cart_to_order(usr):
                                      price=cartobj.prod_id.price)
             ordr_prd.save()
         cart.delete()
+
+        send_confirm_mail(ordr.id)
         success = True
     except Exception as e:
         print(traceback.format_exc())

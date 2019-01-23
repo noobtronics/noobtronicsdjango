@@ -21,7 +21,6 @@ from io import BytesIO
 import traceback
 
 
-
 @login_required
 def add_to_cart(request):
     resp = {

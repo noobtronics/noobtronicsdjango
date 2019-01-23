@@ -1,5 +1,7 @@
 from django.apps import AppConfig
 
-
-class MyappConfig(AppConfig):
+class MyAppConfig(AppConfig):
     name = 'myapp'
+
+    def ready(self):
+        pass

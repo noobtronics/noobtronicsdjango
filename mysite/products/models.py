@@ -224,6 +224,9 @@ class Orders(models.Model):
     state = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=6)
     mobile = models.CharField(max_length=10)
+    email_sent_confirm = models.BooleanField(default=False)
+    email_sent_shipped = models.BooleanField(default=False)
+    email_sent_delivered = models.BooleanField(default=False)
 
 
     @property
