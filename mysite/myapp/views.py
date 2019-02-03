@@ -144,6 +144,7 @@ def get_cart_prods(usr):
     cartprods_ids = {}
     subtotal = 0
     count_id = -1
+    free_delivery = False
     try:
         cart = Cart.objects.get(user_id=usr)
         cartprodids = cart.cartobjects_set.all().order_by('id')
@@ -162,9 +163,11 @@ def get_cart_prods(usr):
             cartprods.append(temp)
             count_id += 1
             cartprods_ids[cprod.id] = count_id
+            if cprod.prod_id.free_delivery:
+                free_delivery = True
     except:
         None
-    return cartprods, cartprods_ids, subtotal
+    return cartprods, cartprods_ids, subtotal, free_delivery
 
 
 def get_delivery_charge(subtotal):
@@ -185,13 +188,16 @@ def get_cart_extracharge(usr):
 
 
 def process_cart_json(usr):
-    cartprods, cartprods_ids, subtotal = get_cart_prods(usr)
+    cartprods, cartprods_ids, subtotal, free_delivery = get_cart_prods(usr)
     data = {
         'cartprods': cartprods,
         'cartprods_ids': cartprods_ids,
         'subtotal': subtotal
     }
-    data['deliverycharge'] = get_delivery_charge(data['subtotal'])
+    if not free_delivery:
+        data['deliverycharge'] = get_delivery_charge(data['subtotal'])
+    else:
+        data['deliverycharge'] = 0
     data['extracharge'] = get_cart_extracharge(usr)
     data['total'] = data['subtotal'] + data['deliverycharge'] + data['extracharge']
     return data
