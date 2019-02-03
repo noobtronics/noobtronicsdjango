@@ -48,7 +48,7 @@
                     <h2 class="title is-3" style="margin-top:30px;">{{data.name}}</h2>
                     <h3 class="subtitle is-5">{{data.pagetitle}}</h3>
                     <h2 class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></h2>
-
+                    <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
                     {% if data.in_stock %}
                     <div class="prodquant">
                         <a class="button is-success is-inverted increment" v-on:click="increaseQty">
