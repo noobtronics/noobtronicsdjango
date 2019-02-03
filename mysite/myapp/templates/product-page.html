@@ -109,6 +109,68 @@
                     {% endfor %}
                 </div>
             </div>
+
+            <div class="columns" v-cloak>
+                <div class="column">
+                        {% if data.has_similar_prods %}
+                        <p class="headingp">Similar Products</p>
+                        <div class="columns">
+                            <div class="column prodpagecards">
+                                <div v-for="p in similar_products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                                    <div class="card-image">
+                                        <figure class="image is-square" v-bind:id="`img`+p.id">
+                                            <img v-bind:src="p.thumb" alt="Placeholder image">
+                                        </figure>
+                                        <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
+                                        <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
+                                    </div>
+                                    <div class="footerblock">
+                                        <footer class="card-footer">
+                                            <p class="cardhead">[%p.name%]</p>
+
+                                        </footer>
+                                        <footer class="card-footer">
+                                            <p class="cardsubtitle">[%p.cardtitle%]</p>
+                                        </footer>
+                                        <footer class="card-footer ">
+                                            <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if data.has_related_prods %}
+                        <p class="headingp">Related Products</p>
+                        <div class="columns">
+                            <div class="column prodpagecards">
+                                <div v-for="p in related_products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                                    <div class="card-image">
+                                        <figure class="image is-square" v-bind:id="`img`+p.id">
+                                            <img v-bind:src="p.thumb" alt="Placeholder image">
+                                        </figure>
+                                        <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
+                                        <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
+                                    </div>
+                                    <div class="footerblock">
+                                        <footer class="card-footer">
+                                            <p class="cardhead">[%p.name%]</p>
+
+                                        </footer>
+                                        <footer class="card-footer">
+                                            <p class="cardsubtitle">[%p.cardtitle%]</p>
+                                        </footer>
+                                        <footer class="card-footer ">
+                                            <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -244,6 +306,8 @@
 </script>
 
 
+
+
 <script>
     var add_to_cart = function(model){
         head_app.loading = true;
@@ -310,14 +374,23 @@
 
 
 <script>
+    var related_products = {{ data.related_prod_data | safe}};
+    var similar_products = {{ data.similar_prod_data | safe}};
+</script>
+
+
+<script>
     var prodapp = new Vue({
         el: '#prodapp',
+        delimiters: ['[%', '%]'],
         data: {
             activePage:0,
             data: prod_details_data,
             image_data: image_data,
             image_selected: 0,
-            quantity: 1
+            quantity: 1,
+            related_products: related_products,
+            similar_products: similar_products,
         },
         computed: {
             display: function () {
@@ -354,7 +427,12 @@
                 else{
                     add_to_waitlist();
                 }
-            }
+            },
+            open_prod_page: function(slug){
+                var url = '/product/'+slug;
+                var win = window.open(url,'_self');
+                win.focus();
+            },
         },
         watch:{
             image_selected: function(newVal, oldVal){

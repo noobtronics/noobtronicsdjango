@@ -328,13 +328,24 @@ def get_similar_prod(prod_id):
     similar_prod = []
     try:
         prod = Product.objects.get(id=prod_id)
-        similar_prods = prod.SimilarProducts.all()
-        for sim_prod in similar_prods:
-            None
+        similar_prods = prod.simprods.all().order_by('rank')
+        for entry in similar_prods:
+            sim_prod = entry.sim_id
+            temp = {
+                'id': sim_prod.id,
+                'name': sim_prod.name,
+                'cardtitle': sim_prod.cardtitle,
+                'price': sim_prod.price,
+                'slug': sim_prod.slug,
+                'mrp': sim_prod.mrp_price,
+                'thumb': sim_prod.mainimage.img_data.th_mini.image.url
+            }
+            print(temp)
+            similar_prod.append(temp)
         if len(similar_prod) > 0:
             has_similar_prod = True
     except:
-        pass
+        print(traceback.format_exc())
     return has_similar_prod, similar_prod
 
 
@@ -343,13 +354,24 @@ def get_related_prod(prod_id):
     related_prod = []
     try:
         prod = Product.objects.get(id=prod_id)
-        related_prods = prod.RelatedProducts.all()
-        for rel_prod in related_prods:
-            None
+        related_prods = prod.relprods.all().order_by('rank')
+        for entry in related_prods:
+            rel_prod = entry.sim_id
+            temp = {
+                'id': rel_prod.id,
+                'name': rel_prod.name,
+                'cardtitle': rel_prod.cardtitle,
+                'price': rel_prod.price,
+                'slug': rel_prod.slug,
+                'mrp': rel_prod.mrp_price,
+                'thumb': rel_prod.mainimage.img_data.th_mini.image.url
+            }
+            related_prod.append(temp)
+            print(temp)
         if len(related_prod) > 0:
             has_related_prod = True
     except:
-        pass
+        print(traceback.format_exc())
     return has_related_prod, related_prod
 
 
@@ -392,8 +414,8 @@ def process_prod_page(request, prod_id):
         }
         prod_details.append(t)
 
-    has_related_prods, related_prods =  get_related_prod(prod_id)
-    has_similar_prod, similar_prod = get_similar_prod(prod_id)
+    has_related_prods, related_prod_data =  get_related_prod(prod_id)
+    has_similar_prods, similar_prod_data = get_similar_prod(prod_id)
 
     data = {
         'id': prod.id,
@@ -407,6 +429,10 @@ def process_prod_page(request, prod_id):
         'prod_details': prod_details,
         'url': 'https://noobtronics.ltd/product/'+prod.slug,
         'free_delivery': prod.free_delivery,
+        'has_related_prods': has_related_prods,
+        'related_prod_data': related_prod_data,
+        'has_similar_prods': has_similar_prods,
+        'similar_prod_data': similar_prod_data
     }
 
     image_data = {

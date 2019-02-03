@@ -267,12 +267,12 @@ class PaytmHistory(models.Model):
 
 
 class SimilarProducts(models.Model):
-    prod_id = models.ForeignKey(Product, related_name='SimilarProducts', on_delete=models.CASCADE)
-    sim_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    prod_id = models.ForeignKey(Product, related_name='simprods', on_delete=models.CASCADE)
+    sim_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='+')
     rank = models.IntegerField(default=1)
 
 
 class RelatedProducts(models.Model):
-    prod_id = models.ForeignKey(Product, related_name='RelatedProducts', on_delete=models.CASCADE)
-    sim_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    prod_id = models.ForeignKey(Product, related_name='relprods', on_delete=models.CASCADE)
+    sim_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='+')
     rank = models.IntegerField(default=1)
