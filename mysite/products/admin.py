@@ -136,3 +136,11 @@ class OrderAdmin(admin.ModelAdmin):
         return False
 
 admin.site.register(Orders, OrderAdmin)
+
+
+class SimilarProdAdmin(admin.ModelAdmin):
+    list_display = ('prod_id', 'sim_id', 'rank')
+
+
+admin.site.register(SimilarProducts, SimilarProdAdmin)
+admin.site.register(RelatedProducts, SimilarProdAdmin)

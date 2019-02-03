@@ -24,7 +24,7 @@ class Product(models.Model):
     free_delivery = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.name+' | '+self.pagetitle
 
     def get_absolute_url(self):
         return '/product/'+self.slug
@@ -265,3 +265,14 @@ class PaytmHistory(models.Model):
     def email(self):
         return self.user_id.email
 
+
+class SimilarProducts(models.Model):
+    prod_id = models.ForeignKey(Product, related_name='SimilarProducts', on_delete=models.CASCADE)
+    sim_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    rank = models.IntegerField(default=1)
+
+
+class RelatedProducts(models.Model):
+    prod_id = models.ForeignKey(Product, related_name='RelatedProducts', on_delete=models.CASCADE)
+    sim_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    rank = models.IntegerField(default=1)

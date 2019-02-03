@@ -322,6 +322,37 @@ def get_cart_state(request):
     return cart_state
 
 
+
+def get_similar_prod(prod_id):
+    has_similar_prod = False
+    similar_prod = []
+    try:
+        prod = Product.objects.get(id=prod_id)
+        similar_prods = prod.SimilarProducts.all()
+        for sim_prod in similar_prods:
+            None
+        if len(similar_prod) > 0:
+            has_similar_prod = True
+    except:
+        pass
+    return has_similar_prod, similar_prod
+
+
+def get_related_prod(prod_id):
+    has_related_prod = False
+    related_prod = []
+    try:
+        prod = Product.objects.get(id=prod_id)
+        related_prods = prod.RelatedProducts.all()
+        for rel_prod in related_prods:
+            None
+        if len(related_prod) > 0:
+            has_related_prod = True
+    except:
+        pass
+    return has_related_prod, related_prod
+
+
 def process_prod_page(request, prod_id):
     prod = get_object_or_404(Product, id=prod_id)
 
@@ -361,7 +392,8 @@ def process_prod_page(request, prod_id):
         }
         prod_details.append(t)
 
-    pprint(prod_details)
+    has_related_prods, related_prods =  get_related_prod(prod_id)
+    has_similar_prod, similar_prod = get_similar_prod(prod_id)
 
     data = {
         'id': prod.id,
@@ -374,7 +406,7 @@ def process_prod_page(request, prod_id):
         'waitlisted': waitlisted,
         'prod_details': prod_details,
         'url': 'https://noobtronics.ltd/product/'+prod.slug,
-        'free_delivery': prod.free_delivery
+        'free_delivery': prod.free_delivery,
     }
 
     image_data = {
