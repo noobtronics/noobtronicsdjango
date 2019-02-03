@@ -374,6 +374,7 @@ def process_prod_page(request, prod_id):
         'waitlisted': waitlisted,
         'prod_details': prod_details,
         'url': 'https://noobtronics.ltd/product/'+prod.slug,
+        'free_delivery': prod.free_delivery
     }
 
     image_data = {

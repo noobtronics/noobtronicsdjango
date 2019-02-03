@@ -21,6 +21,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     rank = models.IntegerField(default=0)
+    free_delivery = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
