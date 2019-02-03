@@ -340,7 +340,7 @@ def get_similar_prod(prod_id):
                 'mrp': sim_prod.mrp_price,
                 'thumb': sim_prod.mainimage.img_data.th_mini.image.url
             }
-            print(temp)
+            #print(temp)
             similar_prod.append(temp)
         if len(similar_prod) > 0:
             has_similar_prod = True
@@ -367,7 +367,7 @@ def get_related_prod(prod_id):
                 'thumb': rel_prod.mainimage.img_data.th_mini.image.url
             }
             related_prod.append(temp)
-            print(temp)
+            #print(temp)
         if len(related_prod) > 0:
             has_related_prod = True
     except:
