@@ -328,7 +328,7 @@ def get_similar_prod(prod_id):
     similar_prod = []
     try:
         prod = Product.objects.get(id=prod_id)
-        similar_prods = prod.simprods.all().order_by('rank')
+        similar_prods = SimilarProducts.objects.filter(prod_id=prod).order_by('rank')
         for entry in similar_prods:
             sim_prod = entry.sim_id
             temp = {
@@ -354,7 +354,7 @@ def get_related_prod(prod_id):
     related_prod = []
     try:
         prod = Product.objects.get(id=prod_id)
-        related_prods = prod.relprods.all().order_by('rank')
+        related_prods = RelatedProducts.objects.filter(prod_id=prod).order_by('rank')
         for entry in related_prods:
             rel_prod = entry.sim_id
             temp = {
