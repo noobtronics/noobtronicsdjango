@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>noobtronics - {{title}}</title>
+    {% include "header.html" %}
+
+    <script>
+    </script>
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+<section id="orderapp">
+    <div class="hero-body" >
+        <div class="container ordercontainer">
+            <h2 class="title is-4 ordertitle" style="text-align:center;margin-top: 30px;">{{big_title}}</h2>
+            <div class="orders">
+                <div class="columns">
+                    <div class="column has-text-centered">
+                        <a class="button is-large" style="border: 1px solid white;" href="{{windows_link}}" target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                            </span>
+                            <span>For Windows</span>
+                        </a>
+                    </div>
+                    <div class="column has-text-centered">
+                        <a class="button is-large" style="border: 1px solid white;" href="{{windows_link}}" target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-apple"></i>
+                            </span>
+                            <span>For Mac</span>
+                        </a>
+                    </div>
+                    <div class="column has-text-centered">
+                        <a class="button is-large" style="border: 1px solid white;" href="{{windows_link}}" target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-linux" style="color:brown;"></i>
+                            </span>
+                            <span>For Ubuntu</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal blackmodal" v-bind:class="{'is-active': ModalCancel}" v-cloak>
+        <div class="modal-card cancon-modal bShadow-66 is-shady">
+            <section class="modal-card-body">
+                <div class="modalclose">
+
+                </div>
+                <h2 class="title is-6">Confirm Cancel</h2>
+                <p>Do you want to Cancel Order no. [% order_id %] ?</p>
+                <br>
+                <p class="content is-small">Paid money will be refunded within 5 business days.</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-danger" v-on:click="cancel_order">Yes</button>
+                <button class="button is-info" v-on:click="ModalCancel=false;">No</button>
+            </footer>
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+    var cancel_order = function cancel_order() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/order/cancel',
+            data: {
+                'order_id': orderapp.order_id,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                location.reload();
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
+</script>
+
+<script>
+    var orderapp = new Vue({
+        el: '#orderapp',
+        delimiters: ['[%', '%]'],
+        data: {
+            ModalCancel: false,
+            order_id: '',
+        },
+        computed: {
+        },
+        methods: {
+            confirm_cancel: function(order_id){
+                this.order_id = order_id;
+                this.ModalCancel = true;
+            },
+            cancel_order: function(){
+                cancel_order();
+            },
+            open_prod_page: function(slug){
+                var url = '/product/'+slug;
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+        }
+    });
+
+</script>
+
+
+    {% include "hero-footer.html" %}
+</section>
+</body>
+</html>

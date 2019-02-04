@@ -25,6 +25,7 @@ from django.utils.timezone import make_aware
 from datetime import datetime
 from django.utils import timezone
 from .email_tasks import send_confirm_mail
+from .models import *
 
 
 
@@ -919,3 +920,36 @@ def generate_merchant_data(request):
         output += '\n'
 
     return HttpResponse(output, content_type='text/plain; charset=utf8')
+
+
+
+@ensure_csrf_cookie
+def process_download(request, name):
+    show_page = False
+    title = ''
+    big_title = ''
+    windows_link = ''
+    mac_link = ''
+    ubuntu_link = ''
+
+    dat = get_object_or_404(DownloadsModel,slug=name)
+
+    context = {
+        'title':dat.title,
+        'big_title':dat.big_title,
+        'windows_link':dat.windows_link,
+        'mac_link':dat.mac_link,
+        'ubuntu_link':dat.ubuntu_link,
+
+        'loggedin': request.user.is_authenticated,
+        'cartqty': get_cart_qty(request),
+        'whatsapp_on_mobile': True
+    }
+    return render(request, 'download-page.html', context)
+
+
+@ensure_csrf_cookie
+def process_master(request, name):
+    if name in ['atmega328p', 'atmega328pb'] :
+        return HttpResponseRedirect('https://www.arduino.cc/en/Tutorial/BuiltInExamples')
+    return Http404
