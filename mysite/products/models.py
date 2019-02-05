@@ -22,6 +22,9 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     rank = models.IntegerField(default=0)
     free_delivery = models.BooleanField(default=False)
+    is_amazon = models.BooleanField(default=False)
+    amazon_link = models.CharField(max_length=300, default='')
+
 
     def __str__(self):
         return self.name+' | '+self.pagetitle

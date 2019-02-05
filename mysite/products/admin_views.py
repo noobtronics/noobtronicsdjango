@@ -432,7 +432,9 @@ def process_prod_page(request, prod_id):
         'has_related_prods': has_related_prods,
         'related_prod_data': related_prod_data,
         'has_similar_prods': has_similar_prods,
-        'similar_prod_data': similar_prod_data
+        'similar_prod_data': similar_prod_data,
+        'is_amazon': prod.is_amazon,
+        'amazon_link': prod.amazon_link
     }
 
     image_data = {

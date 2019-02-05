@@ -74,19 +74,34 @@
                     <h3 class="subtitle is-5 prodstatus">Status: Out of Stock</h3>
                     {% endif %}
 
-                    <div class="orderpaymethod" >
-                        <p>Payment Methods</p>
-                        <nav class="level" >
-                            <p class="level-item"><a style="cursor:default;" class="payPaytm"></a></p>
-                        </nav>
+                    <div class="columns is-mobile prodorderdetails">
+                        <div class="column">
+                            <div class="orderpaymethod" >
+                                <p>Payment Methods</p>
+                                <nav class="level" >
+                                    <p class="level-item"><a style="cursor:default;" class="payPaytm"></a></p>
+                                </nav>
+                            </div>
+                            {% if data.free_delivery %}
+                            <div class="orderfreedelivery" >
+                                <nav class="level" >
+                                    <p class="level-item"><a style="cursor:default;" class="freeDeliveryLogo"></a></p>
+                                </nav>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% if data.is_amazon %}
+                        <div class="column">
+                            Also Available on:
+                            <div class="orderamazon" >
+                                <nav class="level" >
+                                    <p class="level-item"><a style="cursor:default;" class="logoAmazon" target="_blank" href="{{data.amazon_link}}"></a></p>
+                                </nav>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% if data.free_delivery %}
-                    <div class="orderfreedelivery" >
-                        <nav class="level" >
-                            <p class="level-item"><a style="cursor:default;" class="freeDeliveryLogo"></a></p>
-                        </nav>
-                    </div>
-                    {% endif %}
+
                 </div>
             </div>
             <div class="columns productdetails">
