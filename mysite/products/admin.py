@@ -41,7 +41,16 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'pagetitle', 'price', 'mrp_price', 'quantity_available', 'in_stock', 'is_published')
 admin.site.register(Product, ProductAdmin)
 
-admin.site.register(MainImage)
+
+class ImageDataAdmin(admin.ModelAdmin):
+    list_display = ('id', 'img_url')
+admin.site.register(ImageData, ImageDataAdmin)
+
+class MainImageAdmin(admin.ModelAdmin):
+    list_display = ('prod_id',)
+admin.site.register(MainImage, MainImageAdmin)
+
+
 admin.site.register(Image)
 admin.site.register(Thumbnail)
 admin.site.register(HomePage)
