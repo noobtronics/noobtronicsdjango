@@ -143,7 +143,7 @@ def store_image_files(prod, media_path, img, store_main, rank):
     imgData.save()
 
     if store_main:
-        main_ = MainImage(prod_id = prod, img_data=imgData)
+        main_ = MainImage(prod_id = prod, img_data=imgData, thumb_data=imgData)
         main_.save()
 
 
