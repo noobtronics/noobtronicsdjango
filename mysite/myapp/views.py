@@ -894,7 +894,7 @@ def paytm_callback(request):
 
 
 def generate_merchant_data(request):
-    prods = Product.objects.filter(is_published=True)
+    prods = Product.objects.filter(is_published=True, is_google=True)
     data = []
     heading = ['id','title','description','price','condition','link','availability','image_link']
     data.append(heading)

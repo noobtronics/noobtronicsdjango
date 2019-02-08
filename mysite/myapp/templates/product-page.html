@@ -131,7 +131,7 @@
                         <p class="headingp">Similar Products</p>
                         <div class="columns">
                             <div class="column prodpagecards">
-                                <div v-for="p in similar_products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                                <div v-for="p in similar_products" class="card productcard" v-on:click="open_prod_page(p.slug)">
                                     <div class="card-image">
                                         <figure class="image is-square" v-bind:id="`img`+p.id">
                                             <img v-bind:src="p.thumb" alt="Placeholder image">
@@ -148,7 +148,7 @@
                                             <p class="cardsubtitle">[%p.cardtitle%]</p>
                                         </footer>
                                         <footer class="card-footer ">
-                                            <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                                            <h2 class="price">₹[%p.price%]</h2>
                                         </footer>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                         <p class="headingp">Related Products</p>
                         <div class="columns">
                             <div class="column prodpagecards">
-                                <div v-for="p in related_products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                                <div v-for="p in related_products" class="card productcard" v-on:click="open_prod_page(p.slug)">
                                     <div class="card-image">
                                         <figure class="image is-square" v-bind:id="`img`+p.id">
                                             <img v-bind:src="p.thumb" alt="Placeholder image">
@@ -176,7 +176,7 @@
                                             <p class="cardsubtitle">[%p.cardtitle%]</p>
                                         </footer>
                                         <footer class="card-footer ">
-                                            <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                                            <h2 class="price">₹[%p.price%]</h2>
                                         </footer>
                                     </div>
                                 </div>
