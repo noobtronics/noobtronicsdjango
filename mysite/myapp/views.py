@@ -117,7 +117,7 @@ def get_prod_data(menu_data, tag_query, page_number):
             'price': prod.price,
             'slug': prod.slug,
             'mrp': prod.mrp_price,
-            'thumb': prod.mainimage.img_data.th_mini.image.url
+            'thumb': prod.mainimage.thumb_data.th_mini.image.url
         }
         data.append(t)
     return data, page_number, total_pages

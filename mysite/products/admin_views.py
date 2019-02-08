@@ -338,7 +338,7 @@ def get_similar_prod(prod_id):
                 'price': sim_prod.price,
                 'slug': sim_prod.slug,
                 'mrp': sim_prod.mrp_price,
-                'thumb': sim_prod.mainimage.img_data.th_mini.image.url
+                'thumb': sim_prod.mainimage.thumb_data.th_mini.image.url
             }
             #print(temp)
             similar_prod.append(temp)
@@ -364,7 +364,7 @@ def get_related_prod(prod_id):
                 'price': rel_prod.price,
                 'slug': rel_prod.slug,
                 'mrp': rel_prod.mrp_price,
-                'thumb': rel_prod.mainimage.img_data.th_mini.image.url
+                'thumb': rel_prod.mainimage.thumb_data.th_mini.image.url
             }
             related_prod.append(temp)
             #print(temp)
