@@ -37,6 +37,13 @@ IST_TZ = pytz.timezone('Asia/Kolkata')
 @ensure_csrf_cookie
 def home_page(request):
     ps = HomePage.objects.all().order_by('rank')
+
+    require_mobile = 0
+
+    if request.user.is_authenticated:
+        if request.user.usercode.mobile == '':
+            require_mobile = 1
+
     data = []
     for p in ps:
         t = {
@@ -53,7 +60,8 @@ def home_page(request):
         'loggedin': request.user.is_authenticated,
         'data': data,
         'cartqty': get_cart_qty(request),
-        'whatsapp_on_mobile': True
+        'whatsapp_on_mobile': True,
+        'require_mobile': require_mobile
     }
     return render(request, 'home-page.html', context)
 
@@ -131,13 +139,21 @@ def shop_page(request):
     data['tags'] = get_alltags_data()
     data['tags_selected'] = [data['tags']['selected_id'], 0, 0, 0, 0]
     prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
+
+    require_mobile = 0
+
+    if request.user.is_authenticated:
+        if request.user.usercode.mobile == '':
+            require_mobile = 1
+
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
         'cartqty': get_cart_qty(request),
         'prod_data': prod_data,
         'total_pages': total_pages,
-        'page_number': page_number
+        'page_number': page_number,
+        'require_mobile': require_mobile
     }
     return render(request, 'shop-page.html', context)
 
@@ -957,6 +973,20 @@ def process_master(request, name):
     return Http404
 
 
+
+@login_required
+def savemobile(request):
+    resp = {'success': False}
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        if len(data['mobile']) == 10 and data['mobile'].isdigit():
+            usrcode = request.user.usercode
+            usrcode.mobile = data['mobile']
+            usrcode.save()
+            resp['success'] = True
+    except:
+        pass
+    return JsonResponse(resp)
 
 
 

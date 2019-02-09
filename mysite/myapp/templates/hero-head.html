@@ -123,6 +123,44 @@
         </div>
     </div>
 
+
+    <div class="modal" v-bind:class="{'is-active': ask_mobile}">
+    <div class="modal-card askmobmodal bShadow-10">
+        <section class="modal-card-body">
+            Contact Information
+            <div class="modalclose">
+                <!-- <span v-on:click="ModalLogin=false">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                </span> -->
+            </div>
+
+            <div class="" style="margin-top: 20px;" id="askmobdiv">
+              <div class="field is-horizontal">
+                  <div class="field-body">
+                      <div class="field is-expanded">
+                          <div class="field has-addons">
+                              <p class="control">
+                                  <a class="button is-static">
+                                      +91
+                                  </a>
+                              </p>
+                              <p class="control is-expanded">
+                                  <input class="input" name="mobile" type="tel" placeholder="Your mobile number" v-model="mobileinput" maxlength="10">
+                              </p>
+                          </div>
+                          <p class="help"></p>
+                      </div>
+                  </div>
+              </div>
+                <div class="has-text-centered" style="margin-top: 30px;">
+                    <a class="button is-link" v-on:click="submit_mobile">Save</a>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+
     <div class="lds-dual-ring" v-if="loading"></div>
 </section>
 
@@ -159,7 +197,9 @@
             downloadAbout: true,
             ModalContactUs: false,
             show_mob_nav: false,
-            show_mob_acct: false
+            show_mob_acct: false,
+            ask_mobile: ask_mobile,
+            mobileinput : ''
         },
         methods: {
             processLogout: function () {
@@ -178,11 +218,28 @@
             },
             openContactUsWindow: function(){
                 this.ModalContactUs = true;
+            },
+            submit_mobile: function(){
+                submit_mobile();
             }
         }
     })
 
     var csrfmiddlewaretoken = getCookie('csrftoken');
+
+    var submit_mobile = function(){
+      if(head_app.mobileinput.length != 10){
+        $("#askmobdiv").find("input").addClass("is-danger");
+        $("#askmobdiv").find(".help").html("Enter 10 digit mobile correctly");
+        return;
+      }
+      if(isNaN(head_app.mobileinput)){
+        $("#askmobdiv").find("input").addClass("is-danger");
+        $("#askmobdiv").find(".help").html("Enter 10 digit mobile correctly");
+        return;
+      }
+      processSaveMobile();
+    }
 
     function onSignIn(googleUser) {
         if(user_authenticated){
@@ -234,6 +291,23 @@
             if(response.data.success){
                 console.log('logging out...');
                 window.location.href = "/";
+            }
+        });
+    };
+
+    var processSaveMobile = function(d){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/savemobile',
+            data: {
+              'mobile': head_app.mobileinput
+            }
+        }).then(function(response) {
+            console.log(response);
+            head_app.loading = false;
+            if(response.data.success){
+                head_app.ask_mobile = false;
             }
         });
     };

@@ -57,7 +57,7 @@ admin.site.register(HomePage)
 
 
 class UserCodeAdmin(admin.ModelAdmin):
-    list_display = ('email', 'code')
+    list_display = ('email', 'code', 'mobile')
     readonly_fields = ['email', 'code']
     search_fields = ('code','user_id__email')
 

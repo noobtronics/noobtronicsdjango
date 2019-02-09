@@ -376,6 +376,14 @@ def get_related_prod(prod_id):
 
 
 def process_prod_page(request, prod_id):
+
+
+    require_mobile = 0
+
+    if request.user.is_authenticated:
+        if request.user.usercode.mobile == '':
+            require_mobile = 1
+
     prod = get_object_or_404(Product, id=prod_id)
 
     icon_images = []
@@ -448,7 +456,8 @@ def process_prod_page(request, prod_id):
         'image_data': json.dumps(image_data),
         'cartqty': get_cart_qty(request),
         'page_structured_data': get_product_structured_data(prod.id),
-        'whatsapp_on_mobile': True
+        'whatsapp_on_mobile': True,
+        'require_mobile': require_mobile
     }
     for key in image_data:
         context[key] = image_data[key]

@@ -197,6 +197,7 @@ class ZipCodes(models.Model):
 class UserCode(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=10)
+    mobile = models.CharField(max_length=10, blank=True, default='')
 
     def email(self):
         return self.user_id.email
