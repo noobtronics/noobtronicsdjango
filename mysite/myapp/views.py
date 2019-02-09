@@ -979,9 +979,9 @@ def process_google_callback(request):
 
         user = User.objects.filter(email=data['email'])
         if not user.exists():
-            user = User(email=idinfo['email'], username=idinfo['email'],
-                        first_name=idinfo['given_name'],
-                        last_name=idinfo['family_name'])
+            user = User(email=data['email'], username=data['email'],
+                        first_name=data['given_name'],
+                        last_name=data['family_name'])
             user.save()
         else:
             user = user[0]
