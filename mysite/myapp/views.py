@@ -571,7 +571,7 @@ def add_cart_to_order(usr):
     else:
         order_id = cart.to_be_order_id
 
-    _, _, subtotal = get_cart_prods(usr)
+    _, _, subtotal, _ = get_cart_prods(usr)
     delivery_charge = get_delivery_charge(subtotal)
     extra_charge = get_cart_extracharge(usr)
     total = subtotal + delivery_charge + extra_charge
