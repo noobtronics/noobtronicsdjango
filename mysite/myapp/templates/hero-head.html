@@ -233,7 +233,7 @@
             head_app.loading = false;
             if(response.data.success){
                 console.log('logging out...');
-                location.reload();
+                window.location.href = "/";
             }
         });
     };
