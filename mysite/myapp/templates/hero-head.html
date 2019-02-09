@@ -214,7 +214,7 @@
     }
 
     function onFailure(){
-        alert('Error - '+JSON.stringify(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true)));
+        alert('SignIn Error - '+JSON.stringify(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true))+'\n\nPlease check Cookies are enabled in your browser for Third Party.');
     }
 
     var processLogin = function(d){
