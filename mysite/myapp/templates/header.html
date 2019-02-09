@@ -111,5 +111,9 @@
 
 
     var cartqty = {{cartqty}};
+    {% if require_mobile %}
     var ask_mobile = {{require_mobile}};
+    {% else %}
+    var ask_mobile = 0;
+    {% endif %}
 </script>
