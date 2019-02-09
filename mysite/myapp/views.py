@@ -9,6 +9,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import json
 from google.oauth2 import id_token
 from google.auth.transport import requests
+import google_auth_oauthlib.flow
 from django.conf import settings
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.http import JsonResponse, Http404
@@ -26,6 +27,7 @@ from datetime import datetime
 from django.utils import timezone
 from .email_tasks import send_confirm_mail
 from .models import *
+
 
 
 
@@ -953,3 +955,45 @@ def process_master(request, name):
     if name in ['atmega328p', 'atmega328pb'] :
         return HttpResponseRedirect('https://www.arduino.cc/en/Tutorial/BuiltInExamples')
     return Http404
+
+
+
+
+
+
+def process_google_callback(request):
+    state = '/'
+    try:
+        state = request.GET['state']
+        code = request.GET['code']
+
+        flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+            'mysite/google_client_secret.json',
+            scopes=['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email', 'openid'],
+            redirect_uri='http://localhost:8000/googlecallback'
+        )
+
+        flow.fetch_token(code=code)
+        session = flow.authorized_session()
+        data = session.get('https://www.googleapis.com/userinfo/v2/me').json()
+
+        user = User.objects.filter(email=data['email'])
+        if not user.exists():
+            user = User(email=idinfo['email'], username=idinfo['email'],
+                        first_name=idinfo['given_name'],
+                        last_name=idinfo['family_name'])
+            user.save()
+        else:
+            user = user[0]
+
+        user_code = get_user_code(user)
+        if not user_code:
+            return JsonResponse(resp)
+
+        login(request, user)
+
+        return redirect(state)
+    except:
+        print(traceback.format_exc())
+        pass
+    raise HttpResponseRedirect('/')

@@ -56,6 +56,25 @@
 </script>
 
 <script>
+    function checkCookie(){
+        var cookieEnabled = navigator.cookieEnabled;
+        if (!cookieEnabled){
+            document.cookie = "testcookie";
+            cookieEnabled = document.cookie.indexOf("testcookie")!=-1;
+        }
+        return cookieEnabled || showCookieFail();
+    }
+
+    function showCookieFail(){
+      alert("Please Enable Cookies in your browser to experience the website.");
+    }
+
+
+    // within a window load,dom ready or something like that place your:
+    checkCookie();
+</script>
+
+<script>
     Vue.config.delimiters = ['[%', '%]'];
 
     function getCookie(name) {

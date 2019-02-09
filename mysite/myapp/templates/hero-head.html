@@ -85,6 +85,7 @@
                     </span>
             </div>
             <div id="my-signin2"></div>
+            <button id="GsigninButton">Sign in with Google</button>
         </section>
     </div>
 </div>
@@ -201,21 +202,13 @@
         processLogin(d);
     }
 
-    function renderButton() {
-        gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'width': 190,
-            'height': 40,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': onSignIn,
-            'onfailure': onFailure
-        });
-    }
+    $('#GsigninButton').click(function() {
+        var prod_url='https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&redirect_uri=https%3A%2F%2Fnoobtronics.ltd%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com';
+        var local_url = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com';
 
-    function onFailure(){
-        alert('SignIn Error - '+JSON.stringify(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true))+'\n\nPlease check Cookies are enabled in your browser for Third Party.');
-    }
+        window.location = prod_url + '&state='+encodeURIComponent(window.location.href);
+    });
+
 
     var processLogin = function(d){
         head_app.loading = true;
@@ -240,11 +233,8 @@
         }).then(function(response) {
             head_app.loading = false;
             if(response.data.success){
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                    location.reload();
-                });
-                console.log('logging out...')
+                console.log('logging out...');
+                location.reload();
             }
         });
     };
@@ -261,4 +251,3 @@
         return cartnav1;
     }
 </script>
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>

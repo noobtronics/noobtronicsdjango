@@ -39,6 +39,7 @@ urlpatterns = [
     path('legal/privacypolicy', serve_privacy_policy),
     path('api/fetch/catalog', fetch_catalog),
 
+    path('googlecallback', process_google_callback),
 
 
     path('download/<slug:name>/', process_download),
