@@ -46,6 +46,7 @@ urlpatterns = [
 
 
     path('download/<slug:name>/', process_download),
+    path('downloadl/<slug:name>/', process_download),
 
     path('master/<slug:name>/', process_master),
 ]
