@@ -1070,4 +1070,4 @@ def process_facebook_callback(request):
     except:
         print(traceback.format_exc())
         pass
-    return HttpResponse("Hello")
+    return HttpResponseRedirect('/')
