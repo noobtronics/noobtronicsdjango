@@ -85,6 +85,7 @@
                     </span>
             </div>
             <div id="GsigninButton"></div>
+            <div id="FBsigninButton"></div>
         </section>
     </div>
 </div>
@@ -263,6 +264,13 @@
         var local_url = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
 
         window.location = prod_url + '&state='+encodeURIComponent(window.location.href);
+    });
+
+
+    $('#FBsigninButton').click(function() {
+        var prod_url='https://www.facebook.com/v3.2/dialog/oauth?client_id=330900420888261&scope=email';
+        prod_url = prod_url + '&redirect_uri='+encodeURI(window.location.origin+'/fb-login');
+        window.location = prod_url;
     });
 
 
