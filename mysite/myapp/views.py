@@ -8,7 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import json
 from google.oauth2 import id_token
-from google.auth.transport import requests
+from google.auth.transport import requests as gog_requests
 import google_auth_oauthlib.flow
 from django.conf import settings
 from django.http import HttpResponseForbidden, HttpResponseRedirect
@@ -27,7 +27,8 @@ from datetime import datetime
 from django.utils import timezone
 from .email_tasks import send_confirm_mail
 from .models import *
-
+import requests
+import facebook
 
 
 
@@ -275,7 +276,7 @@ def login_view(request):
     }
     signed_in = False
     data = json.loads(request.body.decode('utf-8'))
-    idinfo = id_token.verify_oauth2_token(data['id_token'], requests.Request(), settings.GOOGLE_API_CLIENT_ID)
+    idinfo = id_token.verify_oauth2_token(data['id_token'], gog_requests.Request(), settings.GOOGLE_API_CLIENT_ID)
 
     if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
         return HttpResponseForbidden()
@@ -1027,3 +1028,46 @@ def process_google_callback(request):
         print(traceback.format_exc())
         pass
     return HttpResponseRedirect('/')
+
+
+
+def process_facebook_callback(request):
+    state = '/'
+    try:
+        state = request.GET['state']
+        code = request.GET['code']
+
+        url = 'https://graph.facebook.com/v3.2/oauth/access_token?client_id=330900420888261&client_secret=096435e1e2ad77bd52f34fd654804d68&code='+code
+
+        url += '&redirect_uri=https%3A%2F%2Fnoobtronics.ltd%2Ffacebookcallback'
+        #url += '&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Ffacebookcallback'
+        r = requests.get(url)
+
+        data = json.loads(r.text)
+        if 'access_token' not in data:
+            raise ValueError("Access token not found")
+
+        graph = facebook.GraphAPI(access_token=data['access_token'])
+        user_data = graph.get_object(id='me', fields='email,first_name,last_name')
+
+        user = User.objects.filter(email=user_data['email'])
+        if not user.exists():
+            user = User(email=user_data['email'], username=user_data['email'],
+                        first_name=user_data['first_name'],
+                        last_name=user_data['last_name'])
+            user.save()
+        else:
+            user = user[0]
+
+        user_code = get_user_code(user)
+        if not user_code:
+            return JsonResponse(resp)
+
+        login(request, user)
+
+        return redirect(state)
+
+    except:
+        print(traceback.format_exc())
+        pass
+    return HttpResponse("Hello")

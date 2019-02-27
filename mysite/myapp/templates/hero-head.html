@@ -269,8 +269,8 @@
 
     $('#FBsigninButton').click(function() {
         var prod_url='https://www.facebook.com/v3.2/dialog/oauth?client_id=330900420888261&scope=email';
-        prod_url = prod_url + '&redirect_uri='+encodeURI(window.location.origin+'/fb-login');
-        window.location = prod_url;
+        prod_url = prod_url + '&redirect_uri='+encodeURI(window.location.origin+'/facebookcallback');
+        window.location = prod_url +'&state='+encodeURIComponent(window.location.href);;
     });
 
 
