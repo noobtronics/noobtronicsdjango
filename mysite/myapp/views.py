@@ -999,14 +999,14 @@ def process_google_callback(request):
 
         flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
             'mysite/google_client_secret.json',
-            scopes=['https://www.googleapis.com/auth/userinfo.profile'],
+            scopes=['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'],
             redirect_uri='https://noobtronics.ltd/googlecallback'
         )
 
         flow.fetch_token(code=code)
         session = flow.authorized_session()
         data = session.get('https://www.googleapis.com/userinfo/v2/me').json()
-        print(data)
+
         user = User.objects.filter(email=data['email'])
         if not user.exists():
             user = User(email=data['email'], username=data['email'],
