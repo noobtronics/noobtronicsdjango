@@ -1006,7 +1006,7 @@ def process_google_callback(request):
         flow.fetch_token(code=code)
         session = flow.authorized_session()
         data = session.get('https://www.googleapis.com/userinfo/v2/me').json()
-
+        print(data)
         user = User.objects.filter(email=data['email'])
         if not user.exists():
             user = User(email=data['email'], username=data['email'],
