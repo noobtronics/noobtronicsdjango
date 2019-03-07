@@ -147,6 +147,25 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Orders, OrderAdmin)
 
 
+class OrderProductsAdmin(admin.ModelAdmin):
+    list_display = ('order_id', 'prod_id')
+    search_fields = ('order_id',)
+    ordering = ('-created',)
+
+    def get_readonly_fields(self, request, obj=None):
+        editable_fields = []
+        d = [f.name for f in self.model._meta.fields if f.name not in editable_fields]
+        return d
+
+    def has_delete_permission(self, request, obj=None):
+        # Nobody is allowed to delete
+        return False
+
+admin.site.register(OrderProducts, OrderProductsAdmin)
+
+
+
+
 class SimilarProdAdmin(admin.ModelAdmin):
     list_display = ('prod_id', 'sim_id', 'rank')
 
