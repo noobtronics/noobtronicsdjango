@@ -150,7 +150,6 @@ admin.site.register(Orders, OrderAdmin)
 class OrderProductsAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'prod_id')
     search_fields = ('order_id',)
-    ordering = ('-created',)
 
     def has_delete_permission(self, request, obj=None):
         # Nobody is allowed to delete
