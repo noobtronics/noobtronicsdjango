@@ -29,13 +29,14 @@ from .email_tasks import send_confirm_mail
 from .models import *
 import requests
 import facebook
-
+from htmlmin.decorators import minified_response
 
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
 
 @ensure_csrf_cookie
+@minified_response
 def home_page(request):
     ps = HomePage.objects.all().order_by('rank')
 
@@ -67,6 +68,7 @@ def home_page(request):
     return render(request, 'home-page.html', context)
 
 @ensure_csrf_cookie
+@minified_response
 def product_page(request, prod_slug):
     prod = get_object_or_404(Product, slug=prod_slug)
     if prod.is_published:
@@ -135,6 +137,7 @@ def get_prod_data(menu_data, tag_query, page_number):
 
 
 @ensure_csrf_cookie
+@minified_response
 def shop_page(request):
     data = {}
     data['tags'] = get_alltags_data()
