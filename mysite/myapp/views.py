@@ -926,7 +926,7 @@ def generate_merchant_data(request):
             available = 'out of stock'
 
         t = [p.sku,
-             '{0} {1}'.format(p.name, p.pagetitle),
+             p.product_head,
              p.description,
              str(p.price),
              'new',

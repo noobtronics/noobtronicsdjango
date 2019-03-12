@@ -39,7 +39,7 @@ def get_product_structured_data(prod_id):
         'category': category,
         'manufacturer': 'noobtronics',
         'model': prod.name,
-        'name': prod.name + ' | '+ prod.pagetitle,
+        'name': prod.product_head,
         'alternateName': prod.name,
         'description': prod.description,
         'image': 'https://noobtronics.ltd'+prod.mainimage.img_data.th_home.image.url,
