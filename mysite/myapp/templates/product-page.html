@@ -45,9 +45,9 @@
 
                 </div>
                 <div class="column">
-                    <h2 class="title is-3" style="margin-top:30px;">{{data.name}}</h2>
-                    <h3 class="subtitle is-5">{{data.pagetitle}}</h3>
-                    <h2 class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></h2>
+                    <h1 class="title is-3" style="margin-top:30px;">{{data.name}}</h1>
+                    <h2 class="subtitle is-5">{{data.pagetitle}}</h2>
+                    <h4 class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></h4>
                     <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
                     {% if data.in_stock %}
                     <div class="prodquant">
@@ -64,14 +64,14 @@
                         </a>
                     </div>
                     <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Add to Cart</a>
-                    <h3 class="subtitle is-5 prodstatus">Status: In Stock</h3>
+                    <h4 class="subtitle is-5 prodstatus">Status: In Stock</h4>
                     {% else %}
                     {% if data.waitlisted %}
                     <a class="button is-link prodaddcart" >Waitlisted</a>
                     {% else %}
                     <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Join Waitlist</a>
                     {% endif %}
-                    <h3 class="subtitle is-5 prodstatus">Status: Out of Stock</h3>
+                    <h4 class="subtitle is-5 prodstatus">Status: Out of Stock</h4>
                     {% endif %}
 
                     <div class="columns is-mobile prodorderdetails">
@@ -118,7 +118,7 @@
                     </div>
                     {% for t in data.prod_details %}
                     <div id="pd{{t.rank}}" style="display: none;">
-                        <h1 class="is-invisible" style="height:0px;margin:0;">{{t.name}}:</h1>
+                        <h4 class="is-invisible" style="height:0px;margin:0;">{{t.name}}:</h4>
                         {{t.html | safe}}
                     </div>
                     {% endfor %}
