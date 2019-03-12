@@ -1,5 +1,7 @@
 from products.models import *
 import json
+from datetime import timedelta
+from django.utils import timezone
 
 
 STRUCTURED_DATA_BASE = {
@@ -41,13 +43,16 @@ def get_product_structured_data(prod_id):
         'alternateName': prod.name,
         'description': prod.description,
         'image': 'https://noobtronics.ltd'+prod.mainimage.img_data.th_home.image.url,
-
+        'url': 'https://noobtronics.ltd/product/'+prod.slug,
+        'sku': prod.sku,
+        
         "offers": {
             "@type": "Offer",
             "availability": availability,
             "price": prod.price,
             "priceCurrency": "INR",
-            "itemCondition": "http://schema.org/NewCondition"
+            "itemCondition": "http://schema.org/NewCondition",
+            "priceValidUntil": (timezone.now() + timedelta(days=2)).strftime('%Y-%m-%d'),
         },
     }
 
