@@ -53,6 +53,7 @@ def get_product_structured_data(prod_id):
             "priceCurrency": "INR",
             "itemCondition": "http://schema.org/NewCondition",
             "priceValidUntil": (timezone.now() + timedelta(days=2)).strftime('%Y-%m-%d'),
+            'url': 'https://noobtronics.ltd/product/' + prod.slug,
         },
     }
 
