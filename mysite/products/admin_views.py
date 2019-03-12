@@ -428,6 +428,8 @@ def process_prod_page(request, prod_id):
     data = {
         'id': prod.id,
         'name': prod.name,
+        'meta_title': prod.meta_title,
+        'product_head': prod.product_head,
         'pagetitle': prod.pagetitle,
         'description': prod.description,
         'price': prod.price,
