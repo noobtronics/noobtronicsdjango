@@ -25,7 +25,7 @@ from paytm import Checksum as PaytmChecksum
 from django.utils.timezone import make_aware
 from datetime import datetime
 from django.utils import timezone
-from .email_tasks import send_confirm_mail
+from .email_tasks import send_confirm_mail, send_pwdreset_mail
 from .models import *
 import requests
 import facebook
