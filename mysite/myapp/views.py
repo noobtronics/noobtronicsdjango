@@ -1143,7 +1143,12 @@ def forgotpwd_view(request, code):
     if request.method == 'POST':
         obj = get_object_or_404(ForgorPWDLink, code=code)
         pwd = request.POST.get('password')
-        print(pwd)
+        user = obj.user_id
+        user.set_password(pwd)
+        user.save()
+        obj.delete()
+        login(request, user)
+        return HttpResponseRedirect('/')
     else:
         obj = get_object_or_404(ForgorPWDLink, code=code)
         context = {
@@ -1152,4 +1157,4 @@ def forgotpwd_view(request, code):
             'whatsapp_on_mobile': True
         }
         return render(request, 'forgot_password.html',context)
-    return Http404
+    return HttpResponse(status=500)
