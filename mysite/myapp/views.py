@@ -11,7 +11,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests as gog_requests
 import google_auth_oauthlib.flow
 from django.conf import settings
-from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpResponseServerError
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.http import JsonResponse, Http404
 from products.models import *
 from products.admin_views import get_cart_qty, process_prod_page, process_print_prod_page, get_alltags_data, get_cart_state
@@ -905,7 +905,7 @@ def paytm_callback(request):
     except:
         print(traceback.format_exc())
     if not success:
-        return HttpResponseServerError()
+        raise Exception
     else:
         if txn_success:
             return HttpResponseRedirect('/cart?status=success&mode=paytm')
@@ -1030,7 +1030,7 @@ def process_google_callback(request):
     except:
         print(traceback.format_exc())
         pass
-    return HttpResponseServerError()
+    raise Exception
 
 
 
@@ -1073,7 +1073,7 @@ def process_facebook_callback(request):
     except:
         print(traceback.format_exc())
         pass
-    return HttpResponseServerError()
+    raise Exception
 
 
 
@@ -1157,7 +1157,7 @@ def forgotpwd_view(request, code):
             'whatsapp_on_mobile': True
         }
         return render(request, 'forgot_password.html',context)
-    return HttpResponseServerError()
+    raise Exception
 
 
 def my_http404_view(request, exception):
