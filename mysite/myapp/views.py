@@ -1146,5 +1146,10 @@ def forgotpwd_view(request, code):
         print(pwd)
     else:
         obj = get_object_or_404(ForgorPWDLink, code=code)
-        return render(request, 'forgot_password.html',{})
+        context = {
+            'loggedin': request.user.is_authenticated,
+            'cartqty': get_cart_qty(request),
+            'whatsapp_on_mobile': True
+        }
+        return render(request, 'forgot_password.html',context)
     return Http404
