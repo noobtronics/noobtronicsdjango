@@ -29,6 +29,8 @@ urlpatterns = [
     path('api/order/cancel', process_cancel_order),
 
     path('api/login', login_view),
+    path('api/emaillogin', handle_email_login),
+    path('api/forgotpwd', handle_forgotpwd),
     path('api/logout', logout_view),
     path('api/legalcontent', serve_legalcontent),
     path('api/deliverycontent', serve_deliverycontent),

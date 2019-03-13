@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from pprint import pprint
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
@@ -1074,3 +1074,64 @@ def process_facebook_callback(request):
         print(traceback.format_exc())
         pass
     return HttpResponseRedirect('/')
+
+
+
+def handle_email_login(request):
+    resp = {
+        'success': False,
+        'login_help': 'Error'
+    }
+    try:
+        data = json.loads(request.body)
+
+        user = User.objects.filter(email=data['email'])
+        if not user.exists():
+            user = User(email=data['email'], username=data['email'],
+                        first_name=data['email'],
+                        last_name='')
+            user.set_password(data['password'])
+            user.save()
+
+        else:
+            user = user[0]
+
+
+        user_code = get_user_code(user)
+        if not user_code:
+            return JsonResponse(resp)
+
+        user = authenticate(username=data['email'], password=data['password'])
+        if user is not None:
+            login(request, user)
+            resp['success'] = True
+            resp['login_help'] = ''
+        else:
+            resp['login_help'] = 'Account Exist, Invalid Password'
+
+    except:
+        print(traceback.format_exc())
+        pass
+    return JsonResponse(resp)
+
+
+def handle_forgotpwd(request):
+    resp = {
+        'success': False,
+        'login_help': 'Error'
+    }
+    try:
+        data = json.loads(request.body)
+
+        user = User.objects.filter(email=data['email'])
+        if not user.exists():
+            resp['login_help'] = 'Account does not exist'
+        else:
+            user = user[0]
+
+        resp['success'] = True
+        resp['login_help'] = '';
+    except:
+        print(traceback.format_exc())
+        pass
+    return JsonResponse(resp)
