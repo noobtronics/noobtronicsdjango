@@ -1166,7 +1166,7 @@ def my_http404_view(request, exception):
         'cartqty': get_cart_qty(request),
         'whatsapp_on_mobile': True
     }
-    return render(request, 'http404_page.html',context)
+    return render(request, 'http404_page.html',context, status=404)
 
 
 
@@ -1176,4 +1176,4 @@ def my_http500_view(request, exception):
         'cartqty': get_cart_qty(request),
         'whatsapp_on_mobile': True
     }
-    return render(request, 'http500_page.html',context)
+    return render(request, 'http500_page.html',context,status=500)
