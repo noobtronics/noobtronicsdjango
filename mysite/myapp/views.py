@@ -1030,7 +1030,7 @@ def process_google_callback(request):
     except:
         print(traceback.format_exc())
         pass
-    return HttpResponseRedirect('/')
+    return HttpResponse(status=500)
 
 
 
@@ -1073,7 +1073,7 @@ def process_facebook_callback(request):
     except:
         print(traceback.format_exc())
         pass
-    return HttpResponseRedirect('/')
+    return HttpResponse(status=500)
 
 
 
