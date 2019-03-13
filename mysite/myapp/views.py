@@ -1135,3 +1135,16 @@ def handle_forgotpwd(request):
         print(traceback.format_exc())
         pass
     return JsonResponse(resp)
+
+
+
+def forgotpwd_view(request, code):
+    success = False
+    if request.method == 'POST':
+        obj = get_object_or_404(ForgorPWDLink, code=code)
+        pwd = request.POST.get('password')
+        print(pwd)
+    else:
+        obj = get_object_or_404(ForgorPWDLink, code=code)
+        return render(request, 'forgot_password.html',{})
+    return Http404

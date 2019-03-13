@@ -14,7 +14,11 @@ urlpatterns = [
     path('order/<slug:order_id>', order_details_page),
     path('qr/<slug:qrcode>', handle_qr_code),
 
+    path('forgot-password/<slug:code>', forgotpwd_view),
+
     path('merchant-data.txt', generate_merchant_data),
+
+
 
     path('api/cart/edit_cart', edit_cart),
     path('api/cart/checkout', handle_checkout),
