@@ -9,6 +9,7 @@ import queue
 import time
 from datetime import datetime
 from background_task import background
+from django.contrib.auth.models import User
 
 
 
@@ -51,7 +52,9 @@ def send_confirm_mail(ordr_id):
 
 
 @background(schedule=10)
-def send_pwdreset_mail(user):
+def send_pwdreset_mail(user_id):
+
+    user = User.objects.get(id=user_id)
 
     data = {
         'link': 'google.com'
