@@ -59,7 +59,7 @@ def send_pwdreset_mail(user_id):
     user = User.objects.get(id=user_id)
 
     last_week = timezone.now()-timedelta(days=2)
-    past_records = ForgorPWDLink.objects.filter(created_lt=last_week)
+    past_records = ForgorPWDLink.objects.filter(created__lt=last_week)
     past_records.delete()
 
 
