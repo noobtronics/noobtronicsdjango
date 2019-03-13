@@ -63,7 +63,7 @@ def send_pwdreset_mail(user_id):
     past_records.delete()
 
 
-    code = uuid.uuid1()+'-'+str(randint(1000,9999))
+    code = str(uuid.uuid1())+'-'+str(randint(1000,9999))
 
 
     fpwd_link = ForgorPWDLink(user_id=user, code=code)
