@@ -10,8 +10,10 @@ import time
 from datetime import datetime
 from background_task import background
 from django.contrib.auth.models import User
-
-
+from django.utils import timezone
+from datetime import timedelta
+import uuid
+from random import randint
 
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
@@ -56,8 +58,20 @@ def send_pwdreset_mail(user_id):
 
     user = User.objects.get(id=user_id)
 
+    last_week = timezone.now()-timedelta(days=2)
+    past_records = ForgorPWDLink.objects.filter(created_lt=last_week)
+    past_records.delete()
+
+
+    code = uuid.uuid1()+'-'+str(randint(1000,9999))
+
+
+    fpwd_link = ForgorPWDLink(user_id=user, code=code)
+    fpwd_link.save()
+
+
     data = {
-        'link': 'google.com'
+        'link': 'https://noobtronics.ltd/forgot-password/'+code
     }
 
     message = EmailMultiAlternatives(
