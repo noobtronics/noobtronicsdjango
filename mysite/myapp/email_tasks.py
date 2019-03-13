@@ -49,6 +49,33 @@ def send_confirm_mail(ordr_id):
 
 
 
+
+@background(schedule=10)
+def send_pwdreset_mail(user):
+
+    data = {
+        'link': 'google.com'
+    }
+
+    message = EmailMultiAlternatives(
+        subject='noobtronics.ltd Password Reset Link',
+        body='',
+        from_email='Noobtronics Shop <no-reply@noobtronics.ltd>',
+        to=[user.email],
+        bcc=['noobtronics12@gmail.com'],
+    )
+
+    template = get_template('email_pwdreset.html')
+    rendered_data = template.render(data)
+
+    message.content_subtype = "html"
+    message.attach_alternative(rendered_data, "text/html")
+    message.attach(logo_data())
+    message.send(fail_silently=False)
+
+
+
+
 def logo_data():
     with open('static/images/logo_email.png', 'rb') as f:
         logo_data = f.read()

@@ -1128,9 +1128,9 @@ def handle_forgotpwd(request):
             resp['login_help'] = 'Account does not exist'
         else:
             user = user[0]
-
+        send_pwdreset_mail(user)
         resp['success'] = True
-        resp['login_help'] = '';
+        resp['login_help'] = ''
     except:
         print(traceback.format_exc())
         pass
