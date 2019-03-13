@@ -1160,7 +1160,7 @@ def forgotpwd_view(request, code):
     return HttpResponse(status=500)
 
 
-def my_http404_view(request):
+def my_http404_view(request, exception):
     context = {
         'loggedin': request.user.is_authenticated,
         'cartqty': get_cart_qty(request),
@@ -1169,7 +1169,7 @@ def my_http404_view(request):
     return render(request, 'http404.html',context)
 
 
-def my_http500_view(request):
+def my_http500_view(request, exception):
     context = {
         'loggedin': request.user.is_authenticated,
         'cartqty': get_cart_qty(request),
