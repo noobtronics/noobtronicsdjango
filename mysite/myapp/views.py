@@ -1158,3 +1158,21 @@ def forgotpwd_view(request, code):
         }
         return render(request, 'forgot_password.html',context)
     return HttpResponse(status=500)
+
+
+def my_http404_view(request):
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'cartqty': get_cart_qty(request),
+        'whatsapp_on_mobile': True
+    }
+    return render(request, 'http404.html',context)
+
+
+def my_http500_view(request):
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'cartqty': get_cart_qty(request),
+        'whatsapp_on_mobile': True
+    }
+    return render(request, 'http500.html',context)
