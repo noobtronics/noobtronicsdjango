@@ -42,6 +42,10 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 
 
+class ProductBulletsAdmin(admin.ModelAdmin):
+    list_display = ('prod_id', 'data', 'rank', 'created')
+admin.site.register(ProductBullets, ProductBulletsAdmin)
+
 class ImageDataAdmin(admin.ModelAdmin):
     list_display = ('id', 'img_url')
 admin.site.register(ImageData, ImageDataAdmin)

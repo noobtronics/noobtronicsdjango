@@ -36,6 +36,8 @@ class Product(models.Model):
         return '/product/'+self.slug
 
 
+
+
 @receiver(post_delete, sender=Product, dispatch_uid='delete_product_signal')
 def delete_product(sender, instance, using, **kwargs):
     media_path = 'media/'+instance.slug
@@ -67,6 +69,13 @@ def delete_thumbnail(sender, instance, using, **kwargs):
     p = '.' + instance.image.url
     if os.path.isfile(p):
         os.remove(p)
+
+
+class ProductBullets(models.Model):
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='prodbullets')
+    data = models.CharField(max_length=100)
+    rank = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class ImageData(models.Model):
