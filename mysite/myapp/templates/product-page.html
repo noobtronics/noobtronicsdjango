@@ -45,7 +45,7 @@
                 </div>
                 <div class="column">
                     <h1 class="title is-4" style="margin-top:30px;">{{data.product_head}}</h1>
-                    <h4 class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></h4>
+                    <p class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></p>
                     <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
                     {% if data.in_stock %}
                     <div class="prodquant">
@@ -62,14 +62,14 @@
                         </a>
                     </div>
                     <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Add to Cart</a>
-                    <h4 class="subtitle is-5 prodstatus">Status: In Stock</h4>
+                    <p class="subtitle is-5 prodstatus">Status: In Stock</p>
                     {% else %}
                     {% if data.waitlisted %}
                     <a class="button is-link prodaddcart" >Waitlisted</a>
                     {% else %}
                     <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Join Waitlist</a>
                     {% endif %}
-                    <h4 class="subtitle is-5 prodstatus">Status: Out of Stock</h4>
+                    <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
                     {% endif %}
 
                     <div class="columns is-mobile prodorderdetails">
