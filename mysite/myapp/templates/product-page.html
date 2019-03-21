@@ -74,6 +74,15 @@
 
                     <div class="columns is-mobile prodorderdetails">
                         <div class="column">
+                            <div class="content" style="text-align:left;">
+                                <ul style=" display: table;margin-top: 0;margin-right: auto;margin-left: auto;">
+                                {% for b in data.bullets %}
+                                <li>{{b}}</li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- <div class="column">
                             <div class="orderpaymethod" >
                                 <p>Payment Methods</p>
                                 <nav class="level" >
@@ -97,7 +106,7 @@
                                 </nav>
                             </div>
                         </div>
-                        {% endif %}
+                        {% endif %} -->
                     </div>
 
                 </div>

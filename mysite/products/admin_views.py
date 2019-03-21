@@ -425,6 +425,13 @@ def process_prod_page(request, prod_id):
     has_related_prods, related_prod_data =  get_related_prod(prod_id)
     has_similar_prods, similar_prod_data = get_similar_prod(prod_id)
 
+
+    bullets = []
+    bullets_data = prod.prodbullets.all().order_by('rank')
+    for b in bullets_data:
+        bullets.append(b.data)
+
+
     data = {
         'id': prod.id,
         'name': prod.name,
@@ -445,6 +452,7 @@ def process_prod_page(request, prod_id):
         'similar_prod_data': similar_prod_data,
         'is_amazon': prod.is_amazon,
         'amazon_link': prod.amazon_link,
+        'bullets': bullets
     }
 
     image_data = {
