@@ -127,7 +127,7 @@
                     <h3 class="is-invisible" style="height:0px;margin:0;">{{data.description}}</h3>
                     {% for t in data.prod_details %}
                     <div id="pd{{t.rank}}" style="display: none;">
-                        <h4 class="is-invisible" style="height:0px;margin:0;">{{t.name}}:</h4>
+                        <p class="is-invisible" style="height:0px;margin:0;">{{t.name}}:</p>
                         {{t.html | safe}}
                     </div>
                     {% endfor %}
@@ -157,7 +157,7 @@
                                             <p class="cardsubtitle">{{p.cardtitle}}</p>
                                         </footer>
                                         <footer class="card-footer ">
-                                            <h4 class="price">₹{{p.price}}</h4>
+                                            <p class="price">₹{{p.price}}</p>
                                         </footer>
                                     </div>
                                     </a>
@@ -187,7 +187,7 @@
                                             <p class="cardsubtitle">{{p.cardtitle}}</p>
                                         </footer>
                                         <footer class="card-footer ">
-                                            <h4 class="price">₹{{p.price}}</h4>
+                                            <p class="price">₹{{p.price}}</p>
                                         </footer>
                                     </div>
                                     </a>
