@@ -125,33 +125,35 @@
                 </div>
             </div>
 
-            <div class="columns" v-cloak>
+            <div class="columns">
                 <div class="column">
                         {% if data.has_similar_prods %}
                         <p class="headingp">Similar Products</p>
                         <div class="columns">
                             <div class="column prodpagecards">
-                                <div v-for="p in similar_products" class="card productcard" v-on:click="open_prod_page(p.slug)">
+                                {% for p in data.similar_prod_data %}
+                                <div class="card productcard">
+                                    <a style="margin:0;padding:0;" href="/product/{{p.slug}}">
                                     <div class="card-image">
-                                        <figure class="image is-square" v-bind:id="`img`+p.id">
-                                            <img v-bind:src="p.thumb" alt="Placeholder image">
+                                        <figure class="image is-square">
+                                            <img src="{{p.thumb}}" alt="{{p.name}} | {{p.cardtitle}}">
                                         </figure>
-                                        <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
-                                        <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
                                     </div>
                                     <div class="footerblock">
                                         <footer class="card-footer">
-                                            <p class="cardhead">[%p.name%]</p>
+                                            <p class="cardhead">{{p.name}}</p>
 
                                         </footer>
                                         <footer class="card-footer">
-                                            <p class="cardsubtitle">[%p.cardtitle%]</p>
+                                            <p class="cardsubtitle">{{p.cardtitle}}</p>
                                         </footer>
                                         <footer class="card-footer ">
-                                            <h4 class="price">₹[%p.price%]</h4>
+                                            <h4 class="price">₹{{p.price}}</h4>
                                         </footer>
                                     </div>
+                                    </a>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                         {% endif %}
@@ -159,27 +161,29 @@
                         <p class="headingp">Related Products</p>
                         <div class="columns">
                             <div class="column prodpagecards">
-                                <div v-for="p in related_products" class="card productcard" v-on:click="open_prod_page(p.slug)">
+                                {% for p in data.related_prod_data %}
+                                <div class="card productcard">
+                                    <a style="margin:0;padding:0;" href="/product/{{p.slug}}">
                                     <div class="card-image">
-                                        <figure class="image is-square" v-bind:id="`img`+p.id">
-                                            <img v-bind:src="p.thumb" alt="Placeholder image">
+                                        <figure class="image is-square">
+                                            <img src="{{p.thumb}}" alt="Placeholder image">
                                         </figure>
-                                        <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
-                                        <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
                                     </div>
                                     <div class="footerblock">
                                         <footer class="card-footer">
-                                            <p class="cardhead">[%p.name%]</p>
+                                            <p class="cardhead">{{p.name}}</p>
 
                                         </footer>
                                         <footer class="card-footer">
-                                            <p class="cardsubtitle">[%p.cardtitle%]</p>
+                                            <p class="cardsubtitle">{{p.cardtitle}}</p>
                                         </footer>
                                         <footer class="card-footer ">
-                                            <h4 class="price">₹[%p.price%]</h4>
+                                            <h4 class="price">₹{{p.price}}</h4>
                                         </footer>
                                     </div>
+                                    </a>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                         {% endif %}
