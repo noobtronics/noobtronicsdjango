@@ -194,7 +194,11 @@
     </div>
 </div>
 
+<div id="loadingring" class="is-invisible">
     <div class="lds-dual-ring" v-if="loading"></div>
+</div>
+
+
 </section>
 
 
@@ -216,9 +220,14 @@
             head_app.ModalAbout = true;
         }
     };
+
+    $( document ).ready(function() {
+        $('#loadingring').removeClass("is-invisible");
+    });
 </script>
 
 <script>
+
 
 function ValidateEmail(mail)
 {
