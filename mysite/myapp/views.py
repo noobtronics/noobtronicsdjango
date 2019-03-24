@@ -46,6 +46,14 @@ def home_page(request):
         if request.user.usercode.mobile == '':
             require_mobile = 1
 
+    browse_links = []
+    browse_data = ShopLinks.objects.all().order_by('rank')
+    for b in browse_data:
+        browse_links.append({
+            'url': b.url,
+            'name': b.tag_id.name,
+        })
+
     data = []
     for p in ps:
         t = {
@@ -63,7 +71,8 @@ def home_page(request):
         'data': data,
         'cartqty': get_cart_qty(request),
         'whatsapp_on_mobile': True,
-        'require_mobile': require_mobile
+        'require_mobile': require_mobile,
+        'browse_links': browse_links
     }
     return render(request, 'home-page.html', context)
 
@@ -145,10 +154,17 @@ def shop_page(request):
     prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
 
     require_mobile = 0
-
     if request.user.is_authenticated:
         if request.user.usercode.mobile == '':
             require_mobile = 1
+
+    browse_links = []
+    browse_data = ShopLinks.objects.all().order_by('rank')
+    for b in browse_data:
+        browse_links.append({
+            'url': b.url,
+            'name': b.tag_id.name,
+        })
 
     context = {
         'loggedin': request.user.is_authenticated,
@@ -159,6 +175,7 @@ def shop_page(request):
         'page_number': page_number,
         'require_mobile': require_mobile,
         'whatsapp_on_mobile': True,
+        'browse_links': browse_links
     }
     return render(request, 'shop-page.html', context)
 
@@ -184,10 +201,17 @@ def shop_slug_page(request, shop_slug):
     prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
 
     require_mobile = 0
-
     if request.user.is_authenticated:
         if request.user.usercode.mobile == '':
             require_mobile = 1
+
+    browse_links = []
+    browse_data = ShopLinks.objects.all().order_by('rank')
+    for b in browse_data:
+        browse_links.append({
+            'url': b.url,
+            'name': b.tag_id.name,
+        })
 
     context = {
         'loggedin': request.user.is_authenticated,
@@ -198,6 +222,7 @@ def shop_slug_page(request, shop_slug):
         'page_number': page_number,
         'require_mobile': require_mobile,
         'whatsapp_on_mobile': True,
+        'browse_links': browse_links
     }
     return render(request, 'shop-page.html', context)
 

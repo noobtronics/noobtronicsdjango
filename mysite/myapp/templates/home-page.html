@@ -20,8 +20,10 @@
 
     <!-- Hero content: will be in the middle -->
     <div class="hero-body" id="app">
-        <div class="container has-text-centered">
-            <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true" data-delay="8000">
+        <div class="homecontainer has-text-centered">
+            <div class="columns">
+                <div class="column">
+                    <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true" data-delay="8000">
                 <div class='carousel-container'>
 
                     {% for p in data %}
@@ -56,7 +58,28 @@
                     </div>
                 </div>
             </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="homecontainer has-text-centered">
+        <div class="columns">
+            <div class="column">
+                <!-- <p class="headingp">Browse</p> -->
+                <div class="columns prodbrowselinks">
+                    <div class="column">
+                        <div class="buttons is-centered">
+                            {% for b in browse_links %}
+                                <a class="button is-medium is-primary is-inverted is-outlined " href="/shop/{{b.url}}">{{b.name}}</a>
+                            {% endfor %}
+                            <a class="button is-medium is-primary is-inverted is-outlined " href="/shop">All Products</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     {% include "hero-footer.html" %}
