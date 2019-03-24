@@ -5,13 +5,6 @@
     <meta name="description" content="At noobtronics, we manufacture Open Source hardware and also make hardware of our own, for noobs and pros alike.">
 
     {% include "header.html" %}
-
-    <script>
-        var carousels = '';
-        document.addEventListener('DOMContentLoaded', function() {
-            bulmaCarousel.attach();
-        });
-    </script>
 </head>
 <body>
 <section class="hero is-success is-fullheight">
@@ -23,16 +16,12 @@
         <div class="homecontainer has-text-centered">
             <div class="columns">
                 <div class="column">
-                    <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true" data-delay="8000">
-                            <div class='carousel-container'>
-
+                    <div class='carouselhome'>
                                     {% for p in data %}
-                                    {% if not forloop.last %}
-                                    <div class='carousel-item'>
-                                    {% else %}
-                                    <div class='carousel-item is-active'>
-                                    {% endif %}
+                                    <div class='item'>
+
                                         <div class="columns">
+                                            {% if not forloop.counter|divisibleby:2 %}
                                             <div class="column">
                                                 <h2 class="prodtitle">{{p.name}}</h2>
                                                 <h2 class="subtitle">{{p.pagetitle}}</h2>
@@ -40,24 +29,27 @@
                                                 <a class="button is-warning homeorder" href="/product/{{p.slug}}" target="_blank">View Details</a>
                                             </div>
                                             <div class="column">
-                                                <div class="prodimage">
+                                                <div class="prodimage is-pulled-left">
                                                     <img  src="{{p.image}}" alt="{{p.name}} | {{p.pagetitle}}">
                                                 </div>
                                             </div>
+                                            {% else %}
+                                            <div class="column ">
+                                                <div class="prodimage is-pulled-right">
+                                                    <img  src="{{p.image}}" alt="{{p.name}} | {{p.pagetitle}}">
+                                                </div>
+                                            </div>
+                                            <div class="column">
+                                                <h2 class="prodtitle">{{p.name}}</h2>
+                                                <h2 class="subtitle">{{p.pagetitle}}</h2>
+                                                <h2 class="price">&#8377;{{p.price}}<span class="mrpprice">&nbsp;&#8377;{{p.mrp}}&nbsp;&nbsp;</span></h2>
+                                                <a class="button is-warning homeorder" href="/product/{{p.slug}}" target="_blank">View Details</a>
+                                            </div>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                     {% endfor %}
-
-                            </div>
-
-                            <div class="carousel-navigation is-centered">
-                                <div class="carousel-nav-left">
-                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                                </div>
-                                <div class="carousel-nav-right">
-                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                                </div>
-                            </div>
 
                     </div>
                 </div>
