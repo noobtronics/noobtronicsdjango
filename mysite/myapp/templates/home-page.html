@@ -24,45 +24,46 @@
             <div class="columns">
                 <div class="column">
                     <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true" data-delay="8000">
-                <div class='carousel-container'>
+                            <div class='carousel-container'>
 
-                    {% for p in data %}
-                    {% if not forloop.last %}
-                    <div class='carousel-item'>
-                    {% else %}
-                    <div class='carousel-item is-active'>
-                    {% endif %}
-                        <div class="columns">
-                            <div class="column">
-                                <h2 class="prodtitle">{{p.name}}</h2>
-                                <h2 class="subtitle">{{p.pagetitle}}</h2>
-                                <h2 class="price">&#8377;{{p.price}}<span class="mrpprice">&nbsp;&#8377;{{p.mrp}}&nbsp;&nbsp;</span></h2>
-                                <a class="button is-warning homeorder" href="/product/{{p.slug}}" target="_blank">View Details</a>
+                                    {% for p in data %}
+                                    {% if not forloop.last %}
+                                    <div class='carousel-item'>
+                                    {% else %}
+                                    <div class='carousel-item is-active'>
+                                    {% endif %}
+                                        <div class="columns">
+                                            <div class="column">
+                                                <h2 class="prodtitle">{{p.name}}</h2>
+                                                <h2 class="subtitle">{{p.pagetitle}}</h2>
+                                                <h2 class="price">&#8377;{{p.price}}<span class="mrpprice">&nbsp;&#8377;{{p.mrp}}&nbsp;&nbsp;</span></h2>
+                                                <a class="button is-warning homeorder" href="/product/{{p.slug}}" target="_blank">View Details</a>
+                                            </div>
+                                            <div class="column">
+                                                <div class="prodimage">
+                                                    <img  src="{{p.image}}" alt="{{p.name}} | {{p.pagetitle}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
                             </div>
-                            <div class="column">
-                                <div class="prodimage">
-                                    <img  src="{{p.image}}" alt="{{p.name}} | {{p.pagetitle}}">
+
+                            <div class="carousel-navigation is-centered">
+                                <div class="carousel-nav-left">
+                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                </div>
+                                <div class="carousel-nav-right">
+                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-
-                </div>
-                <div class="carousel-navigation is-centered">
-                    <div class="carousel-nav-left">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    </div>
-                    <div class="carousel-nav-right">
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
 
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
+
         <div class="homecontainer has-text-centered">
             <div class="columns">
                 <div class="column">
