@@ -162,6 +162,11 @@ def shop_page(request):
     return render(request, 'shop-page.html', context)
 
 
+
+def shop_slug_page(request, shop_slug):
+    print(shop_slug)
+
+
 def get_cart_prods(usr):
     cartprods = []
     cartprods_ids = {}

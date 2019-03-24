@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import *
 
 
@@ -6,7 +6,12 @@ urlpatterns = [
     path('', home_page, name='home'),
     path('product/<slug:prod_slug>', product_page),
     path('productprint/<slug:prod_slug>', print_product_page),
+
+
+    re_path(r'shop/(?P<shop_slug>.+)', shop_slug_page),
     path('shop', shop_page, name='shop'),
+
+
     path('cart', cart_page),
     path('cart/paytm/callback', paytm_callback),
     path('orders', orders_page),
