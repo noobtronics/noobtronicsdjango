@@ -36,7 +36,6 @@ IST_TZ = pytz.timezone('Asia/Kolkata')
 
 
 @ensure_csrf_cookie
-@minified_response
 def home_page(request):
     ps = HomePage.objects.all().order_by('rank')
 
