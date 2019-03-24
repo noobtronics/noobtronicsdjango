@@ -196,6 +196,17 @@
                             </div>
                         </div>
                         {% endif %}
+                        <p class="headingp">Browse</p>
+                        <div class="columns prodbrowselinks">
+                            <div class="column">
+                                <div class="buttons is-centered">
+                                    {% for b in data.browse_links %}
+                                        <a class="button is-medium is-primary is-inverted is-outlined " href="/shop/{{b.url}}">{{b.name}}</a>
+                                    {% endfor %}
+                                    <a class="button is-medium is-primary is-inverted is-outlined " href="/shop">All Products</a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
 

@@ -123,6 +123,12 @@ class ShopLinksAdmin(admin.ModelAdmin):
 admin.site.register(ShopLinks, ShopLinksAdmin)
 
 
+class ProductLinksAdmin(admin.ModelAdmin):
+    list_display = ('prod_id', 'link_id', 'rank')
+admin.site.register(ProductLinks, ProductLinksAdmin)
+
+
+
 class PaytmHistoryAdmin(admin.ModelAdmin):
     list_display = ('email', 'txn_amount', 'txn_date', 'status', 'txn_id', 'paytm_orderid')
     search_fields = ('user_id__email',)
