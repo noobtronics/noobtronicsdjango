@@ -114,6 +114,15 @@ admin.site.register(ProductDetails, ProductDetailsAdmin)
 
 admin.site.register(Tags)
 
+class ProductTagsAdmin(admin.ModelAdmin):
+    list_display = ('tag_id', 'prod_id')
+admin.site.register(ProductTags, ProductTagsAdmin)
+
+class ShopLinksAdmin(admin.ModelAdmin):
+    list_display = ('url', 'tag_id')
+admin.site.register(ShopLinks, ShopLinksAdmin)
+
+
 class PaytmHistoryAdmin(admin.ModelAdmin):
     list_display = ('email', 'txn_amount', 'txn_date', 'status', 'txn_id', 'paytm_orderid')
     search_fields = ('user_id__email',)

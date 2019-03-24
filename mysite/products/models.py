@@ -186,6 +186,7 @@ class Tags(models.Model):
     def __str__(self):
         return self.name
 
+
 class ProductTags(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     tag_id = models.ForeignKey(Tags, on_delete=models.CASCADE)
@@ -196,6 +197,11 @@ class ProductTags(models.Model):
     def __str__(self):
         return self.prod_id.name + ' ' + self.tag_id.name
 
+
+class ShopLinks(models.Model):
+    url = models.CharField(max_length=100, unique = True)
+    tag_id = models.ForeignKey(Tags, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class ZipCodes(models.Model):

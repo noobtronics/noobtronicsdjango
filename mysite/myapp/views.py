@@ -162,9 +162,42 @@ def shop_page(request):
     return render(request, 'shop-page.html', context)
 
 
+def get_parent_taglist(tag):
+    output = []
+    output.append(tag.id)
+    while tag.parent is not None:
+        tag = tag.parent
+        output.append(tag.id)
+    output = output[::-1]
+    output.extend([0,0,0,0,0])
+    return output[:5]
 
+
+@ensure_csrf_cookie
+@minified_response
 def shop_slug_page(request, shop_slug):
-    print(shop_slug)
+    shop_link = get_object_or_404(ShopLinks, url=shop_slug)
+    data = {}
+    data['tags'] = get_alltags_data()
+    data['tags_selected'] = get_parent_taglist(shop_link.tag_id)
+    prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
+
+    require_mobile = 0
+
+    if request.user.is_authenticated:
+        if request.user.usercode.mobile == '':
+            require_mobile = 1
+
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'data': data,
+        'cartqty': get_cart_qty(request),
+        'prod_data': prod_data,
+        'total_pages': total_pages,
+        'page_number': page_number,
+        'require_mobile': require_mobile
+    }
+    return render(request, 'shop-page.html', context)
 
 
 def get_cart_prods(usr):

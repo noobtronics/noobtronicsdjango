@@ -61,8 +61,8 @@ def get_parents_tags(parent, depth):
         if len(childs) == 0:
             if parent.type == 'T':
                 html = '<li><label class="checkbox">' \
-                       '<input name="{0}" value="{0}" type="checkbox" v-on:change="update_menu_prods(1)">{1}' \
-                       '</label></li>'.format(parent.id, parent.name)
+                       '<input name="{0}" value="{0}" type="checkbox" v-on:change="update_checkbox_prods(1,{0})">{1}' \
+                       '</label></li>'.format(parent.id, parent.name,depth )
             if parent.type == 'M':
                 html = '<li><a class="" v-on:click="change_menu({2},{1})" v-bind:class="{{ \'is-active\': menu_selected[{2}]=={1}}}">{0}</a></li>'.format(parent.name, parent.id, depth-1)
         else:

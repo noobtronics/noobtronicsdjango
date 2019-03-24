@@ -297,6 +297,15 @@
             update_menu_prods: function(page_number){
                 update_menu_prods(page_number);
             },
+            update_checkbox_prods: function(page_number, tagid){
+                for(var i=0; i< this.menu_selected.length; i++){
+                    if(this.menu_selected[i]==tagid){
+                        this.menu_selected[i]=0;
+                        break;
+                    }
+                }
+                update_menu_prods(page_number);
+            },
             open_prod_page: function(slug){
                 var url = '/product/'+slug;
                 var win = window.open(url, '_blank');
@@ -339,6 +348,13 @@
             }
         }
     });
+
+
+    for(var i=0; i<menu_data.length;i++ ){
+        if(menu_data[i]> 0){
+                $("#shopmenu").find("input[type=checkbox][value="+menu_data[i]+"]").prop('checked', true);
+        }
+    }
 </script>
 </section>
 
