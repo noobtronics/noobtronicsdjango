@@ -64,20 +64,22 @@
             </div>
         </div>
         <div class="homecontainer has-text-centered">
-        <div class="columns">
-            <div class="column">
-                <!-- <p class="headingp">Browse</p> -->
-                <div class="columns prodbrowselinks">
-                    <div class="column">
-                        <div class="buttons is-centered">
-                            {% for b in browse_links %}
-                                <a class="button is-medium is-primary is-inverted is-outlined " href="/shop/{{b.url}}">{{b.name}}</a>
-                            {% endfor %}
-                            <a class="button is-medium is-primary is-inverted is-outlined " href="/shop">All Products</a>
+            <div class="columns">
+                <div class="column">
+                    <!-- <p class="headingp">Browse</p> -->
+                    <div class="columns prodbrowselinks">
+                        <div class="column">
+                            <div class="buttons is-centered">
+                                {% for b in browse_links %}
+                                    <a class="button is-medium is-primary is-inverted is-outlined " href="/shop/{{b.url}}">{{b.name}}</a>
+                                {% endfor %}
+                                <a class="button is-medium is-primary is-inverted is-outlined " href="/shop">All Products</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
