@@ -34,18 +34,19 @@
                 <mycomp id="prodstatcase">
                 {% for p in prod_data %}
                 <div class="card productcard is-shady">
-                    <a style="margin:0;padding:0;" href="/product/{{p.slug}}">
                     <div class="card-image">
+                        <a style="margin:0;padding:0;" href="/product/{{p.slug}}" target="_blank">
                         <figure class="image is-square" id="img{{p.id}}">
                             <img src="{{p.thumb}}" alt="Placeholder image">
                         </figure>
+                        </a>
                         {% if p.in_stock %}
                         <a class="button is-warning shopcartbutton" v-on:click="add_to_cart({{p.id}})">Add to Cart</a>
                         {% else %}
                         <a class="button is-primary shopcartbutton">Out of Stock</a>
                         {% endif %}
                     </div>
-                    <div class="footerblock">
+                    <div class="footerblock" onclick="js_open_url('/product/{{p.slug}}')">
                         <footer class="card-footer">
                             <p class="cardhead">{{p.name}}</p>
 
@@ -57,22 +58,23 @@
                             <h2 class="price">₹{{p.price}}<span class="mrpprice">&nbsp;₹{{p.mrp}}&nbsp;&nbsp;</span></h2>
                         </footer>
                     </div>
-                    </a>
                 </div>
                 {% endfor %}
                 </mycomp>
 
                 <mycomp id="proddyncase" class="is-invisible">
                 <mycomp v-if="shifted_to_dynamic">
-                <div v-for="p in products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                <div v-for="p in products" class="card productcard is-shady">
                     <div class="card-image">
+                        <a style="margin:0;padding:0;" v-bind:href="`/product/`+p.slug" target="_blank">
                         <figure class="image is-square" v-bind:id="`img`+p.id">
                             <img v-bind:src="p.thumb" alt="Placeholder image">
                         </figure>
+                        </a>
                         <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
                         <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
                     </div>
-                    <div class="footerblock">
+                    <div class="footerblock" v-on:click="open_prod_page(p.slug)">
                         <footer class="card-footer">
                             <p class="cardhead">[%p.name%]</p>
 

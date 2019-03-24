@@ -112,6 +112,12 @@
     };
 
 
+    var js_open_url =function(url){
+        var win = window.open(url, '_blank');
+        win.focus();
+    };
+
+
     axios.defaults.xsrfHeaderName = "X-CSRFToken";
     axios.defaults.xsrfCookieName = 'csrftoken';
 
