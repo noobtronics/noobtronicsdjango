@@ -21,7 +21,7 @@
                                     <div class='item'>
 
                                         <div class="columns">
-                                            {% if not forloop.counter|divisibleby:2 %}
+
                                             <div class="column">
                                                 <h2 class="prodtitle">{{p.name}}</h2>
                                                 <h2 class="subtitle">{{p.pagetitle}}</h2>
@@ -29,23 +29,11 @@
                                                 <a class="button is-warning homeorder" href="/product/{{p.slug}}" target="_blank">View Details</a>
                                             </div>
                                             <div class="column">
-                                                <div class="prodimage is-pulled-left">
+                                                <div class="prodimage">
                                                     <img  src="{{p.image}}" alt="{{p.name}} | {{p.pagetitle}}">
                                                 </div>
                                             </div>
-                                            {% else %}
-                                            <div class="column ">
-                                                <div class="prodimage is-pulled-right">
-                                                    <img  src="{{p.image}}" alt="{{p.name}} | {{p.pagetitle}}">
-                                                </div>
-                                            </div>
-                                            <div class="column">
-                                                <h2 class="prodtitle">{{p.name}}</h2>
-                                                <h2 class="subtitle">{{p.pagetitle}}</h2>
-                                                <h2 class="price">&#8377;{{p.price}}<span class="mrpprice">&nbsp;&#8377;{{p.mrp}}&nbsp;&nbsp;</span></h2>
-                                                <a class="button is-warning homeorder" href="/product/{{p.slug}}" target="_blank">View Details</a>
-                                            </div>
-                                            {% endif %}
+
 
                                         </div>
                                     </div>
@@ -55,19 +43,15 @@
                 </div>
                 </div>
 
-            <div class="columns">
+            <div class="columns prodbrowselinks">
                 <div class="column">
                     <!-- <p class="headingp">Browse</p> -->
-                    <div class="columns prodbrowselinks">
-                        <div class="column">
-                            <div class="buttons is-centered">
-                                {% for b in browse_links %}
-                                    <a class="button is-medium is-primary is-inverted is-outlined " href="/shop/{{b.url}}">{{b.name}}</a>
-                                {% endfor %}
-                                <a class="button is-medium is-primary is-inverted is-outlined " href="/shop">All Products</a>
-                            </div>
+                        <div class="buttons is-centered">
+                            {% for b in browse_links %}
+                                <a class="button is-medium is-primary is-inverted is-outlined " href="/shop/{{b.url}}">{{b.name}}</a>
+                            {% endfor %}
+                            <a class="button is-medium is-primary is-inverted is-outlined " href="/shop">All Products</a>
                         </div>
-                    </div>
                 </div>
             </div>
 
