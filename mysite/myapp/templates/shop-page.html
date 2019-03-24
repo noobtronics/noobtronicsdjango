@@ -30,7 +30,8 @@
                     </ul>
                 </aside>
             </div>
-            <div class="column is-three-quarters prodcolumn">
+            <div class="column is-three-quarters prodcolumn" >
+                <mycomp id="prodstatcase">
                 {% for p in prod_data %}
                 <div class="card productcard is-shady">
                     <a style="margin:0;padding:0;" href="/product/{{p.slug}}">
@@ -59,6 +60,34 @@
                     </a>
                 </div>
                 {% endfor %}
+                </mycomp>
+
+                <mycomp id="proddyncase" class="is-invisible">
+                <mycomp v-if="shifted_to_dynamic">
+                <div v-for="p in products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                    <div class="card-image">
+                        <figure class="image is-square" v-bind:id="`img`+p.id">
+                            <img v-bind:src="p.thumb" alt="Placeholder image">
+                        </figure>
+                        <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
+                        <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
+                    </div>
+                    <div class="footerblock">
+                        <footer class="card-footer">
+                            <p class="cardhead">[%p.name%]</p>
+
+                        </footer>
+                        <footer class="card-footer">
+                            <p class="cardsubtitle">[%p.cardtitle%]</p>
+                        </footer>
+                        <footer class="card-footer ">
+                            <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                        </footer>
+                    </div>
+                </div>
+                </mycomp>
+                </mycomp>
+
                 <nav class="pagination is-rounded" role="navigation" aria-label="pagination" v-if="total_pages>1">
                     <a class="pagination-previous" v-if="table_page > 1" v-on:click="change_page(table_page-1)">Previous</a>
                     <a class="pagination-next" v-if="table_page < total_pages" v-on:click="change_page(table_page+1)">Next page</a>
@@ -209,7 +238,6 @@
         });
     };
 
-
     var update_menu_prods = function(page_number){
         head_app.loading = true;
         var form = document.getElementById('shopmenu');
@@ -230,6 +258,12 @@
                 app.products = response.data.products;
                 app.table_page = response.data.page_number;
                 app.total_pages = response.data.total_pages;
+
+                if(!app.shifted_to_dynamic){
+                    $("#prodstatcase").remove();
+                    app.shifted_to_dynamic = true;
+                    $("#proddyncase").removeClass("is-invisible");
+                }
             }
             else{
                 console.log(response);
@@ -248,7 +282,8 @@
             menu_selected: menu_data,
             table_page: page_number,
             total_pages: total_pages,
-            filterbtnactive: false
+            filterbtnactive: false,
+            shifted_to_dynamic: false,
         },
         methods :{
             change_menu: function(idx, val) {
