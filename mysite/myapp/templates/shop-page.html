@@ -31,27 +31,34 @@
                 </aside>
             </div>
             <div class="column is-three-quarters prodcolumn">
-                <div v-for="p in products" class="card productcard is-shady" v-on:click="open_prod_page(p.slug)">
+                {% for p in prod_data %}
+                <div class="card productcard is-shady">
+                    <a style="margin:0;padding:0;" href="/product/{{p.slug}}">
                     <div class="card-image">
-                        <figure class="image is-square" v-bind:id="`img`+p.id">
-                            <img v-bind:src="p.thumb" alt="Placeholder image">
+                        <figure class="image is-square" id="img{{p.id}}">
+                            <img src="{{p.thumb}}" alt="Placeholder image">
                         </figure>
-                        <a v-if="p.in_stock=='true'" class="button is-warning shopcartbutton" v-on:click="add_to_cart(p.id)">Add to Cart</a>
-                        <a v-if="p.in_stock=='false'" class="button is-primary shopcartbutton">Out of Stock</a>
+                        {% if p.in_stock %}
+                        <a class="button is-warning shopcartbutton" v-on:click="add_to_cart({{p.id}})">Add to Cart</a>
+                        {% else %}
+                        <a class="button is-primary shopcartbutton">Out of Stock</a>
+                        {% endif %}
                     </div>
                     <div class="footerblock">
                         <footer class="card-footer">
-                            <p class="cardhead">[%p.name%]</p>
+                            <p class="cardhead">{{p.name}}</p>
 
                         </footer>
                         <footer class="card-footer">
-                            <p class="cardsubtitle">[%p.cardtitle%]</p>
+                            <p class="cardsubtitle">{{p.cardtitle}}</p>
                         </footer>
                         <footer class="card-footer ">
-                            <h2 class="price">₹[%p.price%]<span class="mrpprice">&nbsp;₹[%p.mrp%]&nbsp;&nbsp;</span></h2>
+                            <h2 class="price">₹{{p.price}}<span class="mrpprice">&nbsp;₹{{p.mrp}}&nbsp;&nbsp;</span></h2>
                         </footer>
                     </div>
+                    </a>
                 </div>
+                {% endfor %}
                 <nav class="pagination is-rounded" role="navigation" aria-label="pagination" v-if="total_pages>1">
                     <a class="pagination-previous" v-if="table_page > 1" v-on:click="change_page(table_page-1)">Previous</a>
                     <a class="pagination-next" v-if="table_page < total_pages" v-on:click="change_page(table_page+1)">Next page</a>
