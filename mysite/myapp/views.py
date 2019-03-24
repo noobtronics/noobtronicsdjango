@@ -157,7 +157,8 @@ def shop_page(request):
         'prod_data': prod_data,
         'total_pages': total_pages,
         'page_number': page_number,
-        'require_mobile': require_mobile
+        'require_mobile': require_mobile,
+        'whatsapp_on_mobile': True,
     }
     return render(request, 'shop-page.html', context)
 
@@ -195,7 +196,8 @@ def shop_slug_page(request, shop_slug):
         'prod_data': prod_data,
         'total_pages': total_pages,
         'page_number': page_number,
-        'require_mobile': require_mobile
+        'require_mobile': require_mobile,
+        'whatsapp_on_mobile': True,
     }
     return render(request, 'shop-page.html', context)
 
