@@ -141,7 +141,7 @@ def get_prod_data(menu_data, tag_query, page_number):
 def shop_page(request):
     data = {}
     data['tags'] = get_alltags_data()
-    data['tags_selected'] = [data['tags']['selected_id'], 0, 0, 0, 0]
+    data['tags_selected'] = [0, 0, 0, 0, 0]
     prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
 
     require_mobile = 0
