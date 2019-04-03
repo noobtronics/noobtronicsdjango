@@ -91,6 +91,9 @@ class CartAdmin(admin.ModelAdmin):
         # Nobody is allowed to add
         return False
 
+    def has_change_permission(self, request):
+        return False
+
     def has_delete_permission(self, request, obj=None):
         # Nobody is allowed to delete
         return False
@@ -101,6 +104,9 @@ class CartObjectsAdmin(admin.ModelAdmin):
     list_display = ('cart_id', 'prod_id', 'quantity','created')
     def has_add_permission(self, request):
         # Nobody is allowed to add
+        return False
+
+    def has_change_permission(self, request):
         return False
 
     def has_delete_permission(self, request, obj=None):
