@@ -141,6 +141,9 @@ class Cart(models.Model):
     def email(self):
         return self.user_id.email
 
+    def __str__(self):
+        return self.user_id.email
+
 
 class CartObjects(models.Model):
     cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
