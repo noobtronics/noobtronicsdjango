@@ -97,7 +97,17 @@ class CartAdmin(admin.ModelAdmin):
 admin.site.register(Cart, CartAdmin)
 
 
-admin.site.register(CartObjects, ReadOnlyAdmin)
+class CartObjectsAdmin(admin.ModelAdmin):
+    list_display = ('cart_id__user_id', 'prod_id', 'quantity','created')
+    def has_add_permission(self, request):
+        # Nobody is allowed to add
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        # Nobody is allowed to delete
+        return False
+
+admin.site.register(CartObjects, CartObjectsAdmin)
 
 
 class WaitlistAdmin(admin.ModelAdmin):
