@@ -7,13 +7,13 @@ import os
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=21)
-    slug = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=200)
+    slug = models.CharField(max_length=200, unique=True)
     meta_title = models.CharField(max_length=300, default='')
     description = models.CharField(max_length=300, default='')
     product_head = models.CharField(max_length=300, default='')
-    pagetitle = models.CharField(max_length=100)
-    cardtitle = models.CharField(max_length=24)
+    pagetitle = models.CharField(max_length=200)
+    cardtitle = models.CharField(max_length=200)
     sku = models.CharField(max_length=8, unique=True)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
