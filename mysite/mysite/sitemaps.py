@@ -30,6 +30,21 @@ class StaticViewSitemap(sitemaps.Sitemap):
         return reverse(item)
 
 
+class ShopLinkSitemaps(sitemaps.Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        return ShopLinks.objects.all()
+
+    def lastmod(self, item):
+        return item.created
+
+    def location(self, item):
+        return '/shop/'+item.url
+
+
 class DownloadsSitemap(sitemaps.Sitemap):
     changefreq = "hourly"
     priority = 0.4

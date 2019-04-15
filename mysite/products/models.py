@@ -204,6 +204,8 @@ class ProductTags(models.Model):
 class ShopLinks(models.Model):
     url = models.CharField(max_length=100, unique = True)
     tag_id = models.ForeignKey(Tags, on_delete=models.CASCADE)
+    meta_title = models.CharField(max_length=200, default='')
+    meta_description = models.CharField(max_length=200, default='')
     rank = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
 

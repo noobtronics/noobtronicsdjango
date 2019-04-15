@@ -174,7 +174,9 @@ def shop_page(request):
         'page_number': page_number,
         'require_mobile': require_mobile,
         'whatsapp_on_mobile': True,
-        'browse_links': browse_links
+        'browse_links': browse_links,
+        'meta_title': 'Noobtronics Shop: Microcontrollers, Sensors, Modules, Electronic Hobby Kits | India',
+        'meta_description': 'Our product offerings include Microcontroller Boards, All types of Sensors, Modules, Development Boards and Kits required for any Electronic Project'
     }
     return render(request, 'shop-page.html', context)
 
@@ -221,7 +223,10 @@ def shop_slug_page(request, shop_slug):
         'page_number': page_number,
         'require_mobile': require_mobile,
         'whatsapp_on_mobile': True,
-        'browse_links': browse_links
+        'browse_links': browse_links,
+
+        'meta_title': shop_link.meta_title,
+        'meta_description': shop_link.meta_description,
     }
     return render(request, 'shop-page.html', context)
 
