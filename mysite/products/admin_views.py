@@ -26,6 +26,7 @@ from django.utils import timezone
 import requests
 from paytm import Checksum as PaytmChecksum
 from myapp.structured_data import *
+import math
 
 
 @staff_or_404
@@ -257,7 +258,17 @@ def admin_upload_images(request):
 
 @staff_or_404
 def admin_fetch_product(request):
-    prods = Product.objects.all().order_by('-id')[:5]
+
+    data_conf = json.loads(request.body)
+    count_per_page = 20
+    prod_counts = Product.objects.all().count()
+    total_pages = int(math.ceil(prod_counts/1.0/count_per_page))
+    current_page = 1
+
+    if 'page' in data_conf:
+        current_page = data_conf['page']
+
+    prods = Product.objects.all().order_by('-id')[(current_page-1)*count_per_page:count_per_page*current_page]
     data = []
     for prod in prods:
         t = {
@@ -270,7 +281,9 @@ def admin_fetch_product(request):
         }
         data.append(t)
     resp = {
-        'data': data
+        'data': data,
+        'current_page': current_page,
+        'total_pages': total_pages
     }
     return JsonResponse(resp)
 

@@ -791,10 +791,13 @@
             method: 'post',
             url: '/adminapi/fetch/products',
             data: {
+                page: app.table_page
             }
         }).then(function(response) {
             app.products = response.data.data;
             app.loading = false;
+            app.table_page = response.data.current_page;
+            app.total_pages = response.data.total_pages;
         });
     };
 
@@ -836,17 +839,20 @@
             loading: true,
             selected: '',
             itemselected : 0,
+
             menuparent: '',
             menu_info: '',
             menu_list: [],
-            table_page: 2,
+            table_page: 1,
             total_pages: 10,
             show_add_modal: false,
             show_add_to_home_modal: false,
             show_uimages_modal: false,
             show_details_modal: false,
             show_addmenu_modal: false,
-            products: []
+            products: [],
+
+
         },
         watch: {
             selected: function (val, oldVal) {
@@ -878,6 +884,7 @@
             change_page: function(new_page){
                 if(this.table_page != new_page){
                     this.table_page = new_page;
+                    get_products_data();
                 }
             },
             change_menu: function(mid){
