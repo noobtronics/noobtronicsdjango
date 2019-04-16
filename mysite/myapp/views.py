@@ -993,10 +993,11 @@ def generate_merchant_data(request):
         available = 'in stock'
         if not p.in_stock:
             available = 'out of stock'
-
+        modified_description = p.description.replace('\r', ' ').replace('\n', ' ').replace('\t',' ')
+        modified_description = ' '.join(modified_description.split(' '))
         t = [p.sku,
              p.product_head,
-             p.description,
+             modified_description,
              str(p.price),
              'new',
              'https://noobtronics.ltd/product/'+p.slug,
