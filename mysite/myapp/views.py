@@ -165,6 +165,8 @@ def shop_page(request):
             'name': b.tag_id.name,
         })
 
+
+
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
@@ -214,6 +216,16 @@ def shop_slug_page(request, shop_slug):
             'name': b.tag_id.name,
         })
 
+    breadcrumbs = []
+    if shop_link.breadcrumb:
+        breads = shop_link.breadcrumb.breadentries.order_by('rank')
+        for bread_entry in breads:
+            temp = {
+                'name': bread_entry.link_id.name,
+                'url': bread_entry.link_id.url,
+            }
+            breadcrumbs.append(temp)
+
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,
@@ -227,6 +239,8 @@ def shop_slug_page(request, shop_slug):
 
         'meta_title': shop_link.meta_title,
         'meta_description': shop_link.meta_description,
+
+        'breadcrumbs': breadcrumbs
     }
     return render(request, 'shop-page.html', context)
 

@@ -16,6 +16,19 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body" id="app">
         <div class="container shopcontainer">
+            <div class="columns breadrow">
+                <div class="column breadcol">
+                    <nav class="breadcrumb " aria-label="breadcrumbs">
+                        <ul>
+                            {% for b in breadcrumbs %}
+                            <li><a href="/shop/{{b.url}}">{{b.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
             <div class="columns filtbtncont">
                 <div class="column">
                     <div class="filtbutton" v-bind:class="{'filtbtnactive': filterbtnactive}" v-on:click="filterbtnactive=!filterbtnactive">

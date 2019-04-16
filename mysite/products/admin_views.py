@@ -453,6 +453,18 @@ def process_prod_page(request, prod_id):
         })
 
 
+    breadcrumbs = []
+    if prod.breadcrumb:
+        breads = prod.breadcrumb.breadentries.order_by('rank')
+        for bread_entry in breads:
+            temp = {
+                'name': bread_entry.link_id.name,
+                'url': bread_entry.link_id.url,
+            }
+            breadcrumbs.append(temp)
+
+
+
     data = {
         'id': prod.id,
         'name': prod.name,
@@ -474,7 +486,8 @@ def process_prod_page(request, prod_id):
         'is_amazon': prod.is_amazon,
         'amazon_link': prod.amazon_link,
         'bullets': bullets,
-        'browse_links': browse_links
+        'browse_links': browse_links,
+        'breadcrumbs': breadcrumbs
     }
 
     image_data = {

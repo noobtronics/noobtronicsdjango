@@ -29,9 +29,9 @@
                 <div class="column breadcol">
                     <nav class="breadcrumb " aria-label="breadcrumbs">
                         <ul>
-                            <li><a href="#">Microcontrollers</a></li>
-                            <li><a href="#">Arduino Compatible</a></li>
-                            <li class="is-active"><a href="#" aria-current="page">Smartduino UNO R3 | ATmega328PB uController</a></li>
+                            {% for b in data.breadcrumbs %}
+                            <li><a href="/shop/{{b.url}}">{{b.name}}</a></li>
+                            {% endfor %}
                         </ul>
                     </nav>
                 </div>

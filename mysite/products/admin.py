@@ -149,6 +149,15 @@ class ShopLinksAdmin(admin.ModelAdmin):
     list_display = ('url', 'tag_id')
 admin.site.register(ShopLinks, ShopLinksAdmin)
 
+class BreadCrumbsAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+admin.site.register(BreadCrumbs, BreadCrumbsAdmin)
+
+
+class BreadEntryAdmin(admin.ModelAdmin):
+    list_display = ('bread_id', 'link_id', 'rank')
+admin.site.register(BreadEntry, BreadEntryAdmin)
+
 
 class ProductLinksAdmin(admin.ModelAdmin):
     list_display = ('prod_id', 'link_id', 'rank')

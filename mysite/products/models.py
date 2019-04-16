@@ -6,6 +6,12 @@ from django.contrib.auth.models import User
 import os
 
 
+class BreadCrumbs(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200, unique=True)
@@ -14,6 +20,7 @@ class Product(models.Model):
     product_head = models.CharField(max_length=70, default='')
     pagetitle = models.CharField(max_length=200)
     cardtitle = models.CharField(max_length=200)
+    breadcrumb = models.ForeignKey(BreadCrumbs, on_delete=models.SET_NULL, default=None, blank=True, null=True)
     sku = models.CharField(max_length=8, unique=True)
     price = models.IntegerField()
     mrp_price = models.IntegerField()
@@ -201,11 +208,15 @@ class ProductTags(models.Model):
         return self.prod_id.name + ' ' + self.tag_id.name
 
 
+
+
 class ShopLinks(models.Model):
     url = models.CharField(max_length=100, unique = True)
+    name = models.CharField(max_length=100, default='')
     tag_id = models.ForeignKey(Tags, on_delete=models.CASCADE)
     meta_title = models.CharField(max_length=200, default='')
     meta_description = models.CharField(max_length=200, default='')
+    breadcrumb = models.ForeignKey(BreadCrumbs, on_delete=models.SET_NULL, default=None, blank=True, null=True)
     rank = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -215,6 +226,13 @@ class ShopLinks(models.Model):
 
 class ProductLinks(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='shoplinks')
+    link_id = models.ForeignKey(ShopLinks, on_delete=models.CASCADE)
+    rank = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class BreadEntry(models.Model):
+    bread_id = models.ForeignKey(BreadCrumbs, on_delete=models.CASCADE, related_name='breadentries')
     link_id = models.ForeignKey(ShopLinks, on_delete=models.CASCADE)
     rank = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
