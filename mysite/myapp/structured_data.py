@@ -33,7 +33,20 @@ def get_product_structured_data(prod_id):
     if not prod.in_stock:
         availability = 'http://schema.org/OutOfStock'
 
-    reviews_list = []
+    reviews_list = [
+        {
+            "@type": "Review",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "4",
+                "bestRating": "5"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Shrikant"
+            }
+        },
+    ]
 
     prod_fields = {
         "@type": "Product",
@@ -53,7 +66,7 @@ def get_product_structured_data(prod_id):
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "0"
+            "reviewCount": "1"
         },
         
         "offers": {
