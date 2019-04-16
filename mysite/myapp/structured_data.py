@@ -45,6 +45,7 @@ def get_product_structured_data(prod_id):
         'image': 'https://noobtronics.ltd'+prod.mainimage.img_data.th_home.image.url,
         'url': 'https://noobtronics.ltd/product/'+prod.slug,
         'sku': prod.sku,
+        'mpn': prod.sku,
         
         "offers": {
             "@type": "Offer",
