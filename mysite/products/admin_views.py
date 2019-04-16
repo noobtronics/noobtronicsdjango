@@ -663,6 +663,29 @@ def admin_fetch_menulist(request):
     return JsonResponse(resp)
 
 
+
+
+@staff_or_404
+def admin_fetch_keywordtags(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        keytags = KeyWordTags.objects.all().order_by('name')
+        key_list = []
+        for t in keytags:
+            key_list.append(t.name)
+        output = {
+            'keytags': key_list
+        }
+        resp['data'] = output
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
+
+
+
 @staff_or_404
 def admin_add_menu(request):
     resp = {

@@ -169,6 +169,7 @@
                         </div>
                         <div class="column is-half has-text-right">
                             <a class="button is-link" v-if="selected=='Products' && itemselected == 0"  v-on:click="show_add_modal=true"><i class="fa fa-plus"></i>Add</a>
+                            <a class="button is-link" v-if="selected=='Products' && itemselected > 0"  v-on:click="open_add_keywordtags()"><i class="fa fa-plus"></i>Add KeywordTags</a>
                             <a class="button is-link" v-if="selected=='Products' && itemselected > 0"  v-on:click="open_add_tags()"><i class="fa fa-plus"></i>Add Tags</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_add_to_home_modal=true"><i class="fa fa-home"></i>Add to Home</a>
                             <a class="button is-warning" v-if="itemselected > 0" v-on:click="show_uimages_modal=true"><i class="fas fa-image"></i>Upload Images</a>
@@ -550,6 +551,40 @@
         </div>
     </div>
 
+    <div class="modal" v-bind:class="{ 'is-active': show_keywordtags_modal}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add KeywordTags</p>
+                <button class="delete" aria-label="close" v-on:click="show_keywordtags_modal=false"></button>
+            </header>
+            <section class="modal-card-body">
+                <form id="uploaddetailsform">
+                    <div class="field is-horizontal" >
+                        <div class="field-label is-normal">
+                            <label class="label">Keywords</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+
+                                    <div id="keywordselectdiv">
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="field-label is-normal">
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" v-on:click="submit_keywordtags_form()">Save changes</button>
+                <button class="button" v-on:click="show_keywordtags_modal=false">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
 </section>
 
 
@@ -818,6 +853,42 @@
     };
 
 
+    var get_keywordstags_data = function get_keywordstags_data(){
+        app.loading = true;
+        axios({
+            method: 'post',
+            url: '/adminapi/fetch/keywordtags',
+            data: {
+            }
+        }).then(function(response) {
+            console.log(response);
+            app.keywordtags = response.data.data.keytags;
+
+
+            $("#keywordselectdiv").empty();
+            var $sel = $("<select>", {"class": "keywordselect", "style":"width: 400px;"});
+
+            $sel.append('<option></option>');
+
+            for(var i=0; i<app.keywordtags.length; i++){
+                    $sel.append('<option value="'+app.keywordtags[i]+'">'+app.keywordtags[i]+'</option>');
+            }
+            $("#keywordselectdiv").append($sel);
+            app.loading = false;
+
+        });
+    };
+
+
+    $('body').on('DOMNodeInserted', '.keywordselect', function () {
+        $(this).select2({
+            multiple: true,
+        });
+    });
+
+
+
+
     var get_model_data = function get_model_data(model) {
         if(model =='Products'){
             get_products_data();
@@ -828,6 +899,12 @@
             return;
         }
     };
+
+    var open_add_keywordtags = function(){
+        get_keywordstags_data();
+        app.show_keywordtags_modal = true;
+
+    }
 </script>
 
 
@@ -850,7 +927,11 @@
             show_uimages_modal: false,
             show_details_modal: false,
             show_addmenu_modal: false,
+            show_keywordtags_modal: false,
+
             products: [],
+
+            keywordstags: [],
 
 
         },
@@ -920,6 +1001,16 @@
                 var url = '/storeadmin/addtags/'+this.itemselected;
                 var win = window.open(url, '_blank');
                 win.focus();
+            },
+            open_add_keywordtags: function(){
+                open_add_keywordtags();
+            },
+            submit_keywordtags_form: function(){
+
+                $.each($(".keywordselect option:selected"), function(){
+                    console.log($(this).val());
+                });
+
             }
         }
         });
