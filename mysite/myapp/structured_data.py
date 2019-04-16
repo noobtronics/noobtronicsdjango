@@ -65,7 +65,7 @@ def get_product_structured_data(prod_id):
         'review': reviews_list,
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "5",
+            "ratingValue": "4",
             "reviewCount": "1"
         },
         
