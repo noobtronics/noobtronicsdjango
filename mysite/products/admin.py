@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 from django.contrib.auth.models import User, Group
+from django.forms import TextInput, Textarea
 
 admin.site.unregister(User)
 admin.site.unregister(Group)
@@ -39,6 +40,16 @@ admin.site.register(User, UserAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'pagetitle', 'price', 'mrp_price', 'quantity_available', 'in_stock', 'is_published')
+    formfield_overrides = {
+        models.CharField: {'widget': TextInput(attrs={'size': '100'})}
+    }
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        formfield = super(ProductAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name == 'description':
+            formfield.widget = Textarea(attrs=formfield.widget.attrs)
+        return formfield
+
 admin.site.register(Product, ProductAdmin)
 
 
