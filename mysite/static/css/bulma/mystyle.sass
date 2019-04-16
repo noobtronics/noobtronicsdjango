@@ -40,6 +40,14 @@
         .buttons
             margin-top: 10px
 
+.breadrow
+    .breadcol
+        .breadcrumb
+            margin-left: 30px
+
+            li+li::before
+                color: white !important
+
 
 .productpagebody
   margin-bottom: 40px
@@ -996,7 +1004,6 @@ $mq-desktop				: 1382px !default
 
   .productpagebody
     .prodicons
-      width: 100%
 
 
       .prodicon
@@ -1008,7 +1015,8 @@ $mq-desktop				: 1382px !default
       width: 300px
 
     .title
-      font-size: 24px !important
+      margin-top: 0 !important
+      font-size: 20px !important
 
     .subtitle
       font-size: 18px !important
