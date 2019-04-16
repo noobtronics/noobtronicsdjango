@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_delete, post_delete
+from django.db.models.signals import pre_delete, post_delete, post_save
 from django.dispatch import receiver
 from pathlib import Path
 from django.contrib.auth.models import User
@@ -236,6 +236,32 @@ class BreadEntry(models.Model):
     link_id = models.ForeignKey(ShopLinks, on_delete=models.CASCADE)
     rank = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
+
+
+class KeyWordTags(models.Model):
+    name = models.CharField(max_length=100)
+    count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductKeywords(models.Model):
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='keywordtags')
+    keytag_id =  models.ForeignKey(KeyWordTags, on_delete=models.CASCADE, related_name='keywordprods')
+    rank = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('prod_id', 'keytag_id',)
+
+
+@receiver(post_save, sender=ProductKeywords, dispatch_uid='postsave_keywordtag_signal')
+def update_keywordtag_count(sender, instance, using, **kwargs):
+    keytag_id = instance.keytag_id
+    count = ProductKeywords.objects.filter(keytag_id = keytag_id).count()
+    keytag_id.count = count
+    keytag_id.save()
 
 
 class ZipCodes(models.Model):

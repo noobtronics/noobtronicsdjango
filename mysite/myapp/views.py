@@ -245,6 +245,56 @@ def shop_slug_page(request, shop_slug):
     return render(request, 'shop-page.html', context)
 
 
+@ensure_csrf_cookie
+@minified_response
+def tags_page(request):
+    return None
+
+
+@ensure_csrf_cookie
+@minified_response
+def tags_slug_page(request, tag_slug):
+    keywordtag = get_object_or_404(KeywordTags, name=tag_slug)
+    data = {}
+
+    prodids = keywordtag.keywordprods.all().values_list('prod_id__id', flat=True)
+    prod_data = []
+    for prod_id in prodids:
+        prod = Products.objects.get(id=prod_id)
+        t = {
+            'id': prod.id,
+            'name': prod.name,
+            'cardtitle': prod.cardtitle,
+            'in_stock': 'true' if prod.in_stock else 'false',
+            'price': prod.price,
+            'slug': prod.slug,
+            'mrp': prod.mrp_price,
+            'thumb': prod.mainimage.thumb_data.th_mini.image.url
+        }
+        prod_data.append(t)
+
+
+    require_mobile = 0
+    if request.user.is_authenticated:
+        if request.user.usercode.mobile == '':
+            require_mobile = 1
+
+
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'data': data,
+        'cartqty': get_cart_qty(request),
+        'prod_data': prod_data,
+        'total_pages': total_pages,
+        'page_number': page_number,
+        'require_mobile': require_mobile,
+        'whatsapp_on_mobile': True,
+    }
+    return render(request, 'shop-page.html', context)
+
+
+
+
 def get_cart_prods(usr):
     cartprods = []
     cartprods_ids = {}

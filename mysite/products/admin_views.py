@@ -464,6 +464,14 @@ def process_prod_page(request, prod_id):
             breadcrumbs.append(temp)
 
 
+    keywordtags = []
+    for kt in prod.keywordtags.order_by('rank'):
+        temp = {
+            'name': kt.keytag_id.name,
+        }
+        keywordtags.append(temp)
+
+
 
     data = {
         'id': prod.id,
@@ -487,7 +495,8 @@ def process_prod_page(request, prod_id):
         'amazon_link': prod.amazon_link,
         'bullets': bullets,
         'browse_links': browse_links,
-        'breadcrumbs': breadcrumbs
+        'breadcrumbs': breadcrumbs,
+        'keywordtags': keywordtags
     }
 
     image_data = {

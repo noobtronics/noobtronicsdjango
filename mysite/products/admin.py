@@ -158,6 +158,14 @@ class BreadEntryAdmin(admin.ModelAdmin):
     list_display = ('bread_id', 'link_id', 'rank')
 admin.site.register(BreadEntry, BreadEntryAdmin)
 
+class KeyWordTagsAdmin(admin.ModelAdmin):
+    list_display = ('name', 'count')
+admin.site.register(KeyWordTags, KeyWordTagsAdmin)
+
+class ProductKeywordsAdmin(admin.ModelAdmin):
+    list_display = ('prod_id', 'keytag_id', 'rank')
+admin.site.register(ProductKeywords, ProductKeywordsAdmin)
+
 
 class ProductLinksAdmin(admin.ModelAdmin):
     list_display = ('prod_id', 'link_id', 'rank')

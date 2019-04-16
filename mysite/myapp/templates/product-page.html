@@ -144,7 +144,17 @@
                     {% endfor %}
                 </div>
             </div>
-
+            <div class="columns hashtagcol">
+                <div class="column">
+                    <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+                      <ul >
+                          {% for tag in data.keywordtags %}
+                          <li><a href="/tags/{{tag.name}}">#{{tag.name}}</a></li>
+                          {% endfor %}
+                      </ul>
+                    </nav>
+                </div>
+            </div>
             <div class="columns">
                 <div class="column">
                         {% if data.has_similar_prods %}
