@@ -33,6 +33,8 @@ def get_product_structured_data(prod_id):
     if not prod.in_stock:
         availability = 'http://schema.org/OutOfStock'
 
+    reviews_list = []
+
     prod_fields = {
         "@type": "Product",
         'brand': 'noobtronics',
@@ -46,6 +48,13 @@ def get_product_structured_data(prod_id):
         'url': 'https://noobtronics.ltd/product/'+prod.slug,
         'sku': prod.sku,
         'mpn': prod.sku,
+
+        'review': reviews_list,
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "0"
+        },
         
         "offers": {
             "@type": "Offer",
