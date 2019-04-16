@@ -248,19 +248,36 @@ def shop_slug_page(request, shop_slug):
 @ensure_csrf_cookie
 @minified_response
 def tags_page(request):
-    return None
+
+    tags_data = KeyWordTags.objects.all().order_by('name')
+
+    tags_list = []
+    for t in tags_data:
+        temp = {
+            'name': t.name,
+            'count': t.count
+        }
+        tags_list.append(temp)
+
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'tags_list': tags_list,
+        'cartqty': get_cart_qty(request),
+        'whatsapp_on_mobile': True,
+    }
+    return render(request, 'all-tags-page.html', context)
 
 
 @ensure_csrf_cookie
 @minified_response
 def tags_slug_page(request, tag_slug):
-    keywordtag = get_object_or_404(KeywordTags, name=tag_slug)
+    keywordtag = get_object_or_404(KeyWordTags, name=tag_slug)
     data = {}
 
     prodids = keywordtag.keywordprods.all().values_list('prod_id__id', flat=True)
     prod_data = []
     for prod_id in prodids:
-        prod = Products.objects.get(id=prod_id)
+        prod = Product.objects.get(id=prod_id)
         t = {
             'id': prod.id,
             'name': prod.name,
@@ -285,12 +302,11 @@ def tags_slug_page(request, tag_slug):
         'data': data,
         'cartqty': get_cart_qty(request),
         'prod_data': prod_data,
-        'total_pages': total_pages,
-        'page_number': page_number,
         'require_mobile': require_mobile,
         'whatsapp_on_mobile': True,
+        'tag_name': keywordtag.name
     }
-    return render(request, 'shop-page.html', context)
+    return render(request, 'tag-shop-page.html', context)
 
 
 
