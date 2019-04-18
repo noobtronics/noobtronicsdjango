@@ -3,8 +3,6 @@ from .models import *
 from django.contrib.auth.models import User, Group
 from django.forms import TextInput, Textarea
 
-admin.site.unregister(User)
-
 
 class ReadOnlyAdmin(admin.ModelAdmin):
     # disables edits
