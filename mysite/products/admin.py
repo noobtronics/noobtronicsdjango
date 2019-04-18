@@ -92,7 +92,7 @@ admin.site.register(UserCode, UserCodeAdmin)
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'cart_state', 'created')
+    list_display = ('user_id', 'cart_state', 'created', 'mobile','address_name', 'address1', 'address2', 'district', 'state', 'zipcode')
     search_fields = ('user_id',)
 
     # disables edits
