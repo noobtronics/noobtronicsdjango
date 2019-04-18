@@ -4,7 +4,6 @@ from django.contrib.auth.models import User, Group
 from django.forms import TextInput, Textarea
 
 admin.site.unregister(User)
-admin.site.unregister(Group)
 
 
 class ReadOnlyAdmin(admin.ModelAdmin):
@@ -92,7 +91,7 @@ admin.site.register(UserCode, UserCodeAdmin)
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'cart_state', 'created', 'mobile','address_name', 'address1', 'address2', 'district', 'state', 'zipcode')
+    list_display = ('user_id', 'cart_state', 'created', 'payment_amount', 'mobile','address_name', 'address1', 'address2', 'district', 'state', 'zipcode')
     search_fields = ('user_id',)
 
     # disables edits
