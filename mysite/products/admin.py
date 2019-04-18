@@ -31,6 +31,10 @@ class UserAdmin(admin.ModelAdmin):
         # Nobody is allowed to add
         return False
 
+    def has_change_permission(self, request):
+        # Nobody is allowed to add
+        return True
+
     def has_delete_permission(self, request, obj=None):
         # Nobody is allowed to delete
         return False
