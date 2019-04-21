@@ -354,6 +354,7 @@ var process_forgot_pwd = function(){
         $("#askmobdiv").find(".help").html("Enter 10 digit mobile correctly");
         return;
       }
+
       processSaveMobile();
     }
 
@@ -432,6 +433,15 @@ var process_forgot_pwd = function(){
             if(response.data.success){
                 head_app.ask_mobile = false;
             }
+
+            ga('send', {
+              hitType: 'event',
+              eventCategory: 'User',
+              eventAction: 'Registration',
+              eventLabel: 'SignUp',
+              eventValue: 1
+            });
+
         });
     };
 </script>
