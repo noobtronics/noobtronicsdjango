@@ -355,7 +355,7 @@ def get_cart_extracharge(usr):
     extra_chage = 0
     cart = Cart.objects.get(user_id=usr)
     if cart.paymode == 'COD':
-        extra_chage = 31
+        extra_chage = 50
     return extra_chage
 
 
