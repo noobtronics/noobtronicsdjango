@@ -388,6 +388,9 @@ def get_related_prod(prod_id):
     return has_related_prod, related_prod
 
 
+
+
+
 def process_prod_page(request, prod_id):
 
 

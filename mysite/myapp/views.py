@@ -320,6 +320,24 @@ def get_cart_prods(usr):
     try:
         cart = Cart.objects.get(user_id=usr)
         cartprodids = cart.cartobjects_set.all().order_by('id')
+
+        prod_id_counts = {}
+        for cprod in cartprodids:
+            temp_id = cprod.prod_id.id
+            if temp_id not in prod_id_counts:
+                prod_id_counts[temp_id] = 0
+            prod_id_counts[temp_id] += cprod.quantity
+
+        special_price = {}
+
+        if cart.is_referal_activated:
+            referal_list = ReferalPriceList.objects.filter(code_id=cart.referal_obj)
+            for obj in referal_list:
+                if obj.prod_id.id in prod_id_counts:
+                    if obj.moq <=  prod_id_counts[obj.prod_id.id]:
+                        special_price[obj.prod_id.id] = obj.price
+
+
         for cprod in cartprodids:
             temp = {
                 'id': cprod.id,
@@ -330,6 +348,8 @@ def get_cart_prods(usr):
                 'price': cprod.prod_id.price,
                 'slug': cprod.prod_id.slug
             }
+            if cprod.prod_id.id in special_price:
+                temp['price'] = special_price[cprod.prod_id.id]
             temp['total'] = temp['price']*temp['qty']
             subtotal += temp['total']
             cartprods.append(temp)
@@ -337,6 +357,10 @@ def get_cart_prods(usr):
             cartprods_ids[cprod.id] = count_id
             if cprod.prod_id.free_delivery:
                 free_delivery = True
+
+            if len(special_price) > 0:
+                if cart.referal_obj.is_shipping_free:
+                    free_delivery = True
     except:
         None
     return cartprods, cartprods_ids, subtotal, free_delivery
@@ -366,12 +390,15 @@ def process_cart_json(usr):
         'cartprods_ids': cartprods_ids,
         'subtotal': subtotal
     }
+
     if not free_delivery:
         data['deliverycharge'] = get_delivery_charge(data['subtotal'])
     else:
         data['deliverycharge'] = 0
     data['extracharge'] = get_cart_extracharge(usr)
     data['total'] = data['subtotal'] + data['deliverycharge'] + data['extracharge']
+
+
     return data
 
 
@@ -809,6 +836,34 @@ def handle_payment(request):
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
 
+
+@login_required
+def process_referral_code(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        cart = Cart.objects.get(user_id=request.user)
+        data = json.loads(request.body)
+        code = data['code'].upper()
+        code_list = ReferalCodes.objects.filter(code=code, is_active=True)
+        if code_list.count() == 0:
+            return JsonResponse(resp)
+        code_activated = code_list[0]
+        cart.is_referal_activated = True
+        cart.referal_code = code
+        cart.referal_obj = code_activated
+        cart.save()
+        resp['referrer'] = code_activated.referer
+        resp['referrer_details'] = code_activated.details
+        cart_json = process_cart_json(request.user)
+        resp.update(cart_json)
+        resp['success'] = True
+
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
 
 
 

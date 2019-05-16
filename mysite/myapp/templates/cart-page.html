@@ -88,7 +88,6 @@
                                     <th>Extra Charges:</th>
                                     <td v-html="rextracharge"></td>
                                 </tr>
-
                                 </tbody>
                             </table>
                             <table class="table cartmenu">
@@ -99,6 +98,20 @@
                             </table>
 
                         </table>
+                        <div class="field" v-if="!show_referral" v-cloak>
+                          <div class="control has-text-centered">
+                            <input class="input " type="text" placeholder="Referral Code" style="width: 200px;" onkeyup="this.value = this.value.toUpperCase();" v-model="referral_code">
+                          </div>
+                          <div class="control has-text-centered">
+                              <a class="button is-warning referralbtn" v-on:click="apply_referral_code">Apply</a>
+                          </div>
+                        </div>
+                        <p v-if="show_referral" v-cloak>
+                            Referral code applied from -<br>
+                            <b>[% referrer %]</b>
+                            <br><br>
+                            [% referrer_details %]
+                        </p>
                     </aside>
                 </div>
                 <div class="column is-three-quarters prodcolumn">
@@ -557,6 +570,7 @@
         }).then(function (response) {
             head_app.loading = false;
             if(response.data.success){
+
                 cartapp.cart_state = response.data.cart_state;
                 head_app.cartqty = response.data.cartqty;
                 window.location = '/neworder';
@@ -566,6 +580,43 @@
             }
         });
     };
+
+
+    var apply_referral_code = function(){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/process_code',
+            data: {
+                'code': cartapp.referral_code,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                console.log(response);
+
+                cartapp.products = response.data.cartprods;
+                cartapp.prod_id_index = response.data.cartprods_ids;
+                cartapp.subtotal = response.data.subtotal;
+                cartapp.deliverycharge = response.data.deliverycharge;
+                cartapp.extracharge = response.data.extracharge;
+                cartapp.total = response.data.total;
+                head_app.cartqty = cartapp.products.length;
+
+                cartapp.referrer = response.data.referrer;
+                cartapp.referrer_details = response.data.referrer_details;
+                cartapp.show_referral = true;
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
+
+
+
 
     {% verbatim %}
     String.prototype.format = function (){
@@ -705,7 +756,12 @@
 
             paymode: '',
             ModalCod: false,
-            ModalCodConfirm: false
+            ModalCodConfirm: false,
+
+            referral_code: '',
+            referrer: '',
+            referrer_details: '',
+            show_referral: false,
         },
         computed: {
             rsubtotal: function () {
@@ -783,6 +839,9 @@
             },
             update_paymode: function(){
                 update_paymode();
+            },
+            apply_referral_code: function(){
+                apply_referral_code();
             },
             handle_pay: function(){
                 if(this.paymode=='cod'){

@@ -12,6 +12,7 @@ class BreadCrumbs(models.Model):
     def __str__(self):
         return self.name
 
+
 class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200, unique=True)
@@ -110,6 +111,16 @@ class HomePage(models.Model):
     rank = models.IntegerField()
 
 
+class ReferalCodes(models.Model):
+    code = models.CharField(max_length=100, unique=True)
+    is_active = models.BooleanField(default=False)
+    referer = models.CharField(max_length=200)
+    details = models.CharField(max_length=400)
+    is_shipping_free = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+
 class Cart(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
@@ -134,6 +145,11 @@ class Cart(models.Model):
     ), null=True, blank=True)
     to_be_order_id = models.CharField(max_length=20, blank=True, null=True)
     payment_amount = models.FloatField(default = 0)
+
+    referal_code = models.CharField(max_length=20, default='')
+    is_referal_activated = models.BooleanField(default=False)
+    referal_obj = models.ForeignKey(ReferalCodes, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+
 
     @property
     def pincodedisplay(self):
@@ -246,6 +262,17 @@ class KeyWordTags(models.Model):
         return self.name
 
 
+
+
+
+class ReferalPriceList(models.Model):
+    code_id = models.ForeignKey(ReferalCodes, on_delete=models.CASCADE)
+    prod_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    moq = models.IntegerField()
+
+
+
 class ProductKeywords(models.Model):
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='keywordtags')
     keytag_id =  models.ForeignKey(KeyWordTags, on_delete=models.CASCADE, related_name='keywordprods')
@@ -321,6 +348,7 @@ class Orders(models.Model):
     email_sent_confirm = models.BooleanField(default=False)
     email_sent_shipped = models.BooleanField(default=False)
     email_sent_delivered = models.BooleanField(default=False)
+    referal_code = models.CharField(max_length=20, default='')
 
 
     @property

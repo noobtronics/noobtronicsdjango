@@ -283,3 +283,6 @@ class SimilarProdAdmin(admin.ModelAdmin):
 
 admin.site.register(SimilarProducts, SimilarProdAdmin)
 admin.site.register(RelatedProducts, SimilarProdAdmin)
+
+admin.site.register(ReferalCodes)
+admin.site.register(ReferalPriceList)

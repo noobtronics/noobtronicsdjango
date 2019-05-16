@@ -37,6 +37,9 @@ urlpatterns = [
     path('api/cart/undoaddress', handle_undoaddress),
     path('api/cart/get_paytm_details', get_paytm_details),
 
+    path('api/cart/process_code', process_referral_code),
+
+
 
     path('api/order/cancel', process_cancel_order),
 
