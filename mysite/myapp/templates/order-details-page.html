@@ -169,6 +169,10 @@
                     </div>
                     <div class="column ordersdelivery">
                         <p><b>Payment Method</b>: {{order.paymode}}</p>
+                        {% if order.referal_code|length > 0 %}
+                        <br>
+                        <p><b>Referral Code</b>: <b>{{order.referal_code}}</b></p>
+                        {% endif %}
                         <br>
                         <p><b>Delivery Address:</b></p>
                         <p>{{order.address_name}} (Ph - {{order.address_mobile}})</p>

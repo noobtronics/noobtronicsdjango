@@ -784,6 +784,9 @@ def add_cart_to_order(usr):
                       zipcode=cart.zipcode,mobile=cart.mobile
                       )
         ordr.save()
+        if cart.is_referal_activated:
+            ordr.referal_code = cart.referal_code
+            ordr.save()
 
         cartobjs = cart.cartobjects_set.all().order_by('id')
         for cartobj in cartobjs:
@@ -990,6 +993,8 @@ def order_details_page(request, order_id):
         'address2': ordr.address2,
         'pincode': ordr.zipcode,
         'pincodedisplay': ordr.pincodedisplay,
+
+        'referal_code': ordr.referal_code
     }
     prod_data = []
     ord_prds = ordr.orderprods.all().order_by('id')
