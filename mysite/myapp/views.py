@@ -408,7 +408,7 @@ def cart_page(request):
         'loggedin': request.user.is_authenticated,
         'data': data,
         'state': get_cart_state(request),
-        'whatsapp_on_mobile': True
+        'whatsapp_on_mobile': False
     }
 
     cart_json = process_cart_json(request.user)

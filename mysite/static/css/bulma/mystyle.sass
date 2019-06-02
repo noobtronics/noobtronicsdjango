@@ -513,11 +513,12 @@
 
   .menu
     height: 400px
-    width: 250px
+    width: 270px
     padding: 5px
+    padding-left: 20px
     background: rgba(255,255,255, 0)
     color: white
-    border-right: 1px solid white
+    border-left: 1px solid white
     font-weight: 500
 
 
@@ -1175,6 +1176,9 @@ $mq-desktop				: 1382px !default
   .cartcontainer
     margin: 0
 
+    .is-invisible-mobile
+      display: none
+      height: 0
 
     .progresssteps
       margin: 0px 5px
@@ -1201,16 +1205,24 @@ $mq-desktop				: 1382px !default
     .menu
       border: 0
       margin: 0 auto
-      height: 200px
+      padding: 0
+      height: auto
 
 
     .cartproddiv article
       width: 330px
       overflow-x: hidden
 
+    .table
+      margin-left: auto
+      margin-right: auto
+      margin-top: 10px
+      margin-bottom: 0
+
 
     .carttable
       margin-top: 10px
+
       width: 360px
 
       thead
@@ -1235,8 +1247,8 @@ $mq-desktop				: 1382px !default
         width: 150px
 
     .cartbtndiv
-      martin-bottom: 20px
-      height: 80px
+      martin-bottom: 0px
+      height: 45px
 
     .addressform
       width: 330px
@@ -1253,7 +1265,7 @@ $mq-desktop				: 1382px !default
       height: 150px
 
       .column
-        height: 100px
+        height: 80px
 
 
 

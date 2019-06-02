@@ -71,49 +71,6 @@
                 </div>
             </div>
             <div class="columns">
-                <div class="column is-one-quarters">
-                    <aside class="menu">
-                        <table class="table">
-                            <table class="table cartmenu">
-                                <tbody>
-                                <tr>
-                                    <th>Subtotal:</th>
-                                    <td v-html="rsubtotal"></td>
-                                </tr>
-                                <tr>
-                                    <th>Delivery Charges:</th>
-                                    <td v-html="rdeliverycharge"></td>
-                                </tr>
-                                <tr>
-                                    <th>Extra Charges:</th>
-                                    <td v-html="rextracharge"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <table class="table cartmenu">
-                                <tr class="totalrow">
-                                    <th>Total:</th>
-                                    <td><span v-html="rtotal"></span><br><div class="content is-small">(GST inclusive)</div></td>
-                                </tr>
-                            </table>
-
-                        </table>
-                        <div class="field" v-if="!show_referral" v-cloak>
-                          <div class="control has-text-centered">
-                            <input class="input " type="text" placeholder="Referral Code" style="width: 200px;" onkeyup="this.value = this.value.toUpperCase();" v-model="referral_code">
-                          </div>
-                          <div class="control has-text-centered">
-                              <a class="button is-warning referralbtn" v-on:click="apply_referral_code">Apply</a>
-                          </div>
-                        </div>
-                        <p v-if="show_referral" v-cloak>
-                            Referral code applied from -<br>
-                            <b>[% referrer %]</b>
-                            <br><br>
-                            [% referrer_details %]
-                        </p>
-                    </aside>
-                </div>
                 <div class="column is-three-quarters prodcolumn">
 
                     <table v-cloak v-show="cart_state==0" class="table carttable">
@@ -219,14 +176,14 @@
                     <div class="paymentform" v-show="cart_state==2" v-cloak>
                         <div class="columns">
                             <div class="column">
-                                <h2 class="title is-5">Pay Online</h2>
+                                <h2 class="title is-5 is-invisible-mobile">Pay Online</h2>
                                 <div class="control">
                                     <label class="radio">
                                         <input type="radio" name="foobar" v-model="paymode" value="paytm">
                                         <a class="payPaytm"></a>
                                     </label>
                                 </div>
-                                <div class="control" style="visibility: hidden;">
+                                <!-- <div class="control" style="visibility: hidden;">
                                     <label class="radio">
                                         <input type="radio" name="foobar"  v-model="paymode" value="payu">
                                         <a class="payPayU"></a>
@@ -237,12 +194,12 @@
                                         <input type="radio" name="foobar"  v-model="paymode" value="instamojo">
                                         <a class="payInstamojo"></a>
                                     </label>
-                                </div>
+                                </div> -->
 
 
                             </div>
                             <div class="column">
-                                <h2 class="title is-5">Pay Offline</h2>
+                                <h2 class="title is-5 is-invisible-mobile">Pay Offline</h2>
                                 <div class="control">
                                     <label class="radio">
                                         <input type="radio" class="payCashInp" name="foobar"  v-model="paymode" value="cod">
@@ -282,9 +239,54 @@
 
                     <div class="columns" v-show="cart_state==2" v-cloak>
                         <div class="column">
-                            <p class="payformdetails">Order will ship in 0-2 business days <br> All India Delivered</p>
+                            <!-- <p class="payformdetails">Order will ship in 0-2 business days <br> All India Delivered</p> -->
                         </div>
                     </div>
+                </div>
+                <div class="column is-one-quarters">
+                    <aside class="menu">
+                        <table class="table">
+                            <table class="table cartmenu">
+                                <tbody>
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td v-html="rsubtotal"></td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Charges:</th>
+                                    <td v-html="rdeliverycharge"></td>
+                                </tr>
+                                <tr>
+                                    <th>Extra Charges:</th>
+                                    <td v-html="rextracharge"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table cartmenu">
+                                <tr class="totalrow">
+                                    <th>Total:</th>
+                                    <td><span v-html="rtotal"></span><br><div class="content is-small">(GST inclusive)</div></td>
+                                </tr>
+                            </table>
+
+                        </table>
+                        <div class="is-invisible-mobile">
+                            <div class="field" v-if="!show_referral" v-cloak >
+                              <div class="control has-text-centered">
+                                <input class="input " type="text" placeholder="Referral Code" style="width: 200px;" onkeyup="this.value = this.value.toUpperCase();" v-model="referral_code">
+                              </div>
+                              <div class="control has-text-centered">
+                                  <a class="button is-warning referralbtn" v-on:click="apply_referral_code">Apply</a>
+                              </div>
+                            </div>
+                            <p v-if="show_referral" v-cloak>
+                                Referral code applied from -<br>
+                                <b>[% referrer %]</b>
+                                <br><br>
+                                [% referrer_details %]
+                            </p>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </div>
@@ -335,7 +337,7 @@
 
             </div>
             <h2 class="title is-6">Extra Charges</h2>
-            <p>For Cash On Delivery, extra handling charges of ₹​75 are applicable.<br><br>Is it fine ?</p>
+            <p>Cash On Delivery service is not free!<br>Extra charge of ₹​75 will be added.<br><br>Is it fine ?</p>
         </section>
         <footer class="modal-card-foot">
             <button class="button is-info" v-on:click="update_paymode();ModalCod=false;">Ok</button>
