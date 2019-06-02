@@ -367,11 +367,7 @@ def get_cart_prods(usr):
 
 
 def get_delivery_charge(subtotal):
-    delivery_charge = 59
-    if subtotal > 200:
-        delivery_charge = 49
-    if subtotal > 950:
-        delivery_charge = 39
+    delivery_charge = 50
     return delivery_charge
 
 
@@ -379,7 +375,7 @@ def get_cart_extracharge(usr):
     extra_chage = 0
     cart = Cart.objects.get(user_id=usr)
     if cart.paymode == 'COD':
-        extra_chage = 50
+        extra_chage = 75
     return extra_chage
 
 
