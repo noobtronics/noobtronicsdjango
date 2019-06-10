@@ -507,6 +507,20 @@
     })
 </script>
 
+<script type="text/javascript">
+    var link = window.location.pathname;
+    history.replaceState(null, "Noobtronics Shop: Microcontrollers, Sensors, Modules, Electronic Hobby Kits | India", "/shop");
+    history.pushState(null, "{{data.meta_title}} | Noobtronics Shop | India", link);
+
+    $(document).ready(function() {
+
+        window.addEventListener('popstate', (event) => {
+            location.replace("/shop");
+        });
+
+    });
+</script>
+
 
 <script type="application/ld+json">
     {{page_structured_data | safe}}
