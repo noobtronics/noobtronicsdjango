@@ -1126,7 +1126,7 @@ def paytm_callback(request):
 def generate_merchant_data(request):
     prods = Product.objects.filter(is_published=True, is_google=True)
     data = []
-    heading = ['id','title','description','price','condition','link','availability','image_link']
+    heading = ['id','title','description','price','condition','link','availability','image_link','google_​​product_​​category', 'product_type']
     data.append(heading)
     for p in prods:
         available = 'in stock'
@@ -1134,6 +1134,19 @@ def generate_merchant_data(request):
             available = 'out of stock'
         modified_description = p.description.replace('\r', ' ').replace('\n', ' ').replace('\t',' ')
         modified_description = ' '.join(modified_description.split(' '))
+
+        google_product_type = ''
+        if p.breadcrumb:
+            google_product_type = p.breadcrumb.google_product_taxonomy
+
+        custom_product_type = ''
+        if p.breadcrumb:
+            bread_data = []
+            breads = BreadEntry.objects.filter(bread_id=p.breadcrumb).order_by('rank')
+            for b in breads:
+                bread_data.append(b.link_id.name)
+            custom_product_type = ' > '.join(bread_data)
+
         t = [p.sku,
              p.product_head,
              modified_description,
@@ -1141,7 +1154,9 @@ def generate_merchant_data(request):
              'new',
              'https://noobtronics.ltd/product/'+p.slug,
              available,
-             'https://noobtronics.ltd'+p.mainimage.img_data.th_home.image.url
+             'https://noobtronics.ltd'+p.mainimage.img_data.th_home.image.url,
+             google_product_type,
+             custom_product_type
              ]
         data.append(t)
 

@@ -8,6 +8,7 @@ import os
 
 class BreadCrumbs(models.Model):
     name = models.CharField(max_length=200)
+    google_product_taxonomy = models.CharField(max_length=400, default='')
 
     def __str__(self):
         return self.name
