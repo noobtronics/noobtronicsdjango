@@ -195,10 +195,8 @@
                                         <a class="payInstamojo"></a>
                                     </label>
                                 </div> -->
-
-
                             </div>
-                            <div class="column">
+                            <!-- <div class="column">
                                 <h2 class="title is-5 is-invisible-mobile">Pay Offline</h2>
                                 <div class="control">
                                     <label class="radio">
@@ -206,7 +204,7 @@
                                         <a  class="payCash">Cash on Delivery*</a>
                                     </label>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="paymentform" v-show="cart_state==3" v-cloak>
@@ -239,7 +237,7 @@
 
                     <div class="columns" v-show="cart_state==2" v-cloak>
                         <div class="column">
-                            <!-- <p class="payformdetails">Order will ship in 0-2 business days <br> All India Delivered</p> -->
+                            <p class="payformdetails">Netbanking, UPI, Wallets, Credit Cards, Debit Cards all are accepted via PayTM</p>
                         </div>
                     </div>
                 </div>
@@ -756,7 +754,7 @@
             address_address1:'',
             address_address2:'',
 
-            paymode: '',
+            paymode: 'paytm',
             ModalCod: false,
             ModalCodConfirm: false,
 
