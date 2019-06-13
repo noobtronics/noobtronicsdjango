@@ -420,11 +420,13 @@ def cart_page(request):
         show_payment_failed = True
     context['show_payment_failed'] = show_payment_failed
 
+    done_order_id = ''
     if txn_status == 'success':
         paymode = request.GET.get('mode')
         if paymode == 'paytm':
-            finalize_paytm_payment(request.user)
+            done_order_id = finalize_paytm_payment(request.user)
 
+    context['done_order_id'] = done_order_id
     context['cartqty'] = get_cart_qty(request)
     return render(request, 'cart-page.html', context)
 
@@ -441,7 +443,8 @@ def finalize_paytm_payment(usr):
     except:
         pass
     if verified:
-        add_cart_to_order(usr)
+        return add_cart_to_order(usr)
+    return ''
 
 
 

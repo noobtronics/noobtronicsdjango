@@ -379,6 +379,13 @@
     var cart_state = {{state}};
 
     if(cart_state == 3){
+
+        ga('ec:setAction', 'purchase', {
+              'id': '{{done_order_id}}',
+              'revenue': '{{total}}'
+          });
+        ga('send', 'event');
+
         $( document ).ready(function() {
             setTimeout(function(){ window.location = '/neworder'; }, 1000);
         });
