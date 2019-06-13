@@ -478,6 +478,7 @@ def process_prod_page(request, prod_id):
 
     data = {
         'id': prod.id,
+        'sku': prod.sku,
         'name': prod.name,
         'meta_title': prod.meta_title,
         'product_head': prod.product_head,
@@ -514,7 +515,8 @@ def process_prod_page(request, prod_id):
         'cartqty': get_cart_qty(request),
         'page_structured_data': get_product_structured_data(prod.id),
         'whatsapp_on_mobile': True,
-        'require_mobile': require_mobile
+        'require_mobile': require_mobile,
+        'page_type': 'product_page'
     }
     for key in image_data:
         context[key] = image_data[key]

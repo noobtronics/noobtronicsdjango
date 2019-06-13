@@ -371,6 +371,15 @@
 <script>
     var add_to_cart = function(model){
         head_app.loading = true;
+
+        ga('ec:addProduct', {
+          'id': '{{data.sku}}',
+          'name': '{{data.name}}',
+          'price': '{{data.price}}',
+        });
+        ga('send', 'event');
+
+
         data = {
             'prod_id': prod_id,
             'quantity': prodapp.quantity
@@ -506,6 +515,8 @@
         }
     })
 </script>
+
+
 
 <script type="text/javascript">
     var link = window.location.pathname;

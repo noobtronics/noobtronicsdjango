@@ -41,6 +41,23 @@
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-125040779-2', 'auto');
+
+{% if page_type == 'product_page' %}
+ga('require', 'ec');
+ga('ec:addImpression', {
+  'id': '{{data.sku}}',
+  'name': '{{data.name}}',
+  'price': '{{data.price}}',
+});
+{% endif %}
+
+{% if page_type == 'cart_page' %}
+ga('ec:setAction','checkout', {
+    'step': 1,
+});
+{% endif %}
+
+
 ga('send', 'pageview');
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>

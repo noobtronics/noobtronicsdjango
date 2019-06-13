@@ -876,6 +876,15 @@
                         update_paymode();
                     }
                 }
+            },
+            cart_state: function(newVal, oldVal){
+                if(newVal > oldVal){
+                    ga('ec:setAction','checkout', {
+                        'step': newVal + 1,
+                    });
+                    ga('send', 'event');
+                }
+
             }
         }
     });
