@@ -812,3 +812,12 @@ def admin_paytm_status(request):
     json_resp = json.loads(response.text)
     output = pformat(json_resp)
     return HttpResponse(output, content_type="application/json")
+
+
+
+@staff_or_404
+def show_markdown_editor(request):
+
+    context = {}
+
+    return render(request, 'markdown_editor.html', context)

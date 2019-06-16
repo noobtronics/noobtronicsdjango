@@ -10,6 +10,8 @@ urlpatterns = [
     path('storeadmin/demoprod/<int:prod_id>', show_demo_prod),
     path('storeadmin/make_media_backup', handle_media_backup),
 
+    path('storeadmin/markdown', show_markdown_editor),
+
     path('adminapi/add/add_prod_tags', admin_add_prod_tags),
 
 
