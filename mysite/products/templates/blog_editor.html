@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="/static/css/bulma/bulma-0.7.1/css/bulma.min.css">
+    <script src="/static/js/vue/vue.js"></script>
+    <script src="/static/js/markdown/marked.min.js"></script>
+    <link rel="stylesheet" href="/static/css/loading.css">
+    <script src="/static/js/axios/axios.js"></script>
+    <link rel="stylesheet" href="/static/css/bulma/blog_css.min.css">
+  </head>
+  <body>
+  <section class="section blogcontainer" id="app">
+    <div class="lds-dual-ring" v-if="loading"></div>
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <ul>
+                    {% for p in photo_urls %}
+                    <li>
+                        <a href="{{p}}">{{p}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <p style="margin: 10px; text-align: center;">
+                    <a class="button is-link" v-on:click="save_blog_data()" >Save</a>
+                </p>
+            </div>
+        </div>
+      <div class="columns firstcolmns">
+          <div class="column">
+              <textarea style="height: 800px; width: 100%;" v-text="markdown_data" v-model="markdown_data">
+
+              </textarea>
+          </div>
+          <div class="column">
+              <div class="contentbox">
+                  <div class="content">
+                      <h1 class="title">{{name}}</h1>
+                      <div v-html="html_data">
+
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+    {% autoescape off %}
+    var html_data = "{{ html_data|escapejs }}";
+    var markdown_data = "{{ markdown_data|escapejs }}";
+
+    var slug = "{{slug}}";
+    {% endautoescape %}
+</script>
+
+<script type="text/javascript">
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.xsrfCookieName = 'csrftoken';
+</script>
+
+<script type="text/javascript">
+    var save_blog_data = function(){
+        app.loading = true;
+        axios({
+            method: 'post',
+            url: '/adminapi/blog/save',
+            data: {
+                'html': app.html_data,
+                'markdown': app.markdown_data,
+                'slug': slug,
+            }
+        }).then(function(response) {
+            app.loading = false;
+        });
+    };
+</script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        delimiters: ['[%','%]'],
+        data: {
+            'loading': false,
+            'html_data': html_data,
+            'markdown_data': markdown_data,
+        },
+        watch: {
+            markdown_data: function (val, oldVal) {
+                this.html_data = marked(val);
+            }
+        },
+        methods: {
+            save_blog_data: function(){
+                save_blog_data();
+            }
+        }
+    });
+
+</script>
+
+
+
+  </body>
+</html>

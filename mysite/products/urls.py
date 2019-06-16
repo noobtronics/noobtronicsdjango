@@ -10,7 +10,12 @@ urlpatterns = [
     path('storeadmin/demoprod/<int:prod_id>', show_demo_prod),
     path('storeadmin/make_media_backup', handle_media_backup),
 
+    path('storeadmin/blog/<slug:blog_slug>', admin_show_blog_page),
+    path('storeadmin/blog/edit/<slug:blog_slug>', show_blog_edit_page),
     path('storeadmin/markdown', show_markdown_editor),
+
+
+    path('adminapi/blog/save', admin_save_blog_data),
 
     path('adminapi/add/add_prod_tags', admin_add_prod_tags),
 

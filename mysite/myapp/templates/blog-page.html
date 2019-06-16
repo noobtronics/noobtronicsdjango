@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{data.meta_title}} | Noobtronics Blog</title>
+    <meta name="description" content="{{data.description}}">
+    <meta property="og:title" content="{{data.meta_title}} | Noobtronics Shop | India">
+    <meta property="og:description" content="{{data.description}}">
+    <meta property="og:image" content="https://noobtronics.ltd{{home_images.0}}">
+    <meta property="og:url" content="{{data.url}}">
+
+
+    {% include "header.html" %}
+    <link rel="stylesheet" href="/static/css/bulma/blog_css.min.css">
+
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body blogcontainer" id="blogapp">
+        <div class="container">
+            <div class="columns firstcolmns">
+                <div class="column">
+                    <div class="contentbox">
+                        <div class="content">
+                            <h1 class="title">{{data.name}}</h1>
+                            <div>
+                                {{data.html_data | safe}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "hero-footer.html" %}
+</section>
+
+
+
+<script type="text/javascript">
+    var link = window.location.pathname;
+    history.replaceState(null, "Noobtronics Shop: Microcontrollers, Sensors, Modules, Electronic Hobby Kits | India", "/shop");
+    history.pushState(null, "{{data.meta_title}} | Noobtronics Shop | India", link);
+
+    $(document).ready(function() {
+
+        window.addEventListener('popstate', (event) => {
+            location.replace("/shop");
+        });
+
+    });
+</script>
+
+
+<script type="application/ld+json">
+    {{page_structured_data | safe}}
+</script>
+
+</body>
+</html>

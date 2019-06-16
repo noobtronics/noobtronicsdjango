@@ -289,7 +289,7 @@ admin.site.register(ReferalPriceList)
 
 
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'name', 'created')
+    list_display = ('slug', 'name', 'created', 'is_published')
 admin.site.register(Blog, BlogAdmin)
 
 

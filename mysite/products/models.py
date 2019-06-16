@@ -406,6 +406,8 @@ class Blog(models.Model):
     name = models.CharField(max_length = 1000)
     markdown = models.TextField()
     html = models.TextField()
+    description = models.CharField(max_length = 3000, default='')
+    is_published = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -429,7 +431,7 @@ def blogimage_upload_path(instance, filename):
 
 
 class BlogPhotos(models.Model):
-    blog_id = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog_id = models.ForeignKey(Blog, related_name='blogphotos',on_delete=models.CASCADE)
     image = models.ImageField(upload_to=blogimage_upload_path, max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
 

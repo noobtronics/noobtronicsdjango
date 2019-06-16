@@ -817,7 +817,68 @@ def admin_paytm_status(request):
 
 @staff_or_404
 def show_markdown_editor(request):
-
     context = {}
-
     return render(request, 'markdown_editor.html', context)
+
+
+@staff_or_404
+def show_blog_edit_page(request, blog_slug):
+    blog = get_object_or_404(Blog, slug=blog_slug)
+    photo_urls = []
+    for p in blog.blogphotos.all():
+        photo_urls.append('/media'+p.image.url)
+
+    context = {
+        'html_data': blog.html,
+        'markdown_data': blog.markdown,
+        'photo_urls': photo_urls,
+        'slug': blog.slug,
+        'name': blog.name
+    }
+
+    return render(request, 'blog_editor.html', context)
+
+
+@staff_or_404
+def admin_show_blog_page(request, blog_slug):
+    blog = get_object_or_404(Blog, slug=blog_slug)
+
+    data = {
+        'html_data': blog.html,
+        'name': blog.name,
+        'meta_title': blog.name,
+        'description': blog.description,
+    }
+
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'data': data,
+
+        'cartqty': get_cart_qty(request),
+        #'page_structured_data': get_product_structured_data(prod.id),
+        'whatsapp_on_mobile': False,
+        'require_mobile': False,
+        'page_type': 'blog_page'
+    }
+
+    return render(request, 'blog-page.html', context)
+
+
+@staff_or_404
+def admin_save_blog_data(request):
+    resp = {
+        'success': False,
+        'reason': ''
+    }
+    try:
+        data = json.loads(request.body)
+
+        blog = get_object_or_404(Blog, slug=data['slug'])
+        blog.html = data['html']
+        blog.markdown = data['markdown']
+        blog.save()
+        resp['success'] = True
+
+    except Exception as e:
+        resp['reason'] = traceback.format_exc()
+    return JsonResponse(resp)
