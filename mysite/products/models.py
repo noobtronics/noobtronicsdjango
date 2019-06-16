@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from pathlib import Path
 from django.contrib.auth.models import User
 import os
+from django.conf import settings
 
 
 class BreadCrumbs(models.Model):
@@ -398,3 +399,43 @@ class RelatedProducts(models.Model):
     prod_id = models.ForeignKey(Product, related_name='relprods', on_delete=models.CASCADE)
     sim_id = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='+')
     rank = models.IntegerField(default=1)
+
+
+class Blog(models.Model):
+    slug = models.CharField(max_length = 1500, unique=True)
+    name = models.CharField(max_length = 1000)
+    markdown = models.TextField()
+    html = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+@receiver(post_delete, sender=Blog, dispatch_uid='delete_blog_signal')
+def delete_blog(sender, instance, using, **kwargs):
+    media_path = './media/blog/'+instance.slug
+    p = Path(media_path)
+    if p.exists():
+        p.rmdir()
+
+
+def blogimage_upload_path(instance, filename):
+    directory =  'blog/'+instance.blog_id.slug
+    os.makedirs(directory, exist_ok=True)
+    file_path =  directory+'/'+filename
+    if os.path.exists(file_path) and os.path.isfile(file_path):
+        raise Exception
+    return file_path
+
+
+class BlogPhotos(models.Model):
+    blog_id = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=blogimage_upload_path, max_length=1000)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+@receiver(pre_delete, sender=BlogPhotos, dispatch_uid='delete_blogimage_signal')
+def delete_blog_image(sender, instance, using, **kwargs):
+    p = './media/' + instance.image.url
+    if os.path.isfile(p):
+        os.remove(p)

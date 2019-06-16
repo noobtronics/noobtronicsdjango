@@ -286,3 +286,13 @@ admin.site.register(RelatedProducts, SimilarProdAdmin)
 
 admin.site.register(ReferalCodes)
 admin.site.register(ReferalPriceList)
+
+
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ('slug', 'name', 'created')
+admin.site.register(Blog, BlogAdmin)
+
+
+class BlogPhotoAdmin(admin.ModelAdmin):
+    list_display = ('blog_id', 'image', 'created')
+admin.site.register(BlogPhotos, BlogPhotoAdmin)
