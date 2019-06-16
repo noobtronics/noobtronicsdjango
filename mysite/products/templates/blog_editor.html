@@ -48,6 +48,30 @@
 
           </div>
       </div>
+
+      <div class="columns firstcolmns">
+          <div class="column">
+              <textarea style="height: 400px; width: 100%;" v-text="short_markdown_data" v-model="short_markdown_data">
+
+              </textarea>
+          </div>
+          <div class="column">
+              <div class="contentbox">
+                  <div class="content shortcontent">
+                      <h1 class="title">{{name}}</h1>
+                      <div class="fadingcontent" v-html="short_html_data">
+
+                      </div>
+                  </div>
+                  <p style="text-align:center;">
+                      <a  href="#">(read more)</a>
+                  </p>
+              </div>
+
+          </div>
+      </div>
+
+
     </div>
   </section>
 
@@ -55,6 +79,9 @@
     {% autoescape off %}
     var html_data = "{{ html_data|escapejs }}";
     var markdown_data = "{{ markdown_data|escapejs }}";
+
+    var short_html_data = "{{ short_html_data|escapejs }}";
+    var short_markdown_data = "{{ short_markdown_data|escapejs }}";
 
     var slug = "{{slug}}";
     {% endautoescape %}
@@ -74,6 +101,8 @@ axios.defaults.xsrfCookieName = 'csrftoken';
             data: {
                 'html': app.html_data,
                 'markdown': app.markdown_data,
+                'short_html': app.short_html_data,
+                'short_markdown': app.short_markdown_data,
                 'slug': slug,
             }
         }).then(function(response) {
@@ -90,10 +119,15 @@ axios.defaults.xsrfCookieName = 'csrftoken';
             'loading': false,
             'html_data': html_data,
             'markdown_data': markdown_data,
+            'short_html_data': short_html_data,
+            'short_markdown_data': short_markdown_data,
         },
         watch: {
             markdown_data: function (val, oldVal) {
                 this.html_data = marked(val);
+            },
+            short_markdown_data: function (val, oldVal) {
+                this.short_html_data = marked(val);
             }
         },
         methods: {

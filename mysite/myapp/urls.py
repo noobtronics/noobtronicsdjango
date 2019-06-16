@@ -11,6 +11,9 @@ urlpatterns = [
     re_path(r'shop/(?P<shop_slug>.+)', shop_slug_page),
     path('shop', shop_page, name='shop'),
 
+    path('blog/<slug:blog_slug>', blog_page),
+    path('blog', blog_home, name='blog'),
+
     path('tags/<slug:tag_slug>', tags_slug_page),
     path('tags', tags_page),
 

@@ -29,6 +29,7 @@ from myapp.structured_data import *
 import math
 
 
+
 @staff_or_404
 @ensure_csrf_cookie
 def show_storeadmin(request):
@@ -831,6 +832,8 @@ def show_blog_edit_page(request, blog_slug):
     context = {
         'html_data': blog.html,
         'markdown_data': blog.markdown,
+        'short_html_data': blog.short_html,
+        'short_markdown_data': blog.short_markdown,
         'photo_urls': photo_urls,
         'slug': blog.slug,
         'name': blog.name
@@ -876,6 +879,8 @@ def admin_save_blog_data(request):
         blog = get_object_or_404(Blog, slug=data['slug'])
         blog.html = data['html']
         blog.markdown = data['markdown']
+        blog.short_html = data['short_html']
+        blog.short_markdown = data['short_markdown']
         blog.save()
         resp['success'] = True
 

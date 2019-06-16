@@ -15,6 +15,7 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.http import JsonResponse, Http404
 from products.models import *
 from products.admin_views import get_cart_qty, process_prod_page, process_print_prod_page, get_alltags_data, get_cart_state
+from products.admin_views import admin_show_blog_page
 from django.shortcuts import get_list_or_404, get_object_or_404
 import math
 import traceback
@@ -877,7 +878,7 @@ def new_orders_page(request):
     order_data = []
 
     ordr = Orders.objects.filter(user_id=request.user).order_by('-id')[0]
-    
+
     if ordr.order_state == 'P':
         if (timezone.now() - ordr.created).total_seconds() < 1800:
             return orders_page(request)
@@ -1404,3 +1405,39 @@ def my_http500_view(request, exception=''):
         'whatsapp_on_mobile': True
     }
     return render(request, 'http500_page.html',context,status=500)
+
+
+
+@ensure_csrf_cookie
+def blog_home(request):
+    blogs = Blog.objects.filter(is_published=True).order_by('rank', '-created')[:20]
+
+    blog_data = []
+
+    for b in blogs:
+        temp = {
+            'slug': b.slug,
+            'name': b.name,
+            'short_html': b.short_html
+        }
+        blog_data.append(temp)
+
+
+
+    context = {
+        'loggedin': request.user.is_authenticated,
+        'cartqty': get_cart_qty(request),
+        'whatsapp_on_mobile': False,
+
+        'blog_data': blog_data
+    }
+    return render(request, 'blog-home.html',context)
+
+
+@ensure_csrf_cookie
+def blog_page(request, blog_slug):
+    blog = get_object_or_404(Blog, slug=blog_slug)
+    if blog.is_published:
+        return admin_show_blog_page(request, blog_slug)
+    else:
+        return my_http404_view(request)

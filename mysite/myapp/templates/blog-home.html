@@ -23,17 +23,21 @@
         <div class="container">
             <div class="columns firstcolmns">
                 <div class="column">
-                    <div class="contentbox">
-                        <div class="content">
-                            <h1 class="title">{{data.name}}</h1>
+                    {% for b in blog_data %}
+                    <div class="contentbox shortcontentbox">
+                        <div class="content shortcontent">
+                            <h1 class="title">{{b.name}}</h1>
                             <div>
-                                {{data.html_data | safe}}
+                                {{b.short_html | safe}}
                             </div>
                         </div>
+                        <p style="text-align:center; margin-top: 10px; padding:0;">
+                            <a  target="_blank" href="/blog/{{b.slug}}">(read more)</a>
+                        </p>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
-
 
             <div class="columns">
                 <div class="column">
