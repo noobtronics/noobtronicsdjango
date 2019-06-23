@@ -174,20 +174,23 @@
                     </form>
 
                     <div class="paymentform" v-show="cart_state==2" v-cloak>
-                        <div class="columns">
-                            <div class="column">
+                        <div class="columns is-centered">
+                            <div class="column is-5">
                                 <h2 class="title is-5 is-invisible-mobile">Pay Online</h2>
-                                <div class="control">
-                                    <label class="radio">
-                                        <input type="radio" name="foobar" v-model="paymode" value="paytm">
-                                        <a class="payPaytm"></a>
-                                    </label>
-                                </div>
-                                <div class="control">
-                                    <label class="radio">
-                                        <input type="radio" name="foobar"  v-model="paymode" value="razorpay">
-                                        <a class="payPayU"></a>
-                                    </label>
+
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="radio">
+                                            <input type="radio" name="foobar"  v-model="paymode" value="razorpay">
+                                            <a class="payRazorpay"></a>
+                                        </label>
+                                    </div>
+                                    <div class="control">
+                                        <label class="radio">
+                                            <input type="radio" name="foobar" v-model="paymode" value="paytm">
+                                            <a class="payPaytm"></a>
+                                        </label>
+                                    </div>
                                 </div>
                                 <!-- <div class="control" style="visibility: hidden;">
                                     <label class="radio">
@@ -223,21 +226,15 @@
                             <span class="button is-warning" v-if="cart_state==2" v-on:click="undoaddress">Back</span>
                             <span class="button paybtn" v-if="cart_state==2" v-on:click="handle_pay">Pay</span>
                         </div>
-                        {% if show_payment_failed %}
-                        <div class="columns" >
-                            <div class="column">
-                                <p style="margin-bottom:20px;">Your payment attempt is failed<br>Please contact if balance is deducted or try again</p>
-                            </div>
-                        </div>
-                        {% endif %}
-
-
-
                     </div>
 
                     <div class="columns" v-show="cart_state==2" v-cloak>
                         <div class="column">
-                            <p class="payformdetails">Netbanking, UPI, Wallets, Credit Cards, Debit Cards all are accepted via PayTM</p>
+                            <p class="payformdetails">
+                                {% if show_payment_failed %}
+                                Your payment attempt is failed.<br>Please contact if balance is deducted or try again.<br><br>
+                                {% endif %}
+                                Netbanking, UPI, Wallets, Credit Cards, Debit Cards all are accepted via Razorpay and PayTM</p>
                         </div>
                     </div>
                 </div>
@@ -805,7 +802,7 @@
             address_address1:'',
             address_address2:'',
 
-            paymode: 'paytm',
+            paymode: 'razorpay',
             ModalCod: false,
             ModalCodConfirm: false,
 

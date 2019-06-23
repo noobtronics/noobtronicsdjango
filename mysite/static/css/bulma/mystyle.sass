@@ -802,9 +802,13 @@
     margin-top: -15px
     vertical-align: middle
 
+  .field
+      margin: 0 auto
+      width: 150px
+
   .control
     margin-top: 10px
-    text-align: center
+    text-align: left
 
 
   .checkbox:hover, .radio:hover
@@ -835,6 +839,14 @@
   height: 27px
   display: inline-block
   background: url(/static/images/main/wp-sprite.png) no-repeat 0 0
+
+
+.payRazorpay
+  width: 127px
+  height: 27px
+  display: inline-block
+  background: url(/static/images/cart/razorpay-logo.png) no-repeat 0 0
+
 
 
 
@@ -1180,9 +1192,16 @@ $mq-desktop				: 1382px !default
 
 
 
-
   .cartcontainer
     margin: 0
+
+
+    .carttitle
+        text-align: center
+        font-size: 18px
+        margin: 0
+        margin-top: 40px
+        margin-bottom: 10px
 
     .is-invisible-mobile
       display: none
@@ -1264,13 +1283,15 @@ $mq-desktop				: 1382px !default
 
 
     .payformdetails
-        margin-top: 0
+        font-size: 12px
+        margin: 20px 10px
+
 
 
     .paymentform
       width: 300px
       margin: 20px auto
-      height: 150px
+      height: 100px
 
       .column
         height: 80px
