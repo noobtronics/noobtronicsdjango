@@ -36,6 +36,8 @@ def add_to_cart(request):
             cart.save()
         else:
             cart = cart_filter[0]
+            cart.cart_state = 'C'
+            cart.save()
         cartobj = CartObjects(cart_id=cart, prod_id=prod, quantity=data['quantity'])
         cartobj.save()
         resp['cartqty'] = CartObjects.objects.filter(cart_id=cart).count()
@@ -63,5 +65,3 @@ def add_to_waitlist(request):
     except Exception as e:
         resp['reason'] = traceback.print_exception()
     return JsonResponse(resp)
-
-
