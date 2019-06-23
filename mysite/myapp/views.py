@@ -430,8 +430,6 @@ def cart_page(request):
         if paymode == 'razorpay':
             done_order_id = finalize_razorpay_payment(request.user)
 
-        if len(done_order_id) > 2:
-            context['state'] = 3
 
     context['done_order_id'] = done_order_id
     context['cartqty'] = get_cart_qty(request)
@@ -1237,6 +1235,12 @@ def razorpay_callback(request):
         rp_hist = RazorpayHistory(user_id = cart.user_id, order_id = id_map.order_id,
                                     txn_amount=payment_data['amount']/100.0, txn_date=timezone.now(), status = payment_data['status'],details=payment_response)
         rp_hist.save()
+
+
+        cart.cart_state = 'D'
+        cart.payment_amount = payment_data['amount']/100.0
+        cart.paymode = 'RAZORPAY'
+        cart.save()
 
         txn_success = True
 
