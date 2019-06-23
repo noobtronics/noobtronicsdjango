@@ -183,13 +183,13 @@
                                         <a class="payPaytm"></a>
                                     </label>
                                 </div>
-                                <!-- <div class="control" style="visibility: hidden;">
+                                <div class="control">
                                     <label class="radio">
-                                        <input type="radio" name="foobar"  v-model="paymode" value="payu">
+                                        <input type="radio" name="foobar"  v-model="paymode" value="razorpay">
                                         <a class="payPayU"></a>
                                     </label>
                                 </div>
-                                <div class="control" style="visibility: hidden;">
+                                <!-- <div class="control" style="visibility: hidden;">
                                     <label class="radio">
                                         <input type="radio" name="foobar"  v-model="paymode" value="instamojo">
                                         <a class="payInstamojo"></a>
@@ -671,12 +671,56 @@
         });
     };
 
+    var process_razorpay_payment = function(){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/get_razorpay_details',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                console.log(response.data.data);
+
+                var form = document.createElement("form");
+
+                form.method = "POST";
+                form.action = response.data.txn_url;
+                form.innerHTML = "";
+                var d = response.data.data;
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('key_id', d['key_id']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('amount', d['amount']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('order_id', d['rp_id']);
+
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('prefill[name]', d['name']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('prefill[contact]', d['mobile']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('prefill[email]', d['email']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('notes[shipping address]', d['shipping_address']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('callback_url', d['callback_url']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('cancel_url', d['cancel_url']);
+
+                document.body.appendChild(form);
+                console.log(form);
+                form.submit();
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
     var submit_pay = function submit_pay(){
         if(cartapp.paymode == 'cod'){
             process_cod_payment();
         }
         if(cartapp.paymode == 'paytm'){
             process_paytm_payment();
+        }
+        if(cartapp.paymode == 'razorpay'){
+            process_razorpay_payment();
         }
     };
 </script>

@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('cart', cart_page),
     path('cart/paytm/callback', paytm_callback),
+    path('cart/razorpay/callback', razorpay_callback),
     path('orders', orders_page),
     path('neworder', new_orders_page),
     path('order/<slug:order_id>', order_details_page),
@@ -39,6 +40,7 @@ urlpatterns = [
     path('api/cart/pay', handle_payment),
     path('api/cart/undoaddress', handle_undoaddress),
     path('api/cart/get_paytm_details', get_paytm_details),
+    path('api/cart/get_razorpay_details', get_razorpay_details),
 
     path('api/cart/process_code', process_referral_code),
 

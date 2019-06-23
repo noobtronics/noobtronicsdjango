@@ -192,3 +192,12 @@ EMAIL_HOST = 'mail14.mymailcheap.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'no-reply@noobtronics.ltd'
 EMAIL_HOST_PASSWORD = 'Nikhil123'
+
+
+
+RAZORPAY = {
+    'key_id': 'rzp_test_XoQ8s98p900rIr',
+    'key_secret': 'AtXZQM8OOjOzjpHcmZZ1VEZk',
+    'callback_url':'http://localhost:8000/cart/razorpay/callback',
+    'cancel_url':'http://localhost:8000/cart?status=fail',
+}

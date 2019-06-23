@@ -296,3 +296,13 @@ admin.site.register(Blog, BlogAdmin)
 class BlogPhotoAdmin(admin.ModelAdmin):
     list_display = ('blog_id', 'image', 'created')
 admin.site.register(BlogPhotos, BlogPhotoAdmin)
+
+
+class RazopayIDMapsAdmin(admin.ModelAdmin):
+    list_display = ('rp_id', 'order_id', 'created')
+admin.site.register(RazopayIDMaps, RazopayIDMapsAdmin)
+
+
+class RazorpayHistoryAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'order_id', 'txn_amount','status', 'txn_date','created')
+admin.site.register(RazorpayHistory, RazorpayHistoryAdmin)

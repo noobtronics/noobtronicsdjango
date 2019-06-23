@@ -31,6 +31,7 @@ from .models import *
 import requests
 import facebook
 from htmlmin.decorators import minified_response
+import razorpay
 
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
@@ -426,9 +427,15 @@ def cart_page(request):
         paymode = request.GET.get('mode')
         if paymode == 'paytm':
             done_order_id = finalize_paytm_payment(request.user)
+        if paymode == 'razorpay':
+            done_order_id = finalize_razorpay_payment(request.user)
+
+        if len(done_order_id) > 2:
+            context['state'] = 3
 
     context['done_order_id'] = done_order_id
     context['cartqty'] = get_cart_qty(request)
+
     return render(request, 'cart-page.html', context)
 
 
@@ -447,6 +454,21 @@ def finalize_paytm_payment(usr):
         return add_cart_to_order(usr)
     return ''
 
+
+def finalize_razorpay_payment(usr):
+    verified = False
+    try:
+        cart = Cart.objects.get(user_id = usr)
+        order_id = cart.to_be_order_id
+        rp_hist = RazorpayHistory.objects.filter(user_id=usr, order_id=order_id, status='authorized')
+
+        if rp_hist.count() > 0:
+            verified = True
+    except:
+        pass
+    if verified:
+        return add_cart_to_order(usr)
+    return ''
 
 
 def login_view(request):
@@ -675,6 +697,9 @@ def save_paymode(request):
             cart.save()
         elif paymode == 'paytm':
             cart.paymode = 'PayTM'
+            cart.save()
+        elif paymode == 'razorpay':
+            cart.paymode = 'RAZORPAY'
             cart.save()
         elif paymode == 'payu':
             cart.paymode = 'PayU'
@@ -1077,6 +1102,65 @@ def get_paytm_details(request):
     return JsonResponse(resp)
 
 
+@login_required
+def get_razorpay_details(request):
+    resp = {
+        'success': False,
+        'reason': '',
+    }
+    try:
+
+        cart = Cart.objects.get(user_id=request.user)
+        cart_json = process_cart_json(request.user)
+        total = cart_json['total']
+
+        if cart.to_be_order_id == '' or cart.to_be_order_id is None:
+            cart.to_be_order_id = generate_order_id(request.user)
+            cart.save()
+
+        user_code = get_user_code(request.user)
+        if not user_code:
+            return JsonResponse(resp)
+
+        order_id = cart.to_be_order_id +'_'+get_rand_number(4)
+
+        rp_client = razorpay.Client(auth=(settings.RAZORPAY['key_id'], settings.RAZORPAY['key_secret']))
+
+        order_amount = total*100
+        order_currency = 'INR'
+        notes = {'Shipping address': '{0}, {1}'.format(cart.district, cart.state)}
+
+        rp_data = rp_client.order.create(data = {'amount':order_amount, 'currency':order_currency, 'receipt':order_id, 'notes':notes, 'payment_capture':'0'})
+
+        if rp_data['receipt'] != order_id:
+            raise Exception
+
+
+        resp['txn_url'] = 'https://api.razorpay.com/v1/checkout/embedded'
+
+        rp_id_map = RazopayIDMaps(rp_id= rp_data['id'], order_id = cart.to_be_order_id)
+        rp_id_map.save()
+
+        resp['data'] = {
+            'key_id': settings.RAZORPAY['key_id'],
+            'rp_id': rp_data['id'],
+            'amount': rp_data['amount'],
+            'shipping_address': notes['Shipping address'],
+
+            'name': cart.address_name,
+            'mobile': cart.mobile,
+            'email': request.user.email,
+
+            'callback_url': settings.RAZORPAY['callback_url'],
+            'cancel_url': settings.RAZORPAY['cancel_url'],
+        }
+
+        resp['success'] = True
+    except Exception as e:
+        resp['reason'] = traceback.print_exception()
+    return JsonResponse(resp)
+
+
 
 @csrf_exempt
 def paytm_callback(request):
@@ -1123,6 +1207,46 @@ def paytm_callback(request):
             return HttpResponseRedirect('/cart?status=success&mode=paytm')
         else:
             return HttpResponseRedirect('/cart?status=fail')
+
+
+
+@csrf_exempt
+def razorpay_callback(request):
+    txn_success = False
+    try:
+        data = request.POST.dict()
+
+        razorpay_order_id = request.POST.get('razorpay_order_id')
+        razorpay_payment_id = request.POST.get('razorpay_payment_id')
+        razorpay_signature = request.POST.get('razorpay_signature')
+        rp_data = {
+            'razorpay_order_id': razorpay_order_id,
+            'razorpay_payment_id': razorpay_payment_id,
+            'razorpay_signature': razorpay_signature,
+        }
+
+        rp_client = razorpay.Client(auth=(settings.RAZORPAY['key_id'], settings.RAZORPAY['key_secret']))
+        rp_client.utility.verify_payment_signature(rp_data)
+
+        payment_response = rp_client.order.payments(razorpay_order_id)
+        payment_data = payment_response['items'][0]
+        id_map = RazopayIDMaps.objects.filter(rp_id=razorpay_order_id).order_by('-created')[0]
+
+        cart = Cart.objects.filter(to_be_order_id=id_map.order_id)[0]
+
+        rp_hist = RazorpayHistory(user_id = cart.user_id, order_id = id_map.order_id,
+                                    txn_amount=payment_data['amount']/100.0, txn_date=timezone.now(), status = payment_data['status'],details=payment_response)
+        rp_hist.save()
+
+        txn_success = True
+
+    except:
+        print(traceback.format_exc())
+
+    if txn_success:
+        return HttpResponseRedirect('/cart?status=success&mode=razorpay')
+    else:
+        return HttpResponseRedirect('/cart?status=fail')
 
 
 

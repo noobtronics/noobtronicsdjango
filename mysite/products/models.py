@@ -144,6 +144,7 @@ class Cart(models.Model):
         ('PayTM', 'PayTM'),
         ('PayU', 'PayU Money'),
         ('InstaM', 'Instamojo'),
+        ('RAZORPAY', 'RAZORPAY')
     ), null=True, blank=True)
     to_be_order_id = models.CharField(max_length=20, blank=True, null=True)
     payment_amount = models.FloatField(default = 0)
@@ -371,6 +372,20 @@ class OrderProducts(models.Model):
     def subtotal(self):
         return self.quantity * self.price
 
+class RazopayIDMaps(models.Model):
+    rp_id = models.CharField(max_length = 100)
+    order_id = models.CharField(max_length = 50)
+    created = models.DateTimeField(auto_now_add=True)
+    
+
+class RazorpayHistory(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    order_id = models.CharField(max_length = 40)
+    txn_amount = models.FloatField()
+    txn_date = models.DateTimeField()
+    status = models.CharField(max_length = 40)
+    details = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class PaytmHistory(models.Model):
