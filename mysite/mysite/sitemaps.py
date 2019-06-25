@@ -45,6 +45,21 @@ class ShopLinkSitemaps(sitemaps.Sitemap):
         return '/shop/'+item.url
 
 
+class BlogLinkSitemaps(sitemaps.Sitemap):
+    changefreq = "weekly"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        return Blog.objects.filter(is_published=True)
+
+    def lastmod(self, item):
+        return item.updated
+
+    def location(self, item):
+        return '/blog/'+item.slug
+
+
 class DownloadsSitemap(sitemaps.Sitemap):
     changefreq = "hourly"
     priority = 0.4

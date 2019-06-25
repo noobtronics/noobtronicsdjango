@@ -376,7 +376,7 @@ class RazopayIDMaps(models.Model):
     rp_id = models.CharField(max_length = 100)
     order_id = models.CharField(max_length = 50)
     created = models.DateTimeField(auto_now_add=True)
-    
+
 
 class RazorpayHistory(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -426,6 +426,7 @@ class Blog(models.Model):
     description = models.CharField(max_length = 3000, default='')
     rank = models.IntegerField(default=100)
     is_published = models.BooleanField(default=False)
+    updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

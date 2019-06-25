@@ -29,7 +29,8 @@ sitemaps = {
     'product': ProductSitemap,
     'static': StaticViewSitemap,
     'download': DownloadsSitemap,
-    'shoplink': ShopLinkSitemaps
+    'shoplink': ShopLinkSitemaps,
+    'bloglink': BlogLinkSitemaps
 }
 
 
