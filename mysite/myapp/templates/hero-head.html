@@ -424,7 +424,7 @@ var process_forgot_pwd = function(){
             head_app.loading = false;
             if(response.data.success){
                 console.log('logging out...');
-                window.location.href = "/";
+                window.location.reload();
             }
         });
     };
