@@ -1359,7 +1359,7 @@ def process_google_callback(request):
 
         flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
             'mysite/google_client_secret.json',
-            scopes=['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'],
+            scopes=['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email', 'openid'],
             redirect_uri='https://noobtronics.ltd/googlecallback'
         )
 
