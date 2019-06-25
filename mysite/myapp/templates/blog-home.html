@@ -26,7 +26,7 @@
                     {% for b in blog_data %}
                     <div class="contentbox shortcontentbox">
                         <div class="content shortcontent">
-                            <h1 class="title">{{b.name}}</h1>
+                            <h1 class="title"><a href="/blog/{{b.slug}}" style="color: #363636 !important;">{{b.name}}</a></h1>
                             <div>
                                 {{b.short_html | safe}}
                             </div>
