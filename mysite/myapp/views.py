@@ -15,7 +15,7 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.http import JsonResponse, Http404
 from products.models import *
 from products.admin_views import get_cart_qty, process_prod_page, process_print_prod_page, get_alltags_data, get_cart_state
-from products.admin_views import admin_show_blog_page
+from products.admin_views import show_blog_page
 from django.shortcuts import get_list_or_404, get_object_or_404
 import math
 import traceback
@@ -1566,6 +1566,6 @@ def blog_home(request):
 def blog_page(request, blog_slug):
     blog = get_object_or_404(Blog, slug=blog_slug)
     if blog.is_published:
-        return admin_show_blog_page(request, blog_slug)
+        return show_blog_page(request, blog_slug)
     else:
         return my_http404_view(request)

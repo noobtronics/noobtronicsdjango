@@ -842,8 +842,8 @@ def show_blog_edit_page(request, blog_slug):
     return render(request, 'blog_editor.html', context)
 
 
-@staff_or_404
-def admin_show_blog_page(request, blog_slug):
+
+def show_blog_page(request, blog_slug):
     blog = get_object_or_404(Blog, slug=blog_slug)
 
     data = {
@@ -866,6 +866,11 @@ def admin_show_blog_page(request, blog_slug):
 
     return render(request, 'blog-page.html', context)
 
+
+
+@staff_or_404
+def admin_show_blog_page(request, blog_slug):
+    return show_blog_page(request, blog_slug)
 
 @staff_or_404
 def admin_save_blog_data(request):
