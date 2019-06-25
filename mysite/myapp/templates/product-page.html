@@ -521,17 +521,19 @@
 
 <script type="text/javascript">
     var link = window.location.pathname;
-    console.log(document.referrer);
-    history.replaceState(null, "Noobtronics Shop: Microcontrollers, Sensors, Modules, Electronic Hobby Kits | India", "/shop");
-    history.pushState(null, "{{data.meta_title}} | Noobtronics Shop | India", link);
+    var x = document.referrer;
+    if(!x.startsWith("https://noobtronics.ltd")){
+        history.replaceState(null, "Noobtronics Shop: Microcontrollers, Sensors, Modules, Electronic Hobby Kits | India", "/shop");
+        history.pushState(null, "{{data.meta_title}} | Noobtronics Shop | India", link);
 
-    $(document).ready(function() {
+        $(document).ready(function() {
 
-        window.addEventListener('popstate', (event) => {
-            location.replace("/shop");
+            window.addEventListener('popstate', (event) => {
+                location.replace("/shop");
+            });
+
         });
-
-    });
+    }
 </script>
 
 
