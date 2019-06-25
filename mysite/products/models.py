@@ -453,6 +453,7 @@ class BlogPhotos(models.Model):
     blog_id = models.ForeignKey(Blog, related_name='blogphotos',on_delete=models.CASCADE)
     image = models.ImageField(upload_to=blogimage_upload_path, max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
+    main_image = models.BooleanField(default=False)
 
 
 @receiver(pre_delete, sender=BlogPhotos, dispatch_uid='delete_blogimage_signal')

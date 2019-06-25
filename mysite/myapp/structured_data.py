@@ -68,7 +68,7 @@ def get_product_structured_data(prod_id):
             "ratingValue": "4",
             "reviewCount": "1"
         },
-        
+
         "offers": {
             "@type": "Offer",
             "availability": availability,
@@ -81,4 +81,49 @@ def get_product_structured_data(prod_id):
     }
 
     data.update(prod_fields)
+    return json.dumps(data)
+
+
+
+def get_blog_structured_data(blog_id):
+    blog = Blog.objects.get(id=blog_id)
+
+    data = {}
+    data.update(STRUCTURED_DATA_BASE)
+
+
+    image_list = []
+
+    images = blog.blogphotos.filter(main_image=True)
+    for img in images:
+        image_list.append('https://noobtronics.ltd/media'.format(img.image))
+
+
+    data_fields = {
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://noobtronics.ltd/blog"
+          },
+         "headline": blog.name,
+         "description": blog.description,
+         "image":image_list,
+         "datePublished": blog.created.strftime("%Y-%m-%dT%H:%M:%S+05:30"),
+         "dateModified": blog.updated.strftime("%Y-%m-%dT%H:%M:%S+05:30"),
+         "author": {
+            "@type": "Person",
+            "name": "Nikhil"
+          },
+
+         "publisher": {
+            "@type": "Organization",
+            "name": "noobtronics",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https://noobtronics.ltd/static/images/Logo.png"
+            }
+        },
+    }
+
+    data.update(data_fields)
     return json.dumps(data)

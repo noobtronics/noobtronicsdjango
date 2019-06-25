@@ -861,7 +861,8 @@ def show_blog_page(request, blog_slug):
         #'page_structured_data': get_product_structured_data(prod.id),
         'whatsapp_on_mobile': False,
         'require_mobile': False,
-        'page_type': 'blog_page'
+        'page_type': 'blog_page',
+        'page_structured_data': get_blog_structured_data(blog.id),
     }
 
     return render(request, 'blog-page.html', context)
