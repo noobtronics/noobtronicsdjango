@@ -72,11 +72,21 @@
                             <p class="cardsubtitle">{{p.cardtitle}}</p>
                         </footer>
                         <footer class="card-footer ">
-                            <h2 class="price">₹{{p.price}}<span class="mrpprice">&nbsp;₹{{p.mrp}}&nbsp;&nbsp;</span></h2>
+                            <h2 class="price">₹{{p.price}}
+                                <!-- <span class="mrpprice">&nbsp;₹{{p.mrp}}&nbsp;&nbsp;</span> -->
+                            </h2>
                         </footer>
+
+                        {% if p.in_stock %}
+                        <footer class="card-footer">
+                        <a class="button is-warning mobileaddcartbtn" v-on:click="add_to_cart({{p.id}})">Add to Cart</a>
+                        </footer>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
+
+                <a class="button is-danger is-invisible-desktop" v-if="show_checkout" style="margin: 5px 0px;margin-top: 10px;" v-cloak onclick="location.href='/cart?page=0'"><i class="fas fa-shopping-cart"></i> Show Cart</a>
                 </mycomp>
 
                 <mycomp id="proddyncase" class="is-invisible">
@@ -264,6 +274,8 @@
             head_app.loading = false;
             if(response.data.success){
                 fly_to_cart(response.data.cartqty, '#img'+prod_id);
+
+                app.show_checkout=true;
             }
             else{
                 console.log(response);
@@ -306,7 +318,12 @@
         });
     };
 </script>
-
+<script>
+var show_checkout = false;
+if(head_app.cartqty>0){
+    show_checkout=true;
+}
+</script>
 <script>
     var app = new Vue({
         el: '#app',
@@ -318,6 +335,7 @@
             total_pages: total_pages,
             filterbtnactive: false,
             shifted_to_dynamic: false,
+            show_checkout: show_checkout,
         },
         methods :{
             change_menu: function(idx, val) {
