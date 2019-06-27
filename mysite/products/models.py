@@ -37,6 +37,7 @@ class Product(models.Model):
     is_google = models.BooleanField(default=False)
     is_amazon = models.BooleanField(default=False)
     amazon_link = models.CharField(max_length=300, default='')
+    hide_description = models.BooleanField(default=False)
 
 
     def __str__(self):

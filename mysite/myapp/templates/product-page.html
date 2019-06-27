@@ -122,6 +122,8 @@
 
                 </div>
             </div>
+
+            {% if not hide_description %}
             <div class="columns productdetails">
                 <div class="column">
                     <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -144,6 +146,8 @@
                     {% endfor %}
                 </div>
             </div>
+            {% endif %}
+
             <div class="columns hashtagcol">
                 <div class="column">
                     <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">

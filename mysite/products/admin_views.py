@@ -517,7 +517,8 @@ def process_prod_page(request, prod_id):
         'page_structured_data': get_product_structured_data(prod.id),
         'whatsapp_on_mobile': True,
         'require_mobile': require_mobile,
-        'page_type': 'product_page'
+        'page_type': 'product_page',
+        'hide_description': prod.hide_description
     }
     for key in image_data:
         context[key] = image_data[key]
