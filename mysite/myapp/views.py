@@ -406,6 +406,12 @@ def cart_page(request):
     data = {}
 
     cart = get_object_or_404(Cart, user_id=request.user)
+
+    cart_page_num = request.GET.get('page')
+    if cart_page_num == '0':
+        cart.cart_state='C'
+        cart.save()
+
     context = {
         'loggedin': request.user.is_authenticated,
         'data': data,

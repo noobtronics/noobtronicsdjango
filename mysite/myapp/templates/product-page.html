@@ -82,7 +82,7 @@
                     {% endif %}
                     <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
                     {% endif %}
-
+                    <a class="button is-danger" v-if="show_checkout" v-cloak onclick="location.href='/cart?page=0'"><i class="fas fa-shopping-cart"></i> Show Cart</a>
                     <div class="columns is-mobile prodorderdetails">
                         <div class="column">
                             <div class="content" style="text-align:left;">
@@ -400,6 +400,7 @@
             head_app.loading = false;
             if(response.data.success){
                 fly_to_cart(response.data.cartqty);
+                prodapp.show_checkout=true;
             }
             else{
                 console.log(response);
@@ -452,6 +453,12 @@
     var similar_products = {{ data.similar_prod_data | safe}};
 </script>
 
+<script>
+var show_checkout = false;
+if(head_app.cartqty>0){
+    show_checkout=true;
+}
+</script>
 
 <script>
     var prodapp = new Vue({
@@ -465,6 +472,7 @@
             quantity: 1,
             related_products: related_products,
             similar_products: similar_products,
+            show_checkout: show_checkout,
         },
         computed: {
             display: function () {
