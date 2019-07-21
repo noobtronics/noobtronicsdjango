@@ -381,7 +381,7 @@
               'id': '{{done_order_id}}',
               'revenue': '{{total}}'
           });
-        ga('send', 'event');
+        ga('send', 'pageview');
 
         $( document ).ready(function() {
             setTimeout(function(){ window.location = '/neworder'; }, 1000);
@@ -932,7 +932,7 @@
                     ga('ec:setAction','checkout', {
                         'step': newVal + 1,
                     });
-                    ga('send', 'event');
+                    ga('send', 'pageview');
                 }
 
             }
