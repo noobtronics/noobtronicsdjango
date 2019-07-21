@@ -382,7 +382,8 @@
           'name': '{{data.name}}',
           'price': '{{data.price}}',
         });
-        ga('send', 'event');
+        ga('ec:setAction', 'add');
+        ga('send', 'event', 'UX', 'click', 'add to cart');
 
 
         data = {
