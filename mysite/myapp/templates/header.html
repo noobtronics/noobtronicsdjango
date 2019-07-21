@@ -37,13 +37,22 @@
 <!-- End Google Tag Manager -->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125040779-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125040779-2');
+  ga('require', 'ec');
+</script>
+
+
+
 <!-- Google Analytics -->
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-125040779-2', 'auto');
-
 {% if page_type == 'product_page' %}
-ga('require', 'ec');
 ga('ec:addImpression', {
   'id': '{{data.sku}}',
   'name': '{{data.name}}',
@@ -60,7 +69,6 @@ ga('ec:setAction','checkout', {
 
 ga('send', 'pageview');
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 <!-- End Google Analytics -->
 
 
