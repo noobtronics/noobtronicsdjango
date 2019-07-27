@@ -420,7 +420,7 @@ class RelatedProducts(models.Model):
 class Blog(models.Model):
     slug = models.CharField(max_length = 1500, unique=True)
     name = models.TextField()
-    keywords = mmodels.TextField(default='')
+    keywords = models.TextField(default='')
     markdown = models.TextField()
     html = models.TextField()
     short_html = models.TextField(default='')
