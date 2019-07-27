@@ -482,6 +482,7 @@ def process_prod_page(request, prod_id):
         'sku': prod.sku,
         'name': prod.name,
         'meta_title': prod.meta_title,
+        'meta_keywords': prod.keywords,
         'product_head': prod.product_head,
         'pagetitle': prod.pagetitle,
         'description': prod.description,

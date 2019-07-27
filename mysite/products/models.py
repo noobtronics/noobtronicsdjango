@@ -18,8 +18,9 @@ class BreadCrumbs(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200, unique=True)
-    meta_title = models.CharField(max_length=300, default='')
-    description = models.CharField(max_length=3200, default='')
+    meta_title = models.TextField(default='')
+    description = models.TextField(default='')
+    keywords = models.TextField(default='')
     product_head = models.CharField(max_length=70, default='')
     pagetitle = models.CharField(max_length=200)
     cardtitle = models.CharField(max_length=200)
