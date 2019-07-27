@@ -852,6 +852,7 @@ def show_blog_page(request, blog_slug):
         'name': blog.name,
         'meta_title': blog.name,
         'description': blog.description,
+        'meta_keywords': blog.keywords,
     }
 
     context = {
