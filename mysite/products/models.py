@@ -425,7 +425,7 @@ class Blog(models.Model):
     html = models.TextField()
     short_html = models.TextField(default='')
     short_markdown = models.TextField(default='')
-    description = models.CharField(max_length = 3000, default='')
+    description = models.TextField(default='')
     rank = models.IntegerField(default=100)
     is_published = models.BooleanField(default=False)
     updated = models.DateTimeField(auto_now=True)
