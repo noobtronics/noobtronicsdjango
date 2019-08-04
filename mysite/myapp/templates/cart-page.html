@@ -176,7 +176,7 @@
                     <div class="paymentform" v-show="cart_state==2" v-cloak>
                         <div class="columns is-centered">
                             <div class="column is-5">
-                                <h2 class="title is-5 is-invisible-mobile">Pay Online</h2>
+                                <h2 class="title is-5 is-invisible-mobile">Payment Gateway</h2>
 
                                 <div class="field">
                                     <div class="control">
@@ -198,6 +198,14 @@
                                         <a class="payInstamojo"></a>
                                     </label>
                                 </div> -->
+
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" class="payCashInp" name="foobar"  v-model="paymode" value="cod">
+                                        <a  class="payCash">Cash on Delivery*</a>
+                                    </label>
+                                </div>
+
                             </div>
                             <!-- <div class="column">
                                 <h2 class="title is-5 is-invisible-mobile">Pay Offline</h2>
@@ -332,7 +340,7 @@
 
             </div>
             <h2 class="title is-6">Extra Charges</h2>
-            <p>Cash On Delivery service is not free!<br>Extra charge of ₹​75 will be added.<br><br>Is it fine ?</p>
+            <p>Cash On Delivery service is not free!<br>Extra charge of ₹​80 will be added.<br><br>Is it fine ?</p>
         </section>
         <footer class="modal-card-foot">
             <button class="button is-info" v-on:click="update_paymode();ModalCod=false;">Ok</button>

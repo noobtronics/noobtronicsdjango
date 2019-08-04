@@ -369,7 +369,7 @@ def get_cart_prods(usr):
 
 
 def get_delivery_charge(subtotal):
-    delivery_charge = 50
+    delivery_charge = 80
     return delivery_charge
 
 
