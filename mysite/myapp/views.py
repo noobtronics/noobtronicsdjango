@@ -369,7 +369,7 @@ def get_cart_prods(usr):
 
 
 def get_delivery_charge(subtotal):
-    delivery_charge = 80
+    delivery_charge = 60
     return delivery_charge
 
 
@@ -377,7 +377,7 @@ def get_cart_extracharge(usr):
     extra_chage = 0
     cart = Cart.objects.get(user_id=usr)
     if cart.paymode == 'COD':
-        extra_chage = 75
+        extra_chage = 80
     return extra_chage
 
 
