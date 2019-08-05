@@ -125,6 +125,12 @@
                 </div>
             </div>
 
+            <div class="columns">
+              <div class="column">
+                <h2>{{data.description}}</h2>
+              </div>
+            </div>
+
             {% if not hide_description %}
             <div class="columns productdetails">
                 <div class="column">
@@ -138,8 +144,6 @@
                     <div class="content" v-html="display">
                         {{data.prod_details.0.html | safe}}
                     </div>
-                    <h2 class="is-invisible" style="height:0px;margin:0;">{{data.meta_title}}</h2>
-                    <h3 class="is-invisible" style="height:0px;margin:0;">{{data.description}}</h3>
                     {% for t in data.prod_details %}
                     <div id="pd{{t.rank}}" style="display: none;">
                         <p class="is-invisible" style="height:0px;margin:0;">{{t.name}}:</p>
