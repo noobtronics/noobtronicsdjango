@@ -523,34 +523,39 @@
     var submit_address = function submit_address() {
         head_app.loading = true;
 
-        var ip_data = {};
+        var ip_data = {} ;
         axios.get('https://ipapi.co/json/')
         .then((response)=>{
           ip_data = response.data;
           })
         .catch((err)=>{
+        })
+        .finally(function () {
+
+            axios({
+                method: 'post',
+                url: '/api/cart/address',
+                data: {
+                    'name': cartapp.address_name,
+                    'mobile': cartapp.address_mobile,
+                    'address1': cartapp.address_address1,
+                    'address2': cartapp.address_address2,
+                    'pincode': cartapp.pincode,
+                    'ip_data': ip_data,
+                }
+            }).then(function (response) {
+                head_app.loading = false;
+                if(response.data.success){
+                    cartapp.cart_state = response.data.cart_state;
+                }
+                else{
+                    console.log(response);
+                }
+            });
+
         });
 
-        axios({
-            method: 'post',
-            url: '/api/cart/address',
-            data: {
-                'name': cartapp.address_name,
-                'mobile': cartapp.address_mobile,
-                'address1': cartapp.address_address1,
-                'address2': cartapp.address_address2,
-                'pincode': cartapp.pincode,
-                'ip_data': ip_data,
-            }
-        }).then(function (response) {
-            head_app.loading = false;
-            if(response.data.success){
-                cartapp.cart_state = response.data.cart_state;
-            }
-            else{
-                console.log(response);
-            }
-        });
+
     };
 
 

@@ -431,40 +431,47 @@ var process_forgot_pwd = function(){
         });
     };
 
+
     var processSaveMobile = function(d){
         head_app.loading = true;
 
-        var ip_data = {};
+        var ip_data = {} ;
         axios.get('https://ipapi.co/json/')
         .then((response)=>{
           ip_data = response.data;
           })
         .catch((err)=>{
-        });
+        })
+        .finally(function () {
 
-        axios({
-            method: 'post',
-            url: '/api/savemobile',
-            data: {
-              'mobile': head_app.mobileinput,
-              'ip_data': ip_data
-            }
-        }).then(function(response) {
-            console.log(response);
-            head_app.loading = false;
-            if(response.data.success){
-                head_app.ask_mobile = false;
-            }
+            axios({
+                method: 'post',
+                url: '/api/savemobile',
+                data: {
+                  'mobile': head_app.mobileinput,
+                  'ip_data': ip_data
+                }
+            }).then(function(response) {
+                console.log(response);
+                head_app.loading = false;
+                if(response.data.success){
+                    head_app.ask_mobile = false;
+                }
 
-            ga('send', {
-              hitType: 'event',
-              eventCategory: 'User',
-              eventAction: 'Registration',
-              eventLabel: 'SignUp',
-              eventValue: 1
+                ga('send', {
+                  hitType: 'event',
+                  eventCategory: 'User',
+                  eventAction: 'Registration',
+                  eventLabel: 'SignUp',
+                  eventValue: 1
+                });
+
             });
 
+
         });
+
+
     };
 </script>
 
