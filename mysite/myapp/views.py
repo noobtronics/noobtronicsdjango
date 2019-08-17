@@ -676,6 +676,9 @@ def save_address(request):
         cart.zipcode = data['pincode']
         cart.district = zc.district
         cart.state = zc.state
+
+        cart.ip_data = json.dumps(data['ip_data'],  indent=4)
+
         cart.save()
         cart.cart_state = 'P'
         cart.save()
@@ -813,7 +816,8 @@ def add_cart_to_order(usr):
                       extra_charge=extra_charge, total_amount=total,
                       address_name=cart.address_name,address1=cart.address1,
                       address2=cart.address2,district=cart.district, state=cart.state,
-                      zipcode=cart.zipcode,mobile=cart.mobile
+                      zipcode=cart.zipcode,mobile=cart.mobile,
+                      ip_data=cart.ip_data,
                       )
         ordr.save()
         if cart.is_referal_activated:
@@ -1348,6 +1352,7 @@ def savemobile(request):
         if len(data['mobile']) == 10 and data['mobile'].isdigit():
             usrcode = request.user.usercode
             usrcode.mobile = data['mobile']
+            usrcode.ip_data = json.dumps(data['ip_data'],  indent=4)
             usrcode.save()
             resp['success'] = True
     except:

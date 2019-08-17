@@ -151,6 +151,8 @@ class Cart(models.Model):
     to_be_order_id = models.CharField(max_length=20, blank=True, null=True)
     payment_amount = models.FloatField(default = 0)
 
+    ip_data = models.TextField(default='', blank=True)
+
     referal_code = models.CharField(max_length=20, default='')
     is_referal_activated = models.BooleanField(default=False)
     referal_obj = models.ForeignKey(ReferalCodes, on_delete=models.SET_NULL, null=True, blank=True, default=None)
@@ -307,6 +309,7 @@ class UserCode(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=10)
     mobile = models.CharField(max_length=10, blank=True, default='')
+    ip_data = models.TextField(default='', blank=True)
 
     def email(self):
         return self.user_id.email
@@ -354,6 +357,8 @@ class Orders(models.Model):
     email_sent_shipped = models.BooleanField(default=False)
     email_sent_delivered = models.BooleanField(default=False)
     referal_code = models.CharField(max_length=20, default='')
+
+    ip_data = models.TextField(default='', blank=True)
 
 
     @property

@@ -126,7 +126,7 @@ admin.site.register(HomePage)
 
 
 class UserCodeAdmin(admin.ModelAdmin):
-    list_display = ('email', 'code', 'mobile')
+    list_display = ('email', 'code', 'mobile', 'ip_data')
     readonly_fields = ['email', 'code']
     search_fields = ('code','user_id__email')
 
@@ -146,7 +146,7 @@ admin.site.register(UserCode, UserCodeAdmin)
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'cart_state', 'created', 'payment_amount', 'mobile','address_name', 'address1', 'address2', 'district', 'state', 'zipcode')
+    list_display = ('user_id', 'cart_state', 'created', 'payment_amount', 'mobile','address_name', 'address1', 'address2', 'district', 'state', 'zipcode', 'ip_data')
     search_fields = ('user_id',)
 
     # disables edits
@@ -248,7 +248,7 @@ admin.site.register(PaytmHistory, PaytmHistoryAdmin)
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('order_id', 'email', 'order_state', 'paymode', 'total_amount', 'state','district', 'mobile')
+    list_display = ('order_id', 'email', 'order_state', 'paymode', 'total_amount', 'state','district', 'mobile', 'ip_data')
     search_fields = ('order_id',)
     ordering = ('-created',)
 
