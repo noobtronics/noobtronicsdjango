@@ -487,4 +487,10 @@ var process_forgot_pwd = function(){
     }
 </script>
 
-<script>window.sntchChat.Init(70411)</script>
+<script>
+  document.onreadystatechange = function(){
+     if(document.readyState === 'complete'){
+         window.sntchChat.Init(70411);
+     }
+};
+</script>
