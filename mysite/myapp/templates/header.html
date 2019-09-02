@@ -4,16 +4,34 @@
 <link rel="canonical" href="https://noobtronics.ltd{{request.get_full_path}}" />
 
 <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.png' />
-<link rel="stylesheet" href="/static/css/plugin/balloon.min.css">
-<link rel="stylesheet" href="/static/css/plugin/box-shadows.min.css">
 
 
 
-<link rel="stylesheet" href="/static/css/loading.css">
+<script>
+function loadStyleSheet(src) {
+    if (document.createStyleSheet){
+        document.createStyleSheet(src);
+    }
+    else {
+        $("head").prepend($("<link rel='stylesheet' href='"+src+" />"));
+    }
+};
+</script>
+
+<script>
+window.onload = function(e){
+    loadStyleSheet("/static/css/plugin/animate/animate.min.css");
+    loadStyleSheet("/static/css/loading.css");
+    loadStyleSheet("/static/css/plugin/box-shadows.min.css");
+    loadStyleSheet("/static/css/plugin/balloon.min.css");
+}
+</script>
+
+
 <link rel="stylesheet" href="/static/css/bulma/mystyle.min.css">
 <!-- <script src="/static/css/fontawesome/js/all.js"></script> -->
 <link rel="stylesheet" href="/static/css/fontawesome/css/all.min.css">
-<link rel="stylesheet" href="/static/css/plugin/animate/animate.min.css">
+
 
 {% if DEBUG %}
 <script src="/static/js/vue/vue.js"></script>
@@ -22,11 +40,12 @@
 {% endif %}
 
 
- <script src="https://account.snatchbot.me/script.js" defer></script>
+<script src="https://account.snatchbot.me/script.js" defer></script>
 
-<script src="/static/js/axios/axios.min.js"></script>
-<script src="/static/js/jquery/jquery.min.js"></script>
-<script src="/static/js/jquery-ui/jquery-ui.min.js"></script>
+<script src="/static/js/axios/axios.min.js" defer></script>
+<script src="/static/js/jquery/jquery.min.js" defer></script>
+<script src="/static/js/jquery-ui/jquery-ui.min.js" defer></script>
+
 <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
 
 
