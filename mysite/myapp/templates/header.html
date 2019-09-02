@@ -38,8 +38,6 @@ window.onload = function(e){
     loadStyleSheet("/static/css/loading.css");
     loadStyleSheet("/static/css/plugin/box-shadows.min.css");
     loadStyleSheet("/static/css/plugin/balloon.min.css");
-    axios.defaults.xsrfHeaderName = "X-CSRFToken";
-    axios.defaults.xsrfCookieName = 'csrftoken';
 }
 </script>
 
@@ -54,6 +52,13 @@ window.onload = function(e){
 {% else %}
 <script src="/static/js/vue/vue.min.js"></script>
 {% endif %}
+
+
+<script src="/static/js/axios/axios.min.js"></script>
+<script>
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
+    axios.defaults.xsrfCookieName = 'csrftoken';
+</script>
 
 <script src="/static/js/jquery/jquery.min.js" defer></script>
 <script src="/static/js/jquery-ui/jquery-ui.min.js" defer></script>
