@@ -212,7 +212,12 @@
 
 <script>
 window.onload = function(e){
-    getScript("https://account.snatchbot.me/script.js");
-    window.sntchChat.Init(70411)
+    getScript("https://account.snatchbot.me/script.js", "snatchbot");
+
+
+    var script = document.querySelector('#snatchbot');
+    script.addEventListener('load', function() {
+        window.sntchChat.Init(70411);
+    });
 };
 </script>

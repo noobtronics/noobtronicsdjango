@@ -22,9 +22,10 @@ function loadStyleSheet(src) {
     }
 };
 
-var getScript = function(nm) {
+var getScript = function(nm, id) {
   var s = document.createElement('script');
   s.type='text/javascript';
+  s.id=id;
   s.src=nm;
   document.getElementsByTagName('head')[0].appendChild(s);
 }
