@@ -13,7 +13,7 @@ function loadStyleSheet(src) {
         document.createStyleSheet(src);
     }
     else {
-        var el = document.getElementsByTagName('head'),
+        var el = document.getElementsByTagName('head');
         var s = document.createElement('link');
         s.rel='stylesheet';
         s.href=src;
