@@ -13,9 +13,23 @@ function loadStyleSheet(src) {
         document.createStyleSheet(src);
     }
     else {
-        $("head").prepend($("<link rel='stylesheet' href='"+src+" />"));
+        var el = document.getElementsByTagName('head'),
+        var s = document.createElement('link');
+        s.rel='stylesheet';
+        s.href=src;
+        el.insertBefore(s, el.firstChild);
+
     }
 };
+
+var getScript = function(nm) {
+  var s = document.createElement('script');
+  s.type='text/javascript';
+  s.src=nm;
+  document.getElementsByTagName('head')[0].appendChild(s);
+}
+
+
 </script>
 
 <script>
@@ -42,8 +56,8 @@ window.onload = function(e){
 
 <script src="https://account.snatchbot.me/script.js" defer></script>
 
-<script src="/static/js/axios/axios.min.js"></script>
-<script src="/static/js/jquery/jquery.min.js"></script>
+<script src="/static/js/axios/axios.min.js" defer></script>
+<script src="/static/js/jquery/jquery.min.js" defer></script>
 <script src="/static/js/jquery-ui/jquery-ui.min.js" defer></script>
 
 <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
