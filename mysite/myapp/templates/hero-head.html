@@ -231,9 +231,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
     };
 
-    $( document ).ready(function() {
+    window.onload = function(e){
         $('#loadingring').removeClass("is-invisible");
-    });
+    };
 </script>
 
 <script>
@@ -388,6 +388,7 @@ var process_forgot_pwd = function(){
         processLogin(d);
     }
 
+window.onload = function(e){
     $('#GsigninButton').click(function() {
         var prod_url='https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&include_granted_scopes=true&redirect_uri=https%3A%2F%2Fnoobtronics.ltd%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
         var local_url = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
@@ -401,7 +402,7 @@ var process_forgot_pwd = function(){
         window.location = prod_url +'&state='+encodeURIComponent(window.location.href);;
     });
 
-
+};
     var processLogin = function(d){
         head_app.loading = true;
         axios({
