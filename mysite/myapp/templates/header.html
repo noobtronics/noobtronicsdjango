@@ -29,7 +29,6 @@ var getScript = function(nm) {
   document.getElementsByTagName('head')[0].appendChild(s);
 }
 
-
 </script>
 
 <script>
@@ -38,6 +37,9 @@ window.onload = function(e){
     loadStyleSheet("/static/css/loading.css");
     loadStyleSheet("/static/css/plugin/box-shadows.min.css");
     loadStyleSheet("/static/css/plugin/balloon.min.css");
+
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
+    axios.defaults.xsrfCookieName = 'csrftoken';
 }
 </script>
 
@@ -153,6 +155,7 @@ ga('send', 'pageview');
         return cookieValue;
     }
 
+
     var animate_by_id = function(id, animation){
         var handle = setInterval(function () {
             if($('#'+id).hasClass('is-badge-danger')){
@@ -172,8 +175,7 @@ ga('send', 'pageview');
     };
 
 
-    axios.defaults.xsrfHeaderName = "X-CSRFToken";
-    axios.defaults.xsrfCookieName = 'csrftoken';
+
 
 
     var cartqty = {{cartqty}};
