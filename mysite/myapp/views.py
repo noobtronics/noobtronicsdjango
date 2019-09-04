@@ -990,6 +990,7 @@ def process_cancel_order(request):
         if ordr.order_state == 'P':
             ordr.order_state = 'C'
             ordr.save()
+            resp['order_id'] = ordr.order_id
             resp['success'] = True
     except Exception as e:
         resp['reason'] = traceback.format_exc()
