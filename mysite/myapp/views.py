@@ -104,7 +104,7 @@ def get_prod_data(menu_data, tag_query, page_number):
         else:
             break
     if last_idx == 0:
-        prods = Product.objects.filter(is_published=True).order_by('rank')
+        prods = Product.objects.filter(is_published=True, hide_shop=False).order_by('rank')
     else:
         tag = Tags.objects.get(id=last_idx)
         prodids = set(tag.producttags_set.all().values_list('prod_id__id', flat=True))
