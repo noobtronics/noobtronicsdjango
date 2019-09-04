@@ -611,13 +611,13 @@
 
                 ga('ec:setAction', 'purchase', {
                       'id': response.data.order_id,
-                      'revenue': response.data.order_total
+                      'revenue': response.data.order_total,
                   });
                 ga('send', 'pageview');
 
                   gtag('event', 'conversion', {
                       'send_to': 'AW-852430889/eTEdCJHj46kBEKmgvJYD',
-                      'value': response.data.order_total
+                      'value': response.data.order_total,
                       'currency': 'INR',
                       'transaction_id': response.data.order_id,
                  });
