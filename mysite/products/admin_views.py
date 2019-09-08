@@ -107,10 +107,11 @@ def get_alltags_data():
 
 
 
-def store_image_files(prod, media_path, img, store_main, rank):
-    uuid_name = str(uuid.uuid4())
-    file_name =  uuid_name + '.png'
-    file_name_h = uuid_name + '_500.png'
+def store_image_files(prod, media_path, img, image_name, store_main, rank):
+    #uuid_name = str(uuid.uuid4())
+    uuid_name = image_name
+    file_name =  uuid_name + '_full.png'
+    file_name_h = uuid_name + '.png'
     file_name_s = uuid_name + '_300.png'
     file_name_u = uuid_name + '_64.png'
 
@@ -159,6 +160,11 @@ def admin_add_product(request):
     try:
         data = request.POST.dict()
         image = request.FILES['image']
+
+        if ' ' in image_name:
+            resp['reason'] = 'Image Name is not good '+image.name
+            return JsonResponse(resp)
+            
         if image.content_type != 'image/png':
             resp['reason'] = 'Only PNG Image are supported'
             return JsonResponse(resp)
@@ -167,6 +173,7 @@ def admin_add_product(request):
             resp['reason'] = 'Image size should be < 4000KB'
             return JsonResponse(resp)
 
+        image_name = image.name
         im = PIL_IMAGE.open(image)
         im_w, im_h = im.size
 
@@ -182,7 +189,7 @@ def admin_add_product(request):
         prod.save()
         media_path = 'media/'+data['slug']
         pathlib.Path(media_path).mkdir(parents=True, exist_ok=True)
-        store_image_files(prod, media_path, im, True, 1)
+        store_image_files(prod, media_path, im, image_name, True, 1)
         resp['success'] = True
 
     except Exception as e:
@@ -226,6 +233,11 @@ def admin_upload_images(request):
 
         for name in files:
             image = request.FILES[name]
+            image_name = image.name
+
+            if ' ' in image_name:
+                resp['reason'] = 'Image Name is not good '+image.name
+                return JsonResponse(resp)
 
             if image.content_type != 'image/png':
                 resp['reason'] = 'Only PNG Image are supported '+image.name
@@ -243,13 +255,15 @@ def admin_upload_images(request):
                 resp['reason'] = 'Image is not square '+image.name
                 return JsonResponse(resp)
 
-            im_data.append(im)
+            im_data.append([im, image_name])
 
         media_path = 'media/' + prod.slug
         rank = 1
-        for im in im_data:
+        for l in im_data:
+            im = l[0]
+            image_name = l[1]
             rank += 1
-            store_image_files(prod, media_path, im, False, rank)
+            store_image_files(prod, media_path, im, image_name, False, rank)
         resp['success'] = True
 
     except Exception as e:
