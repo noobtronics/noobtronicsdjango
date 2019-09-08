@@ -160,11 +160,12 @@ def admin_add_product(request):
     try:
         data = request.POST.dict()
         image = request.FILES['image']
+        image_name = image.name.split('.')[0]
 
         if ' ' in image_name:
             resp['reason'] = 'Image Name is not good '+image.name
             return JsonResponse(resp)
-            
+
         if image.content_type != 'image/png':
             resp['reason'] = 'Only PNG Image are supported'
             return JsonResponse(resp)
@@ -173,7 +174,6 @@ def admin_add_product(request):
             resp['reason'] = 'Image size should be < 4000KB'
             return JsonResponse(resp)
 
-        image_name = image.name
         im = PIL_IMAGE.open(image)
         im_w, im_h = im.size
 
@@ -233,7 +233,7 @@ def admin_upload_images(request):
 
         for name in files:
             image = request.FILES[name]
-            image_name = image.name
+            image_name = image.name.split('.')[0]
 
             if ' ' in image_name:
                 resp['reason'] = 'Image Name is not good '+image.name
