@@ -115,6 +115,8 @@ def store_image_files(prod, media_path, img, image_name, store_main, rank):
     file_name_s = uuid_name + '_300.png'
     file_name_u = uuid_name + '_64.png'
 
+    pathlib.Path(media_path).mkdir(parents=True, exist_ok=True)
+
     main_path = media_path + '/' + file_name
     im_home_path = media_path + '/' + file_name_h
     mini_path = media_path + '/' + file_name_s
