@@ -58,6 +58,7 @@
                 </div>
                 <div class="column">
                     <h1 class="title is-4" style="margin-top:30px;">{{data.product_head}}</h1>
+                    <p>Price:</p>
                     <p class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></p>
                     <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
                     {% if data.in_stock %}
@@ -74,7 +75,7 @@
                             </span>
                         </a>
                     </div>
-                    <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Add to Cart</a>
+                    <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Buy</a>
                     <p class="subtitle is-5 prodstatus">Status: In Stock</p>
                     {% else %}
                     {% if data.waitlisted %}
