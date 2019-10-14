@@ -27,7 +27,7 @@ import requests
 from paytm import Checksum as PaytmChecksum
 from myapp.structured_data import *
 import math
-
+from django.db.models import Sum
 
 
 @staff_or_404
