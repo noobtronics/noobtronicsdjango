@@ -938,10 +938,10 @@ def get_month_revenue(mm, yy):
         'cancelled_orders': cancelled_orders,
         'delivered_orders': delivered_orders,
         'revenue': revenue,
-        'base': base,
-        'sgst': sgst,
-        'cgst': sgst,
-        'igst': igst,
+        'base': round(base,2),
+        'sgst': round(sgst,2) ,
+        'cgst': round(sgst,2) ,
+        'igst': round(igst,2) ,
         'yy': yy,
         'mm': datetime.date(1900, int(mm), 1).strftime('%B')
     }
