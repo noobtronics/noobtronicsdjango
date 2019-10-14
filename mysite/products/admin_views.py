@@ -921,7 +921,7 @@ def get_month_revenue(mm, yy):
 
     mh_orders = deli_ordrs.filter(state='Maharashtra')
 
-    total_orders = ordrs.cont()
+    total_orders = ordrs.count()
     cancelled_orders = cxl_ordrs.count()
     delivered_orders = deli_ordrs.count()
     revenue = deli_ordrs.aggregate(Sum('total_amount'))
