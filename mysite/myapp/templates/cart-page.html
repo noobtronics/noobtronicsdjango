@@ -390,6 +390,15 @@
           });
         ga('send', 'pageview');
 
+          gtag('event', 'conversion', {
+              'send_to': 'AW-852430889/eTEdCJHj46kBEKmgvJYD',
+              'value': '{{total}}',
+              'currency': 'INR',
+              'transaction_id': '{{done_order_id}}'
+          });
+
+
+
         $( document ).ready(function() {
             setTimeout(function(){ window.location = '/neworder'; }, 1000);
         });
@@ -599,6 +608,21 @@
 
                 cartapp.cart_state = response.data.cart_state;
                 head_app.cartqty = response.data.cartqty;
+
+                ga('ec:setAction', 'purchase', {
+                      'id': response.data.order_id,
+                      'revenue': response.data.order_total,
+                  });
+                ga('send', 'pageview');
+
+                  gtag('event', 'conversion', {
+                      'send_to': 'AW-852430889/eTEdCJHj46kBEKmgvJYD',
+                      'value': response.data.order_total,
+                      'currency': 'INR',
+                      'transaction_id': response.data.order_id,
+                 });
+
+
                 window.location = '/neworder';
             }
             else{

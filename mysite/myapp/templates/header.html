@@ -4,16 +4,72 @@
 <link rel="canonical" href="https://noobtronics.ltd{{request.get_full_path}}" />
 
 <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.png' />
-<link rel="stylesheet" href="/static/css/plugin/balloon.min.css">
-<link rel="stylesheet" href="/static/css/plugin/box-shadows.min.css">
+
+<!-- Hotjar Tracking Code for noobtronics.ltd -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1486800,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
 
 
+<!-- Begin Inspectlet Asynchronous Code -->
+<script type="text/javascript">
+(function() {
+window.__insp = window.__insp || [];
+__insp.push(['wid', 1330740092]);
+var ldinsp = function(){
+if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=1330740092&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+setTimeout(ldinsp, 0);
+})();
+</script>
+<!-- End Inspectlet Asynchronous Code -->
 
-<link rel="stylesheet" href="/static/css/loading.css">
+
+<script>
+function loadStyleSheet(src) {
+    if (document.createStyleSheet){
+        document.createStyleSheet(src);
+    }
+    else {
+        var el = document.getElementsByTagName('head');
+        var s = document.createElement('link');
+        s.rel='stylesheet';
+        s.href=src;
+        el.insertBefore(s, el.firstChild);
+
+    }
+};
+
+var getScript = function(nm, id) {
+  var s = document.createElement('script');
+  s.type='text/javascript';
+  s.id=id;
+  s.src=nm;
+  document.getElementsByTagName('head')[0].appendChild(s);
+}
+
+</script>
+
+<script>
+window.onload = function(e){
+    loadStyleSheet("/static/css/plugin/animate/animate.min.css");
+    loadStyleSheet("/static/css/loading.css");
+    loadStyleSheet("/static/css/plugin/box-shadows.min.css");
+    loadStyleSheet("/static/css/plugin/balloon.min.css");
+}
+</script>
+
+
 <link rel="stylesheet" href="/static/css/bulma/mystyle.min.css">
 <!-- <script src="/static/css/fontawesome/js/all.js"></script> -->
 <link rel="stylesheet" href="/static/css/fontawesome/css/all.min.css">
-<link rel="stylesheet" href="/static/css/plugin/animate/animate.min.css">
+
 
 {% if DEBUG %}
 <script src="/static/js/vue/vue.js"></script>
@@ -22,11 +78,16 @@
 {% endif %}
 
 
- <script src="https://account.snatchbot.me/script.js" defer></script>
-
 <script src="/static/js/axios/axios.min.js"></script>
-<script src="/static/js/jquery/jquery.min.js"></script>
-<script src="/static/js/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
+    axios.defaults.xsrfCookieName = 'csrftoken';
+</script>
+
+<script src="/static/js/jquery/jquery.min.js" defer></script>
+<script src="/static/js/jquery-ui/jquery-ui.min.js" defer></script>
+
+
 <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
 
 
@@ -41,6 +102,17 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-125040779-2', 'auto');  // Replace with your property ID.
 ga('send', 'pageview');
 ga('require', 'ec');
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Ads: 852430889 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-852430889"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-852430889');
 </script>
 
 
@@ -120,6 +192,7 @@ ga('send', 'pageview');
         return cookieValue;
     }
 
+
     var animate_by_id = function(id, animation){
         var handle = setInterval(function () {
             if($('#'+id).hasClass('is-badge-danger')){
@@ -139,8 +212,7 @@ ga('send', 'pageview');
     };
 
 
-    axios.defaults.xsrfHeaderName = "X-CSRFToken";
-    axios.defaults.xsrfCookieName = 'csrftoken';
+
 
 
     var cartqty = {{cartqty}};

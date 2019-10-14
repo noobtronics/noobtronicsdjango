@@ -125,6 +125,12 @@
         }).then(function (response) {
             head_app.loading = false;
             if(response.data.success){
+
+                ga('ec:setAction', 'refund', {
+                      'id': response.data.order_id,
+                  });
+                ga('send', 'pageview');
+
                 location.reload();
             }
             else{

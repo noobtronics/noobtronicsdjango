@@ -4,6 +4,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 
+<script>
+    var google_signin_func  = function() {
+        var prod_url='https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&include_granted_scopes=true&redirect_uri=https%3A%2F%2Fnoobtronics.ltd%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
+        var local_url = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
+        window.location = prod_url + '&state='+encodeURIComponent(window.location.href);
+    };
+
+
+    var fb_signin_func  = function() {
+        var prod_url='https://www.facebook.com/v3.2/dialog/oauth?client_id=330900420888261&scope=email';
+        prod_url = prod_url + '&redirect_uri='+encodeURI(window.location.origin+'/facebookcallback');
+        window.location = prod_url +'&state='+encodeURIComponent(window.location.href);;
+    };
+</script>
 
 <section id="head_app">
 <div class="hero-head">
@@ -94,8 +108,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <i class="fa fa-window-close" aria-hidden="true"></i>
                     </span>
             </div>
-            <div id="GsigninButton"></div>
-            <div id="FBsigninButton"></div>
+            <div id="GsigninButton" onclick="google_signin_func();"></div>
+            <div id="FBsigninButton" onclick="fb_signin_func();"></div>
             <div class="">
                 <p>Or</p>
                 <div class="field">
@@ -156,7 +170,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
                 <div class="content">
                     <p>
-                        <b>Email</b>: info@noobtronics.ltd
+                        <b>Email</b>: nikhil@noobtronics.ltd
                     </p>
                     <p>
                         <b>WhatsApp</b>: <a style="color: blue" href="https://wa.me/919833870385/?text=Hi%20Noobtroncis" target="_blank">+91-9833870385</a>
@@ -231,9 +245,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
     };
 
-    $( document ).ready(function() {
+    window.onload = function(e){
         $('#loadingring').removeClass("is-invisible");
-    });
+    };
 </script>
 
 <script>
@@ -388,18 +402,7 @@ var process_forgot_pwd = function(){
         processLogin(d);
     }
 
-    $('#GsigninButton').click(function() {
-        var prod_url='https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&include_granted_scopes=true&redirect_uri=https%3A%2F%2Fnoobtronics.ltd%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
-        var local_url = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
-        window.location = prod_url + '&state='+encodeURIComponent(window.location.href);
-    });
 
-
-    $('#FBsigninButton').click(function() {
-        var prod_url='https://www.facebook.com/v3.2/dialog/oauth?client_id=330900420888261&scope=email';
-        prod_url = prod_url + '&redirect_uri='+encodeURI(window.location.origin+'/facebookcallback');
-        window.location = prod_url +'&state='+encodeURIComponent(window.location.href);;
-    });
 
 
     var processLogin = function(d){
@@ -485,12 +488,4 @@ var process_forgot_pwd = function(){
         }
         return cartnav1;
     }
-</script>
-
-<script>
-  document.onreadystatechange = function(){
-     if(document.readyState === 'complete'){
-         window.sntchChat.Init(70411);
-     }
-};
 </script>
