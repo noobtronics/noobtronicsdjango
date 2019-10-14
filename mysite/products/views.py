@@ -49,6 +49,8 @@ def add_to_cart(request):
 
 
 
+
+
 @login_required
 def add_to_waitlist(request):
     resp = {

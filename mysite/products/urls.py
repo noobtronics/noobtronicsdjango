@@ -14,6 +14,8 @@ urlpatterns = [
     path('storeadmin/blog/edit/<slug:blog_slug>', show_blog_edit_page),
     path('storeadmin/markdown', show_markdown_editor),
 
+    path('storeadmin/revenue/<slug:yy>/<slug:mm>', show_monthlyrevenue),
+
 
     path('adminapi/blog/save', admin_save_blog_data),
 

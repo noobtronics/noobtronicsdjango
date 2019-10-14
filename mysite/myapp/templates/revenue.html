@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Revenue</title>
+    {% include "header.html" %}
+
+    <script>
+    </script>
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+<section id="orderapp">
+    <div class="hero-body" >
+        <div class="container ordercontainer">
+            <h2 class="title is-4 ordertitle" style="text-align:center;margin-top: 30px;">{{mm}}, {{yy}}</h2>
+            <div class="orders">
+                <div class="columns">
+                    <div class="column has-text-centered">
+                        <a class="button is-large" style="border: 1px solid white;"  target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                            </span>
+                            <span>Total Orders</span>
+                            <span>{{total_orders}}</span>
+                        </a>
+                    </div>
+                    <div class="column has-text-centered">
+                        <a class="button is-large" style="border: 1px solid white;"  target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                            </span>
+                            <span>Cancelled Orders</span>
+                            <span>{{cancelled_orders}}</span>
+                        </a>
+                    </div>
+                    <div class="column has-text-centered">
+                        <a class="button is-large" style="border: 1px solid white;"  target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                            </span>
+                            <span>Delivered Orders</span>
+                            <span>{{delivered_orders}}</span>
+                        </a>
+                    </div>
+                  </div>
+                  <div class="columns">
+                      <div class="column has-text-centered">
+                          <a class="button is-large" style="border: 1px solid white;"  target="_blank">
+                              <span class="icon is-medium">
+                                  <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                              </span>
+                              <span>Base</span>
+                              <span>{{base}}</span>
+                          </a>
+                      </div>
+                      <div class="column has-text-centered">
+                          <a class="button is-large" style="border: 1px solid white;"  target="_blank">
+                              <span class="icon is-medium">
+                                  <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                              </span>
+                              <span>CGST</span>
+                              <span>{{cgst}}</span>
+                          </a>
+                      </div>
+                      <div class="column has-text-centered">
+                          <a class="button is-large" style="border: 1px solid white;"  target="_blank">
+                              <span class="icon is-medium">
+                                  <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                              </span>
+                              <span>SGST</span>
+                              <span>{{sgst}}</span>
+                          </a>
+                      </div>
+                      <div class="column has-text-centered">
+                          <a class="button is-large" style="border: 1px solid white;"  target="_blank">
+                              <span class="icon is-medium">
+                                  <i class="fab fa-windows" style="color:#00ABEF;"></i>
+                              </span>
+                              <span>IGST</span>
+                              <span>{{igst}}</span>
+                          </a>
+                      </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+    {% include "hero-footer.html" %}
+</section>
+</body>
+</html>

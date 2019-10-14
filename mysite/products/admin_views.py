@@ -896,3 +896,44 @@ def admin_save_blog_data(request):
     except Exception as e:
         resp['reason'] = traceback.format_exc()
     return JsonResponse(resp)
+
+
+def get_month_revenue(mm, yy):
+    ordrs = Orders.objects.filter(created__year=yy, created__month=mm)
+    cxl_ordrs = ordrs.filter(order_state='C')
+    deli_ordrs = ordrs.filter(order_state='D')
+
+    mh_orders = deli_ordrs.filter(state='Maharashtra')
+
+    total_orders = ordrs.cont()
+    cancelled_orders = cxl_ordrs.count()
+    delivered_orders = deli_ordrs.count()
+    revenue = deli_ordrs.aggregate(Sum('total_amount'))
+    mh_revenue = mh_orders.aggregate(Sum('total_amount'))
+
+    base = revenue*1.00 / 1.1800
+    sgst = mh_revenue * 9/100
+    cgst = sgst
+    igst = revenue*0.18 - cgst*2
+
+    resp =  {
+        'total_orders': total_orders,
+        'cancelled_orders': cancelled_orders,
+        'delivered_orders': delivered_orders,
+        'revenue': revenue,
+        'base': base,
+        'sgst': sgst,
+        'cgst': sgst,
+        'igst': igst,
+        'yy': yy,
+        'mm': datetime.date(1900, mm, 1).strftime('%B')
+    }
+    return resp
+
+
+
+@staff_or_404
+def show_monthlyrevenue(request, yy, mm):
+    data = get_month_revenue(mm, yy)
+
+    return render(request, 'revenue.html', data)
