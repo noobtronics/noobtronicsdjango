@@ -557,12 +557,8 @@ if(head_app.cartqty>0){
           history.replaceState(null, "Noobtronics Shop: Microcontrollers, Sensors, Modules, Electronic Hobby Kits | India", "/shop");
           history.pushState(null, "{{data.meta_title}} | Noobtronics Shop | India", link);
 
-          $(document).ready(function() {
-
-              window.addEventListener('popstate', (event) => {
-                  location.replace("/shop");
-              });
-
+          window.addEventListener('popstate', (event) => {
+              location.replace("/shop");
           });
       }
 
