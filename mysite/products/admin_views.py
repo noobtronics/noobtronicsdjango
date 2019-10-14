@@ -931,7 +931,7 @@ def get_month_revenue(mm, yy):
     base = revenue*1.00 / 1.1800
     sgst = mh_revenue * 9/100
     cgst = sgst
-    igst = revenue*0.18 - cgst*2
+    igst = base*0.18 - cgst*2
 
     resp =  {
         'total_orders': total_orders,
