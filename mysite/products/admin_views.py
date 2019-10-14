@@ -943,7 +943,7 @@ def get_month_revenue(mm, yy):
         'cgst': sgst,
         'igst': igst,
         'yy': yy,
-        'mm': datetime.date(1900, mm, 1).strftime('%B')
+        'mm': datetime.date(1900, int(mm), 1).strftime('%B')
     }
     return resp
 
