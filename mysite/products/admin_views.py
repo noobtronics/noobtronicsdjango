@@ -924,8 +924,8 @@ def get_month_revenue(mm, yy):
     total_orders = ordrs.count()
     cancelled_orders = cxl_ordrs.count()
     delivered_orders = deli_ordrs.count()
-    revenue = deli_ordrs.aggregate(Sum('total_amount'))
-    mh_revenue = mh_orders.aggregate(Sum('total_amount'))
+    revenue = deli_ordrs.aggregate(Sum('total_amount'))['total_amount__sum']
+    mh_revenue = mh_orders.aggregate(Sum('total_amount'))['total_amount__sum']
 
     base = revenue*1.00 / 1.1800
     sgst = mh_revenue * 9/100
