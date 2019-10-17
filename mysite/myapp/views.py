@@ -1290,9 +1290,14 @@ def generate_merchant_data(request):
                 bread_data.append(b.link_id.name)
             custom_product_type = ' > '.join(bread_data)
 
+        modified_description = p.shopping_description
+        modified_description = modified_description.replace('\t',' ')
+        modified_description = modified_description.replace('\r','')
+        modified_description = modified_description.replace('\n','')
+
         t = [p.sku,
              p.product_head,
-             p.shopping_description,
+             modified_description,
              str(p.price),
              'new',
              'https://noobtronics.ltd/product/'+p.slug,
