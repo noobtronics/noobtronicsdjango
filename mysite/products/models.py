@@ -20,6 +20,7 @@ class Product(models.Model):
     slug = models.CharField(max_length=200, unique=True)
     meta_title = models.TextField(default='')
     description = models.TextField(default='')
+    shopping_description = models.TextField(default='')
     keywords = models.TextField(default='')
     product_head = models.CharField(max_length=70, default='')
     pagetitle = models.CharField(max_length=200)

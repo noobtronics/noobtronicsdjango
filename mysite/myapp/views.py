@@ -1277,8 +1277,6 @@ def generate_merchant_data(request):
         available = 'in stock'
         if not p.in_stock:
             available = 'out of stock'
-        modified_description = p.description.replace('\r', ' ').replace('\n', ' ').replace('\t',' ')
-        modified_description = ' '.join(modified_description.split(' '))
 
         google_product_type = ''
         if p.breadcrumb:
@@ -1294,7 +1292,7 @@ def generate_merchant_data(request):
 
         t = [p.sku,
              p.product_head,
-             modified_description,
+             p.shopping_description,
              str(p.price),
              'new',
              'https://noobtronics.ltd/product/'+p.slug,
