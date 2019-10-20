@@ -883,6 +883,7 @@ def show_blog_page(request, blog_slug):
         'require_mobile': False,
         'page_type': 'blog_page',
         'page_structured_data': get_blog_structured_data(blog.id),
+        'tawk_to_off': True,
     }
 
     return render(request, 'blog-page.html', context)

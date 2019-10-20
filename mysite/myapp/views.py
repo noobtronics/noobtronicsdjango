@@ -1574,7 +1574,8 @@ def blog_home(request):
         'cartqty': get_cart_qty(request),
         'whatsapp_on_mobile': False,
 
-        'blog_data': blog_data
+        'blog_data': blog_data,
+        'tawk_to_off': True
     }
     return render(request, 'blog-home.html',context)
 
