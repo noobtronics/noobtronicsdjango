@@ -1,7 +1,3 @@
 User-agent: *
 
-Disallow: /static/
-
-Disallow: /api/
-
 sitemap: https://noobtronics.ltd/sitemap.xml
