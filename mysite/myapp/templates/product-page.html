@@ -10,12 +10,6 @@
     <meta property="og:image" content="https://noobtronics.ltd{{home_images.0}}">
     <meta property="og:url" content="{{data.url}}">
 
-    <!-- Photoswipe Core CSS file -->
-    <link rel="stylesheet" href="/static/css/plugin/photoswipe/photoswipe.css">
-    <link rel="stylesheet" href="/static/css/plugin/photoswipe/default-skin/default-skin.css">
-    <script async src="/static/css/plugin/photoswipe/photoswipe.min.js"></script>
-    <script async src="/static/css/plugin/photoswipe/photoswipe-ui-default.min.js"></script>
-
 
     {% include "header.html" %}
 </head>
@@ -569,6 +563,12 @@ if(head_app.cartqty>0){
 <script type="application/ld+json">
     {{page_structured_data | safe}}
 </script>
+
+<!-- Photoswipe Core CSS file -->
+<link rel="stylesheet" href="/static/css/plugin/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/static/css/plugin/photoswipe/default-skin/default-skin.css">
+<script async src="/static/css/plugin/photoswipe/photoswipe.min.js"></script>
+<script async src="/static/css/plugin/photoswipe/photoswipe-ui-default.min.js"></script>
 
 </body>
 </html>
