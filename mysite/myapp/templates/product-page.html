@@ -59,13 +59,13 @@
                     <div class="prodquant">
                         <a class="button is-success is-inverted increment" v-on:click="increaseQty">
                             <span class="icon">
-                              <i class="fas fa-plus"></i>
+                              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAMklEQVRIiWNgGGngPxQTDZho5JBRC0YtGEoWMCKxScpAxJpNcx+QCkaLilELRi0YkQAArMYFIENGFBoAAAAASUVORK5CYII=">
                             </span>
                         </a>
                         <span class="cart_qty" v-html="quantity"></span>
                         <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
                             <span class="icon">
-                              <i class="fas fa-minus"></i>
+                              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAL0lEQVRIiWNgGAWjYBSMApLBUQYGhv8U4sPIBjKhWfCPCo78TwUzRsEoGAUjCwAAYUETeGLQkN4AAAAASUVORK5CYII=">
                             </span>
                         </a>
                     </div>
@@ -79,7 +79,7 @@
                     {% endif %}
                     <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
                     {% endif %}
-                    <a class="button is-danger" v-if="show_checkout" v-cloak onclick="location.href='/cart?page=0'"><i class="fas fa-shopping-cart"></i> Show Cart</a>
+                    <a class="button is-danger" v-if="show_checkout" v-cloak onclick="location.href='/cart?page=0'">Show Cart</a>
                     <div class="columns is-mobile prodorderdetails">
                         <div class="column">
                             <div class="content" style="text-align:left;">
