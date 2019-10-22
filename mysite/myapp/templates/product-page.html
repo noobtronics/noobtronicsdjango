@@ -34,52 +34,60 @@
             </div>
             <div class="columns view">
                 <div class="column prodimagecol ">
+                    <div class="columns is-mobile">
+                      <div class="column is-2">
+                        <div class="prodicons">
+                            {% for i in icon_images %}
+                            <div class="prodicon" v-on:click="image_selected={{forloop.counter0}}"><img src="{{i}}" width="64" ></div>
+                            {% endfor %}
+                        </div>
+                      </div>
 
-                    <div class="prodicons">
-                        {% for i in icon_images %}
-                        <div class="prodicon" v-on:click="image_selected={{forloop.counter0}}"><img src="{{i}}" width="64" ></div>
-                        {% endfor %}
-                    </div>
-                    <div class="proddisplay" v-on:click="openPhotoSwipe()">
-                        <div class="displayb">
-                            <!-- <i class="fas fa-spinner fa-spin"></i> -->
+                      <div class="column is-left" style="flex-grow:0;">
+                        <div class="proddisplay">
+                            <div class="displayi" id="proddisplayi">
+                                <img src="{{home_images.0}}" width="400" alt="{{data.name}}" title="{{data.meta_title}}">
+                            </div>
                         </div>
-                        <div class="displayi" id="proddisplayi">
-                            <img src="{{home_images.0}}" width="400" alt="{{data.name}}" title="{{data.meta_title}}">
-                        </div>
+                      </div>
                     </div>
+
+
 
                 </div>
-                <div class="column">
+                <div class="column prodtitlecol">
                     <h1 class="title is-4" style="margin-top:30px;">{{data.product_head}}</h1>
-                    <p>Price:</p>
-                    <p class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></p>
-                    <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
-                    {% if data.in_stock %}
-                    <div class="prodquant">
-                        <a class="button is-success is-inverted increment" v-on:click="increaseQty">
-                            <span class="icon">
-                              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAMklEQVRIiWNgGGngPxQTDZho5JBRC0YtGEoWMCKxScpAxJpNcx+QCkaLilELRi0YkQAArMYFIENGFBoAAAAASUVORK5CYII=">
-                            </span>
-                        </a>
-                        <span class="cart_qty" v-html="quantity"></span>
-                        <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
-                            <span class="icon">
-                              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAL0lEQVRIiWNgGAWjYBSMApLBUQYGhv8U4sPIBjKhWfCPCo78TwUzRsEoGAUjCwAAYUETeGLQkN4AAAAASUVORK5CYII=">
-                            </span>
-                        </a>
+                    <div class="is-hidden-mobile">
+                      <p>Price:</p>
+                      <p class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></p>
+                      <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
+                      {% if data.in_stock %}
+                      <div class="prodquant">
+                          <a class="button is-success is-inverted increment" v-on:click="increaseQty">
+                              <span class="icon">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAMklEQVRIiWNgGGngPxQTDZho5JBRC0YtGEoWMCKxScpAxJpNcx+QCkaLilELRi0YkQAArMYFIENGFBoAAAAASUVORK5CYII=">
+                              </span>
+                          </a>
+                          <span class="cart_qty" v-html="quantity"></span>
+                          <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
+                              <span class="icon">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAL0lEQVRIiWNgGAWjYBSMApLBUQYGhv8U4sPIBjKhWfCPCo78TwUzRsEoGAUjCwAAYUETeGLQkN4AAAAASUVORK5CYII=">
+                              </span>
+                          </a>
+                      </div>
+                      <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Buy</a>
+                      <p class="subtitle is-5 prodstatus">Status: In Stock</p>
+                      {% else %}
+                      {% if data.waitlisted %}
+                      <a class="button is-link prodaddcart" >Waitlisted</a>
+                      {% else %}
+                      <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Join Waitlist</a>
+                      {% endif %}
+                      <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
+                      {% endif %}
+                      <a class="button is-danger" v-if="show_checkout" v-cloak onclick="location.href='/cart?page=0'">Show Cart</a>
                     </div>
-                    <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Buy</a>
-                    <p class="subtitle is-5 prodstatus">Status: In Stock</p>
-                    {% else %}
-                    {% if data.waitlisted %}
-                    <a class="button is-link prodaddcart" >Waitlisted</a>
-                    {% else %}
-                    <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Join Waitlist</a>
-                    {% endif %}
-                    <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
-                    {% endif %}
-                    <a class="button is-danger" v-if="show_checkout" v-cloak onclick="location.href='/cart?page=0'">Show Cart</a>
+
                     <div class="columns is-mobile prodorderdetails">
                         <div class="column">
                             <div class="content" style="text-align:left;">
@@ -117,13 +125,43 @@
                         {% endif %} -->
                     </div>
 
-                </div>
-            </div>
+                    <div class="columns">
+                      <div class="column">
+                        <h2>{{data.description}}</h2>
+                      </div>
+                    </div>
 
-            <div class="columns">
-              <div class="column">
-                <h2>{{data.description}}</h2>
-              </div>
+                    <div class="is-hidden-desktop">
+                      <p>Price:</p>
+                      <p class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></p>
+                      <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
+                      {% if data.in_stock %}
+                      <div class="prodquant">
+                          <a class="button is-success is-inverted increment" v-on:click="increaseQty">
+                              <span class="icon">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAMklEQVRIiWNgGGngPxQTDZho5JBRC0YtGEoWMCKxScpAxJpNcx+QCkaLilELRi0YkQAArMYFIENGFBoAAAAASUVORK5CYII=">
+                              </span>
+                          </a>
+                          <span class="cart_qty" v-html="quantity"></span>
+                          <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
+                              <span class="icon">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAL0lEQVRIiWNgGAWjYBSMApLBUQYGhv8U4sPIBjKhWfCPCo78TwUzRsEoGAUjCwAAYUETeGLQkN4AAAAASUVORK5CYII=">
+                              </span>
+                          </a>
+                      </div>
+                      <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Buy</a>
+                      <p class="subtitle is-5 prodstatus">Status: In Stock</p>
+                      {% else %}
+                      {% if data.waitlisted %}
+                      <a class="button is-link prodaddcart" >Waitlisted</a>
+                      {% else %}
+                      <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Join Waitlist</a>
+                      {% endif %}
+                      <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
+                      {% endif %}
+                      <a class="button is-danger" v-if="show_checkout" v-cloak onclick="location.href='/cart?page=0'">Show Cart</a>
+                    </div>
+                </div>
             </div>
 
             {% if not hide_description %}
@@ -168,15 +206,14 @@
                             <div class="column prodpagecards">
                                 {% for p in data.similar_prod_data %}
                                 <div class="card productcard">
-                                    <a style="margin:0;padding:0;" href="/product/{{p.slug}}">
                                     <div class="card-image">
                                         <figure class="image is-square">
-                                            <img src="{{p.thumb}}" alt="{{p.name}} | {{p.cardtitle}}">
+                                            <img src="{{p.thumb}}" alt="{{p.name}} | {{p.cardtitle}}" v-on:click="openPage('/product/{{p.slug}}')">
                                         </figure>
                                     </div>
                                     <div class="footerblock">
                                         <footer class="card-footer">
-                                            <p class="cardhead">{{p.name}}</p>
+                                            <p class="cardhead" v-on:click="openPage('/product/{{p.slug}}')">{{p.name}}</p>
 
                                         </footer>
                                         <footer class="card-footer">
@@ -186,7 +223,6 @@
                                             <p class="price">₹{{p.price}}</p>
                                         </footer>
                                     </div>
-                                    </a>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -198,15 +234,14 @@
                             <div class="column prodpagecards">
                                 {% for p in data.related_prod_data %}
                                 <div class="card productcard">
-                                    <a style="margin:0;padding:0;" href="/product/{{p.slug}}">
                                     <div class="card-image">
                                         <figure class="image is-square">
-                                            <img src="{{p.thumb}}" alt="Placeholder image">
+                                            <img src="{{p.thumb}}" alt="Placeholder image" v-on:click="openPage('/product/{{p.slug}}')">
                                         </figure>
                                     </div>
                                     <div class="footerblock">
                                         <footer class="card-footer">
-                                            <p class="cardhead">{{p.name}}</p>
+                                            <p class="cardhead" v-on:click="openPage('/product/{{p.slug}}')">{{p.name}}</p>
 
                                         </footer>
                                         <footer class="card-footer">
@@ -216,7 +251,6 @@
                                             <p class="price">₹{{p.price}}</p>
                                         </footer>
                                     </div>
-                                    </a>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -484,6 +518,9 @@ if(head_app.cartqty>0){
         methods: {
             changePage:function(pageNumber){
                 this.activePage=pageNumber;
+            },
+            openPage:function(url){
+                window.location=url;
             },
             openPhotoSwipe:function(){
                 openPhotoSwipe();

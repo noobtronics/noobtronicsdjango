@@ -993,10 +993,10 @@ $mq-desktop				: 1382px !default
     margin-left: 5px
 
   .navbar-menu
-    margin-left: 200px
+    margin-left: 00px
     margin-top: -10px
     width: 200px
-    background-color: #24ce60 !important
+    background-color: #1a8740 !important
     padding: 0
     z-index: 10
     position: absolute
@@ -1063,23 +1063,42 @@ $mq-desktop				: 1382px !default
 
   .productpagebody
 
+    .breadrow
+      margin-bottom: 0
+
+    .prodimagecol
+      display: flex
+      flex-wrap: wrap
+
+      .columns
+        justify-content: center
+
+
+
     .prodicons
-      width: 100%
-      display: block
+      display: flex
+      flex-direction: column
+      padding-top: 20px
 
 
       .prodicon
-        width: 68px
-        margin-left: 1px
-        margin-right: 1px
+        width: 50px
+        margin-left: 5px
+        margin-right: 2px
+        margin-top: 4px
+        margin-bottom: 0px
         display: inline-block
 
     .proddisplay
-      height: 300px
-      width: 300px
+      height: 250px
+      width: 250px
+
+    .prodtitlecol
+      padding-top: 20px
 
     .title
-      margin-top: 0 !important
+      margin-top: 0px !important
+      margin-bottom: 0px !important
       font-size: 20px !important
 
     .subtitle
@@ -1090,7 +1109,7 @@ $mq-desktop				: 1382px !default
       margin-top: 10px
 
     .prodorderdetails
-        margin-bottom: 20px
+        margin-bottom: 0px
 
 
     .orderpaymethod
@@ -1129,27 +1148,31 @@ $mq-desktop				: 1382px !default
           width: 300px !important
           margin-bottom: 20px
 
-  .productcard
-    width: 345px
-    height: 150px
-    margin: 5px auto
+    .productcard
+      width: 345px
+      height: 100px
+      margin: 5px auto
+      text-align: left
 
-    .mobileaddcartbtn
-        visibility: visible
-        width: 115px
-        padding: 5px
-        margin: 0 auto
-        margin-top: 10px
+      .cardsubtitle
+        font-size: 12px
 
-    .card-image
-      width: 150px
-      display: inline-block
+      .mobileaddcartbtn
+          visibility: visible
+          width: 115px
+          padding: 5px
+          margin: 0 auto
+          margin-top: 10px
 
-    .footerblock
-      display: inline-block
-      vertical-align: top
-      padding-top: 10px
-      width: 195px
+      .card-image
+        width: 100px
+        display: inline-block
+
+      .footerblock
+        display: inline-block
+        vertical-align: top
+        padding-top: 10px
+        width: 195px
 
   .shopcontainer
     width: 100%

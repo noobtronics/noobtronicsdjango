@@ -43,14 +43,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <header class="navbar is-transparent">
         <div class="container">
             <div class="navbar-brand ">
-                <a class="navbar-item " href="/">
-                    <img src="/static/images/Logo.png" alt="Noobtronics Logo" class="HeroLogo">
-                </a>
                 <span class="navbar-burger burger" data-target="navbarMenuHeroC" v-on:click="show_mob_nav=!show_mob_nav">
                     <span></span>
                     <span></span>
                     <span></span>
                 </span>
+
+                <a class="navbar-item " href="/">
+                    <img src="/static/images/Logo.png" alt="Noobtronics Logo" class="HeroLogo">
+                </a>
+
                 <div class="navbar-item has-dropdown is-hoverable is-invisible-desktop" >
                     <div class="dropdown-trigger">
                         <a :data-balloon="cartqty==0 ? 'Your cart is Empty!': false " data-balloon-pos="down" id='cartnav1' class="button is-success is-inverted" v-on:click='handle_cart_click()' v-bind:class="{'badge is-badge-danger': cartqty > 0}" v-bind:data-badge="cartqty" >
@@ -64,7 +66,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div id="navbarMenuHeroC" class="navbar-menu" v-bind:class="{'is-active':show_mob_nav}">
                 <div class="navbar-end">
                     <nav class="level">
-                        <a class="navbar-item is-active" href="/">
+                        <a class="navbar-item" href="/">
                             Home
                         </a>
                         <a class="navbar-item" href="/shop">
