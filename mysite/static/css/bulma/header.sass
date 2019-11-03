@@ -21,8 +21,6 @@ $navbar-height: 7.25rem
     &:hover
       color: black !important
 
-.myaccount
-  width: 50px
 
 $cart-width: 300px
 .cart
@@ -77,6 +75,55 @@ $cart-width: 300px
       margin-right: 5px
 
 
+
+.mobile-sidenav
+  height: 100%
+  width: 0
+  position: fixed
+  z-index: 25
+  top: 0
+  left: 0
+  background-color: #0e7e4f
+  overflow-x: hidden
+  padding-top: 80px
+  transition: 0.2s
+
+  a
+    padding: 8px 8px 8px 32px
+    text-decoration: none
+    font-size: 25px
+    color: #818181
+    display: block
+    transition: 0.3s
+    width: 100%
+
+
+.mobile-sidenav-active
+  width: 250px
+
+
+.myaccount
+  margin-left: 15px
+  transition: 0.3s
+
+  a
+    font-size: 20px !important
+
+
+.myaccount-inactive
+  height: 0
+  transition: 0.3s
+  display: none
+
+
+
+
+.has-navbar-fixed-top
+  padding-top: 116px !important
+
+.navbar
+  background-color: #23D160 !important
+
 $mq-mobile-portrait		: 450px !default
 $mq-mobile-landscape	: 480px !default
 $mq-tablet-portrait		: 768px !default
@@ -85,11 +132,15 @@ $mq-desktop				: 1382px !default
 
 
 @media only screen and (max-width : $mq-mobile-portrait)
+  .has-navbar-fixed-top
+      padding-top: 80px !important
+
   #head_app
 
     .navbar
       height: 80px !important
       min-height: 0
+      background-color: #016b67 !important
 
       .container
         height: 80px !important

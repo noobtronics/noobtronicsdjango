@@ -39,8 +39,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 
+<div class="mobile-sidenav" v-bind:class="{'mobile-sidenav-active': show_mob_nav}">
+
+  <a class="" href="/">
+      Home
+  </a>
+  <div class=" has-dropdown is-hoverable">
+      <a class="" v-on:click="show_mob_shop=!show_mob_shop">
+          Shop
+      </a>
+      <div class="is-boxed myaccount" v-bind:class="{'is-invisible-mobile': !show_mob_shop, 'myaccount-inactive':!show_mob_shop}">
+          <a class="" href="/shop">
+              All Products
+          </a>
+          <a class="" href="/shop/microcontrollers">
+              Microcontrollers
+          </a>
+          <a class="" href="/shop/tinkering-supply">
+              Tinkering Supply
+          </a>
+          <a class="" href="/shop/kits">
+              Kits
+          </a>
+      </div>
+  </div>
+  <a class="" href="/blog">
+      Blog
+  </a>
+  <a class="" v-on:click="openAboutWindow">
+      About Us
+  </a>
+  <a class="" v-on:click="HeadModalDelivery=true">
+      Express Delivery
+  </a>
+  <a class="" v-on:click="openContactUsWindow">
+      Contact
+  </a>
+  {% if not loggedin %}
+  <a class="" style="margin-right: 10px;" v-on:click="ModalLogin=true">
+      Login
+  </a>
+  {% else %}
+  <div class=" has-dropdown is-hoverable">
+      <a class="" v-on:click="show_mob_acct=!show_mob_acct">
+          My Account
+      </a>
+      <div class="is-boxed myaccount" v-bind:class="{'is-invisible-mobile': !show_mob_acct,'myaccount-inactive':!show_mob_acct}">
+          <a class="navbar-item" href="/orders">
+              Orders
+          </a>
+          <a class="" v-on:click="processLogout()">
+              Logout
+          </a>
+      </div>
+  </div>
+  {% endif %}
+</div>
+
+
 <div class="hero-head">
-    <header class="navbar is-transparent">
+    <header class="navbar is-transparent is-fixed-top">
         <div class="container">
             <div class="navbar-brand ">
                 <span class="navbar-burger burger" data-target="navbarMenuHeroC" v-on:click="show_mob_nav=!show_mob_nav">
@@ -63,7 +121,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                 </div>
             </div>
-            <div id="navbarMenuHeroC" class="navbar-menu" v-bind:class="{'is-active':show_mob_nav}">
+            <div id="navbarMenuHeroC" class="navbar-menu" >
                 <div class="navbar-end">
                     <nav class="level">
                         <a class="navbar-item" href="/">
@@ -168,6 +226,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </span>
                 </div>
                 <div id="headaboutcontent"></div>
+            </section>
+        </div>
+    </div>
+    <div class="modal blackmodal" v-bind:class="{'is-active': HeadModalDelivery}">
+        <div class="modal-card aboutus-modal bShadow-10">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="HeadModalDelivery=false">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAABiUlEQVRIie2VsU7CUBSG/1NqAyMy2sGhL0EUhYHobEJi4jvUOLkS44SDCbyDC7qTYAIGEl+iA0MTtzKCpfS4UNJbSwu3jPzbuff0/3rOPe0FDpIUhYNmA1rJ0R6Z6AxATtJzCfDYKbqtZhdusKiGM1aQJ0lASHR1PNUAuM/BihLeZqKL7JA17DIcKZFdFfuT4BUFReUx6A0Ee2MGwQbhHYCXZJQCou795/wOC6UMwIpJsLBQymb/twHQhzyIuNKuFnRzOLPhKbUIzIKn1MzhzG5XCzqBz+VBDB05f/R6nT8VYIzJUqV6AIHqDxg4kQcBAOE053FfqGypVB5680kAAWCk2Ww7ZcaqsprZm00AYBcIsE1Fe9K2ICvcroQByQCKOfjYAckEItixBx83IMCPPIhpJFQiHrwB1R+sYaBRklXK1HGjU88T2K9s+E4MHPnfnXp+zMw3GUBQmfk2+V2gM1Jy8L91iT/GHSV4RUD8tS8Kg4fhWGidU3RbJUejfVzl06L7Ivn8QaL+AFUbvNW3GeX0AAAAAElFTkSuQmCC">
+                    </span>
+                </div>
+                <p class="title is-6" style="color: black;">Express Delivery</p>
+                <div >
+
+                  <p>
+                        Order is shipped within 1-2 business days from Maharashtra, India.<br><br>
+                        All shipments to major cities are express delivered by Air using Fedex / BlueDart / Delhivery
+                        and <b>delivered within 1-4 business days</b>
+                        <br><br>
+                        All India delivery supported using Speed Post
+                        <br><br>
+                        All shipments are Tracked online
+                        <br><br>
+                        Standard Delivery Charges Applicable
+                        <br>
+                    <li>Below 500gm: ₹49</li>
+                    <li>Additional 500gm: ₹30</li>
+                    </p>
+                </div>
             </section>
         </div>
     </div>
@@ -332,7 +419,11 @@ var process_forgot_pwd = function(){
 </script>
 
 
+
+
 <script>
+    //var openDeliveryWindow = function(){};
+
     var head_app = new Vue({
         el: '#head_app',
         data: {
@@ -340,10 +431,12 @@ var process_forgot_pwd = function(){
             loading: false,
             cartqty: cartqty,
             ModalAbout: false,
+            HeadModalDelivery: false,
             downloadAbout: true,
             ModalContactUs: false,
             show_mob_nav: false,
             show_mob_acct: false,
+            show_mob_shop: false,
             ask_mobile: ask_mobile,
             mobileinput : '',
             login_email: '',
@@ -377,7 +470,7 @@ var process_forgot_pwd = function(){
             },
             process_forgot_pwd: function(){
                 process_forgot_pwd();
-            }
+            },
 
         }
     })
