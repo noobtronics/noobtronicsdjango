@@ -66,29 +66,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="" href="/blog">
       Blog
   </a>
-  <a class="" v-on:click="openAboutWindow">
+  <a class="" v-on:click="openAboutWindow" href="#">
       About Us
   </a>
-  <a class="" v-on:click="HeadModalDelivery=true">
+  <a class="" v-on:click="HeadModalDelivery=true" href="#">
       Express Delivery
   </a>
-  <a class="" v-on:click="openContactUsWindow">
+  <a class="" v-on:click="openContactUsWindow" href="#">
       Contact
   </a>
   {% if not loggedin %}
-  <a class="" style="margin-right: 10px;" v-on:click="ModalLogin=true">
+  <a class="" style="margin-right: 10px;" v-on:click="ModalLogin=true" href="#">
       Login
   </a>
   {% else %}
   <div class=" has-dropdown is-hoverable">
-      <a class="" v-on:click="show_mob_acct=!show_mob_acct">
+      <a class="" v-on:click="show_mob_acct=!show_mob_acct" href="#">
           My Account
       </a>
-      <div class="is-boxed myaccount" v-bind:class="{'is-invisible-mobile': !show_mob_acct,'myaccount-inactive':!show_mob_acct}">
+      <div class="is-boxed myaccount" v-bind:class="{'is-invisible-mobile': !show_mob_acct,'myaccount-inactive':!show_mob_acct}" >
           <a class="navbar-item" href="/orders">
               Orders
           </a>
-          <a class="" v-on:click="processLogout()">
+          <a class="" v-on:click="processLogout()" href="#">
               Logout
           </a>
       </div>
