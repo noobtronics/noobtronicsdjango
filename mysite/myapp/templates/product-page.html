@@ -91,7 +91,7 @@
                     <div class="columns is-mobile prodorderdetails">
                         <div class="column">
                             <div class="content" style="text-align:left;">
-                                <ul style=" padding:5px 30px; display: table;margin-top: 0;margin-right: auto;margin-left: auto;">
+                                <ul style=" padding:5px 40px; display: table;margin-top: 0;margin-right: auto;margin-left: auto;">
                                 {% for b in data.bullets %}
                                 <li>{{b}}</li>
                                 {% endfor %}
@@ -132,34 +132,39 @@
                     </div>
 
                     <div class="is-hidden-desktop">
-                      <p>Price:</p>
-                      <p class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></p>
-                      <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
-                      {% if data.in_stock %}
-                      <div class="prodquant">
-                          <a class="button is-success is-inverted increment" v-on:click="increaseQty">
-                              <span class="icon">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAMklEQVRIiWNgGGngPxQTDZho5JBRC0YtGEoWMCKxScpAxJpNcx+QCkaLilELRi0YkQAArMYFIENGFBoAAAAASUVORK5CYII=">
-                              </span>
-                          </a>
-                          <span class="cart_qty" v-html="quantity"></span>
-                          <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
-                              <span class="icon">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAL0lEQVRIiWNgGAWjYBSMApLBUQYGhv8U4sPIBjKhWfCPCo78TwUzRsEoGAUjCwAAYUETeGLQkN4AAAAASUVORK5CYII=">
-                              </span>
-                          </a>
+                      <div class="columns is-mobile" style="margin-bottom: 15px;">
+                        <div class="column ">
+                          <p>Price:</p>
+                          <p class="price">&#8377;{{data.price}}<span class="mrpprice">&nbsp;&#8377;{{data.mrp}}&nbsp;&nbsp;</span></p>
+                          <div class="content is-small" style="margin:0; color: white;">(GST inclusive)</div>
+                        </div>
+                        <div class="column ">
+                          {% if data.in_stock %}
+                          <div class="prodquant">
+                              <a class="button is-success is-inverted increment" v-on:click="increaseQty">
+                                  <span class="icon">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAMklEQVRIiWNgGGngPxQTDZho5JBRC0YtGEoWMCKxScpAxJpNcx+QCkaLilELRi0YkQAArMYFIENGFBoAAAAASUVORK5CYII=">
+                                  </span>
+                              </a>
+                              <span class="cart_qty" v-html="quantity"></span>
+                              <a class="button is-success is-inverted increment" v-on:click="decreaseQty">
+                                  <span class="icon">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAL0lEQVRIiWNgGAWjYBSMApLBUQYGhv8U4sPIBjKhWfCPCo78TwUzRsEoGAUjCwAAYUETeGLQkN4AAAAASUVORK5CYII=">
+                                  </span>
+                              </a>
+                          </div>
+                          <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Buy</a>
+                          <p class="subtitle is-5 prodstatus">Status: In Stock</p>
+                          {% else %}
+                          {% if data.waitlisted %}
+                          <a class="button is-link prodaddcart" >Waitlisted</a>
+                          {% else %}
+                          <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Join Waitlist</a>
+                          {% endif %}
+                          <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
+                          {% endif %}
+                        </div>
                       </div>
-                      <a class="button is-warning prodaddcart" v-on:click="add_to_cart()">Buy</a>
-                      <p class="subtitle is-5 prodstatus">Status: In Stock</p>
-                      {% else %}
-                      {% if data.waitlisted %}
-                      <a class="button is-link prodaddcart" >Waitlisted</a>
-                      {% else %}
-                      <a class="button is-link prodaddcart" v-on:click="add_to_waitlist()">Join Waitlist</a>
-                      {% endif %}
-                      <p class="subtitle is-5 prodstatus">Status: Out of Stock</p>
-                      {% endif %}
-                      <a class="button is-danger" v-if="show_checkout" v-cloak onclick="location.href='/cart?page=0'">Show Cart</a>
                     </div>
                 </div>
             </div>
