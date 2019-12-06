@@ -39,7 +39,7 @@
             <div class="columns">
             <div class="column is-one-quarters filtermenu" v-bind:class="{'filteractive': filterbtnactive}">
                 <aside class="menu">
-                    <ul class="menu-list">
+                    <ul class="menu-list menu-list-first">
                         <form id="shopmenu" v-cloak>
                         <li><a v-on:click="change_menu(0, 0)" v-bind:class="{'is-active': menu_selected[0]==0}">All Products</a></li>
                         {{ data.tags.html | safe }}
