@@ -366,6 +366,7 @@ if(head_app.cartqty>0){
             change_page: function(new_page){
                 if(this.table_page != new_page){
                     this.table_page = new_page;
+                    update_menu_prods(new_page);
                 }
             },
             min: function(a,b){
