@@ -370,6 +370,9 @@ class Orders(models.Model):
     def email(self):
         return self.user_id.email
 
+    def created_date(self):
+        return self.created.strftime("%d/%m/%Y")
+
 
 class OrderProducts(models.Model):
     order_id = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name='orderprods')

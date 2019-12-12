@@ -246,8 +246,6 @@ class PaytmHistoryAdmin(admin.ModelAdmin):
 
 admin.site.register(PaytmHistory, PaytmHistoryAdmin)
 
-def created_date(self, obj):
-    return obj.created.strftime("%d/%m/%Y")
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'created_date', 'email', 'order_state', 'paymode', 'total_amount', 'state','district', 'mobile', 'ip_data')
