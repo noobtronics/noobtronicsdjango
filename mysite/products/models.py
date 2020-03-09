@@ -143,6 +143,7 @@ class Cart(models.Model):
     state = models.CharField(max_length=100, default='')
     zipcode = models.CharField(max_length=6, default='')
     mobile = models.CharField(max_length=10, default='')
+    email_id = models.CharField(max_length=100, default='')
     paymode = models.CharField(max_length=10, choices=(
         ('COD', 'Cash on Delivery'),
         ('PayTM', 'PayTM'),
@@ -355,6 +356,7 @@ class Orders(models.Model):
     state = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=6)
     mobile = models.CharField(max_length=10)
+    email_id = models.CharField(max_length=100, default='')
     email_sent_confirm = models.BooleanField(default=False)
     email_sent_shipped = models.BooleanField(default=False)
     email_sent_delivered = models.BooleanField(default=False)

@@ -656,14 +656,12 @@ def save_address(request):
     }
     try:
 
-
-
         data = json.loads(request.body)
         zc = ZipCodes.objects.get(zipcode=data['pincode'])
         cart = Cart.objects.get(user_id=request.user)
         cart.address_name = data['name']
         cart.mobile = data['mobile']
-        cart.email = data['email']
+        cart.email_id = data['email']
         cart.address1 = data['address1']
         cart.address2 = data['address2']
         cart.zipcode = data['pincode']
@@ -809,7 +807,7 @@ def add_cart_to_order(usr):
                       extra_charge=extra_charge, total_amount=total,
                       address_name=cart.address_name,address1=cart.address1,
                       address2=cart.address2,district=cart.district, state=cart.state,
-                      zipcode=cart.zipcode,mobile=cart.mobile,
+                      zipcode=cart.zipcode,mobile=cart.mobile, email_id=cart.email_id,
                       ip_data=cart.ip_data,
                       )
         ordr.save()

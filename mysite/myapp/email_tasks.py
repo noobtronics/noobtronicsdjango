@@ -36,7 +36,7 @@ def send_confirm_mail(ordr_id):
         subject='Your noobtronics.ltd order - #{0} has been received'.format(ordr.order_id),
         body='',
         from_email='Noobtronics Shop <no-reply@noobtronics.ltd>',
-        to=[ordr.user_id.email],
+        to=[ordr.email_id],
         bcc=['noobtronics12@gmail.com'],
     )
 
@@ -89,7 +89,6 @@ def send_pwdreset_mail(user_id):
     message.attach_alternative(rendered_data, "text/html")
     message.attach(logo_data())
     message.send(fail_silently=False)
-
 
 
 

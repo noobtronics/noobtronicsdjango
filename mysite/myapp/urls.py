@@ -31,7 +31,6 @@ urlpatterns = [
     path('merchant-data.txt', generate_merchant_data),
 
 
-
     path('api/cart/edit_cart', edit_cart),
     path('api/cart/checkout', handle_checkout),
     path('api/cart/pincode', get_pincode_data),
