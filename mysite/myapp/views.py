@@ -32,6 +32,7 @@ import requests
 import facebook
 from htmlmin.decorators import minified_response
 import razorpay
+from lazysignup.decorators import allow_lazy_user
 
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
@@ -43,9 +44,6 @@ def home_page(request):
 
     require_mobile = 0
 
-    if request.user.is_authenticated:
-        if request.user.usercode.mobile == '':
-            require_mobile = 1
 
     browse_links = []
     browse_data = ShopLinks.objects.all().order_by('rank')
@@ -155,9 +153,7 @@ def shop_page(request):
     prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
 
     require_mobile = 0
-    if request.user.is_authenticated:
-        if request.user.usercode.mobile == '':
-            require_mobile = 1
+
 
     browse_links = []
     browse_data = ShopLinks.objects.all().order_by('rank')
@@ -166,7 +162,6 @@ def shop_page(request):
             'url': b.url,
             'name': b.tag_id.name,
         })
-
 
 
     context = {
@@ -206,9 +201,6 @@ def shop_slug_page(request, shop_slug):
     prod_data, page_number, total_pages = get_prod_data(data['tags_selected'], {}, 1)
 
     require_mobile = 0
-    if request.user.is_authenticated:
-        if request.user.usercode.mobile == '':
-            require_mobile = 1
 
     browse_links = []
     browse_data = ShopLinks.objects.all().order_by('rank')
@@ -294,9 +286,6 @@ def tags_slug_page(request, tag_slug):
 
 
     require_mobile = 0
-    if request.user.is_authenticated:
-        if request.user.usercode.mobile == '':
-            require_mobile = 1
 
 
     context = {
@@ -666,11 +655,15 @@ def save_address(request):
         'reason': ''
     }
     try:
+
+
+
         data = json.loads(request.body)
         zc = ZipCodes.objects.get(zipcode=data['pincode'])
         cart = Cart.objects.get(user_id=request.user)
         cart.address_name = data['name']
         cart.mobile = data['mobile']
+        cart.email = data['email']
         cart.address1 = data['address1']
         cart.address2 = data['address2']
         cart.zipcode = data['pincode']

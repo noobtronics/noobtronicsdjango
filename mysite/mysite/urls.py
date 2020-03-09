@@ -36,6 +36,7 @@ sitemaps = {
 
 
 urlpatterns = [
+    path('convert/', include('lazysignup.urls')),
     path('', include('myapp.urls')),
     path('', include('products.urls')),
     path('myadmin/', admin.site.urls),

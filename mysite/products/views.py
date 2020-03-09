@@ -19,9 +19,11 @@ import pathlib
 import uuid
 from io import BytesIO
 import traceback
+from lazysignup.decorators import allow_lazy_user
 
 
-@login_required
+
+@allow_lazy_user
 def add_to_cart(request):
     resp = {
         'success': False,
