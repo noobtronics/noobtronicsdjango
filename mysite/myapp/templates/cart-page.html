@@ -16,59 +16,62 @@
 <section id="cartapp">
     <!-- Hero content: will be in the middle -->
     <div class="hero-body" >
+
         <div class="container shopcontainer cartcontainer">
-            <div class="columns">
-                <div class="column progresssteps" >
+          <div class="columns" style="">
+              <div class="column progresssteps" >
 
 
-                    <ul class="steps is-horizontal is-narrow is-medium is-centered has-content-centered">
-                        <li class="steps-segment" v-bind:class="{'has-gaps': cart_state < 1, 'is-active':cart_state ==0}">
-                            <a class="has-text-dark">
-                                <span class="steps-marker">
-                                <span class="icon">
-                                <i class="fa fa-shopping-cart"></i>
-                                </span>
-                                </span>
-                                <div class="steps-content">
-                                    <p class="heading">Shopping Cart</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="steps-segment"  v-bind:class="{'has-gaps': cart_state < 2, 'is-active':cart_state ==1}">
-                            <a class="has-text-dark">
-                                <span class="steps-marker">
-                                <span class="icon">
-                                <i class="fa fa-user"></i>
-                                </span>
-                                </span>
-                                <div class="steps-content">
-                                    <p class="heading">User Information</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="steps-segment"  v-bind:class="{'has-gaps': cart_state < 3, 'is-active':cart_state ==2}">
-                                <span class="steps-marker">
-                                <span class="icon">
-                                <i class="fas fa-rupee-sign"></i>
-                                </span>
-                                </span>
-                                <div class="steps-content">
-                                <p class="heading">Payment</p>
-                            </div>
-                        </li>
-                        <li class="steps-segment">
-                            <span class="steps-marker">
-                            <span class="icon">
-                            <i class="fa fa-check"></i>
-                            </span>
-                            </span>
-                            <div class="steps-content">
-                                <p class="heading">Confirmation</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                  <ul class="steps is-horizontal is-narrow is-medium is-centered has-content-centered">
+                      <li class="steps-segment" v-bind:class="{'has-gaps': cart_state < 1, 'is-active':cart_state ==0}">
+                          <a class="has-text-dark">
+                              <span class="steps-marker">
+                              <span class="icon">
+                              <i class="fa fa-shopping-cart"></i>
+                              </span>
+                              </span>
+                              <div class="steps-content">
+                                  <p class="heading">Shopping Cart</p>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="steps-segment"  v-bind:class="{'has-gaps': cart_state < 2, 'is-active':cart_state ==1}">
+                          <a class="has-text-dark">
+                              <span class="steps-marker">
+                              <span class="icon">
+                              <i class="fa fa-user"></i>
+                              </span>
+                              </span>
+                              <div class="steps-content">
+                                  <p class="heading">User Information</p>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="steps-segment"  v-bind:class="{'has-gaps': cart_state < 3, 'is-active':cart_state ==2}">
+                              <span class="steps-marker">
+                              <span class="icon">
+                              <i class="fas fa-rupee-sign"></i>
+                              </span>
+                              </span>
+                              <div class="steps-content">
+                              <p class="heading">Payment</p>
+                          </div>
+                      </li>
+                      <li class="steps-segment">
+                          <span class="steps-marker">
+                          <span class="icon">
+                          <i class="fa fa-check"></i>
+                          </span>
+                          </span>
+                          <div class="steps-content">
+                              <p class="heading">Confirmation</p>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+
+          <div class="">
             <div class="columns">
                 <div class="column">
                     <h2 class="title is-4 carttitle" v-html="carttitlename">S</h2>
@@ -150,6 +153,13 @@
                                         </p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input name="email" v-model="address_email" class="input" type="email" placeholder="donald@gmail.com">
                             </div>
                         </div>
 
@@ -295,6 +305,8 @@
                     </aside>
                 </div>
             </div>
+
+          </div>
         </div>
     </div>
 
@@ -551,6 +563,7 @@
                 data: {
                     'name': cartapp.address_name,
                     'mobile': cartapp.address_mobile,
+                    'email': cartapp.address_email,
                     'address1': cartapp.address_address1,
                     'address2': cartapp.address_address2,
                     'pincode': cartapp.pincode,
@@ -776,6 +789,20 @@
 
 
 <script>
+
+
+  function ValidateEmail(inputText)
+  {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(inputText.match(mailformat)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+
     var validate_address = function validate_address() {
         if(cartapp.address_name.length < 4){
             alert_msg('Invalid Name', 'Name should have atleast 4 characters');
@@ -788,6 +815,11 @@
         }
         if(isNaN(cartapp.address_mobile)){
             alert_msg('Invalid Mobile', 'Mobile should contain only numbers');
+            return;
+        }
+
+        if(!ValidateEmail(cartapp.address_email)){
+            alert_msg('Invalid Email', 'Please enter valid email address.');
             return;
         }
 
@@ -851,6 +883,7 @@
 
             address_name:'',
             address_mobile:'',
+            address_email: '',
             address_address1:'',
             address_address2:'',
 

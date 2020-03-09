@@ -29,6 +29,7 @@ from myapp.structured_data import *
 import math
 from django.db.models import Sum
 import datetime
+from lazysignup.utils import is_lazy_user
 
 
 @staff_or_404
@@ -410,13 +411,7 @@ def get_related_prod(prod_id):
 
 
 def process_prod_page(request, prod_id):
-
-
     require_mobile = 0
-
-    if request.user.is_authenticated:
-        if request.user.usercode.mobile == '':
-            require_mobile = 1
 
     prod = get_object_or_404(Product, id=prod_id)
 

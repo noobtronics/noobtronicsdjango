@@ -539,12 +539,7 @@ if(head_app.cartqty>0){
                 }
             },
             add_to_cart: function(){
-                if(!user_authenticated){
-                    head_app.ModalLogin = true;
-                }
-                else{
                     add_to_cart();
-                }
             },
             add_to_waitlist: function(){
                 if(!user_authenticated){
