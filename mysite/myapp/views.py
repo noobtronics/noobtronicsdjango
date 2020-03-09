@@ -1132,7 +1132,7 @@ def get_razorpay_details(request):
         order_currency = 'INR'
         notes = {'Shipping address': '{0}, {1}'.format(cart.district, cart.state)}
 
-        rp_data = rp_client.order.create(data = {'amount':order_amount, 'currency':order_currency, 'receipt':order_id, 'notes':notes, 'payment_capture':'0'})
+        rp_data = rp_client.order.create(data = {'amount':order_amount, 'currency':order_currency, 'receipt':order_id, 'notes':notes, 'payment_capture':'1'})
 
         if rp_data['receipt'] != order_id:
             raise Exception
