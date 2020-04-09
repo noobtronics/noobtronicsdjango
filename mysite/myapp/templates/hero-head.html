@@ -5,8 +5,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <script>
+
+    var domain = window.location.hostname;
+
     var google_signin_func  = function() {
-        var prod_url='https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&include_granted_scopes=true&redirect_uri=https%3A%2F%2Fnoobtronics.ltd%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
+        var prod_url='https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&include_granted_scopes=true&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account&redirect_uri=https%3A%2F%2F'+domain+'/googlecallback';
         var local_url = 'https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fgooglecallback&response_type=code&client_id=436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com&prompt=select_account';
         window.location = prod_url + '&state='+encodeURIComponent(window.location.href);
     };
