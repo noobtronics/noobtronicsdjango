@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Revenue</title>
+    {% include "header.html" %}
+
+    <script>
+    </script>
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+<section id="orderapp">
+    <div class="hero-body" >
+        <div class="container ordercontainer">
+            <h2 class="title is-4 ordertitle" style="text-align:center;margin-top: 30px;">{{mm}}, {{yy}}</h2>
+            <div class="orders">
+                <div class="columns">
+                    <div class="column has-text-centered">
+                            <a>Total Orders</a>
+                            <p>{{total_orders}}</p>
+                    </div>
+                    <div class="column has-text-centered">
+                            <a>Cancelled Orders</a>
+                            <p>{{cancelled_orders}}</p>
+                    </div>
+                    <div class="column has-text-centered">
+                            <a>Delivered Orders</a>
+                            <p>{{delivered_orders}}</p>
+                    </div>
+                  </div>
+                  <div class="columns">
+                      <div class="column has-text-centered">
+                              <a>Base</a>
+                              <p>{{base}}</p>
+                      </div>
+                      <div class="column has-text-centered">
+                              <a>CGST</a>
+                              <p>{{cgst}}</p>
+                      </div>
+                      <div class="column has-text-centered">
+                              <a>SGST</a>
+                              <p>{{sgst}}</p>
+                      </div>
+                      <div class="column has-text-centered">
+                              <a>IGST</a>
+                              <p>{{igst}}</p>
+                      </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+    {% include "hero-footer.html" %}
+</section>
+</body>
+</html>

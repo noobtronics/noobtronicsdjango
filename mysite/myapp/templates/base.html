@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    {% include 'header.html' %}
+
+    <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
+
+
+
+
+    <script>
+        {% if not loggedin %}
+        var user_authenticated = false;
+        {% else %}
+        var user_authenticated = true;
+        {% endif %}
+    </script>
+
+
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="container is-fluid">
+
+      {% include 'header-menu.html' %}
+
+
+      {% block section %}
+      {% endblock %}
+
+    </div>
+
+    {% block foorter_script %}
+    {% endblock %}
+  </body>
+</html>

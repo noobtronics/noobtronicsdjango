@@ -1,0 +1,245 @@
+{% if whatsapp_on_mobile %}
+<!-- <div class="mobilewhatsapp">
+    <div class="container">
+        <a href="https://wa.me/919833870385/?text=Hi%20Noobtroncis" target="_blank">
+        <p class="firstwp">
+            <i class="fab fa-whatsapp-square"></i>
+        </p>
+
+        <p class="secndwp">+91 9833870385</p>
+        </a>
+    </div>
+</div> -->
+{% else %}
+<div class="hero-foot is-invisible-desktop">
+<div class="mobilewhatsapp" style="background-color: #23D160;  margin: 0;">
+    <div class="container">
+    </div>
+</div>
+</div>
+{% endif %}
+
+<section id="footer_app">
+<div class="hero-foot is-invisible-mobile">
+    <nav class="tabs">
+        <div class="container footcontainer">
+            <div class="columns has-text-centered footerc">
+                <div class="column"><span v-on:click="openDeliveryWindow()">Shipping & Delivery</span></div>
+                <div class="column"><span v-on:click="openLegalWindow()">Returns & Replacements</span></div>
+                <div class="column"><span v-on:click="openPaymentWindow()">Terms & Conditions</span></div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- <div class="socialbutton is-invisible-mobile">
+    <div data-balloon="WhatsApp Contact" data-balloon-pos="up">
+        <i class="fab fa-whatsapp-square" style="font-size: 50px;margin-right: 5px;"></i>
+        <span>
+                <a href="https://wa.me/919833870385/?text=Hi%20Noobtroncis" target="_blank">+91 9833870385</a>
+            </span>
+    </div>
+</div> -->
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalDelivery}" v-cloak>
+    <div class="modal-card delivery-modal bShadow-66">
+        <section class="modal-card-body">
+            <div class="modalclose">
+                    <span v-on:click="ModalDelivery=false">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAABiUlEQVRIie2VsU7CUBSG/1NqAyMy2sGhL0EUhYHobEJi4jvUOLkS44SDCbyDC7qTYAIGEl+iA0MTtzKCpfS4UNJbSwu3jPzbuff0/3rOPe0FDpIUhYNmA1rJ0R6Z6AxATtJzCfDYKbqtZhdusKiGM1aQJ0lASHR1PNUAuM/BihLeZqKL7JA17DIcKZFdFfuT4BUFReUx6A0Ee2MGwQbhHYCXZJQCou795/wOC6UMwIpJsLBQymb/twHQhzyIuNKuFnRzOLPhKbUIzIKn1MzhzG5XCzqBz+VBDB05f/R6nT8VYIzJUqV6AIHqDxg4kQcBAOE053FfqGypVB5680kAAWCk2Ww7ZcaqsprZm00AYBcIsE1Fe9K2ICvcroQByQCKOfjYAckEItixBx83IMCPPIhpJFQiHrwB1R+sYaBRklXK1HGjU88T2K9s+E4MHPnfnXp+zMw3GUBQmfk2+V2gM1Jy8L91iT/GHSV4RUD8tS8Kg4fhWGidU3RbJUejfVzl06L7Ivn8QaL+AFUbvNW3GeX0AAAAAElFTkSuQmCC">
+                    </span>
+            </div>
+            <p class="title is-6" style="color: black;">Express Delivery</p>
+            <div id="footdelcontent"></div>
+        </section>
+    </div>
+</div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalPayment}" v-cloak>
+    <div class="modal-card tc-modal bShadow-66">
+        <section class="modal-card-body">
+        <div class="modalclose">
+                    <span v-on:click="ModalPayment=false">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAABiUlEQVRIie2VsU7CUBSG/1NqAyMy2sGhL0EUhYHobEJi4jvUOLkS44SDCbyDC7qTYAIGEl+iA0MTtzKCpfS4UNJbSwu3jPzbuff0/3rOPe0FDpIUhYNmA1rJ0R6Z6AxATtJzCfDYKbqtZhdusKiGM1aQJ0lASHR1PNUAuM/BihLeZqKL7JA17DIcKZFdFfuT4BUFReUx6A0Ee2MGwQbhHYCXZJQCou795/wOC6UMwIpJsLBQymb/twHQhzyIuNKuFnRzOLPhKbUIzIKn1MzhzG5XCzqBz+VBDB05f/R6nT8VYIzJUqV6AIHqDxg4kQcBAOE053FfqGypVB5680kAAWCk2Ww7ZcaqsprZm00AYBcIsE1Fe9K2ICvcroQByQCKOfjYAckEItixBx83IMCPPIhpJFQiHrwB1R+sYaBRklXK1HGjU88T2K9s+E4MHPnfnXp+zMw3GUBQmfk2+V2gM1Jy8L91iT/GHSV4RUD8tS8Kg4fhWGidU3RbJUejfVzl06L7Ivn8QaL+AFUbvNW3GeX0AAAAAElFTkSuQmCC">
+                    </span>
+        </div>
+
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li v-bind:class="{ 'is-active': (LegalactivePage==1) }" v-on:click="LegalchangePage(1)"><a>Terms & Conditions</a></li>
+                <li v-bind:class="{ 'is-active': (LegalactivePage==2) }" v-on:click="LegalchangePage(2)"><a>Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="content" v-html="Legaldisplay">
+        </div>
+        <div id="footpaycontent"></div>
+        </section>
+    </div>
+</div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalTC}" v-cloak>
+    <div class="modal-card tc-modal bShadow-66">
+        <section class="modal-card-body">
+            <div class="modalclose">
+                    <span v-on:click="ModalTC=false">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAABiUlEQVRIie2VsU7CUBSG/1NqAyMy2sGhL0EUhYHobEJi4jvUOLkS44SDCbyDC7qTYAIGEl+iA0MTtzKCpfS4UNJbSwu3jPzbuff0/3rOPe0FDpIUhYNmA1rJ0R6Z6AxATtJzCfDYKbqtZhdusKiGM1aQJ0lASHR1PNUAuM/BihLeZqKL7JA17DIcKZFdFfuT4BUFReUx6A0Ee2MGwQbhHYCXZJQCou795/wOC6UMwIpJsLBQymb/twHQhzyIuNKuFnRzOLPhKbUIzIKn1MzhzG5XCzqBz+VBDB05f/R6nT8VYIzJUqV6AIHqDxg4kQcBAOE053FfqGypVB5680kAAWCk2Ww7ZcaqsprZm00AYBcIsE1Fe9K2ICvcroQByQCKOfjYAckEItixBx83IMCPPIhpJFQiHrwB1R+sYaBRklXK1HGjU88T2K9s+E4MHPnfnXp+zMw3GUBQmfk2+V2gM1Jy8L91iT/GHSV4RUD8tS8Kg4fhWGidU3RbJUejfVzl06L7Ivn8QaL+AFUbvNW3GeX0AAAAAElFTkSuQmCC">
+                    </span>
+            </div>
+
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+                <ul>
+                    <li v-bind:class="{ 'is-active': (LegalactivePage==0) }" v-on:click="LegalchangePage(0)"><a>Returns & Replacements</a></li>
+                </ul>
+            </nav>
+            <div class="content" v-html="Legaldisplay">
+            </div>
+            <div id="legalcontent"></div>
+
+        </section>
+    </div>
+</div>
+
+</section>
+
+
+<script>
+    var openLegalWindow = function(){
+        if(footer_app.downloadTC){
+            head_app.loading = true;
+            axios({
+                method: 'get',
+                url: '/api/legalcontent'
+            }).then(function(response) {
+                var mydata = document.getElementById("legalcontent").innerHTML = response.data;
+                footer_app.downloadTC = false;
+                footer_app.Legaldata = [
+                    document.getElementById("legalr").innerHTML,
+                    document.getElementById("legalt").innerHTML,
+                    document.getElementById("legalp").innerHTML
+                ];
+                head_app.loading = false;
+                footer_app.LegalactivePage = 0;
+                footer_app.ModalTC = true;
+            });
+        }
+        else{
+            footer_app.LegalactivePage = 0;
+            footer_app.ModalTC = true;
+        }
+    };
+
+    var openDeliveryWindow = function(){
+        if(footer_app.downloadDelivery){
+            head_app.loading = true;
+            axios({
+                method: 'get',
+                url: '/api/deliverycontent'
+            }).then(function(response) {
+                var mydata = document.getElementById("footdelcontent").innerHTML = response.data;
+                footer_app.downloadDelivery = false;
+                head_app.loading = false;
+                footer_app.ModalDelivery = true;
+            });
+        }
+        else{
+            footer_app.ModalDelivery = true;
+        }
+    };
+
+
+    var openPaymentWindow = function(){
+        if(footer_app.downloadPayment){
+            head_app.loading = true;
+            axios({
+                method: 'get',
+                url: '/api/legalcontent'
+            }).then(function(response) {
+                var mydata = document.getElementById("footpaycontent").innerHTML = response.data;
+                footer_app.downloadTC = false;
+                footer_app.Legaldata = [
+                    document.getElementById("legalr").innerHTML,
+                    document.getElementById("legalt").innerHTML,
+                    document.getElementById("legalp").innerHTML
+                ];
+                head_app.loading = false;
+                footer_app.LegalactivePage = 1;
+                footer_app.ModalPayment = true;
+            });
+        }
+        else{
+            footer_app.LegalactivePage = 1;
+            footer_app.ModalPayment = true;
+        }
+    };
+</script>
+
+
+<script>
+    var footer_app = new Vue({
+        el: '#footer_app',
+        data: {
+            ModalDelivery: false,
+            ModalPayment: false,
+            ModalTC: false,
+            LegalactivePage:0,
+            Legaldata:['', '', ''],
+            downloadTC: true,
+            downloadDelivery: true,
+            downloadPayment: true,
+        },
+        computed: {
+            Legaldisplay: function () {
+                return this.Legaldata[this.LegalactivePage]
+            }
+        },
+        methods: {
+            LegalchangePage:function(pageNumber){
+                this.LegalactivePage=pageNumber;
+            },
+
+            openLegalWindow:function(){
+                openLegalWindow();
+            },
+            openDeliveryWindow:function(){
+                openDeliveryWindow();
+            },
+            openPaymentWindow:function(){
+                openPaymentWindow();
+            }
+        }
+    })
+</script>
+
+
+
+
+
+
+{% if not tawk_to_off %}
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+
+
+
+
+
+function load_tawk_to(){
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5d19cc0e22d70e36c2a389cb/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+}
+
+
+
+  setTimeout(function () {
+     load_tawk_to();
+  },5000);
+
+
+</script>
+<!--End of Tawk.to Script-->
+{% endif %}

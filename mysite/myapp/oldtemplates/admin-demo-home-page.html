@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Noobtronics Shop</title>
+    {% include "header.html" %}
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body" id="app">
+        <div class="container has-text-centered">
+            <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true">
+                <div class='carousel-container'>
+
+                    {% for d in data %}
+                    <div class='carousel-item'>
+                        <div class="columns">
+                            <div class="column">
+                                <h2 class="prodtitle">{{d.name}}</h2>
+                                <h2 class="subtitle">{{d.pagetitle}}</h2>
+                                <h2 class="price">&#8377;{{d.price}}<span class="mrpprice">&nbsp;&#8377;{{d.mrp}}&nbsp;&nbsp;</span></h2>
+                                <a class="button is-warning homeorder">Order Now</a>
+                            </div>
+                            <div class="column">
+                                <div class="prodimage">
+                                    <img  src="{{d.image}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="carousel-navigation is-centered">
+                    <div class="carousel-nav-left">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="carousel-nav-right">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "hero-footer.html" %}
+</section>
+
+
+
+<script>
+    var carousels = bulmaCarousel.attach();
+</script>
+</body>
+</html>

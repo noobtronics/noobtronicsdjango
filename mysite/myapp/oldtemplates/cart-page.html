@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en" style="width:100%; height:100%; overflow: hidden;" >
+<head>
+    <title>Cart</title>
+    {% include "header.html" %}
+
+    <script src="/static/css/fontawesome/js/all.js"></script>
+    <link rel="stylesheet" href="/static/css/fontawesome/css/all.min.css">
+
+</head>
+<body style="width:100%; height:100%; overflow: scroll;" class="has-navbar-fixed-top">
+<section class="hero is-success is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    {% include "hero-head.html" %}
+
+<section id="cartapp">
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body" >
+
+        <div class="container shopcontainer cartcontainer">
+          <div class="columns" style="">
+              <div class="column progresssteps" >
+
+
+                  <ul class="steps is-horizontal is-narrow is-medium is-centered has-content-centered">
+                      <li class="steps-segment" v-bind:class="{'has-gaps': cart_state < 1, 'is-active':cart_state ==0}">
+                          <a class="has-text-dark">
+                              <span class="steps-marker">
+                              <span class="icon">
+                              <i class="fa fa-shopping-cart"></i>
+                              </span>
+                              </span>
+                              <div class="steps-content">
+                                  <p class="heading">Shopping Cart</p>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="steps-segment"  v-bind:class="{'has-gaps': cart_state < 2, 'is-active':cart_state ==1}">
+                          <a class="has-text-dark">
+                              <span class="steps-marker">
+                              <span class="icon">
+                              <i class="fa fa-user"></i>
+                              </span>
+                              </span>
+                              <div class="steps-content">
+                                  <p class="heading">User Information</p>
+                              </div>
+                          </a>
+                      </li>
+                      <li class="steps-segment"  v-bind:class="{'has-gaps': cart_state < 3, 'is-active':cart_state ==2}">
+                              <span class="steps-marker">
+                              <span class="icon">
+                              <i class="fas fa-rupee-sign"></i>
+                              </span>
+                              </span>
+                              <div class="steps-content">
+                              <p class="heading">Payment</p>
+                          </div>
+                      </li>
+                      <li class="steps-segment">
+                          <span class="steps-marker">
+                          <span class="icon">
+                          <i class="fa fa-check"></i>
+                          </span>
+                          </span>
+                          <div class="steps-content">
+                              <p class="heading">Confirmation</p>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+
+          <div class="">
+            <div class="columns">
+                <div class="column">
+                    <h2 class="title is-4 carttitle" v-html="carttitlename">S</h2>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-three-quarters prodcolumn">
+
+                    <table v-cloak v-show="cart_state==0" class="table carttable">
+                        <thead>
+                        <tr>
+                            <td>Product</td>
+                            <td></td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                            <td>Total</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="prod in products">
+                            <td class="tdimg"><div class="cartproddiv"><article class="media is-shady" v-on:click="open_prod_page(prod.slug)">
+                                <figure class="media-left">
+                                    <p class="image is-96x96">
+                                        <img v-bind:src="prod.img">
+                                    </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p class="cardhead">[%prod.title%]</p>
+                                        <p class="cardsubtitle">[%prod.subtitle%]</p>
+                                    </div>
+                                </div>
+                            </article></div></td>
+                            <td class="tdcross"><div class="content is-medium" data-balloon="Remove" data-balloon-pos="right" v-on:click="remove_prod(prod.id)"><i class="fa fa-window-close" aria-hidden="true"></i></div></td>
+                            <td class="tdprice">₹[%prod.price%]</td>
+                            <td class="tdqty">
+                                <div class="prodquant cartquant">
+                                    <a class="button is-success is-inverted increment">
+                                <span class="icon" v-on:click="increase_qty(prod.id)">
+                                  <i class="fas fa-plus"></i>
+                                </span>
+                                    </a>
+                                    <span class="cart_qty">[%prod.qty%]</span>
+                                    <a class="button is-success is-inverted increment">
+                                <span class="icon" v-on:click="decrease_qty(prod.id)">
+                                  <i class="fas fa-minus"></i>
+                                </span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="tdtotal">₹[%prod.total%]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <form id="addressform" v-show="cart_state==1" v-cloak>
+                        <div class="addressform" >
+
+                        <div class="field is-horizontal">
+                            <div class="field-body">
+                                <div class="field">
+                                    <label class="label">Name</label>
+                                    <p class="control is-expanded has-icons-left">
+                                        <input name="name" v-model="address_name" class="input" type="text" maxlength="30" placeholder="e.g. Donald Trump">
+                                        <span class="icon is-small is-left">
+                                          <i class="fas fa-user"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="field is-expanded">
+                                    <label class="label">Mobile</label>
+                                    <div class="field has-addons">
+                                        <p class="control">
+                                            <a class="button is-static">
+                                                +91
+                                            </a>
+                                        </p>
+                                        <p class="control is-expanded">
+                                            <input name="mobile" v-model="address_mobile" class="input" type="tel" placeholder="e.g. 9123456789" maxlength="10">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input name="email" v-model="address_email" class="input" type="email" placeholder="donald@gmail.com">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Address Line 1</label>
+                            <div class="control">
+                                <input name="address1" v-model="address_address1" class="input" type="text" placeholder="e.g. Flat No. / Bldg No / Area">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Address Line 2</label>
+                            <div class="control">
+                                <input name="address2" v-model="address_address2" class="input" type="text" placeholder="e.g. Street Name / Landmark">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Pincode</label>
+                            <div class="control">
+                                <input name="pincode" v-model="pincode" maxlength="6" class="input pincode" type="text" placeholder="e.g. 110006">
+                                <span class="pincodedisp" v-html="pincodedisplay"></span>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+
+                    <div class="paymentform" v-show="cart_state==2" v-cloak>
+                        <div class="columns is-centered">
+                            <div class="column is-5">
+                                <!-- <h2 class="title is-5 is-invisible-mobile">Payment Gateway</h2> -->
+
+                                <div class="field">
+                                    <div class="control" >
+                                        <label class="radio">
+                                            <input type="radio" style="margin-right: 10px;" name="foobar"  v-model="paymode" value="razorpay">
+                                            <a class="payRazorpay"></a>
+                                        </label>
+                                    </div>
+                                    <div class="control">
+                                        <label class="radio">
+                                            <input type="radio" style="margin-right: 10px;" name="foobar" v-model="paymode" value="paytm">
+                                            <a class="payPaytm"></a>
+                                        </label>
+                                    </div>
+
+                                    <div class="control">
+                                        <label class="radio">
+                                            <input type="radio" style="margin-right: 10px;" name="foobar"  v-model="paymode" value="cod">
+                                            <a  class="">Cash on Delivery*</a>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <!-- <div class="column">
+                                <h2 class="title is-5 is-invisible-mobile">Pay Offline</h2>
+                                <div class="control">
+                                    <label class="radio">
+                                        <input type="radio" class="payCashInp" name="foobar"  v-model="paymode" value="cod">
+                                        <a  class="payCash">Cash on Delivery*</a>
+                                    </label>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="paymentform" v-show="cart_state==3" v-cloak>
+                        <div class="columns">
+                            <div class="column has-text-centered">
+                                <h2 class="subtitle" style="color: white !important;">Payment Received</h2>
+                                <p>You will be redirected to Orders page</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cartbtndiv" style="text-align: center;">
+                        <div class="buttons is-centered" v-cloak>
+                            <span class="button is-warning" v-if="cart_state==0" v-on:click="checkout">Checkout</span>
+                            <span class="button is-warning" v-if="cart_state==1" v-on:click="undocheckout">Back</span>
+                            <span class="button is-warning" v-if="cart_state==1" v-on:click="submit_address">Save</span>
+                            <span class="button is-warning" v-if="cart_state==2" v-on:click="undoaddress">Back</span>
+                            <span class="button paybtn" v-if="cart_state==2" v-on:click="handle_pay">Pay</span>
+                        </div>
+                    </div>
+
+                    <div class="columns" v-show="cart_state==2" v-cloak>
+                        <div class="column">
+                            <p class="payformdetails">
+                                {% if show_payment_failed %}
+                                Your payment attempt is failed.<br>Please contact if balance is deducted or try again.<br><br>
+                                {% endif %}
+                                Netbanking, UPI, Wallets, Credit Cards, Debit Cards all are accepted via Razorpay and PayTM
+                                <br><br>
+                                COD service might not be available to remote locations
+                              </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-one-quarters">
+                    <aside class="menu">
+                        <table class="table">
+                            <table class="table cartmenu">
+                                <tbody>
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td v-html="rsubtotal"></td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Charges:</th>
+                                    <td v-html="rdeliverycharge"></td>
+                                </tr>
+                                <tr>
+                                    <th>Extra Charges:</th>
+                                    <td v-html="rextracharge"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table cartmenu">
+                                <tr class="totalrow">
+                                    <th>Total:</th>
+                                    <td><span v-html="rtotal"></span><br><div class="content is-small">(GST inclusive)</div></td>
+                                </tr>
+                            </table>
+
+                        </table>
+                        <div class="is-invisible-mobile">
+                            <div class="field" v-if="!show_referral" v-cloak >
+                              <div class="control has-text-centered">
+                                <input class="input " type="text" placeholder="Referral Code" style="width: 200px;" onkeyup="this.value = this.value.toUpperCase();" v-model="referral_code">
+                              </div>
+                              <div class="control has-text-centered">
+                                  <a class="button is-warning referralbtn" v-on:click="apply_referral_code">Apply</a>
+                              </div>
+                            </div>
+                            <p v-if="show_referral" v-cloak>
+                                Referral code applied from -<br>
+                                <b>[% referrer %]</b>
+                                <br><br>
+                                [% referrer_details %]
+                            </p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalDeleteConfirm}">
+        <div class="modal-card confirm-modal bShadow-66 is-shady">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalDeleteConfirm=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2 class="title is-6">Confirm</h2>
+                <p>Do you want to remove following from the cart ?</p>
+                <p class="cardhead">[%confirm_name%]</p>
+                <p class="cardsubtitle">[%confirm_sub%]</p>
+                <p class="cardsubtitle" style="margin-left: 10px;">Quantity: [%confirm_qty%]</p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" v-on:click="remove()">Remove</button>
+                <button class="button" v-on:click="ModalDeleteConfirm=false">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalAlert}">
+        <div class="modal-card alert-modal bShadow-66 is-shady">
+            <section class="modal-card-body">
+                <div class="modalclose">
+                    <span v-on:click="ModalAlert=false">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <h2 class="title is-6" v-html="alert_title"></h2>
+                <p v-html="alert_message"></p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-info" v-on:click="ModalAlert=false">Let me fix</button>
+            </footer>
+        </div>
+    </div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalCod}">
+    <div class="modal-card cod-modal bShadow-66 is-shady">
+        <section class="modal-card-body">
+            <div class="modalclose">
+
+            </div>
+            <h2 class="title is-6">Extra Charges</h2>
+            <p>Cash On Delivery service is not free!<br>Extra charge of ₹​80 will be added.<br><br>Is it fine ?</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-info" v-on:click="update_paymode();ModalCod=false;">Ok</button>
+            <button class="button is-info" v-on:click="paymode='';ModalCod=false;">No, I'll Pay Online</button>
+        </footer>
+    </div>
+</div>
+
+<div class="modal blackmodal" v-bind:class="{'is-active': ModalCodConfirm}" v-cloak>
+    <div class="modal-card codcon-modal bShadow-66 is-shady">
+        <section class="modal-card-body">
+            <div class="modalclose">
+
+            </div>
+            <h2 class="title is-6">Confirmation</h2>
+            <p>Pay ₹​[%total%] by Cash on Delivery ?</p>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-info" v-on:click="submit_pay">Yes</button>
+            <button class="button is-info" v-on:click="ModalCodConfirm=false;">No</button>
+        </footer>
+    </div>
+</div>
+
+</section>
+
+    {% include "hero-footer.html" %}
+
+<script>
+    var subtotal = {{subtotal}};
+
+    var deliverycharge = {{deliverycharge}};
+
+    var extracharge = {{extracharge}};
+
+    var total = {{total}};
+
+    var products = {{cartprods | safe}};
+    var prod_id_index = {{cartprods_ids | safe}};
+
+    var cart_state = {{state}};
+
+    if(cart_state == 3){
+
+        ga('ec:setAction', 'purchase', {
+              'id': '{{done_order_id}}',
+              'revenue': '{{total}}'
+          });
+        ga('send', 'pageview');
+
+        gtag('event', 'conversion', {
+            'send_to': 'AW-852430889/eTEdCJHj46kBEKmgvJYD',
+            'value': '{{total}}',
+            'currency': 'INR',
+            'transaction_id': '{{done_order_id}}'
+        });
+
+        setTimeout(function(){ window.location = '/orders'; }, 3000);
+    }
+</script>
+
+<script>
+    var edit_cart = function edit_cart(action, cp_id) {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/edit_cart',
+            data: {
+                'action': action,
+                'cp_id': cp_id
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.products = response.data.cartprods;
+                cartapp.prod_id_index = response.data.cartprods_ids;
+                cartapp.subtotal = response.data.subtotal;
+                cartapp.deliverycharge = response.data.deliverycharge;
+                cartapp.extracharge = response.data.extracharge;
+                cartapp.total = response.data.total;
+                head_app.cartqty = cartapp.products.length;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
+
+
+    var checkout = function checkout() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/checkout',
+            data: {
+                'checkout': true,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.cart_state = response.data.cart_state;
+
+                cartapp.address_name = response.data.name;
+                cartapp.address_mobile = response.data.mobile;
+                cartapp.address_address1 = response.data.address1;
+                cartapp.address_address2 = response.data.address2;
+                cartapp.pincode = response.data.pincode;
+                cartapp.pincodedisplay = response.data.pincodedisplay;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
+
+    var undocheckout = function undocheckout() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/checkout',
+            data: {
+                'checkout': false,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.cart_state = response.data.cart_state;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
+
+    var undoaddress = function undoaddress() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/undoaddress',
+            data: {
+                'address': false,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.cart_state = response.data.cart_state;
+
+                cartapp.address_name = response.data.name;
+                cartapp.address_mobile = response.data.mobile;
+                cartapp.address_address1 = response.data.address1;
+                cartapp.address_address2 = response.data.address2;
+                cartapp.pincode = response.data.pincode;
+                cartapp.pincodedisplay = response.data.pincodedisplay;
+            }
+            else{
+                console.log(response);
+                alert('Error - ' + response.data.reason);
+            }
+        });
+    };
+
+
+    var get_pincode_details = function get_pincode_details(pincode) {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/pincode',
+            data: {
+                'pincode': pincode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.pincodedisplay = response.data.pincodedisplay;
+            }
+            else{
+                cartapp.pincodedisplay = '';
+            }
+        });
+    };
+
+
+    var submit_address = function submit_address() {
+        head_app.loading = true;
+
+        var ip_data = {} ;
+        axios.get('https://ipapi.co/json/')
+        .then((response)=>{
+          ip_data = response.data;
+          })
+        .catch((err)=>{
+        })
+        .finally(function () {
+
+            axios({
+                method: 'post',
+                url: '/api/cart/address',
+                data: {
+                    'name': cartapp.address_name,
+                    'mobile': cartapp.address_mobile,
+                    'email': cartapp.address_email,
+                    'address1': cartapp.address_address1,
+                    'address2': cartapp.address_address2,
+                    'pincode': cartapp.pincode,
+                    'ip_data': ip_data,
+                }
+            }).then(function (response) {
+                head_app.loading = false;
+                if(response.data.success){
+                    cartapp.cart_state = response.data.cart_state;
+                }
+                else{
+                    console.log(response);
+                }
+            });
+
+        });
+
+
+    };
+
+
+    var update_paymode = function update_paymode() {
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/paymode',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                cartapp.deliverycharge = response.data.deliverycharge;
+                cartapp.extracharge = response.data.extracharge;
+                cartapp.total = response.data.total;
+                cartapp.paymode = response.data.paymode;
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
+    var process_cod_payment = function(){
+        if(cartapp.ModalCodConfirm){
+            cartapp.ModalCodConfirm = false;
+        }
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/pay',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+
+                cartapp.cart_state = response.data.cart_state;
+                head_app.cartqty = response.data.cartqty;
+
+                ga('ec:setAction', 'purchase', {
+                      'id': response.data.order_id,
+                      'revenue': response.data.order_total,
+                  });
+                ga('send', 'pageview');
+
+                  gtag('event', 'conversion', {
+                      'send_to': 'AW-852430889/eTEdCJHj46kBEKmgvJYD',
+                      'value': response.data.order_total,
+                      'currency': 'INR',
+                      'transaction_id': response.data.order_id,
+                 });
+
+
+                window.location = '/neworder';
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
+    var apply_referral_code = function(){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/process_code',
+            data: {
+                'code': cartapp.referral_code,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                console.log(response);
+
+                cartapp.products = response.data.cartprods;
+                cartapp.prod_id_index = response.data.cartprods_ids;
+                cartapp.subtotal = response.data.subtotal;
+                cartapp.deliverycharge = response.data.deliverycharge;
+                cartapp.extracharge = response.data.extracharge;
+                cartapp.total = response.data.total;
+                head_app.cartqty = cartapp.products.length;
+
+                cartapp.referrer = response.data.referrer;
+                cartapp.referrer_details = response.data.referrer_details;
+                cartapp.show_referral = true;
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
+
+
+
+
+    {% verbatim %}
+    String.prototype.format = function (){
+        var args = arguments;
+        return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function (curlyBrack, index) {
+            return ((curlyBrack == "{{") ? "{" : ((curlyBrack == "}}") ? "}" : args[index]));
+        });
+    };
+    {% endverbatim %}
+
+    var process_paytm_payment = function(){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/get_paytm_details',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                var form = document.createElement("form");
+
+                form.method = "POST";
+                form.action = response.data.txn_url;
+                form.innerHTML = "";
+                var d = response.data.data;
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('MID', d['MID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('WEBSITE', d['WEBSITE']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('ORDER_ID', d['ORDER_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CUST_ID', d['CUST_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('INDUSTRY_TYPE_ID', d['INDUSTRY_TYPE_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CHANNEL_ID', d['CHANNEL_ID']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('TXN_AMOUNT', d['TXN_AMOUNT']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CALLBACK_URL', d['CALLBACK_URL']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('CHECKSUMHASH', d['CHECKSUMHASH']);
+
+                document.body.appendChild(form);
+                console.log(form);
+                form.submit();
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+    var process_razorpay_payment = function(){
+        head_app.loading = true;
+        axios({
+            method: 'post',
+            url: '/api/cart/get_razorpay_details',
+            data: {
+                'paymode': cartapp.paymode,
+            }
+        }).then(function (response) {
+            head_app.loading = false;
+            if(response.data.success){
+                console.log(response.data.data);
+
+                var form = document.createElement("form");
+
+                form.method = "POST";
+                form.action = response.data.txn_url;
+                form.innerHTML = "";
+                var d = response.data.data;
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('key_id', d['key_id']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('amount', d['amount']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('order_id', d['rp_id']);
+
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('name', 'noobtronics');
+
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('prefill[name]', d['name']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('prefill[contact]', d['mobile']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('prefill[email]', d['email']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('notes[shipping address]', d['shipping_address']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('callback_url', d['callback_url']);
+                form.innerHTML = form.innerHTML + '<input name="{0}" value="{1}">'.format('cancel_url', d['cancel_url']);
+
+                document.body.appendChild(form);
+                console.log(form);
+                form.submit();
+            }
+            else{
+                console.log(response);
+            }
+        });
+    };
+
+
+    var submit_pay = function submit_pay(){
+        if(cartapp.paymode == 'cod'){
+            process_cod_payment();
+        }
+        if(cartapp.paymode == 'paytm'){
+            process_paytm_payment();
+        }
+        if(cartapp.paymode == 'razorpay'){
+            process_razorpay_payment();
+        }
+    };
+</script>
+
+
+<script>
+
+
+  function ValidateEmail(inputText)
+  {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(inputText.match(mailformat)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+
+    var validate_address = function validate_address() {
+        if(cartapp.address_name.length < 4){
+            alert_msg('Invalid Name', 'Name should have atleast 4 characters');
+            return;
+        }
+
+        if(cartapp.address_mobile.length != 10){
+            alert_msg('Invalid Mobile', 'Mobile should have exact 10 digits');
+            return;
+        }
+        if(isNaN(cartapp.address_mobile)){
+            alert_msg('Invalid Mobile', 'Mobile should contain only numbers');
+            return;
+        }
+
+        if(!ValidateEmail(cartapp.address_email)){
+            alert_msg('Invalid Email', 'Please enter valid email address.');
+            return;
+        }
+
+        if(cartapp.address_address1.length < 10){
+            alert_msg('Invalid Address1', 'Address Line 1 should contain atleast 10 characters');
+            return;
+        }
+
+        if(cartapp.address_address2.length < 10){
+            alert_msg('Invalid Address2', 'Address Line 2 should contain atleast 10 characters');
+            return;
+        }
+
+
+        if(cartapp.pincode.length != 6){
+            alert_msg('Invalid Pincode', 'Pincode should contain exact 6 digits');
+            return;
+        }
+
+        if(isNaN(cartapp.pincode)){
+            alert_msg('Invalid Pincode', 'Pincode should contain only numbers');
+            return;
+        }
+
+        if(cartapp.pincodedisplay.length==0){
+            alert_msg('Invalid Pincode', 'Pincode was not found in India Database');
+            return;
+        }
+        submit_address();
+    };
+
+    var alert_msg = function alert_msg(title, message){
+        cartapp.alert_title = title;
+        cartapp.alert_message = message;
+        cartapp.ModalAlert = true;
+    };
+</script>
+
+
+<script>
+    var cartapp = new Vue({
+        el: '#cartapp',
+        delimiters: ['[%', '%]'],
+        data: {
+            subtotal: subtotal,
+            deliverycharge: deliverycharge,
+            extracharge: extracharge,
+            total: total,
+            products: products,
+            prod_id_index: prod_id_index,
+            ModalDeleteConfirm: false,
+            ModalAlert: false,
+            cart_state: cart_state,
+            confirm_name: '',
+            confirm_sub: '',
+            confirm_qty: '',
+            alert_title: '',
+            alert_message: '',
+            pincode: '',
+            pincodedisplay: '',
+
+            address_name:'',
+            address_mobile:'',
+            address_email: '',
+            address_address1:'',
+            address_address2:'',
+
+            paymode: 'razorpay',
+            ModalCod: false,
+            ModalCodConfirm: false,
+
+            referral_code: '',
+            referrer: '',
+            referrer_details: '',
+            show_referral: false,
+        },
+        computed: {
+            rsubtotal: function () {
+                return '₹' + this.subtotal.toString();
+            },
+            rdeliverycharge: function () {
+                return '₹' + this.deliverycharge.toString();
+            },
+            rextracharge: function () {
+                return '₹' + this.extracharge.toString();
+            },
+            rtotal: function () {
+                return '₹' + this.total.toString();
+            },
+            carttitlename: function(){
+                if(this.cart_state==0){
+                    return "Shopping Cart";
+                }
+                if(this.cart_state==1){
+                    return "Shipping Address";
+                }
+                if(this.cart_state==2){
+                    return "Payment Method";
+                }
+                if(this.cart_state==3){
+                    return "Confirmation";
+                }
+
+            }
+
+        },
+        methods: {
+            increase_qty: function(cp_id){
+                edit_cart('increase', cp_id);
+            },
+            decrease_qty: function(cp_id){
+                var idx = this.prod_id_index[cp_id];
+                var qty = this.products[idx].qty;
+                if(qty==1) {
+                    this.remove_prod(cp_id);
+                }
+                else{
+                    edit_cart('decrease', cp_id);
+                }
+            },
+            remove_prod: function(cp_id){
+                var idx = this.prod_id_index[cp_id];
+                var prod = this.products[idx];
+                this.confirm_name = prod.title;
+                this.confirm_sub = prod.subtitle;
+                this.confirm_qty = prod.qty;
+                this.confirm_id = cp_id;
+                this.ModalDeleteConfirm = true;
+            },
+            remove: function(){
+                edit_cart('remove', this.confirm_id);
+                this.ModalDeleteConfirm = false;
+            },
+            open_prod_page: function(slug){
+                var url = '/product/'+slug;
+                var win = window.open(url, '_blank');
+                win.focus();
+            },
+            checkout: function(){
+                checkout();
+            },
+            undocheckout: function(){
+                undocheckout();
+            },
+            undoaddress: function(){
+                undoaddress();
+            },
+            submit_address: function(){
+                validate_address();
+            },
+            update_paymode: function(){
+                update_paymode();
+            },
+            apply_referral_code: function(){
+                apply_referral_code();
+            },
+            handle_pay: function(){
+                if(this.paymode=='cod'){
+                    this.ModalCodConfirm = true;
+                }
+                else{
+                    this.submit_pay();
+                }
+            },
+            submit_pay: function(){
+                if(this.paymode==''){
+                    alert_msg('Error', 'Please select Payment Method first')
+                } else{
+                    submit_pay();
+                }
+            }
+        },
+        watch: {
+            pincode: function(newVal, oldVal){
+                if(newVal.length==6){
+                    if(!isNaN(newVal)){
+                        get_pincode_details(newVal);
+                    }
+                }
+            },
+            paymode: function(newVal, oldVal){
+                if(newVal == 'cod') {
+                    this.ModalCod = true;
+                }
+                else{
+                    if(newVal != oldVal){
+                        update_paymode();
+                    }
+                }
+            },
+            cart_state: function(newVal, oldVal){
+                if(newVal > oldVal){
+                    ga('ec:setAction','checkout', {
+                        'step': newVal + 1,
+                    });
+                    ga('send', 'pageview');
+                }
+                if(newVal == 3){
+                    setTimeout(function(){ window.location = "/orders"; }, 2000);
+                }
+
+            }
+        }
+    });
+
+</script>
+
+
+</section>
+</body>
+</html>

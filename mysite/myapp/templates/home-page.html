@@ -1,79 +1,25 @@
-<!DOCTYPE html>
-<html lang="en" style="width:100%; height:100%; overflow: hidden;">
-<head>
-    <title>Noobtronics: The hardware startup</title>
-    <meta name="description" content="At noobtronics, we manufacture Open Source hardware and also make hardware of our own, for noobs and pros alike.">
+{% extends 'base.html' %}
 
-    {% include "header.html" %}
-</head>
-<body style="width:100%; height:100%; overflow: scroll;" class="has-navbar-fixed-top">
-<section class="hero is-success is-fullheight">
-    <!-- Hero head: will stick at the top -->
-    {% include "hero-head.html" %}
-
-    <!-- Hero content: will be in the middle -->
-    <div class="hero-body" id="app">
-        <div class="homecontainer has-text-centered">
-            <div class="columns">
-                <div class="column">
-                    <div class='carouselhome'>
-                                    {% for p in data %}
-                                    <div class='item'>
-
-                                        <div class="columns">
-
-                                            <div class="column">
-                                                <h2 class="prodtitle">{{p.name}}</h2>
-                                                <h2 class="subtitle">{{p.pagetitle}}</h2>
-                                                <h2 class="price">&#8377;{{p.price}}<span class="mrpprice">&nbsp;&#8377;{{p.mrp}}&nbsp;&nbsp;</span></h2>
-                                                <a class="button is-warning homeorder" href="/product/{{p.slug}}" target="_blank">View Details</a>
-                                            </div>
-                                            <div class="column">
-                                                <div class="prodimage">
-                                                    <img  src="{{p.image}}" alt="{{p.name}} | {{p.pagetitle}}">
-                                                </div>
-                                            </div>
+{% block head %}
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}">
+    <meta name="author" content="{{author}}">
+    <meta name="keywords" content="{{keywords}}">
+    <link rel="canonical" href="https://electronicspi.com{{slug}}">
+    <meta name="robots" content="all">
+{% endblock %}
 
 
-                                        </div>
-                                    </div>
-                                    {% endfor %}
+{% block section %}
+<section class="section">
+  <div class="container">
+    <h2 class="title has-text-centered">popular-ic</h2>
+    <div class="columns is-multiline">
 
-                    </div>
-                </div>
-                </div>
-
-            <div class="columns prodbrowselinks">
-                <div class="column">
-                    <!-- <p class="headingp">Browse</p> -->
-                        <div class="buttons is-centered">
-                            {% for b in browse_links %}
-                                <a class="button is-medium is-primary is-inverted is-outlined " href="/shop/{{b.url}}">{{b.name}}</a>
-                            {% endfor %}
-                            <a class="button is-medium is-primary is-inverted is-outlined " href="/shop">All Products</a>
-                        </div>
-                </div>
-            </div>
-
-        </div>
 
     </div>
-
-    {% include "hero-footer.html" %}
+    <div class="buttons is-centered"><a class="button is-primary" href="/ic">Read more</a></div>
+  </div>
 </section>
 
-
-
-<script type="application/ld+json">
-
-{
-	"@context": "http://schema.org",
-	"@type": "Organization",
-	"url": "https://noobtronics.ltd",
-	"name": "Noobtronics Shop",
-	"description": "At noobtronics, we manufacture Open Source hardware and also make hardware of our own, for noobs and pros alike."
-}
-</script>
-
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Noobtronics Shop</title>
+    <style>
+        html { visibility:hidden; }
+    </style>
+    <link rel="stylesheet" href="/css/bulma/mystyle.css">
+    <script defer src="/css/fontawesome/js/all.js"></script>
+    <script src="/js/vue/vue.js"></script>
+</head>
+<body>
+<section class="hero is-primary is-fullheight is-bold" id="app">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+        <header class="navbar is-transparent">
+            <div class="container">
+                <div class="navbar-brand ">
+                    <a class="navbar-item " href="/">
+                        <img src="/images/Logo.png" alt="Logo" width="300" height="100">
+                    </a>
+                    <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+                </div>
+                <div id="navbarMenuHeroC" class="navbar-menu">
+
+
+                    <div class="navbar-end">
+                        <nav class="level">
+                            <a class="navbar-item is-active" href="/">
+                                Home
+                            </a>
+                            <!--<a class="navbar-item">
+                                Shop
+                            </a>
+                            <a class="navbar-item">
+                                Learn
+                            </a>
+                            <a class="navbar-item">
+                                Make
+                            </a>
+                            <a class="navbar-item">
+                                Login
+                            </a>
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link" href="/documentation/overview/start/">
+                                    My Account
+                                </a>
+                                <div class="navbar-dropdown is-boxed myaccount">
+                                    <a class="navbar-item" href="/documentation/overview/start/">
+                                        Orders
+                                    </a>
+                                    <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
+                                        Verify Mobile
+                                    </a>
+                                    <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
+                                        Addresses
+                                    </a>
+                                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                                        Refer a Friend
+                                    </a>
+                                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <div class="dropdown-trigger">
+                                <a class="button is-primary is-inverted badge is-badge-danger" data-badge="8" >
+                                    <span class="icon">
+                                      <i class="fas fa-shopping-cart"></i>
+                                    </span>
+                                </a>
+                                </div>
+                                <div class="navbar-dropdown is-boxed cart" >
+
+
+                                    <article class="media">
+                                        <figure class="media-left">
+                                            <p class="image is-64x64">
+                                                <img src="/images/cart/cart1.jpg">
+                                            </p>
+                                        </figure>
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <a href="#">
+                                                    <strong>Smartduino Uno - Atmega328 dosivjow</strong>
+                                                </a>
+                                                <nav class="level">
+                                                    <div class="level-left">
+                                                        <a class="button is-success is-inverted increment" >
+                                                        <span class="icon">
+                                                          <i class="fas fa-plus"></i>
+                                                        </span>
+                                                        </a>
+                                                        <span class="cart_qty">10</span>
+                                                        <a class="button is-success is-inverted increment" >
+                                                        <span class="icon">
+                                                          <i class="fas fa-minus"></i>
+                                                        </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="level-right">
+                                                        <span>&#8377;</span>
+                                                        <span>100</span>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                        <div class="media-right">
+                                            <button class="delete"></button>
+                                        </div>
+                                    </article>
+
+                                    <article class="media subtotal">
+                                        <div class="media-content">
+                                        <nav class="level">
+                                            <div class="level-left">
+                                                <a class="button is-danger ">Checkout</a>
+                                            </div>
+                                            <div class="level-right">
+                                                <span><strong>Subtotal:</strong></span>
+                                                <span>&#8377;</span>
+                                                <span>1000</span>
+                                            </div>
+                                        </nav>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>-->
+
+                    </nav>
+
+                </div>
+
+            </div>
+    </div>
+    </header>
+
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns view">
+                <div class="column">
+                    <img src="/images/robotdyn.png" width="400">
+                </div>
+                <div class="column">
+                    <h2 class="title is-3" style="margin-top:30px;">Smartduino Uno</h2>
+                    <h3 class="subtitle is-5">Atmega 328 Microcontroller</h3>
+                </div>
+            </div>
+            <div class="columns product">
+                <div class="column">
+                    <nav class="breadcrumb" aria-label="breadcrumbs">
+                        <ul>
+                            <li v-bind:class="{ 'is-active': (activePage==0) }" v-on:click="changePage(0)"><a>Information</a></li>
+                            <li v-bind:class="{ 'is-active': (activePage==1) }" v-on:click="changePage(1)"><a>Specifications</a></li>
+                            <li v-bind:class="{ 'is-active': (activePage==2) }" v-on:click="changePage(2)"><a>Package</a></li>
+                            <li v-bind:class="{ 'is-active': (activePage==3) }" v-on:click="changePage(3)"><a>Downloads</a></li>
+                        </ul>
+                    </nav>
+                    <div class="content" v-html="display">
+                        Hi
+                    </div>
+                    <div id="info" style="display: none;">
+                        <p>
+                            Smartduino Uno is an entry level microcontroller which you can use in your electronics project. It is based on <a target="_blank" href="http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Datasheet.pdf">Atmel's Atmega 328</a> chip. It has 14 digital input/output pins (of which 6 can be used as PWM outputs), 6 analog inputs, a 20 MHz quartz crystal, a USB connection, a power jack, an ICSP header and a reset button.
+                        </p>
+                        <p>Features:</p>
+                        <ul>
+                        <li>Cost effective and 25% faster than Arduino UNO</li>
+                        <li>microUSB Connector - now you won't have to worry about losing the scarce USB cable</li>
+                        </ul>
+                    </div>
+                    <div id="specs" style="display: none;">
+                        <table class="table is-bordered is-narrow" style="width:400px; margin-left: 10px;">
+                            <tbody>
+                            <tr>
+                                <td>Microcontroller</td>
+                                <td><a target="_blank" href="http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Datasheet.pdf">Atmel's Atmega 328</a></td>
+                            </tr>
+                            <tr>
+                                <td>Computing Speed</td>
+                                <td>20 MIPS</td>
+                            </tr>
+                            <tr>
+                                <td>Clock Rate</td>
+                                <td>20 Mhz</td>
+                            </tr>
+                            <tr>
+                                <td>Flash Memory</td>
+                                <td>32 KBytes</td>
+                            </tr>
+                            <tr>
+                                <td>SRAM</td>
+                                <td>2 KBytes</td>
+                            </tr>
+                            <tr>
+                                <td>EEPROM</td>
+                                <td>1 KBytes</td>
+                            </tr>
+                            <tr>
+                                <td>Digital I/O Pins</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <td>Analog Input Pins</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>PWM Output Pins (Analog)</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>Operating Voltage</td>
+                                <td>5V</td>
+                            </tr>
+                            <tr>
+                                <td>Power Source</td>
+                                <td>microUSB (5V) <br> or <br>Power Jack (6-16V)</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div id="pack" style="display: none;">
+                        <p>Package Contents:</p>
+                        <ul>
+                            <li>1 Smartduino Uno Board</li>
+                            <li>1 microUSB Cable</li>
+                            <li>1 LED for testing</li>
+                        </ul>
+                    </div>
+                    <div id="downl" style="display: none;">
+                        <p>Arduino Software:</p>
+                        <ul>
+                            <li><a>Windows</a></li>
+                            <li><a>Mac</a></li>
+                            <li><a>Ubuntu</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            activePage:0,
+            data:[document.getElementById("info").innerHTML,
+                document.getElementById("specs").innerHTML,
+                document.getElementById("pack").innerHTML,
+                document.getElementById("downl").innerHTML
+            ],
+        },
+        computed: {
+            display: function () {
+                return this.data[this.activePage]
+            }
+        },
+        methods: {
+            changePage:function(pageNumber){
+                this.activePage=pageNumber;
+            }
+        },
+        scrollBehavior(to, from, savedPosition) {
+            if (savedPosition) {
+                return savedPosition
+            } else {
+                return { x: 0, y: 0 }
+            }
+        }
+
+        })
+</script>
+
+<script>
+    window.onload = function(){
+        document.getElementsByTagName("html")[0].style.visibility = "visible";
+    };
+</script>
+</body>
+</html>
