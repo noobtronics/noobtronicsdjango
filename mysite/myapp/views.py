@@ -487,7 +487,7 @@ def login_view(request):
     if not user_code:
         return JsonResponse(resp)
 
-    login(request, user)
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     resp['success'] = True
     return JsonResponse(resp)
 
@@ -1390,7 +1390,7 @@ def process_google_callback(request):
         if not user_code:
             return JsonResponse(resp)
 
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
         return redirect(state)
     except:
@@ -1432,7 +1432,7 @@ def process_facebook_callback(request):
         if not user_code:
             return JsonResponse(resp)
 
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
         return redirect(state)
 
@@ -1469,7 +1469,7 @@ def handle_email_login(request):
 
         user = authenticate(username=data['email'], password=data['password'])
         if user is not None:
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             resp['success'] = True
             resp['login_help'] = ''
         else:
@@ -1513,7 +1513,7 @@ def forgotpwd_view(request, code):
         user.set_password(pwd)
         user.save()
         obj.delete()
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return HttpResponseRedirect('/')
     else:
         obj = get_object_or_404(ForgorPWDLink, code=code)
