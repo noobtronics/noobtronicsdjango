@@ -406,18 +406,14 @@
           });
         ga('send', 'pageview');
 
-          gtag('event', 'conversion', {
-              'send_to': 'AW-852430889/eTEdCJHj46kBEKmgvJYD',
-              'value': '{{total}}',
-              'currency': 'INR',
-              'transaction_id': '{{done_order_id}}'
-          });
-
-
-
-        $( document ).ready(function() {
-            setTimeout(function(){ window.location = '/neworder'; }, 1000);
+        gtag('event', 'conversion', {
+            'send_to': 'AW-852430889/eTEdCJHj46kBEKmgvJYD',
+            'value': '{{total}}',
+            'currency': 'INR',
+            'transaction_id': '{{done_order_id}}'
         });
+
+        setTimeout(function(){ window.location = '/orders'; }, 3000);
     }
 </script>
 
