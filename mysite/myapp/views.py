@@ -453,7 +453,7 @@ def finalize_razorpay_payment(usr):
     try:
         cart = Cart.objects.get(user_id = usr)
         order_id = cart.to_be_order_id
-        rp_hist = RazorpayHistory.objects.filter(user_id=usr, order_id=order_id, status='authorized')
+        rp_hist = RazorpayHistory.objects.filter(user_id=usr, order_id=order_id, status='captured')
 
         if rp_hist.count() > 0:
             verified = True
