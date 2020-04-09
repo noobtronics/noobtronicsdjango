@@ -18,7 +18,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var fb_signin_func  = function() {
         var prod_url='https://www.facebook.com/v3.2/dialog/oauth?client_id=330900420888261&scope=email';
         prod_url = prod_url + '&redirect_uri='+encodeURI(window.location.origin+'/facebookcallback');
-        window.location = prod_url +'&state='+encodeURIComponent(window.location.href);;
+        var google_oauth_url = prod_url +'&state='+encodeURIComponent(window.location.href);
+        console.log(google_oauth_url);
+        window.location = google_oauth_url;
     };
 </script>
 
