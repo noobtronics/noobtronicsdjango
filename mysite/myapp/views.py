@@ -1144,6 +1144,10 @@ def get_razorpay_details(request):
         rp_id_map = RazopayIDMaps(rp_id= rp_data['id'], order_id = cart.to_be_order_id)
         rp_id_map.save()
 
+
+        callback_url = 'https://{0}/cart/razorpay/callback'.format(request.META['HTTP_HOST'])
+        cancel_url = 'https://{0}/cart?status=fail'.format(request.META['HTTP_HOST'])
+
         resp['data'] = {
             'key_id': settings.RAZORPAY['key_id'],
             'rp_id': rp_data['id'],
@@ -1154,8 +1158,8 @@ def get_razorpay_details(request):
             'mobile': cart.mobile,
             'email': request.user.email,
 
-            'callback_url': settings.RAZORPAY['callback_url'],
-            'cancel_url': settings.RAZORPAY['cancel_url'],
+            'callback_url': callback_url,
+            'cancel_url': cancel_url,
         }
 
         resp['success'] = True
