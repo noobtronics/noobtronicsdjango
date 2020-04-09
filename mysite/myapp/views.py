@@ -1391,7 +1391,7 @@ def process_google_callback(request):
             return JsonResponse(resp)
 
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-
+        print(state)
         return redirect(state)
     except:
         print(traceback.format_exc())
