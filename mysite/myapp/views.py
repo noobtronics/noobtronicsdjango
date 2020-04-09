@@ -1080,6 +1080,7 @@ def get_paytm_details(request):
 
         order_id = cart.to_be_order_id +'_'+get_rand_number(4)
 
+        paytm_callback_url = "https://{0}/cart/paytm/callback".format(request.META['HTTP_HOST'])
         data = {
             "MID": settings.PAYTM['MID'].encode("utf8"),
             "ORDER_ID": order_id.encode("utf8"),
@@ -1088,7 +1089,7 @@ def get_paytm_details(request):
             "CHANNEL_ID": settings.PAYTM['CHANNEL_ID'].encode("utf8"),
             "WEBSITE": settings.PAYTM['WEBSITE'].encode("utf8"),
             "INDUSTRY_TYPE_ID": settings.PAYTM['INDUSTRY_TYPE_ID'].encode("utf8"),
-            "CALLBACK_URL": settings.PAYTM['CALLBACK_URL'].encode('utf8')
+            "CALLBACK_URL": paytm_callback_url.encode('utf8')
         }
         checksum = PaytmChecksum.generate_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"))
         #print(PaytmChecksum.verify_checksum(data, settings.PAYTM["MERCHANT_KEY"].encode("utf8"), checksum))
