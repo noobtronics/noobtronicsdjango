@@ -1365,10 +1365,12 @@ def process_google_callback(request):
         state = request.GET['state']
         code = request.GET['code']
 
+
+
         flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
             'mysite/google_client_secret.json',
             scopes=['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email', 'openid'],
-            redirect_uri='https://noobtronics.ltd/googlecallback'
+            redirect_uri='https://{0}/googlecallback'.format(request.META['HTTP_HOST'])
         )
 
         flow.fetch_token(code=code)
@@ -1394,7 +1396,7 @@ def process_google_callback(request):
     except:
         print(traceback.format_exc())
         pass
-    raise Exception
+    raise Exception()
 
 
 
