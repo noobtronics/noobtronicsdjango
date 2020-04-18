@@ -26,7 +26,6 @@ from paytm import Checksum as PaytmChecksum
 from django.utils.timezone import make_aware
 from datetime import datetime
 from django.utils import timezone
-from .email_tasks import send_confirm_mail, send_pwdreset_mail, whatsapp_onboard
 from .models import *
 import requests
 import facebook
@@ -35,6 +34,8 @@ import razorpay
 from lazysignup.decorators import allow_lazy_user
 import uuid
 from .decorators import log_urlhistory
+from django_q.tasks import async_task
+
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
@@ -825,7 +826,7 @@ def add_cart_to_order(usr):
             ordr_prd.save()
         cart.delete()
 
-        send_confirm_mail(ordr.id)
+        async_task('myapp.async_email_tasks.send_confirm_mail', ordr.id)
         success = True
     except Exception as e:
         print(traceback.format_exc())
@@ -1364,7 +1365,7 @@ def savemobile(request):
                 mob.state = data['location']['region']
                 mob.city = data['location']['city']
                 mob.save()
-                whatsapp_onboard(mob.mobile)
+                async_task('myapp.async_email_tasks.whatsapp_onboard', mob.mobile)
 
 
 
@@ -1513,7 +1514,7 @@ def handle_forgotpwd(request):
             resp['login_help'] = 'Account does not exist'
         else:
             user = user[0]
-        send_pwdreset_mail(user.id)
+        async_task('myapp.async_email_tasks.send_pwdreset_mail', user.id)
         resp['success'] = True
         resp['login_help'] = ''
     except:

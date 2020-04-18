@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'captcha',
-    'background_task',
     'lazysignup',
     'myapp',
     'products',
