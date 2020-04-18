@@ -289,7 +289,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
 
-    <div class="modal" v-bind:class="{'is-active': ask_mobile}">
+    <div class="modal blackmodal" v-bind:class="{'is-active': ask_mobile}">
     <div class="modal-card askmobmodal bShadow-10">
         <section class="modal-card-body">
             Whatsapp Info
@@ -310,11 +310,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                   </a>
                               </p>
                               <p class="control is-expanded">
-                                  <input class="input" name="mobile" type="tel" placeholder="Your mobile number" v-model="mobileinput" maxlength="10">
+                                  <input class="input" pattern="[0-9]*" name="mobile" type="tel" placeholder="Your mobile number" v-model="mobileinput" maxlength="10">
                               </p>
 
                           </div>
-                          <p class="help">Stay connected for everything <i>noob</i> electronics</p>
+                          <p class="help">For everything <i>noob</i> electronics -<br><p style='text-align:center;font-size: .75rem;'> Get news, products, tutorials for free!</p></p>
                       </div>
                   </div>
               </div>
@@ -556,40 +556,34 @@ var process_forgot_pwd = function(){
     var processSaveMobile = function(d){
         head_app.loading = true;
 
-        var ip_data = {} ;
-        axios.get('https://ipapi.co/json/')
-        .then((response)=>{
-          ip_data = response.data;
-          })
-        .catch((err)=>{
-        })
-        .finally(function () {
+        axios({
+            method: 'post',
+            url: '/api/savemobile',
+            data: {
+              'mobile': head_app.mobileinput,
+              'location': head_app.location,
+            }
+        }).then(function(response) {
 
-            axios({
-                method: 'post',
-                url: '/api/savemobile',
-                data: {
-                  'mobile': head_app.mobileinput,
-                  'ip_data': ip_data
-                }
-            }).then(function(response) {
-                console.log(response);
-                head_app.loading = false;
-                if(response.data.success){
-                    head_app.ask_mobile = false;
-                }
-
-                ga('send', {
-                  hitType: 'event',
-                  eventCategory: 'User',
-                  eventAction: 'Registration',
-                  eventLabel: 'SignUp',
-                  eventValue: 1
-                });
-
-            });
+            if(response.data.success){
 
 
+              setCookie('mmid', response.data.mmid, 1000);
+
+              ga('send', {
+                hitType: 'event',
+                eventCategory: 'User',
+                eventAction: 'Registration',
+                eventLabel: 'SignUp',
+                eventValue: 1
+              });
+
+            }
+
+
+        }).finally(function () {
+          head_app.loading = false;
+          head_app.ask_mobile = false;
         });
 
 
@@ -621,7 +615,7 @@ var process_forgot_pwd = function(){
 <script>
   document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function(){ execute_ask_mobile(); }, 10000);
-      setTimeout(function(){ get_location(); }, 3000);
+      setTimeout(function(){ get_location(); }, 5000);
   }, false);
 </script>
 
