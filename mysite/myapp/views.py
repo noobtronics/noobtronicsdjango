@@ -34,10 +34,12 @@ from htmlmin.decorators import minified_response
 import razorpay
 from lazysignup.decorators import allow_lazy_user
 import uuid
+from .decorators import log_urlhistory
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 def home_page(request):
     ps = HomePage.objects.all().order_by('rank')
@@ -1562,7 +1564,7 @@ def my_http500_view(request, exception=''):
     return render(request, 'http500_page.html',context,status=500)
 
 
-
+@log_urlhistory
 @ensure_csrf_cookie
 def blog_home(request):
     blogs = Blog.objects.filter(is_published=True).order_by('rank', '-created')[:20]
@@ -1590,6 +1592,7 @@ def blog_home(request):
     return render(request, 'blog-home.html',context)
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 def blog_page(request, blog_slug):
     blog = get_object_or_404(Blog, slug=blog_slug)
