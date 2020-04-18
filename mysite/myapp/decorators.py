@@ -42,7 +42,7 @@ def log_urlhistory(view_func):
             csrf_token = request.META.get('CSRF_COOKIE')
             referer = request.META.get('HTTP_REFERER')
             mmid = request.COOKIES.get('mmid')
-            remote_addr = request.META.get('REMOTE_ADDR')
+            remote_addr = request.META.get('HTTP_X_REAL_IP')
             visited = timezone.now()
             print(url, csrf_token, referer, remote_addr, mmid, visited)
             async_task('myapp.decorators.url_history_logger', url, csrf_token, referer, remote_addr, mmid, visited)
