@@ -145,3 +145,11 @@ def test_mail_web(request):
     rendered_data, images_data = get_order_confirm_data(ordr)
 
     return HttpResponse(rendered_data)
+
+
+
+
+@background(schedule=2)
+def whatsapp_onboard(mobile):
+    print('Onboarding {0} on whatsapp ..'.format(mobile))
+    
