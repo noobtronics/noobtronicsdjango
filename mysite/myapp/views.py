@@ -78,6 +78,7 @@ def home_page(request):
     }
     return render(request, 'home-page.html', context)
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def product_page(request, prod_slug):
@@ -88,6 +89,7 @@ def product_page(request, prod_slug):
         raise Http404
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 def print_product_page(request, prod_slug):
     prod = get_object_or_404(Product, slug=prod_slug)
@@ -147,6 +149,7 @@ def get_prod_data(menu_data, tag_query, page_number):
     return data, page_number, total_pages
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def shop_page(request):
@@ -194,6 +197,7 @@ def get_parent_taglist(tag):
     return output[:5]
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def shop_slug_page(request, shop_slug):
@@ -242,6 +246,7 @@ def shop_slug_page(request, shop_slug):
     return render(request, 'shop-page.html', context)
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def tags_page(request):
@@ -265,6 +270,7 @@ def tags_page(request):
     return render(request, 'all-tags-page.html', context)
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def tags_slug_page(request, tag_slug):
@@ -392,6 +398,7 @@ def process_cart_json(usr):
     return data
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @login_required
 def cart_page(request):
@@ -901,7 +908,7 @@ def process_referral_code(request):
     return JsonResponse(resp)
 
 
-
+@log_urlhistory
 @login_required
 def new_orders_page(request):
     order_data = []
@@ -925,7 +932,7 @@ def handle_qr_code(request, qrcode):
     return HttpResponseRedirect('/')
 
 
-
+@log_urlhistory
 @login_required
 def orders_page(request):
     order_data = []
@@ -1002,6 +1009,8 @@ def get_order_state_num(order_state):
         return 3
     return -1
 
+
+@log_urlhistory
 @login_required
 def order_details_page(request, order_id):
     ordr = get_object_or_404(Orders, user_id=request.user, order_id=order_id)
@@ -1171,7 +1180,7 @@ def get_razorpay_details(request):
     return JsonResponse(resp)
 
 
-
+@log_urlhistory
 @csrf_exempt
 def paytm_callback(request):
     success = True
@@ -1219,7 +1228,7 @@ def paytm_callback(request):
             return HttpResponseRedirect('/cart?status=fail')
 
 
-
+@log_urlhistory
 @csrf_exempt
 def razorpay_callback(request):
     txn_success = False
