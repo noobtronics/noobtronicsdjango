@@ -306,3 +306,9 @@ admin.site.register(RazopayIDMaps, RazopayIDMapsAdmin)
 class RazorpayHistoryAdmin(admin.ModelAdmin):
     list_display = ('user_id', 'order_id', 'txn_amount','status', 'txn_date','created')
 admin.site.register(RazorpayHistory, RazorpayHistoryAdmin)
+
+
+class MobileAdmin(admin.ModelAdmin):
+    list_display = ('mobile', 'mmid', 'city','state', 'country','location')
+
+admin.site.register(Mobile, MobileAdmin)
