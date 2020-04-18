@@ -185,6 +185,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 
+
+
 <div class="modal" v-bind:class="{'is-active': ModalLogin}">
     <div class="modal-card loginmodal bShadow-10">
         <section class="modal-card-body">
@@ -290,11 +292,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="modal" v-bind:class="{'is-active': ask_mobile}">
     <div class="modal-card askmobmodal bShadow-10">
         <section class="modal-card-body">
-            Contact Information
+            Whatsapp Info
             <div class="modalclose">
-                <!-- <span v-on:click="ModalLogin=false">
-                    <i class="fa fa-window-close" aria-hidden="true"></i>
-                </span> -->
+              <span v-on:click="ask_mobile=false">
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABmJLR0QA/wD/AP+gvaeTAAABiUlEQVRIie2VsU7CUBSG/1NqAyMy2sGhL0EUhYHobEJi4jvUOLkS44SDCbyDC7qTYAIGEl+iA0MTtzKCpfS4UNJbSwu3jPzbuff0/3rOPe0FDpIUhYNmA1rJ0R6Z6AxATtJzCfDYKbqtZhdusKiGM1aQJ0lASHR1PNUAuM/BihLeZqKL7JA17DIcKZFdFfuT4BUFReUx6A0Ee2MGwQbhHYCXZJQCou795/wOC6UMwIpJsLBQymb/twHQhzyIuNKuFnRzOLPhKbUIzIKn1MzhzG5XCzqBz+VBDB05f/R6nT8VYIzJUqV6AIHqDxg4kQcBAOE053FfqGypVB5680kAAWCk2Ww7ZcaqsprZm00AYBcIsE1Fe9K2ICvcroQByQCKOfjYAckEItixBx83IMCPPIhpJFQiHrwB1R+sYaBRklXK1HGjU88T2K9s+E4MHPnfnXp+zMw3GUBQmfk2+V2gM1Jy8L91iT/GHSV4RUD8tS8Kg4fhWGidU3RbJUejfVzl06L7Ivn8QaL+AFUbvNW3GeX0AAAAAElFTkSuQmCC">
+              </span>
             </div>
 
             <div class="" style="margin-top: 20px;" id="askmobdiv">
@@ -310,8 +312,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                               <p class="control is-expanded">
                                   <input class="input" name="mobile" type="tel" placeholder="Your mobile number" v-model="mobileinput" maxlength="10">
                               </p>
+
                           </div>
-                          <p class="help"></p>
+                          <p class="help">Stay connected for everything <i>noob</i> electronics</p>
                       </div>
                   </div>
               </div>
@@ -444,7 +447,8 @@ var process_forgot_pwd = function(){
             show_mob_nav: false,
             show_mob_acct: false,
             show_mob_shop: false,
-            ask_mobile: ask_mobile,
+            ask_mobile: false,
+            location: {},
             mobileinput : '',
             login_email: '',
             login_pwd: '',
@@ -592,6 +596,34 @@ var process_forgot_pwd = function(){
     };
 </script>
 
+<script>
+    var execute_ask_mobile = function(){
+      var mmid = getCookie('mmid');
+      if(!mmid){
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if(head_app.location.country_code == 'IN' && isMobile){
+          head_app.ask_mobile=true;
+        }
+      }
+    };
+
+    var get_location = function(){
+      axios({
+          method: 'get',
+          url: 'https://api.ipdata.co/es?api-key=71e891c9f19fee05f8d78a50aed3ff0a03e23f1942ac12118296df8f'
+      }).then(function(response) {
+          head_app.location = response.data;
+      });
+    };
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function(){ execute_ask_mobile(); }, 10000);
+      setTimeout(function(){ get_location(); }, 3000);
+  }, false);
+</script>
 
 <script>
     var get_cart_nav_menu = function(){
