@@ -33,7 +33,7 @@ def send_confirm_mail(ordr_id):
     rendered_data, images_data = get_order_confirm_data(ordr)
 
     message = EmailMultiAlternatives(
-        subject='Your noobtronics.ltd order - #{0} has been received'.format(ordr.order_id),
+        subject='Your noobtronics.in order - #{0} has been received'.format(ordr.order_id),
         body='',
         from_email='Noobtronics Shop <no-reply@noobtronics.ltd>',
         to=[ordr.email_id],
@@ -71,11 +71,11 @@ def send_pwdreset_mail(user_id):
 
 
     data = {
-        'link': 'https://noobtronics.ltd/forgot-password/'+code
+        'link': 'https://noobtronics.in/forgot-password/'+code
     }
 
     message = EmailMultiAlternatives(
-        subject='noobtronics.ltd Password Reset Link',
+        subject='noobtronics.in Password Reset Link',
         body='',
         from_email='Noobtronics Shop <no-reply@noobtronics.ltd>',
         to=[user.email],
@@ -117,7 +117,7 @@ def get_order_confirm_data(ordr):
 
     for op in order_prods:
         temp = ['cid:{0}'.format(op.prod_id.id),
-                op.prod_id.name, op.prod_id.pagetitle,op.quantity,op.subtotal, 'https://noobtronics.ltd/product/'+op.prod_id.slug]
+                op.prod_id.name, op.prod_id.pagetitle,op.quantity,op.subtotal, 'https://noobtronics.in/product/'+op.prod_id.slug]
         products.append(temp)
 
         temp_i = {
