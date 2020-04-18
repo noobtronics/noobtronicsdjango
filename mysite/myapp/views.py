@@ -1296,9 +1296,9 @@ def generate_merchant_data(request):
              modified_description,
              str(p.price),
              'new',
-             'https://noobtronics.ltd/product/'+p.slug,
+             'https://noobtronics.in/product/'+p.slug,
              available,
-             'https://noobtronics.ltd'+p.mainimage.img_data.th_home.image.url,
+             'https://noobtronics.in'+p.mainimage.img_data.th_home.image.url,
              google_product_type,
              custom_product_type
              ]
