@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'myapp',
     'products',
     'orders',
+    'django_q',
 ]
 
 MIDDLEWARE = [
@@ -207,4 +208,22 @@ RAZORPAY = {
     'key_secret': 'AtXZQM8OOjOzjpHcmZZ1VEZk',
     'callback_url':'http://localhost:8000/cart/razorpay/callback',
     'cancel_url':'http://localhost:8000/cart?status=fail',
+}
+
+
+
+Q_CLUSTER = {
+    'name': 'noobtronics',
+    'workers': 1,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'redis': {
+        'host': '127.0.0.1',
+        'port': 6379,
+        'db': 0, }
 }
