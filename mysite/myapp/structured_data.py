@@ -57,8 +57,8 @@ def get_product_structured_data(prod_id):
         'name': prod.product_head,
         'alternateName': prod.name,
         'description': prod.description,
-        'image': 'https://noobtronics.ltd'+prod.mainimage.img_data.th_home.image.url,
-        'url': 'https://noobtronics.ltd/product/'+prod.slug,
+        'image': 'https://noobtronics.in'+prod.mainimage.img_data.th_home.image.url,
+        'url': 'https://noobtronics.in/product/'+prod.slug,
         'sku': prod.sku,
         'mpn': prod.sku,
 
@@ -76,7 +76,7 @@ def get_product_structured_data(prod_id):
             "priceCurrency": "INR",
             "itemCondition": "http://schema.org/NewCondition",
             "priceValidUntil": (timezone.now() + timedelta(days=2)).strftime('%Y-%m-%d'),
-            'url': 'https://noobtronics.ltd/product/' + prod.slug,
+            'url': 'https://noobtronics.in/product/' + prod.slug,
         },
     }
 
@@ -96,14 +96,14 @@ def get_blog_structured_data(blog_id):
 
     images = blog.blogphotos.filter(main_image=True)
     for img in images:
-        image_list.append('https://noobtronics.ltd/media'.format(img.image))
+        image_list.append('https://noobtronics.in/media'.format(img.image))
 
 
     data_fields = {
         "@type": "BlogPosting",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://noobtronics.ltd/blog"
+            "@id": "https://noobtronics.in/blog"
           },
          "headline": blog.name,
          "description": blog.description,
@@ -120,7 +120,7 @@ def get_blog_structured_data(blog_id):
             "name": "noobtronics",
             "logo": {
             "@type": "ImageObject",
-            "url": "https://noobtronics.ltd/static/images/Logo.png"
+            "url": "https://noobtronics.in/static/images/Logo.png"
             }
         },
     }
