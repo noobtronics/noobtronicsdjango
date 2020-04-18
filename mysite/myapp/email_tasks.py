@@ -22,8 +22,7 @@ IST_TZ = pytz.timezone('Asia/Kolkata')
 
 EMAIL_QUEUE = queue.Queue()
 
-
-@background(schedule=10)
+@background(schedule=2)
 def send_confirm_mail(ordr_id):
     ordr = Orders.objects.get(id=ordr_id)
 
@@ -53,7 +52,7 @@ def send_confirm_mail(ordr_id):
 
 
 
-@background(schedule=10)
+@background(schedule=2)
 def send_pwdreset_mail(user_id):
 
     user = User.objects.get(id=user_id)
