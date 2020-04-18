@@ -1,5 +1,0 @@
-#!/bin/sh
-cd /root/noobtronicsdjango/mysite
-kill -9 `cat gunicorn_pid.txt`
-rm gunicorn_pid.txt
-

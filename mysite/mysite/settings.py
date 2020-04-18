@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'captcha_admin',
     'captcha',
     'background_task',
     'lazysignup',
@@ -95,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'noobdb',
         'USER': 'noobuser',
-        'PASSWORD': '123123',
+        'PASSWORD': 'noob123',
         'HOST': 'localhost'
     }
 }

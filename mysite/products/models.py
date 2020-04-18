@@ -476,3 +476,14 @@ def delete_blog_image(sender, instance, using, **kwargs):
     p = './media/' + instance.image.url
     if os.path.isfile(p):
         os.remove(p)
+
+
+
+class Mobile(models.Model):
+    mobile = models.CharField(max_length=15, unique=True)
+    mmid = models.CharField(max_length=80, default='', blank=True)
+    location = models.TextField(default='', blank=True)
+    country = models.CharField(max_length=20, default='', blank=True)
+    state = models.CharField(max_length=20, default='', blank=True)
+    city = models.CharField(max_length=20, default='', blank=True)
+    created = models.DateTimeField(auto_now_add=True)

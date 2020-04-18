@@ -26,14 +26,14 @@ from paytm import Checksum as PaytmChecksum
 from django.utils.timezone import make_aware
 from datetime import datetime
 from django.utils import timezone
-from .email_tasks import send_confirm_mail, send_pwdreset_mail
+from .email_tasks import send_confirm_mail, send_pwdreset_mail, whatsapp_onboard
 from .models import *
 import requests
 import facebook
 from htmlmin.decorators import minified_response
 import razorpay
 from lazysignup.decorators import allow_lazy_user
-
+import uuid
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
@@ -1296,9 +1296,9 @@ def generate_merchant_data(request):
              modified_description,
              str(p.price),
              'new',
-             'https://noobtronics.ltd/product/'+p.slug,
+             'https://noobtronics.in/product/'+p.slug,
              available,
-             'https://noobtronics.ltd'+p.mainimage.img_data.th_home.image.url,
+             'https://noobtronics.in'+p.mainimage.img_data.th_home.image.url,
              google_product_type,
              custom_product_type
              ]
@@ -1345,19 +1345,31 @@ def process_master(request, name):
     return Http404
 
 
-
-@login_required
+@allow_lazy_user
 def savemobile(request):
     resp = {'success': False}
     try:
         data = json.loads(request.body.decode('utf-8'))
-        if len(data['mobile']) == 10 and data['mobile'].isdigit():
-            usrcode = request.user.usercode
-            usrcode.mobile = data['mobile']
-            usrcode.ip_data = json.dumps(data['ip_data'],  indent=4)
-            usrcode.save()
+        if len(data['mobile']) == 10:
+            mob, created = Mobile.objects.get_or_create(mobile = data['mobile'])
+            print(mob, created)
+            print(len(mob.mmid))
+            if len(mob.mmid) < 5:
+                print('hello')
+                mob.mmid = uuid.uuid4()
+                mob.location = json.dumps(data['location'])
+                mob.country = data['location']['country_name']
+                mob.state = data['location']['region']
+                mob.city = data['location']['city']
+                mob.save()
+                whatsapp_onboard(mob.mobile)
+
+
+
+            resp['mmid'] = mob.mmid
             resp['success'] = True
     except:
+        traceback.print_exc()
         pass
     return JsonResponse(resp)
 
