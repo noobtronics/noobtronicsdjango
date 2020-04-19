@@ -10,7 +10,7 @@
 
 
 {% block section %}
-<section class="section fullwidthmobilesection">
+<section class="section fullwidthmobilesection" style="padding-bottom: 1rem;">
   <div class="container fullwdithcontainer">
     <br>
 
@@ -44,7 +44,55 @@
     {% endfor %}
 
 
-  </div>
+
+    <div class="tile is-parent">
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-warning">
+          <p class="title is-4">> 1000 Orders</p>
+          <p class="subtitle is-6">noobtronics has now shipped more than 1000 orders</p>
+          <div class="content">
+            <!-- Content -->
+          </div>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-danger">
+          <p class="title is-4">> 10,000 Pincodes</p>
+          <p class="subtitle is-6">All India Delivery via Fedex, Delhivery or SpeedPost</p>
+          <div class="content">
+            <!-- Content -->
+          </div>
+        </article>
+      </div>
+
+      <div class="tile is-parent ">
+        <article class="tile is-child notification is-info ">
+          <p class="title is-4">COD Available</p>
+          <p class="subtitle is-6">Pay via cash on delivery or online using BHIM / UPI / PayTM / RazorPay</p>
+          <div class="content">
+            <!-- Content -->
+          </div>
+        </article>
+      </div>
+    </div>
+    <hr>
+    <div class="columns is-vcentered">
+      <div class="column is-7 has-text-centered">
+        <h3 class="title is-4">Join our newsletter!</h3>
+        <p class="subtitle is-6">We'll never share your email address.</p>
+      </div>
+      <div class="column is-5">
+        <div class="field has-addons" style="padding-bottom:10px;padding-left:10px;padding-right:10px;">
+          <div class="control is-expanded">
+            <input class="input" type="email" placeholder="Email" aria-label="email" aria-describedby="call-to-action-button-04">
+          </div>
+          <div class="control">
+            <button class="button is-danger" id="call-to-action-button-04">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </section>
 
 {% endblock %}
