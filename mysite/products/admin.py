@@ -93,7 +93,7 @@ admin.site.register(User, UserAdmin)
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'pagetitle', 'price', 'mrp_price', 'quantity_available', 'in_stock', 'is_published')
+    list_display = ('sku','name', 'pagetitle', 'price', 'mrp_price', 'quantity_available', 'in_stock', 'is_published')
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size': '100'})}
     }

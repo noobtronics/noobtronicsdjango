@@ -3,9 +3,8 @@
 {% block head %}
     <title>{{title}}</title>
     <meta name="description" content="{{description}}">
-    <meta name="author" content="{{author}}">
     <meta name="keywords" content="{{keywords}}">
-    <link rel="canonical" href="https://noobtronics.ltd{{slug}}">
+    <link rel="canonical" href="https://noobtronics.in">
     <meta name="robots" content="all">
 {% endblock %}
 
@@ -15,30 +14,34 @@
   <div class="container fullwdithcontainer">
     <br>
 
-    <h2 class="title has-text-centered is-5">Microcontrollers</h2>
+    {% for c in catalog %}
+
+    <h2 class="title has-text-centered is-5">{{c.name}}</h2>
     <div class="columns is-mobile horizontalprodcards">
-      {% for i in "x"|rjust:"5" %}
+      {% for prod in c.products %}
       <div class="column is-narrow horizontalprodcolumn">
         <div class="card" style="height: 100%">
           <div class="card-image">
             <figure class="image" style="object-fit: cover;">
-              <a href="" target="_blank">
-                <img src="/media/arduino-uno/018042ff-75a2-4921-a151-9b6113e73462_300.png" alt="">
+              <a href="/product/{{prod.slug}}" target="_blank">
+                <img src="{{prod.thumb}}" alt="{{prod.name}}">
               </a>
             </figure>
           </div>
           <div class="footerblock">
               <footer class="card-footer">
-                  <p class="cardhead">Arduino Iot Starter Kit</p>
+                  <p class="cardhead">{{prod.name}}</p>
               </footer>
               <footer class="card-footer">
-                  <p class="cardsubtitle">ATmega328P µCon</p>
+                  <p class="cardsubtitle">{{prod.cardtitle}}</p>
               </footer>
           </div>
         </div>
       </div>
       {% endfor %}
+
     </div>
+    {% endfor %}
 
 
   </div>

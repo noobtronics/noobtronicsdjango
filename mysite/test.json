@@ -1,0 +1,27 @@
+{
+  "catalog":[
+    {
+      "name": "Microcontrollers",
+      "products": [	1167, 1165, 1208, 1209]
+    },
+    {
+      "name": "Arduino Kits",
+      "products": [	1122, 1124, 1201]
+    },
+
+    {
+      "name": "Wireless Modules",
+      "products": [	1207, 1210, 1203]
+    },
+
+    {
+      "name": "LCD Display",
+      "products": [	1202, 802, 803]
+    },
+
+    {
+      "name": "Tinkering Supply",
+      "products": [	901, 902, 903, 904]
+    }
+  ]
+}

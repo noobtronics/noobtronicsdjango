@@ -40,43 +40,6 @@ from django_q.tasks import async_task
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
 
-@log_urlhistory
-@ensure_csrf_cookie
-def home_page(request):
-    ps = HomePage.objects.all().order_by('rank')
-
-    require_mobile = 0
-
-
-    browse_links = []
-    browse_data = ShopLinks.objects.all().order_by('rank')
-    for b in browse_data:
-        browse_links.append({
-            'url': b.url,
-            'name': b.tag_id.name,
-        })
-
-    data = []
-    for p in ps:
-        t = {
-            'id': p.prod_id.id,
-            'name': p.prod_id.name,
-            'pagetitle': p.prod_id.pagetitle,
-            'price': p.prod_id.price,
-            'mrp': p.prod_id.mrp_price,
-            'image': p.prod_id.mainimage.img_data.th_home.image.url,
-            'slug': p.prod_id.slug
-        }
-        data.append(t)
-    context = {
-        'loggedin': request.user.is_authenticated,
-        'data': data,
-        'cartqty': get_cart_qty(request),
-        'whatsapp_on_mobile': True,
-        'require_mobile': require_mobile,
-        'browse_links': browse_links
-    }
-    return render(request, 'home-page.html', context)
 
 @log_urlhistory
 @ensure_csrf_cookie

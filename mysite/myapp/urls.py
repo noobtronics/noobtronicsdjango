@@ -1,9 +1,16 @@
 from django.urls import path, re_path
 from .views import *
-
+from .new_views import *
 
 urlpatterns = [
     path('', home_page, name='home'),
+]
+
+
+
+
+urlpatterns += [
+
     path('product/<slug:prod_slug>', product_page),
     path('productprint/<slug:prod_slug>', print_product_page),
 
