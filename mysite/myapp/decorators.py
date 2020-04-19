@@ -37,17 +37,17 @@ def log_urlhistory(view_func):
     member, raising a 404 if necessary.
     """
     def _log(request, *args, **kwargs):
-        try:
-            url = request.META.get('PATH_INFO')
-            csrf_token = request.META.get('CSRF_COOKIE')
-            referer = request.META.get('HTTP_REFERER')
-            mmid = request.COOKIES.get('mmid')
-            remote_addr = request.META.get('HTTP_X_REAL_IP')
-            visited = timezone.now()
-            async_task('myapp.decorators.url_history_logger', url, csrf_token, referer, remote_addr, mmid, visited)
-
-        except:
-            traceback.print_exc()
+        # try:
+        #     url = request.META.get('PATH_INFO')
+        #     csrf_token = request.META.get('CSRF_COOKIE')
+        #     referer = request.META.get('HTTP_REFERER')
+        #     mmid = request.COOKIES.get('mmid')
+        #     remote_addr = request.META.get('HTTP_X_REAL_IP')
+        #     visited = timezone.now()
+        #     async_task('myapp.decorators.url_history_logger', url, csrf_token, referer, remote_addr, mmid, visited)
+        #
+        # except:
+        #     traceback.print_exc()
         return view_func(request, *args, **kwargs)
 
     return wraps(view_func)(_log)
