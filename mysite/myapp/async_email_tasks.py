@@ -8,7 +8,6 @@ from email.mime.image import MIMEImage
 import queue
 import time
 from datetime import datetime
-from background_task import background
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
@@ -22,7 +21,7 @@ IST_TZ = pytz.timezone('Asia/Kolkata')
 
 EMAIL_QUEUE = queue.Queue()
 
-@background(schedule=2)
+
 def send_confirm_mail(ordr_id):
     ordr = Orders.objects.get(id=ordr_id)
 
@@ -52,7 +51,7 @@ def send_confirm_mail(ordr_id):
 
 
 
-@background(schedule=2)
+
 def send_pwdreset_mail(user_id):
 
     user = User.objects.get(id=user_id)
@@ -149,7 +148,5 @@ def test_mail_web(request):
 
 
 
-@background(schedule=2)
 def whatsapp_onboard(mobile):
     print('Onboarding {0} on whatsapp ..'.format(mobile))
-    

@@ -7,6 +7,16 @@ import os
 from django.conf import settings
 
 
+class UrlHistory(models.Model):
+    url = models.CharField(max_length=3000)
+    mmid = models.CharField(max_length=80, default='', null=True)
+    csrf_token = models.CharField(max_length=250, default='', null=True)
+    referer = models.CharField(max_length=3000, default='', null=True)
+    remote_addr = models.CharField(max_length=250, default='', null=True)
+    visited = models.DateTimeField(auto_now_add=True)
+
+
+
 class BreadCrumbs(models.Model):
     name = models.CharField(max_length=200)
     google_product_taxonomy = models.CharField(max_length=400, default='')

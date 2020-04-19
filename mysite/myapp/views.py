@@ -26,7 +26,6 @@ from paytm import Checksum as PaytmChecksum
 from django.utils.timezone import make_aware
 from datetime import datetime
 from django.utils import timezone
-from .email_tasks import send_confirm_mail, send_pwdreset_mail, whatsapp_onboard
 from .models import *
 import requests
 import facebook
@@ -34,10 +33,14 @@ from htmlmin.decorators import minified_response
 import razorpay
 from lazysignup.decorators import allow_lazy_user
 import uuid
+from .decorators import log_urlhistory
+from django_q.tasks import async_task
+
 
 IST_TZ = pytz.timezone('Asia/Kolkata')
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 def home_page(request):
     ps = HomePage.objects.all().order_by('rank')
@@ -75,6 +78,7 @@ def home_page(request):
     }
     return render(request, 'home-page.html', context)
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def product_page(request, prod_slug):
@@ -85,6 +89,7 @@ def product_page(request, prod_slug):
         raise Http404
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 def print_product_page(request, prod_slug):
     prod = get_object_or_404(Product, slug=prod_slug)
@@ -144,6 +149,7 @@ def get_prod_data(menu_data, tag_query, page_number):
     return data, page_number, total_pages
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def shop_page(request):
@@ -191,6 +197,7 @@ def get_parent_taglist(tag):
     return output[:5]
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def shop_slug_page(request, shop_slug):
@@ -239,6 +246,7 @@ def shop_slug_page(request, shop_slug):
     return render(request, 'shop-page.html', context)
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def tags_page(request):
@@ -262,6 +270,7 @@ def tags_page(request):
     return render(request, 'all-tags-page.html', context)
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @minified_response
 def tags_slug_page(request, tag_slug):
@@ -389,6 +398,7 @@ def process_cart_json(usr):
     return data
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 @login_required
 def cart_page(request):
@@ -823,7 +833,7 @@ def add_cart_to_order(usr):
             ordr_prd.save()
         cart.delete()
 
-        send_confirm_mail(ordr.id)
+        async_task('myapp.async_email_tasks.send_confirm_mail', ordr.id)
         success = True
     except Exception as e:
         print(traceback.format_exc())
@@ -898,7 +908,7 @@ def process_referral_code(request):
     return JsonResponse(resp)
 
 
-
+@log_urlhistory
 @login_required
 def new_orders_page(request):
     order_data = []
@@ -922,7 +932,7 @@ def handle_qr_code(request, qrcode):
     return HttpResponseRedirect('/')
 
 
-
+@log_urlhistory
 @login_required
 def orders_page(request):
     order_data = []
@@ -999,6 +1009,8 @@ def get_order_state_num(order_state):
         return 3
     return -1
 
+
+@log_urlhistory
 @login_required
 def order_details_page(request, order_id):
     ordr = get_object_or_404(Orders, user_id=request.user, order_id=order_id)
@@ -1168,7 +1180,7 @@ def get_razorpay_details(request):
     return JsonResponse(resp)
 
 
-
+@log_urlhistory
 @csrf_exempt
 def paytm_callback(request):
     success = True
@@ -1216,7 +1228,7 @@ def paytm_callback(request):
             return HttpResponseRedirect('/cart?status=fail')
 
 
-
+@log_urlhistory
 @csrf_exempt
 def razorpay_callback(request):
     txn_success = False
@@ -1362,7 +1374,7 @@ def savemobile(request):
                 mob.state = data['location']['region']
                 mob.city = data['location']['city']
                 mob.save()
-                whatsapp_onboard(mob.mobile)
+                async_task('myapp.async_email_tasks.whatsapp_onboard', mob.mobile)
 
 
 
@@ -1511,7 +1523,7 @@ def handle_forgotpwd(request):
             resp['login_help'] = 'Account does not exist'
         else:
             user = user[0]
-        send_pwdreset_mail(user.id)
+        async_task('myapp.async_email_tasks.send_pwdreset_mail', user.id)
         resp['success'] = True
         resp['login_help'] = ''
     except:
@@ -1562,7 +1574,7 @@ def my_http500_view(request, exception=''):
     return render(request, 'http500_page.html',context,status=500)
 
 
-
+@log_urlhistory
 @ensure_csrf_cookie
 def blog_home(request):
     blogs = Blog.objects.filter(is_published=True).order_by('rank', '-created')[:20]
@@ -1590,6 +1602,7 @@ def blog_home(request):
     return render(request, 'blog-home.html',context)
 
 
+@log_urlhistory
 @ensure_csrf_cookie
 def blog_page(request, blog_slug):
     blog = get_object_or_404(Blog, slug=blog_slug)
