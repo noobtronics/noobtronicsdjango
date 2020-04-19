@@ -24,7 +24,52 @@ html
     overflow-wrap: break-word
 
 
+
+
+.fullwdithcontainer
+  padding: 0
+  max-width: 100%
+
+.horizontalprodcards
+  flex-wrap: nowrap
+  overflow-x: scroll
+  max-width: 100%
+  padding-left: 15px
+  padding-bottom: 10px
+
+
+  .horizontalprodcolumn
+    padding: 0
+
+
+
+  .card
+    height: 280px
+    width: 200px
+    margin-left: 15px
+
+    .card-footer
+      border-top: 0px solid black
+
+    .cardhead
+      font-size: 16px
+      font-weight: 600
+      color: black
+      padding-left: 10px
+      padding-right: 10px
+
+    .cardsubtitle
+      font-size: 14px
+      font-weight: 600
+      color: #808080
+      padding-left: 10px
+      padding-right: 10px
+
+
 +mobile
+
+  .fullwidthmobilesection
+    padding: 0
 
   .navbar-menu
 
@@ -35,3 +80,12 @@ html
     .is-active
       .navbar-dropdown
         display: block
+
+
+  .horizontalprodcards
+    .card
+      width: 150px
+      height: 220px
+      
+      .cardsubtitle
+        font-size: 12px
