@@ -13,15 +13,10 @@
 {% block section %}
 <section class="section fullwidthmobilesection">
   <div class="container fullwdithcontainer">
-    <h2 class="title has-text-centered">popular-ic</h2>
-    <div class="columns is-multiline">
+    <br>
 
-
-
-    </div>
-
+    <h2 class="title has-text-centered is-5">Microcontrollers</h2>
     <div class="columns is-mobile horizontalprodcards">
-
       {% for i in "x"|rjust:"5" %}
       <div class="column is-narrow horizontalprodcolumn">
         <div class="card" style="height: 100%">
@@ -30,8 +25,8 @@
               <a href="" target="_blank">
                 <img src="/media/arduino-uno/018042ff-75a2-4921-a151-9b6113e73462_300.png" alt="">
               </a>
-            <figure>
-        </div>
+            </figure>
+          </div>
           <div class="footerblock">
               <footer class="card-footer">
                   <p class="cardhead">Arduino Iot Starter Kit</p>
@@ -42,29 +37,10 @@
           </div>
         </div>
       </div>
-      <div class="column is-narrow horizontalprodcolumn">
-        <div class="card" style="height: 100%">
-          <div class="card-image">
-            <figure class="image" style="object-fit: cover;">
-              <a href="" target="_blank">
-                <img src="/media/arduino-uno/018042ff-75a2-4921-a151-9b6113e73462_300.png" alt="">
-              </a>
-            <figure>
-        </div>
-          <div class="footerblock">
-              <footer class="card-footer">
-                  <p class="cardhead">Arduino Kit</p>
-              </footer>
-              <footer class="card-footer">
-                  <p class="cardsubtitle">ATmega328P µConntroller</p>
-              </footer>
-          </div>
-        </div>
-      </div>
       {% endfor %}
-
     </div>
-    <div class="buttons is-centered"><a class="button is-primary" href="/ic">Read more</a></div>
+
+
   </div>
 </section>
 
