@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'background_task',
     'captcha',
     'lazysignup',
     'myapp',
@@ -92,7 +93,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'noobdb',
+        'NAME': 'beta_noobdb',
         'USER': 'noobuser',
         'PASSWORD': 'noob123',
         'HOST': 'localhost'
