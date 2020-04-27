@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}">
+    <meta name="keywords" content="{{keywords}}">
+    <link rel="canonical" href="https://noobtronics.in">
+    <meta name="robots" content="all">
+{% endblock %}
+
+
+{% block section %}
+
+<section class="hero"><div class="hero-body" style="padding: 0;">
+    <div class="container has-text-centered">
+      <div class="columns is-mobile  horizontalprodphotos">
+
+        <div class="column is-full has-text-centered photocolumn">
+          <figure class="image" style="object-fit: cover;">
+            <a href="/product/{{prod.slug}}" target="_blank">
+              <img src="/media/smartduino-uno-atmega328pb-smd/227feec4-cb67-4812-bbc9-ef5ac1dc9a18_300.png" alt="{{prod.name}}">
+            </a>
+          </figure>
+        </div>
+        <div class="column is-full has-text-centered photocolumn">
+          <figure class="image" style="object-fit: cover;">
+            <a href="/product/{{prod.slug}}" target="_blank">
+              <img src="/media/smartduino-uno-atmega328pb-smd/227feec4-cb67-4812-bbc9-ef5ac1dc9a18_300.png" alt="{{prod.name}}">
+            </a>
+          </figure>
+        </div>
+        <div class="column is-full has-text-centered photocolumn">
+          <figure class="image" style="object-fit: cover;">
+            <a href="/product/{{prod.slug}}" target="_blank">
+              <img src="/media/smartduino-uno-atmega328pb-smd/227feec4-cb67-4812-bbc9-ef5ac1dc9a18_300.png" alt="{{prod.name}}">
+            </a>
+          </figure>
+        </div>
+        <div class="column is-full has-text-centered photocolumn">
+          <figure class="image" style="object-fit: cover;">
+            <a href="/product/{{prod.slug}}" target="_blank">
+              <img src="/media/smartduino-uno-atmega328pb-smd/227feec4-cb67-4812-bbc9-ef5ac1dc9a18_300.png" alt="{{prod.name}}">
+            </a>
+          </figure>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

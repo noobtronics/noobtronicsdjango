@@ -19,7 +19,7 @@ def home_page(request):
         for sku in i['products']:
             prod_ids.append(str(sku))
 
-    pprint(prod_ids)
+
     prods = Product.objects.filter(sku__in = prod_ids)
     for prod in prods:
         temp = {
@@ -29,8 +29,6 @@ def home_page(request):
             'thumb': prod.mainimage.thumb_data.th_mini.image.url
         }
         prod_data[prod.sku] = temp
-
-    pprint(prod_data)
 
 
     catalog = []
@@ -58,3 +56,12 @@ def home_page(request):
         'catalog': catalog,
     }
     return render(request, 'home-page.html', context)
+
+
+@log_urlhistory
+@ensure_csrf_cookie
+def product_page(request):
+    context = {
+
+    }
+    return render(request, 'product-page.html', context)
