@@ -1,3 +1,4 @@
 User-agent: *
 Allow: *
-sitemap: https://noobtronics.ltd/sitemap.xml
+Disallow:
+sitemap: https://beta.noobtronics.ltd/sitemap.xml
