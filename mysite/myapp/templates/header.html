@@ -1,20 +1,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
-<link rel="stylesheet" href="/static/css/bulma/header2.min.css">
 <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
 
-<script src="/static/js/theme.js"></script>
+<link rel="preload" href="/static/css/bulma/header2.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<script async src="/static/js/theme.js"></script>
 
 {% if debug %}
-<script src="/static/js/vue/vue.js"></script>
+<script async src="/static/js/vue/vue.js"></script>
 {% else %}
-<script src="/static/js/vue/vue.min.js"></script>
+<script async src="/static/js/vue/vue.min.js"></script>
 {% endif %}
 
-<script src="/static/js/axios/axios.min.js"></script>
-<script>
-    axios.defaults.xsrfHeaderName = "X-CSRFToken";
-    axios.defaults.xsrfCookieName = 'csrftoken';
-</script>
+<script async src="/static/js/axios/axios.min.js"></script>
