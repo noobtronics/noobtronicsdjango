@@ -18,12 +18,10 @@ setTimeout(ldinsp, 0);
 <link rel='shortcut icon' type='image/x-icon' href='/static/images/favicon.png' />
 
 <link rel="alternate" hreflang="en-IN" href="https://noobtronics.in{{request.get_full_path}}" />
-<link rel="alternate" hreflang="x-default" href="https://noobtronics.ltd{{request.get_full_path}}" />
-{% if '.in' in request.META.HTTP_HOST %}
+<link rel="alternate" hreflang="x-default" href="https://noobtronics.in{{request.get_full_path}}" />
+
 <link rel="canonical" href="https://noobtronics.in{{request.get_full_path}}" />
-{% else %}
-<link rel="canonical" href="https://noobtronics.ltd{{request.get_full_path}}" />
-{% endif %}
+
 <meta name="robots" content="all" />
 
 <script>
@@ -65,20 +63,16 @@ window.onload = function(e){
 
 
 {% if debug %}
-<script src="/static/js/vue/vue.js"></script>
+<script async src="/static/js/vue/vue.js"></script>
 {% else %}
-<script src="/static/js/vue/vue.min.js"></script>
+<script async src="/static/js/vue/vue.min.js"></script>
 {% endif %}
 
 
-<script src="/static/js/axios/axios.min.js"></script>
-<script>
-    axios.defaults.xsrfHeaderName = "X-CSRFToken";
-    axios.defaults.xsrfCookieName = 'csrftoken';
-</script>
+<script async src="/static/js/axios/axios_mod.min.js"></script>
 
-<script src="/static/js/jquery/jquery.min.js" defer></script>
-<script src="/static/js/jquery-ui/jquery-ui.min.js" defer></script>
+<script async src="/static/js/jquery/jquery.min.js" defer></script>
+<script async src="/static/js/jquery-ui/jquery-ui.min.js" defer></script>
 
 
 <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
