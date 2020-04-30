@@ -1,4 +1,4 @@
 User-agent: *
-Allow: *
+Allow: /
 Disallow:
 sitemap: https://beta.noobtronics.ltd/sitemap.xml
