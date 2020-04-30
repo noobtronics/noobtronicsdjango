@@ -30,5 +30,16 @@
     {% block foorter_script %}
     {% endblock %}
 
+
+
+    
+    {% if debug %}
+    <script async src="/static/js/vue/vue.js"></script>
+    {% else %}
+    <script async src="/static/js/vue/vue.min.js"></script>
+    {% endif %}
+
+    <script async src="/static/js/axios/axios.min.js"></script>
+
   </body>
 </html>
