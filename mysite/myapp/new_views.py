@@ -62,6 +62,9 @@ def home_page(request):
 @ensure_csrf_cookie
 def product_page(request):
     context = {
-
+        'title': 'Arduino Uno',
+        'keywords': 'arduino, uno',
+        'description': 'Arduino Uno microcontroller board.',
+        'h1': '',
     }
     return render(request, 'product-page.html', context)
