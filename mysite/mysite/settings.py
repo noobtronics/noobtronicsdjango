@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'django_object_actions',
     'lazysignup',
     'django_q',
     'siteconfig',
@@ -221,3 +222,6 @@ Q_CLUSTER = {
         'port': 6379,
         'db': 0, }
 }
+
+
+GITHUB_KEY = "c046dfbdeeb4b80681b5e86f52b9997d7458fe07"
