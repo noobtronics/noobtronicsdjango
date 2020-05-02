@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'lazysignup',
     'django_q',
+    'siteconfig',
     'ecommerce',
 ]
 

@@ -4,6 +4,7 @@ from .decorators import log_urlhistory
 from .models import *
 import json
 from pprint import pprint
+from siteconfig.models import Page
 
 
 @log_urlhistory
