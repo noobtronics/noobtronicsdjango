@@ -20,32 +20,29 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import *
 
+
 admin.site.site_header = 'Noobtronics Administration'
 admin.site.site_title = 'Noobtronics Administration'
 
 
 
 sitemaps = {
-    'product': ProductSitemap,
-    'static': StaticViewSitemap,
-    'download': DownloadsSitemap,
-    'shoplink': ShopLinkSitemaps,
-    'bloglink': BlogLinkSitemaps
 }
 
 
 
 urlpatterns = [
     path('convert/', include('lazysignup.urls')),
-    path('', include('myapp.urls')),
-    path('', include('products.urls')),
+
     path('myadmin/', admin.site.urls),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap')
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap'),
+
+    path('', include('ecommerce.urls')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static('/media/', document_root=settings.MEDIA_ROOT)
 
 
-handler404 = 'myapp.views.my_http404_view'
-handler500 = 'myapp.views.my_http500_view'
+# handler404 = 'myapp.views.my_http404_view'
+# handler500 = 'myapp.views.my_http500_view'
