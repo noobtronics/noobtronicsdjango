@@ -35,7 +35,6 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'django_admin_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,13 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'background_task',
-    'captcha',
     'lazysignup',
-    'myapp',
-    'products',
-    'orders',
     'django_q',
+
 ]
 
 MIDDLEWARE = [
@@ -93,7 +88,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'beta_noobdb',
+        'NAME': 'noobdb_v2',
         'USER': 'noobuser',
         'PASSWORD': 'noob123',
         'HOST': 'localhost'
