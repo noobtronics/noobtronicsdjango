@@ -7,57 +7,61 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from siteconfig.models import Tag
 from ecommerce.models import Product, ProductTag, ProductVariant
+from pprint import pprint
+import yaml
 
 
-def update_prod_obj(blog_obj):
+def update_prod_obj(prod_obj):
     g = Github(settings.GITHUB_KEY)
-    repo  = g.get_repo("nikhilraut12/electronicspi_media")
-    text = repo.get_contents("src{0}.md".format(blog_obj.slug)).decoded_content.decode()
-    md = markdown.Markdown(extensions=['tables', 'meta'])
+    repo  = g.get_repo("nikhilraut12/noobtronics_media")
+    text = repo.get_contents("src/products/{0}.md".format(prod_obj.slug)).decoded_content.decode()
+    md = markdown.Markdown(extensions=['tables', 'fenced_code'])
     html = md.convert(text)
-    meta = md.Meta
-
-    if 'title' in meta:
-        blog_obj.title = meta['title'][0]
-    if 'description' in meta:
-        blog_obj.description = meta['description'][0]
-    if 'shortinfo' in meta:
-        blog_obj.shortinfo = meta['shortinfo'][0]
-    if 'keywords' in meta:
-        blog_obj.keywords = meta['keywords'][0]
-
-    if 'author' in meta:
-        blog_obj.author = meta['author'][0]
-    else:
-        blog_obj.author = 'Kunal Kashyap'
-
-    if 'created' in meta:
-        blog_obj.created_at = datetime.strptime(meta['created'][0],'%Y-%m-%dT%H:%M:%S.%fZ')
-
-
-    if 'tags' in meta:
-        tags = [x.strip().lower() for x in meta['tags'][0].split(',')]
-        BlogTags.objects.filter(blog=blog_obj).delete()
-        for t in tags:
-            tag, is_create = Tag.objects.get_or_create(tag=t)
-            blogtag, is_create = BlogTags.objects.get_or_create(tag=tag, blog=blog_obj)
-
 
 
     soup = BeautifulSoup(html, 'html.parser')
+
+    config = {}
+
+    yamls_html = soup.findAll('code', {'class': 'yaml'})
+    yamls = []
+    for t in yamls_html:
+        yamls.append(t.contents)
+        t.parent.decompose()
+    for y in yamls:
+        config.update(yaml.load(y[0], Loader=yaml.Loader))
+
+    default_value = ''
+
+    prod_obj.title = config.get('title', default_value)
+    prod_obj.meta_description = config.get('meta_description', default_value)
+    prod_obj.keywords = config.get('keywords', default_value)
+    prod_obj.sku = config.get('sku', default_value)
+    prod_obj.description = config.get('description', default_value)
+
+
+    if 'tags' in config:
+        tags = [x.strip().lower() for x in config['tags'].split(',')]
+        ProductTag.objects.filter(prod=prod_obj).delete()
+        for t in tags:
+            tag, is_create = Tag.objects.get_or_create(tag=t)
+            prodtag, is_create = ProductTag.objects.get_or_create(tag=tag, prod=prod_obj)
+
+
     h1 = soup.find('h1')
-    blog_obj.heading = h1.text
+    prod_obj.name = h1.text
     h1.decompose()
 
-    images =  soup.findAll("img")
-    if len(images) > 0:
-        blog_obj.image = images[0]['src']
+    #
+    # images =  soup.findAll("img")
+    # if len(images) > 0:
+    #     blog_obj.image = images[0]['src']
 
 
 
-    blog_obj.markdown=text
-    blog_obj.html=str(soup)
-    blog_obj.save()
+    # prod_obj.markdown=text
+    # prod_obj.html=str(soup)
+    prod_obj.save()
 
 
 class ProductAdmin(DjangoObjectActions, admin.ModelAdmin):
@@ -70,3 +74,9 @@ class ProductAdmin(DjangoObjectActions, admin.ModelAdmin):
     list_display = ['slug', 'created_at', 'updated_at']
 
 admin.site.register(Product, ProductAdmin)
+
+
+class ProductTagAdmin(admin.ModelAdmin):
+    list_display = ['tag', 'prod']
+
+admin.site.register(ProductTag, ProductTagAdmin)

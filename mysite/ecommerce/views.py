@@ -5,6 +5,7 @@ from .models import *
 import json
 from pprint import pprint
 from siteconfig.models import Page
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 
 @log_urlhistory
@@ -60,11 +61,13 @@ def home_page(request):
 
 @log_urlhistory
 @ensure_csrf_cookie
-def product_page(request):
+def product_page(request, category_slug, prod_slug):
+    prod = get_object_or_404(Product, slug='{0}/{1}'.format(category_slug, prod_slug))
+
     context = {
-        'title': 'Arduino Uno',
-        'keywords': 'arduino, uno',
-        'description': 'Arduino Uno microcontroller board.',
+        'title': prod.title,
+        'keywords': prod.keywords,
+        'description': prod.description,
         'h1': '',
     }
     return render(request, 'product-page.html', context)

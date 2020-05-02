@@ -8,6 +8,7 @@ class Product(models.Model):
     name = models.CharField(max_length=300, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     title = models.TextField(default='', null=True, blank=True)
+    meta_description = models.TextField(default='', null=True, blank=True)
     keywords = models.TextField(default='', null=True, blank=True)
     images = models.TextField(default='', null=True, blank=True)
 
