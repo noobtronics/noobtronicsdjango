@@ -82,6 +82,7 @@ def product_page(request, category_slug, prod_slug):
         'description': prod.description,
         'h1': '',
         'images': json.loads(prod.images),
-        'variants': variants
+        'variants': variants,
+        'pricerange': '{0} - {1}'.format(min(prices), max(prices))
     }
     return render(request, 'product-page.html', context)
