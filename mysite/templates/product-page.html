@@ -32,12 +32,12 @@
       }
       if(!is_blur){
         price_el.innerText = el.getAttribute('price');
+        document.querySelector('.horizontalprodphotos').scrollLeft = document.getElementById(el.getAttribute('imglink')).offsetLeft;
       }
       else{
         price_el.innerText = price_el.getAttribute('default');
       }
-      last_btn_change_time= currtime;
-
+      last_btn_change_time = currtime;
     };
     buttons.forEach(function(currentBtn){
       currentBtn.addEventListener('blur', ()=>{
@@ -47,9 +47,6 @@
         button_event(currentBtn, false);
       });
     });
-
-
-
   });
 </script>
 
@@ -67,10 +64,10 @@
 
 
             {% for img in images %}
-            <div class="column is-full has-text-centered photocolumn">
+            <div class="column is-full has-text-centered photocolumn" id="prodimage{{forloop.counter}}">
               <figure class="image">
                 <a>
-                  <img class="lozad" data-src="{{img.src}}" alt="{{img.alt}}" id="prodimage{{forloop.counter}}">
+                  <img class="lozad" data-src="{{img.src}}" alt="{{img.alt}}" >
                 </a>
               </figure>
             </div>
@@ -98,7 +95,7 @@
             <p class="subtitle is-6">Variants</p>
             <div class="buttons are-small is-centered">
               {% for v in variants %}
-              <button class="button is-link is-inverted is-outlined" {{v.is_disabled}} price="₹{{v.price}}">{{v.name}}</button>
+              <button class="button is-link is-inverted is-outlined" {{v.is_disabled}} price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</button>
               {% endfor %}
             </div>
           </div>

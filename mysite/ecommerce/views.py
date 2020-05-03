@@ -67,9 +67,10 @@ def product_page(request, category_slug, prod_slug):
     variants = []
     prices = []
     for v in prod.variants.all().order_by('rank'):
+
         temp = {
             'name': v.name,
-            'count': '',
+            'count': json.loads(v.image)['count'],
             'is_disabled': 'disabled' if not v.in_stock else '',
             'price': v.price,
         }
