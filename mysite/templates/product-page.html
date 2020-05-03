@@ -27,29 +27,16 @@
         <div class="container has-text-centered">
           <div class="columns is-mobile  horizontalprodphotos">
 
-            <div class="column is-full has-text-centered photocolumn">
-              <figure class="image">
-                <a href="/product/{{prod.slug}}" target="_blank">
-                  <img class="lozad" data-src="/media/smartduino_uno.png" alt="{{prod.name}}">
-                </a>
-              </figure>
-            </div>
 
+            {% for img in images %}
             <div class="column is-full has-text-centered photocolumn">
               <figure class="image">
-                <a href="/product/{{prod.slug}}" target="_blank">
-                  <img class="lozad" data-src="/media/smartduino_uno.png" alt="{{prod.name}}">
+                <a>
+                  <img class="lozad" data-src="{{img.src}}" alt="{{img.alt}}">
                 </a>
               </figure>
             </div>
-
-            <div class="column is-full has-text-centered photocolumn">
-              <figure class="image">
-                <a href="/product/{{prod.slug}}" target="_blank">
-                  <img class="lozad" data-src="/media/smartduino_uno.png" alt="{{prod.name}}">
-                </a>
-              </figure>
-            </div>
+            {% endfor %}
 
 
           </div>
@@ -72,9 +59,9 @@
           <div class="variants">
             <p class="subtitle is-6">Variants</p>
             <div class="buttons are-small is-centered">
-              <button class="button is-link is-inverted is-outlined">SMD Version (China)</button>
-              <button class="button is-link is-inverted is-outlined">DIP Version (Made in India)</button>
-              <button class="button is-link is-inverted is-outlined " disabled>SMD Version (Made in India)</button>
+              {% for v in variants %}
+              <button class="button is-link is-inverted is-outlined" {{v.is_disabled}}>{{v.name}}</button>
+              {% endfor %}
             </div>
           </div>
 

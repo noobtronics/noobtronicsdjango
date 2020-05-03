@@ -6,7 +6,7 @@ import json
 from pprint import pprint
 from siteconfig.models import Page
 from django.shortcuts import get_list_or_404, get_object_or_404
-
+import json
 
 @log_urlhistory
 @ensure_csrf_cookie
@@ -64,10 +64,24 @@ def home_page(request):
 def product_page(request, category_slug, prod_slug):
     prod = get_object_or_404(Product, slug='{0}/{1}'.format(category_slug, prod_slug))
 
+    variants = []
+    prices = []
+    for v in prod.variants.all().order_by('rank'):
+        temp = {
+            'name': v.name,
+            'count': '',
+            'is_disabled': 'disabled' if not v.in_stock else '',
+            'price': v.price,
+        }
+        prices.append(v.price)
+        variants.append(temp)
+
     context = {
         'title': prod.title,
         'keywords': prod.keywords,
         'description': prod.description,
         'h1': '',
+        'images': json.loads(prod.images),
+        'variants': variants
     }
     return render(request, 'product-page.html', context)

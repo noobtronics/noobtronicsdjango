@@ -32,13 +32,11 @@ class ProductTag(models.Model):
 
 
 class ProductVariant(models.Model):
-    prod = models.ForeignKey(Product, on_delete=models.CASCADE)
+    prod = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="variants")
     name = models.CharField(max_length=300)
     image = models.TextField(default='')
     cardtitle = models.CharField(max_length=200)
     is_main = models.BooleanField(default=False)
-
-    sku = models.CharField(max_length=30, unique=True)
 
     price = models.IntegerField()
     quantity_available = models.IntegerField(default=0)

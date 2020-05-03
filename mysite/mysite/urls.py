@@ -42,6 +42,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static('/media/', document_root=settings.MEDIA_ROOT)
+    urlpatterns += static('/storage/', document_root=settings.STORAGE_ROOT)
 
 
 # handler404 = 'myapp.views.my_http404_view'

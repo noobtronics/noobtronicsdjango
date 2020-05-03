@@ -9,6 +9,8 @@ from siteconfig.models import Tag
 from ecommerce.models import Product, ProductTag, ProductVariant
 from pprint import pprint
 import yaml
+import re
+import json
 
 
 def update_prod_obj(prod_obj):
@@ -52,6 +54,39 @@ def update_prod_obj(prod_obj):
     prod_obj.name = h1.text
     h1.decompose()
 
+    images_heading = soup.find('h2', text = re.compile('Images*'))
+    images_paragraph = images_heading.findNext('p')
+    images_tags = images_paragraph.findAll('img')
+    images = []
+    for img in images_tags:
+        temp = {
+            'src': img['src'],
+            'alt': img['alt']
+        }
+        images.append(temp)
+    prod_obj.images = json.dumps(images, indent=4)
+    images_heading.decompose()
+    images_paragraph.decompose()
+
+
+    if 'variants' in config:
+        variants = config['variants']
+        ProductVariant.objects.filter(prod=prod_obj).delete()
+        count = 0
+        for v in variants:
+            count += 1
+            variant_img = images[int(v['image'])-1]
+            variant_img['count'] = int(v['image'])
+            prodtag, is_create = ProductVariant.objects.get_or_create(
+                prod=prod_obj,
+                name=v['name'],
+                cardtitle=v['cardtitle'],
+                image=json.dumps(variant_img, indent=4),
+                price=int(v['price']),
+                in_stock= v['in_stock'],
+                rank=count,
+            )
+
     #
     # images =  soup.findAll("img")
     # if len(images) > 0:
@@ -80,3 +115,9 @@ class ProductTagAdmin(admin.ModelAdmin):
     list_display = ['tag', 'prod']
 
 admin.site.register(ProductTag, ProductTagAdmin)
+
+
+class ProductVariantAdmin(admin.ModelAdmin):
+    list_display = ['prod', 'name', 'price']
+
+admin.site.register(ProductVariant, ProductVariantAdmin)

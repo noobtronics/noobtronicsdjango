@@ -144,6 +144,7 @@ MEDIA_URL = '/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "collectstatic")
 MEDIA_ROOT = os.path.join(BASE_DIR, "../../noobtronics_media/media")
+STORAGE_ROOT = os.path.join(BASE_DIR, "../../noobtronics_media/storage")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
