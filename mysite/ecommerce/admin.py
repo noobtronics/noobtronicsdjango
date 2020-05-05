@@ -13,6 +13,22 @@ import re
 import json
 
 
+def wrap_soup(to_wrap, wrap_in):
+    contents = to_wrap.replace_with(wrap_in)
+    wrap_in.append(contents)
+
+
+def add_table_styles(soup):
+    tables = soup.findAll('table')
+
+    for table in tables:
+        table_cont_tag = soup.new_tag("div")
+        table_cont_tag['class'] = 'table-container'
+        table['class'] = 'table is-bordered is-narrow is-hoverable'
+        wrap_soup(table, table_cont_tag)
+    return soup
+
+
 def update_prod_obj(prod_obj):
     g = Github(settings.GITHUB_KEY)
     repo  = g.get_repo("nikhilraut12/noobtronics_media")
@@ -39,7 +55,8 @@ def update_prod_obj(prod_obj):
     prod_obj.meta_description = config.get('meta_description', default_value)
     prod_obj.keywords = config.get('keywords', default_value)
     prod_obj.sku = config.get('sku', default_value)
-    prod_obj.description = config.get('description', default_value)
+    if 'description' in config:
+        prod_obj.description = ' '.join(config['description'])
 
 
     if 'tags' in config:
@@ -87,16 +104,14 @@ def update_prod_obj(prod_obj):
                 rank=count,
             )
 
-    #
-    # images =  soup.findAll("img")
-    # if len(images) > 0:
-    #     blog_obj.image = images[0]['src']
 
+    soup = add_table_styles(soup)
 
+    prod_obj.markdown=text
+    prod_obj.html=str(soup)
 
-    # prod_obj.markdown=text
-    # prod_obj.html=str(soup)
     prod_obj.save()
+
 
 
 class ProductAdmin(DjangoObjectActions, admin.ModelAdmin):

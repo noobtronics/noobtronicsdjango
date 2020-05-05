@@ -12,6 +12,10 @@ class Product(models.Model):
     keywords = models.TextField(default='', null=True, blank=True)
     images = models.TextField(default='', null=True, blank=True)
 
+    markdown = models.TextField(default='', null=True, blank=True)
+    html = models.TextField(default='', null=True, blank=True)
+
+
     rank = models.IntegerField(default=0)
     hide_shop = models.BooleanField(default=False)
     hide_ads = models.BooleanField(default=False)
