@@ -21,30 +21,41 @@
 <script>
   /*! product buttons handler */
   document.addEventListener('DOMContentLoaded', () => {
-    var buttons = document.querySelectorAll(".button");
+    var buttons = document.querySelectorAll("#proddesccontainer");
     var last_btn_change_time;
 
-    var button_event = function(el, is_blur){
+    var button_event = function(el){
       var price_el = document.getElementById('productprice');
-      var currtime = Date.now();
-      if(currtime - last_btn_change_time < 100){
-        return;
-      }
-      if(!is_blur){
-        price_el.innerText = el.getAttribute('price');
-        document.querySelector('.horizontalprodphotos').scrollLeft = document.getElementById(el.getAttribute('imglink')).offsetLeft;
-      }
-      else{
-        price_el.innerText = price_el.getAttribute('default');
-      }
-      last_btn_change_time = currtime;
+      clear_variant_buttons();
+      price_el.innerText = el.getAttribute('price');
+      document.querySelector('.horizontalprodphotos').scrollLeft = document.getElementById(el.getAttribute('imglink')).offsetLeft;
+      console.log(el);
+      el.classList.add('is-focused');
+
     };
+
+    var clear_variant_buttons = function(el){
+        var price_el = document.getElementById('productprice');
+        price_el.innerText = price_el.getAttribute('default');
+        var buttons = document.querySelectorAll(".variantbutton.is-focused");
+        buttons.forEach(function(currentBtn){
+          currentBtn.classList.remove('is-focused');
+        });
+    };
+
     buttons.forEach(function(currentBtn){
-      currentBtn.addEventListener('blur', ()=>{
-        button_event(currentBtn, true);
-      });
-      currentBtn.addEventListener('mousedown', ()=>{
-        button_event(currentBtn, false);
+      currentBtn.addEventListener('mousedown', (e)=>{
+        if(e.target.classList.contains('variantbutton')){
+          button_event(e.target);
+        }
+        else if(e.target.id == 'add-to-cart'){
+          notifications_app.notifications.push('added to cart');
+          return;
+        }
+        else{
+          clear_variant_buttons();
+        }
+
       });
     });
   });
@@ -95,7 +106,7 @@
             <p class="subtitle is-6">Variants</p>
             <div class="buttons are-small is-centered">
               {% for v in variants %}
-              <button class="button is-link is-inverted is-outlined" {{v.is_disabled}} price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</button>
+              <a class="variantbutton button is-link is-inverted is-outlined" {{v.is_disabled}} price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</a>
               {% endfor %}
             </div>
           </div>
@@ -111,7 +122,7 @@
                 </div>
               </div>
               <div class="level-item">
-                <p class="level-item"><a class="button is-warning">Add to Cart</a></p>
+                <p class="level-item"><button id="add-to-cart"class="button is-warning">Add to Cart</a></button>
               </div>
             </nav>
           </div>
@@ -161,4 +172,9 @@
 </nav>
 
 
+{% endblock %}
+
+
+{% block vue %}
+  {% include 'vue/notifications.html' %}
 {% endblock %}

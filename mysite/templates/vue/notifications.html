@@ -1,0 +1,43 @@
+<div id="notifications-app">
+
+</div>
+
+
+<script>
+  var notifications_app;
+  window.addEventListener("load", function(event) {
+    notifications_app = new Vue({
+      el: '#notifications-app',
+      delimiters: ['[%', '%]'],
+      data: {
+        notifications:[]
+      },
+      methods:{
+        del(index) {
+          this.$delete(this.notifications, index)
+        }
+      },
+      computed:{
+        display_notifications: function (){
+          if(this.notifications.length > 0){
+            return null;
+          }
+          else{
+            return 'none';
+          }
+        }
+      },
+    template: `
+    <div class="notifications" v-bind:style="{display:display_notifications}">
+      <div class="notification is-danger is-light" v-for="(n, index) in notifications">
+        <button class="delete" v-on:click="del(index)"></button>
+          [% n %]
+      </div>
+    </div>
+        `,
+      mounted:function(){
+      },
+
+    });
+  });
+</script>
