@@ -49,7 +49,7 @@
           button_event(e.target);
         }
         else if(e.target.id == 'add-to-cart'){
-          notifications_app.notifications.push('added to cart');
+          notifications_app.create_alert('added to cart');
           return;
         }
         else{

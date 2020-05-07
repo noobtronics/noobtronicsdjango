@@ -10,12 +10,28 @@
       el: '#notifications-app',
       delimiters: ['[%', '%]'],
       data: {
-        notifications:[]
+        notifications:[],
+        id: 1,
       },
       methods:{
         del(index) {
           this.$delete(this.notifications, index)
-        }
+        },
+        create_alert(text){
+          this.id = this.id + 1;
+          var temp = {
+            'text': text,
+            'id': this.id,
+          };
+          this.notifications.push(temp);
+          setTimeout(function(id, app){
+            app.notifications.forEach(function(el, index){
+              if(el.id==id){
+                app.$delete(app.notifications, index);
+              }
+            });
+          }, 1000, this.id, this);
+        },
       },
       computed:{
         display_notifications: function (){
@@ -31,7 +47,7 @@
     <div class="notifications" v-bind:style="{display:display_notifications}">
       <div class="notification is-danger is-light" v-for="(n, index) in notifications">
         <button class="delete" v-on:click="del(index)"></button>
-          [% n %]
+          [% n.text %]
       </div>
     </div>
         `,
