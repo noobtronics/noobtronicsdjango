@@ -63,7 +63,7 @@ def update_prod_obj(prod_obj):
     prod_obj.title = config.get('title', default_value)
     prod_obj.meta_description = config.get('meta_description', default_value)
     prod_obj.keywords = config.get('keywords', default_value)
-    prod_obj.sku = config.get('sku', default_value)
+    prod_obj.sku = urls[-1]
     if 'description' in config:
         prod_obj.description = ' '.join(config['description'])
 
@@ -132,6 +132,21 @@ def update_prod_obj(prod_obj):
     prod_obj.save()
 
 
+def download_products():
+    g = Github(settings.GITHUB_KEY)
+    repo  = g.get_repo("nikhilraut12/noobtronics_media")
+    for category in repo.get_dir_contents("src/products"):
+        for sub_category in repo.get_dir_contents(category.path):
+            for product in repo.get_dir_contents(sub_category.path):
+                prod_url = product.path.replace('src/products/','').replace('.md','')
+                prod_obj, is_create = Product.objects.get_or_create(github=prod_url)
+
+
+def update_products():
+    prods = Product.objects.all()
+    for prod_obj in prods:
+        update_prod_obj(prod_obj)
+
 
 class ProductAdmin(DjangoObjectActions, admin.ModelAdmin):
     def update_this(self, request, obj):
@@ -139,6 +154,13 @@ class ProductAdmin(DjangoObjectActions, admin.ModelAdmin):
     update_this.label = "Update"  # optional
     update_this.short_description = "Update from Github"  # optional
     change_actions = ('update_this', )
+
+    def download_all(modeladmin, request, queryset):
+        download_products()
+    def update_all(modeladmin, request, queryset):
+        update_products()
+
+    changelist_actions = ('download_all', 'update_all')
 
     list_display = ['github', 'slug', 'created_at', 'updated_at']
 
