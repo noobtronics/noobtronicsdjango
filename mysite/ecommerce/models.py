@@ -3,9 +3,28 @@ from siteconfig.models import Tag
 import uuid
 
 
+class Category(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        return str(self.name)
+
+class SubCategory(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=200, unique=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.name)
+
+
 class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    slug = models.CharField(max_length=200, unique=True)
+    github = models.CharField(max_length=200, unique=True)
+    slug = models.CharField(max_length=200, unique=True, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='cat_products', null=True, blank=True)
+    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='subcat_products', null=True, blank=True)
     sku = models.CharField(max_length=30, unique=True, null=True, blank=True)
     name = models.CharField(max_length=300, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
@@ -26,7 +45,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.slug
+        return str(self.github)
 
 
 class ProductTag(models.Model):

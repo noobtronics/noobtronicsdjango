@@ -6,7 +6,7 @@ from github import Github
 from bs4 import BeautifulSoup
 from datetime import datetime
 from siteconfig.models import Tag
-from ecommerce.models import Product, ProductTag, ProductVariant
+from ecommerce.models import Category, SubCategory, Product, ProductTag, ProductVariant
 from pprint import pprint
 import yaml
 import re
@@ -32,7 +32,16 @@ def add_table_styles(soup):
 def update_prod_obj(prod_obj):
     g = Github(settings.GITHUB_KEY)
     repo  = g.get_repo("nikhilraut12/noobtronics_media")
-    text = repo.get_contents("src/products/{0}.md".format(prod_obj.slug)).decoded_content.decode()
+    text = repo.get_contents("src/products/{0}.md".format(prod_obj.github)).decoded_content.decode()
+    urls = prod_obj.github.split('/')
+
+    slug = '/'.join(urls[1:])
+    cat_name = urls[0]
+    sub_cat_name = urls[1]
+
+    cat, is_create = Category.objects.get_or_create(name=cat_name)
+    sub_cat, is_create = SubCategory.objects.get_or_create(name=sub_cat_name, category=cat)
+
     md = markdown.Markdown(extensions=['tables', 'fenced_code'])
     html = md.convert(text)
 
@@ -116,6 +125,9 @@ def update_prod_obj(prod_obj):
 
     prod_obj.markdown=text
     prod_obj.html=str(soup)
+    prod_obj.category = cat
+    prod_obj.sub_category = sub_cat
+    prod_obj.slug = slug
 
     prod_obj.save()
 
@@ -128,7 +140,7 @@ class ProductAdmin(DjangoObjectActions, admin.ModelAdmin):
     update_this.short_description = "Update from Github"  # optional
     change_actions = ('update_this', )
 
-    list_display = ['slug', 'created_at', 'updated_at']
+    list_display = ['github', 'slug', 'created_at', 'updated_at']
 
 admin.site.register(Product, ProductAdmin)
 
