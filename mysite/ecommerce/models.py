@@ -1,8 +1,10 @@
 from django.db import models
 from siteconfig.models import Tag
+import uuid
 
 
 class Product(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.CharField(max_length=200, unique=True)
     sku = models.CharField(max_length=30, unique=True, null=True, blank=True)
     name = models.CharField(max_length=300, null=True, blank=True)
@@ -28,6 +30,7 @@ class Product(models.Model):
 
 
 class ProductTag(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name="tagprods")
     prod = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="tags")
 
@@ -38,6 +41,7 @@ class ProductTag(models.Model):
 
 
 class ProductVariant(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     prod = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="variants")
     name = models.CharField(max_length=300)
     image = models.TextField(default='')
