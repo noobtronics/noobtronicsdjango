@@ -32,7 +32,9 @@ class ProductTag(models.Model):
     prod = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="tags")
 
     class Meta:
-        unique_together = ('prod', 'tag',)
+        constraints = [
+                models.UniqueConstraint(fields= ['tag','prod'], name='prod_tag'),
+            ]
 
 
 class ProductVariant(models.Model):
@@ -47,3 +49,8 @@ class ProductVariant(models.Model):
     in_stock = models.BooleanField(default=False)
 
     rank = models.IntegerField(default=0)
+
+    class Meta:
+        constraints = [
+                models.UniqueConstraint(fields= ['prod','name'], name='prod_variant'),
+            ]

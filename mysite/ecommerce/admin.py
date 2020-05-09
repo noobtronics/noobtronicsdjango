@@ -61,11 +61,14 @@ def update_prod_obj(prod_obj):
 
     if 'tags' in config:
         tags = [x.strip().lower() for x in config['tags'].split(',')]
-        ProductTag.objects.filter(prod=prod_obj).delete()
+        prodtag_ids = ProductTag.objects.filter(prod=prod_obj).all().values_list('id', flat=True)
+        prodtag_ids = list(prodtag_ids)
         for t in tags:
             tag, is_create = Tag.objects.get_or_create(tag=t)
             prodtag, is_create = ProductTag.objects.get_or_create(tag=tag, prod=prod_obj)
-
+            if prodtag.id in prodtag_ids:
+                prodtag_ids.remove(prodtag.id)
+        ProductTag.objects.filter(pk__in=prodtag_ids).delete()
 
     h1 = soup.find('h1')
     prod_obj.name = h1.text
@@ -88,13 +91,14 @@ def update_prod_obj(prod_obj):
 
     if 'variants' in config:
         variants = config['variants']
-        ProductVariant.objects.filter(prod=prod_obj).delete()
+        prodvar_ids = ProductVariant.objects.filter(prod=prod_obj).values_list('id', flat=True)
+        prodvar_ids = list(prodvar_ids)
         count = 0
         for v in variants:
             count += 1
             variant_img = images[int(v['image'])-1]
             variant_img['count'] = int(v['image'])
-            prodtag, is_create = ProductVariant.objects.get_or_create(
+            prodvar, is_create = ProductVariant.objects.get_or_create(
                 prod=prod_obj,
                 name=v['name'],
                 cardtitle=v['cardtitle'],
@@ -103,6 +107,9 @@ def update_prod_obj(prod_obj):
                 in_stock= v['in_stock'],
                 rank=count,
             )
+            if prodvar.id in prodvar_ids:
+                prodvar_ids.remove(prodvar.id)
+        ProductVariant.objects.filter(pk__in=prodvar_ids).delete()
 
 
     soup = add_table_styles(soup)

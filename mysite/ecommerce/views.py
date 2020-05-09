@@ -73,6 +73,7 @@ def product_page(request, category_slug, prod_slug):
             'count': json.loads(v.image)['count'],
             'is_disabled': 'disabled' if not v.in_stock else '',
             'price': v.price,
+            'stock': 'out of stock' if not v.in_stock else 'in stock',
         }
         prices.append(v.price)
         variants.append(temp)
@@ -88,6 +89,7 @@ def product_page(request, category_slug, prod_slug):
         'variants': variants,
         'pricerange': '{0} - {1}'.format(min(prices), max(prices)),
         'html': prod.html,
+
 
     }
     return render(request, 'product-page.html', context)

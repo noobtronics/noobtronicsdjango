@@ -26,8 +26,10 @@
 
     var button_event = function(el){
       var price_el = document.getElementById('productprice');
+      var stock_el = document.getElementById('stock_p');
       clear_variant_buttons();
       price_el.innerText = el.getAttribute('price');
+      stock_p.innerText = el.getAttribute('stock');
       document.querySelector('.horizontalprodphotos').scrollLeft = document.getElementById(el.getAttribute('imglink')).offsetLeft;
       console.log(el);
       el.classList.add('is-focused');
@@ -106,7 +108,7 @@
             <p class="subtitle is-6">Variants</p>
             <div class="buttons are-small is-centered">
               {% for v in variants %}
-              <a class="variantbutton button is-link is-inverted is-outlined" {{v.is_disabled}} price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</a>
+              <a class="variantbutton button is-link is-inverted is-outlined" {{v.is_disabled}} stock="{{v.stock}}"  price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</a>
               {% endfor %}
             </div>
           </div>
@@ -116,8 +118,8 @@
             <nav class="level is-mobile" id="prodlevel">
               <div class="level-item">
                 <div class="level-item">
-                  <p class="subtitle is-4" style="width:170px;text-align:center;">
-                    <strong id="productprice" default="₹{{pricerange}}">₹{{pricerange}}</strong>
+                  <p class="subtitle is-4" style="width:12rem;text-align:center;">
+                    Price: <strong id="productprice" default="₹{{variants.0.price}}">₹{{variants.0.price}}</strong>
                   </p>
                 </div>
               </div>
@@ -129,8 +131,11 @@
 
           <div class="content delinfo">
             <p>
-              Delivery in 3-4 days to Metro Cities (India)
+              All India Delivery (3-4 days for metros)
             </p>
+            <nav class="level is-mobile">
+              <p class="level-item" id="stock_p">{{variants.0.stock}}</p>
+            </nav>
           </div>
         </div>
       </div>
@@ -163,7 +168,7 @@
     </div>
     <div style="display: inline-block;">
       <div style="padding-top:5px;color:white;text-align:left;">
-        <p class="title is-5" style="color:white;margin:0;">Free Delivery</p>
+        <p class="title is-5" style="color:white;margin:0;">Free Shipping</p>
         <p class="heading">On orders above ₹500</p>
       </div>
     </div>
