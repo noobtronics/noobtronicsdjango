@@ -6,6 +6,7 @@ import uuid
 class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
+    rank = models.IntegerField(default=100)
 
     def __str__(self):
         return str(self.name)
@@ -14,6 +15,7 @@ class SubCategory(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    rank = models.IntegerField(default=100)
 
     def __str__(self):
         return str(self.name)
@@ -37,7 +39,7 @@ class Product(models.Model):
     html = models.TextField(default='', null=True, blank=True)
 
 
-    rank = models.IntegerField(default=0)
+    rank = models.IntegerField(default=100)
     hide_shop = models.BooleanField(default=False)
     hide_ads = models.BooleanField(default=False)
 

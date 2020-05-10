@@ -33,6 +33,27 @@ def home_page(request):
 
 
     catalog = []
+    cats = Category.objects.all().order_by('rank')
+    for cat in cats:
+        prod_array = []
+        prods = cat.cat_products.all().order_by('rank')
+        for prod in prods:
+            vars = prod.variants.filter(is_shop=True).order_by('rank')
+            for var in vars:
+                image = json.loads(var.image)
+                temp = {
+                        'name': prod.name,
+                        'cardtitle': var.cardtitle,
+                        'slug': prod.slug,
+                        'thumb': image['src']
+                    }
+                prod_array.append(temp)
+        temp = {
+                'name': cat.name.title(),
+                'products': prod_array,
+            }
+        catalog.append(temp)
+
     # for i in page_config['catalog']:
     #     prods = []
     #     for sku in i['products']:
@@ -40,11 +61,7 @@ def home_page(request):
     #         if sku in prod_data:
     #             prods.append(prod_data[sku])
     #
-    #     temp = {
-    #         'name': i['name'],
-    #         'products': prods,
-    #     }
-    #     catalog.append(temp)
+    #
 
 
 

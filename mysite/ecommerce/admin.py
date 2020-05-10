@@ -166,7 +166,8 @@ class ProductAdmin(DjangoObjectActions, admin.ModelAdmin):
 
     changelist_actions = ('download_all', 'update_all')
 
-    list_display = ['github', 'slug', 'created_at', 'updated_at']
+    list_display = ['name', 'category', 'sub_category','github', 'slug', 'created_at', 'updated_at']
+
 
 admin.site.register(Product, ProductAdmin)
 
