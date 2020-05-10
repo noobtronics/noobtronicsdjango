@@ -110,12 +110,16 @@ def update_prod_obj(prod_obj):
             prodvar, is_create = ProductVariant.objects.get_or_create(
                 prod=prod_obj,
                 name=v['name'],
-                cardtitle=v['cardtitle'],
-                image=json.dumps(variant_img, indent=4),
-                price=int(v['price']),
-                in_stock= v['in_stock'],
-                rank=count,
             )
+            prodvar.cardtitle=v['cardtitle']
+            prodvar.image=json.dumps(variant_img, indent=4)
+            prodvar.price=int(v['price'])
+            prodvar.in_stock= v['in_stock']
+            prodvar.rank=count
+            if 'is_shop' in v:
+                prodvar.is_shop= v['is_shop']
+            prodvar.save()
+
             if prodvar.id in prodvar_ids:
                 prodvar_ids.remove(prodvar.id)
         ProductVariant.objects.filter(pk__in=prodvar_ids).delete()

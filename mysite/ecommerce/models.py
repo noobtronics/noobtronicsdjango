@@ -64,11 +64,12 @@ class ProductVariant(models.Model):
     prod = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="variants")
     name = models.CharField(max_length=300)
     image = models.TextField(default='')
-    cardtitle = models.CharField(max_length=200)
+    cardtitle = models.CharField(max_length=200, null=True, blank=True)
     is_main = models.BooleanField(default=False)
 
-    price = models.IntegerField()
-    quantity_available = models.IntegerField(default=0)
+    price = models.IntegerField(null=True, blank=True)
+    quantity_available = models.IntegerField(default=0, null=True, blank=True)
+    is_shop = models.BooleanField(default=False)
     in_stock = models.BooleanField(default=False)
 
     rank = models.IntegerField(default=0)
