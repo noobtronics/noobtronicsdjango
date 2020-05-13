@@ -1,3 +1,5 @@
 User-agent: *
-Allow: /
-sitemap: https://beta.noobtronics.ltd/sitemap.xml
+Allow: /static/*
+Allow: /media/*
+Allow: /storage/*
+Sitemap: https://beta.noobtronics.ltd/sitemap.xml
