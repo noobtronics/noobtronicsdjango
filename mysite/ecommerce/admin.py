@@ -18,6 +18,8 @@ def wrap_soup(to_wrap, wrap_in):
     wrap_in.append(contents)
 
 
+
+
 def add_table_styles(soup):
     tables = soup.findAll('table')
 
