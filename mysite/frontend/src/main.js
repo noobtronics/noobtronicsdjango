@@ -1,3 +1,5 @@
+
+import "@/assets/noobtronics-theme.sass";
 import Vue from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 
@@ -9,5 +11,6 @@ function test() {
     render: h => h(HelloWorld),
   }).$mount('#components-demo')
 }
+
 
 window.test = test;
