@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -74,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'mysite.mysite_context_processors.webpack_processor',
             ],
         },
     },
@@ -226,3 +228,18 @@ Q_CLUSTER = {
 
 
 GITHUB_KEY = "c046dfbdeeb4b80681b5e86f52b9997d7458fe07"
+
+webpack_js = []
+webpack_css = []
+
+try:
+    with open('frontend/webpack-stats.json', 'r') as fil:
+        webpack_config = json.loads(fil.read())
+
+    for url in webpack_config['chunks']['app']:
+        if url.endswith('.js'):
+            webpack_js.append(url)
+        if url.endswith('.css'):
+            webpack_css.append(url)
+except:
+    pass
