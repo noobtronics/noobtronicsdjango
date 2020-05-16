@@ -1,60 +1,60 @@
+{% load custom_tags %}
+{% vueApp 'base' %}
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block head %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block head %}
+  {% endblock %}
+
+  {% include 'header.html' %}
+
+  <!-- <link rel="stylesheet" href="/static/css/bulma/header2.min.css" type="text/css"> -->
+  
+</head>
+
+<body>
+  {% include 'header-menu.html' %}
+
+  <div class="container fullwdithcontainer">
+
+
+
+
+    {% block section %}
     {% endblock %}
 
-    {% include 'header.html' %}
+  </div>
 
-    <!-- <link rel="stylesheet" href="/static/css/bulma/header2.min.css" type="text/css"> -->
+  {% include 'footer.html' %}
 
-
-    <meta name="google-signin-client_id" content="436152518040-289nirmcqqh1dik5409htqhgsrrjr140.apps.googleusercontent.com">
-
-  </head>
-  <body>
-    {% include 'header-menu.html' %}
-
-    <div class="container fullwdithcontainer">
-
-
-
-
-      {% block section %}
-      {% endblock %}
-
-    </div>
-
-    {% include 'footer.html' %}
-
-    {% block foorter_script %}
-    {% endblock %}
+  {% block foorter_script %}
+  {% endblock %}
 
 
 
 
 
-    <link rel="stylesheet" href="/static/css/bulma/header2.min.css" media="print" onload="this.media='all'; this.onload=null;">
+  <link rel="stylesheet" href="/static/css/bulma/header2.min.css" media="print" onload="this.media='all'; this.onload=null;">
 
 
-    <script>
-      {% include 'js/theme.js' %}
-    </script>
+  <script>
+    {
+      % include 'js/theme.js' %
+    }
+  </script>
 
 
+  {% include 'js/vuejs_loader.js' %}
 
-    {% if debug %}
-    <script async src="/static/js/vue/vue.js"></script>
-    {% else %}
-    <script async src="/static/js/vue/vue.min.js"></script>
-    {% endif %}
 
-    <script async src="/static/js/axios/axios.min.js"></script>
+  {% block vue %}
+  {% endblock %}
 
-    {% block vue %}
-    {% endblock %}
 
-  </body>
+</body>
+
 </html>
