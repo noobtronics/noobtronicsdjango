@@ -77,25 +77,6 @@ html
 
 
 
-.horizontalprodphotos
-  margin: 0
-  padding: 0
-  flex-wrap: nowrap
-  overflow-x: auto
-  background-color: #eaeaea
-  scroll-snap-type: x mandatory
-  margin-bottom: 0px !important
-
-
-  .photocolumn
-    margin: 0
-    padding: 0
-    scroll-snap-align: start
-
-
-    img
-      object-fit: contain
-      height: 17rem
 
 
 .prodpagecolumns
@@ -114,6 +95,49 @@ html
         justify-content: center
         align-items: center
 
+
+.prodmainphoto
+  margin: 0
+  padding: 0
+  background-color: #eaeaea
+  margin-bottom: 0px !important
+  height: 18rem
+
+
+  .photocolumn
+    margin: 0
+    padding: 0
+    padding-right: 1%
+    display: flex
+    justify-content: center
+    align-items: center
+
+
+
+    figure
+      width: calc(100% - 5px)
+      max-width: 18rem
+
+
+    img
+      object-fit: contain
+      margin: 0
+
+  .showcasecolumn
+    overflow-y: auto
+    padding: 1%
+    padding-left: 3%
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+
+    &::-webkit-scrollbar
+      width: 0
+      background: transparent
+
+    figure
+      margin: 0.2rem 0
+      border: 1px solid rgba(54,54,54,0.8)
 
 
 
@@ -139,6 +163,10 @@ html
         text-align: center
       .buttons
         margin-top: 0.2rem
+
+        .button
+          height: 2rem
+          padding: 0 0.3rem
 
     .content
       margin: 0
