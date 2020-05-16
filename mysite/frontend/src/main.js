@@ -1,16 +1,13 @@
 import Vue from 'vue'
-import App from './App.vue'
-
-Vue.config.productionTip = false
+import HelloWorld from './components/HelloWorld.vue'
 
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
-
+window.Vue=Vue;
 
 function test() {
-  console.log('test');
+  new Vue({
+    render: h => h(HelloWorld),
+  }).$mount('#components-demo')
 }
 
 window.test = test;
