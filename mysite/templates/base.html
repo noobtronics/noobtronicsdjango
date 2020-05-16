@@ -12,8 +12,6 @@
 
   {% include 'header.html' %}
 
-  <!-- <link rel="stylesheet" href="/static/css/bulma/header2.min.css" type="text/css"> -->
-  
 </head>
 
 <body>
@@ -37,18 +35,30 @@
 
 
 
-
-  <link rel="stylesheet" href="/static/css/bulma/header2.min.css" media="print" onload="this.media='all'; this.onload=null;">
-
-
   <script>
-    {
-      % include 'js/theme.js' %
-    }
+    {% include 'js/theme.js' %}
   </script>
 
+  <div id="components-demo">
 
+  </div>
+
+  <script type="text/javascript" src="http://localhost:8080/js/chunk-vendors.js"></script>
+  <script type="text/javascript" src="http://localhost:8080/js/app.js"></script>
+  <link href="http://localhost:8080/css/app.css" rel="stylesheet">
+
+
+  <script type="text/javascript">
+    test();
+  </script>
+<!--
   {% include 'js/vuejs_loader.js' %}
+
+  {% for js_url in webpack_css %}
+
+    <link rel="stylesheet" href="/static/dist/{{js_url}}" media="print" onload="this.media='all'; this.onload=null;">
+
+  {% endfor %} -->
 
 
   {% block vue %}
