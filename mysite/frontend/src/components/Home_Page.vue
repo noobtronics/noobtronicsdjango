@@ -6,17 +6,19 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Home_Page',
   data: function () {
     return {
-      msg: "hello world from vue"
+
     }
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="sass">
+<style lang="sass">
+
+
 
 
 </style>
