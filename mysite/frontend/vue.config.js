@@ -26,7 +26,7 @@ module.exports = {
 
   filenameHashing: filenameHashing,
 
-
+  runtimeCompiler: true,
 
   configureWebpack: {
     plugins: [

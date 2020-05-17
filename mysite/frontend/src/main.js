@@ -3,18 +3,34 @@ import "@/assets/noobtronics-theme.sass";
 
 
 import Vue from 'vue'
+
+import SearchBar from './components/header_menu_components/SearchBar.vue'
 import Header_Menu from './components/Header_Menu.vue'
-import Notifications_App from './components/Notifications_App.vue'
+
 import Home_Page from './components/Home_Page.vue'
 import Product_Page from './components/Product_Page.vue'
 
-window.Vue=Vue;
+import {store} from './store/store'
 
-function init_header_menu() {
-  new Vue({
-    render: h => h(Header_Menu),
-  }).$mount('#components-demo')
-}
+
+
+var header_menu_app = new Vue(Header_Menu);
+header_menu_app.$store = store;
+header_menu_app.$mount('#headermenu-app');
+window.header_menu_app = header_menu_app;
+
+
+var searchbar = new Vue({
+  render: h => h(SearchBar),
+  store,
+})
+searchbar.$mount('#SearchBar')
+
+window.searchbar = searchbar;
+
+
+window.Header_Menu = Header_Menu;
+
 
 function init_home_page() {
   new Vue({
@@ -29,11 +45,7 @@ function init_product_page() {
 }
 
 
-new Vue({
-  render: h => h(Notifications_App),
-}).$mount('#notifications-app')
 
 
-window.init_header_menu = init_header_menu;
 window.init_home_page = init_home_page;
 window.init_product_page = init_product_page;

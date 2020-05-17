@@ -1,16 +1,25 @@
-<template>
-  <div >
 
-  </div>
-</template>
 
 <script>
 export default {
   name: 'Header_Menu',
+
+  delimiters: ['[[', ']]'],
+
+
   data: function () {
     return {
-
+      menu_btn: false,
+      search_btn: false,
+      cart_btn: false,
+      account_btn: false,
     }
+  },
+
+  methods: {
+    toggleSearchBar: function () {
+      this.$store.commit('toggleSearchBar')
+    },
   },
 }
 </script>
