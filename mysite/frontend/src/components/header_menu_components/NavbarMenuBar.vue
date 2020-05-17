@@ -1,14 +1,14 @@
 <template>
-  <div id="navMenu" class="navbar-menu" v-bind:class="{'is-active': is_active}">
+  <div class="navbar-menu" v-bind:class="{'is-active': is_active}">
     <div class="navbar-start">
-      <a class="navbar-item" href="https://bulma.io/">
+      <a class="navbar-item" href="/">
         Home
       </a>
-      <div class="navbar-item has-dropdown is-hoverable" id="NavShopMenu">
-        <a class="navbar-link" data-target="NavShopMenu">
+      <div class="navbar-item has-dropdown is-hoverable" v-bind:class="{'is-active': is_shop}">
+        <a class="navbar-link" v-on:click="is_shop=!is_shop">
           Shop
         </a>
-        <div class="navbar-dropdown ">
+        <div class="navbar-dropdown " >
           <a class="navbar-item" href="/shop">
             All Products
           </a>
@@ -27,11 +27,11 @@
 
         </div>
       </div>
-      <div class="navbar-item has-dropdown is-hoverable" id="NavBlogMenu">
-        <a class="navbar-link" data-target="NavBlogMenu">
+      <div class="navbar-item has-dropdown is-hoverable" v-bind:class="{'is-active': is_blog}">
+        <a class="navbar-link" v-on:click="is_blog=!is_blog">
           Blog
         </a>
-        <div class="navbar-dropdown ">
+        <div class="navbar-dropdown " >
           <a class="navbar-item" href="/blog">
             Blog Home
           </a>
@@ -44,11 +44,11 @@
 
         </div>
       </div>
-      <div class="navbar-item has-dropdown is-hoverable" id="NavInfoMenu">
-        <a class="navbar-link" data-target="NavInfoMenu">
+      <div class="navbar-item has-dropdown is-hoverable" v-bind:class="{'is-active': is_info}">
+        <a class="navbar-link" v-on:click="is_info=!is_info">
           Information
         </a>
-        <div class="navbar-dropdown ">
+        <div class="navbar-dropdown " >
           <a class="navbar-item" href="/about-us">
             About Us
           </a>
@@ -94,12 +94,18 @@ export default {
   name: 'NavbarMenuBar',
   data: function () {
     return {
+      is_shop: false,
+      is_blog: false,
+      is_info: false,
     }
   },
   computed: {
     is_active: function() {
       return this.$store.state.navbar.MenuBar;
-    }
+    },
+    cart_count: function() {
+      return this.$store.state.cart.cart_count;
+    },
   },
 
 }

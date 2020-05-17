@@ -32,7 +32,10 @@ export default {
   computed:{
     is_MenuBaractive: function() {
       return this.$store.state.navbar.MenuBar;
-    }
+    },
+    cart_count: function() {
+      return this.$store.state.cart.cart_count;
+    },
   }
 
 }

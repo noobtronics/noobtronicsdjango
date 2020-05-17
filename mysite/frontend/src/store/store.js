@@ -10,7 +10,10 @@ export const store = new Vuex.Store({
       SearchBar: false,
       CartBar: false,
       AccountBar: false,
-    }
+    },
+    cart: {
+      cart_count: 0,
+    },
   },
   mutations: {
     navbar_toggleMenuBar (state) {
