@@ -9,18 +9,32 @@ export default {
 
   data: function () {
     return {
-      menu_btn: false,
-      search_btn: false,
-      cart_btn: false,
-      account_btn: false,
+
     }
   },
 
   methods: {
-    toggleSearchBar: function () {
-      this.$store.commit('toggleSearchBar')
+    toggleMenuBar: function () {
+      this.$store.commit('navbar_toggleMenuBar')
     },
+    toggleSearchBar: function () {
+      this.$store.commit('navbar_toggleSearchBar')
+    },
+    toggleCartBar: function () {
+      this.$store.commit('navbar_toggleCartBar')
+    },
+    toggleAccountBar: function () {
+      this.$store.commit('navbar_toggleAccountBar')
+    },
+
   },
+
+  computed:{
+    is_MenuBaractive: function() {
+      return this.$store.state.navbar.MenuBar;
+    }
+  }
+
 }
 </script>
 
