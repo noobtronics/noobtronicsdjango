@@ -1,8 +1,14 @@
 
 import "@/assets/noobtronics-theme.sass";
 
-
+import Axios from 'axios'
+import Cookies from 'js-cookie'
 import Vue from 'vue'
+Vue.prototype.$http = Axios;
+Vue.prototype.$http.defaults.xsrfHeaderName = "X-CSRFToken";
+Vue.prototype.$http.defaults.xsrfCookieName = "csrftoken";
+
+Vue.prototype.$cookies = Cookies;
 
 import NavbarMenuBar from './components/header_menu_components/NavbarMenuBar.vue'
 import NavbarSearchBar from './components/header_menu_components/NavbarSearchBar.vue'
@@ -10,17 +16,13 @@ import NavbarMyAccount from './components/header_menu_components/NavbarMyAccount
 import NavbarCart from './components/header_menu_components/NavbarCart.vue'
 import Header_Menu from './components/Header_Menu.vue'
 
+
+
+import SubscribeEmail from './components/header_menu_components/SubscribeEmail.vue'
 import Home_Page from './components/Home_Page.vue'
 import Product_Page from './components/Product_Page.vue'
 
 import {store} from './store/store'
-
-
-
-var header_menu_app = new Vue(Header_Menu);
-header_menu_app.$store = store;
-header_menu_app.$mount('#headermenu-app');
-window.header_menu_app = header_menu_app;
 
 
 
@@ -45,8 +47,17 @@ new Vue({
   store,
 }).$mount('#navbar_AccountBar')
 
+var header_menu_app = new Vue(Header_Menu);
+header_menu_app.$store = store;
+header_menu_app.$mount('#headermenu-app');
+window.header_menu_app = header_menu_app;
 
-window.Header_Menu = Header_Menu;
+
+
+function init_subscribe_email(id) {
+   new Vue(SubscribeEmail).$mount(id);
+}
+window.init_subscribe_email = init_subscribe_email;
 
 
 function init_home_page() {
@@ -66,3 +77,7 @@ function init_product_page() {
 
 window.init_home_page = init_home_page;
 window.init_product_page = init_product_page;
+
+
+
+window.init_vue_app();
