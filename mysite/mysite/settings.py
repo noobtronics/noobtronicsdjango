@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_q',
     'siteconfig',
     'ecommerce',
+    'orders_app',
 ]
 
 MIDDLEWARE = [
@@ -226,6 +227,8 @@ Q_CLUSTER = {
         'db': 0, }
 }
 
+AUTH_USER_MODEL = 'orders_app.User'
+LAZYSIGNUP_USER_MODEL = 'orders_app.User'
 
 GITHUB_KEY = "c046dfbdeeb4b80681b5e86f52b9997d7458fe07"
 
