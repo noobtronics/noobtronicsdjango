@@ -27,3 +27,6 @@ class UserCustomAdmin(UserAdmin):
 
 
 admin.site.register(User, UserCustomAdmin)
+
+
+admin.site.register(EmailSubscriber)

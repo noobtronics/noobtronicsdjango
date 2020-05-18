@@ -1,6 +1,3 @@
-{% load custom_tags %}
-{% vueApp 'base' %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,9 +36,14 @@
     {% include 'js/theme.js' %}
   </script>
 
-  <div id="components-demo">
 
-  </div>
+  <script>
+    var init_vue_app = function(){
+      {% block init_vue_app %}
+      {% endblock %}
+    }
+  </script>
+
 
   <script type="text/javascript" src="http://localhost:8080/js/chunk-vendors.js"></script>
   <script type="text/javascript" src="http://localhost:8080/js/app.js"></script>

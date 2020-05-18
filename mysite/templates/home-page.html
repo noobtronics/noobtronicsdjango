@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
+
+
+{% block init_vue_app %}
+init_subscribe_email("#subscribe_email");
+{% endblock %}
+
+
 {% block head %}
 <title>{{title}}</title>
 <meta name="description" content="{{description}}">
@@ -96,7 +103,7 @@
       </div>
     </div>
     <hr>
-    <div class="columns is-vcentered" style="margin:0;">
+    <div class="columns is-vcentered" style="margin:0;" id="subscribe_email">
       <div class="column is-7 has-text-centered">
         <h3 class="title is-4">Join our newsletter!</h3>
         <p class="subtitle is-6">We'll never share your email address.</p>
@@ -104,10 +111,10 @@
       <div class="column is-5">
         <div class="field has-addons" style="padding-bottom:10px;padding-left:10px;padding-right:10px;">
           <div class="control is-expanded">
-            <input class="input" type="email" placeholder="Email" aria-label="email" aria-describedby="call-to-action-button-04">
+            <input class="input" type="email" placeholder="Email" aria-label="email" aria-describedby="call-to-action-button-04" v-model="email">
           </div>
           <div class="control">
-            <button class="button is-danger" id="call-to-action-button-04">Subscribe</button>
+            <button class="button is-danger" id="call-to-action-button-04" v-on:click="submit_email">Subscribe</button>
           </div>
         </div>
       </div>
