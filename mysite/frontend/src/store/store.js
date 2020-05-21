@@ -16,16 +16,16 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
-    navbar_toggleMenuBar (state) {
+    navbar_toggleMenuBar(state) {
       state.navbar.MenuBar = !state.navbar.MenuBar;
     },
-    navbar_toggleSearchBar (state) {
+    navbar_toggleSearchBar(state) {
       state.navbar.SearchBar = !state.navbar.SearchBar;
     },
-    navbar_toggleCartBar (state) {
+    navbar_toggleCartBar(state) {
       state.navbar.CartBar = !state.navbar.CartBar;
     },
-    navbar_toggleAccountBar (state) {
+    navbar_toggleAccountBar(state) {
       state.navbar.AccountBar = !state.navbar.AccountBar;
     },
   }

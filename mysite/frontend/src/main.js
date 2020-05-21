@@ -1,19 +1,19 @@
 
 import "@/assets/noobtronics-theme.sass";
 
-import Axios from 'axios'
-import Cookies from 'js-cookie'
 import Vue from 'vue'
+
+import Axios from 'axios'
 Vue.prototype.$http = Axios;
 Vue.prototype.$http.defaults.xsrfHeaderName = "X-CSRFToken";
 Vue.prototype.$http.defaults.xsrfCookieName = "csrftoken";
 
+Vue.config.devtools = process.env.NODE_ENV === 'development';
+
+import Cookies from 'js-cookie'
 Vue.prototype.$cookies = Cookies;
 
-import NavbarMenuBar from './components/header_menu_components/NavbarMenuBar.vue'
-import NavbarSearchBar from './components/header_menu_components/NavbarSearchBar.vue'
-import NavbarMyAccount from './components/header_menu_components/NavbarMyAccount.vue'
-import NavbarCart from './components/header_menu_components/NavbarCart.vue'
+
 import Header_Menu from './components/Header_Menu.vue'
 
 
@@ -26,31 +26,12 @@ import {store} from './store/store'
 
 
 
-
-new Vue({
-  render: h => h(NavbarMenuBar),
-  store,
-}).$mount('#navbar_MenuBar')
-
-new Vue({
-  render: h => h(NavbarSearchBar),
-  store,
-}).$mount('#navbar_SearchBar')
-
-new Vue({
-  render: h => h(NavbarCart),
-  store,
-}).$mount('#navbar_CartBar')
-
-new Vue({
-  render: h => h(NavbarMyAccount),
-  store,
-}).$mount('#navbar_AccountBar')
-
 var header_menu_app = new Vue(Header_Menu);
 header_menu_app.$store = store;
 header_menu_app.$mount('#headermenu-app');
 window.header_menu_app = header_menu_app;
+
+
 
 
 

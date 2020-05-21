@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-menu" v-bind:class="{'is-active': is_active}">
+  <div class="navbar-menu" v-bind:class="{ 'is-active' : is_bar_active}">
     <div class="navbar-start">
       <a class="navbar-item" href="/">
         Home
@@ -100,7 +100,7 @@ export default {
     }
   },
   computed: {
-    is_active: function() {
+    is_bar_active: function() {
       return this.$store.state.navbar.MenuBar;
     },
     cart_count: function() {

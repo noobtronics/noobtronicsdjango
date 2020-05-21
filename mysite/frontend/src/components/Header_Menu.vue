@@ -1,6 +1,11 @@
 
 
 <script>
+import NavbarMenuBar from './header_menu_components/NavbarMenuBar.vue'
+import NavbarSearchBar from './header_menu_components/NavbarSearchBar.vue'
+import NavbarMyAccount from './header_menu_components/NavbarMyAccount.vue'
+import NavbarCart from './header_menu_components/NavbarCart.vue'
+
 export default {
   name: 'Header_Menu',
 
@@ -11,6 +16,13 @@ export default {
     return {
 
     }
+  },
+
+  components: {
+    'navbarmenubar': NavbarMenuBar,
+    'navbarsearchbar': NavbarSearchBar,
+    'navbarcartbar': NavbarCart,
+    'navbaraccountbar': NavbarMyAccount,
   },
 
   methods: {
