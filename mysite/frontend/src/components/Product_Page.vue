@@ -44,6 +44,7 @@ export default {
   height: 18rem
 
 
+
   .photocolumn
     margin: 0
     padding: 0
@@ -65,8 +66,7 @@ export default {
 
   .showcasecolumn
     overflow-y: auto
-    padding: 1%
-    padding-left: 3%
+    width: 22%
     display: flex
     align-items: center
     flex-wrap: wrap
@@ -88,6 +88,13 @@ export default {
   .hero-body
     padding-top: 0.5rem
     padding-bottom: 0.7rem
+
+    #prodh1
+      font-size: 1.3rem
+    #add-to-cart
+      font-weight: bold
+    #productprice
+      font-size: 1.8rem
 
     h1
       margin: 0
@@ -115,7 +122,8 @@ export default {
 
     .level
       margin: 0
-      margin-top: 0.5rem
+      margin-top: 0.7rem
+      margin-bottom: 0.4rem
 
     p
       color: white
@@ -168,5 +176,36 @@ export default {
               margin-top: 1rem
 
 
+@import "bulma/sass/utilities/_all.sass"
+@import "./../assets/mobile-mixin.sass"
+
++mobile
+  .prodmainphoto
+    .showcasecolumn
+      width: 80px !important
+      padding: 2px
+      padding-right: 4px
+      padding-left: 12px
+
+
++iphone
+  .prodmainphoto
+    .showcasecolumn
+      width: 83px !important
+      padding: 2px
+      padding-right: 6px
+      padding-left: 12px
+
+
++iphone_plus
+  .prodmainphoto
+    padding-left: calc(50% - 193px)
+    padding-right: calc(50% - 182px)
+
+    .showcasecolumn
+      width: 83px !important
+      padding: 2px
+      padding-right: 6px
+      padding-left: 12px
 
 </style>
