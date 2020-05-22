@@ -57,7 +57,7 @@ export default {
 <style lang="sass">
 
 .navbar-logo
-  width: 14rem
+  width: 13rem
   margin: auto
 
 #navSearch
@@ -82,6 +82,22 @@ export default {
   .is-active
     a
       background-color: hsl(348, 100%, 61%)
+
+.mobiledashes
+  span
+    width: 18px
+
+    &:nth-child(1)
+      top: calc(50% - 7px)
+    &:nth-child(3)
+      top: calc(50% + 5px)
+
+  &.is-active
+    span
+      &:nth-child(1)
+        transform: translateY(6px) rotate(45deg)
+      &:nth-child(3)
+        transform: translateY(-6px) rotate(-45deg)
 
 
 .left-burger
@@ -119,7 +135,7 @@ export default {
 
 +iphone_plus
   .navbar-logo
-    width: 243px
+    width: 230px
 
 
 </style>
