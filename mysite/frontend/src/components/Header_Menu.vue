@@ -137,5 +137,8 @@ export default {
   .navbar-logo
     width: 230px
 
+  #navbartabs
+    font-size: 18px
+
 
 </style>
