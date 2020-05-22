@@ -104,6 +104,7 @@ export default {
 
 
 @import "bulma/sass/utilities/_all.sass"
+@import "./../assets/mobile-mixin.sass"
 
 +mobile
   .navbar-menu
@@ -116,6 +117,9 @@ export default {
       .navbar-dropdown
         display: block
 
++iphone_plus
+  .navbar-logo
+    width: 243px
 
 
 </style>
