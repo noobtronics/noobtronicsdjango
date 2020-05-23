@@ -72,10 +72,28 @@
 
 {% block section %}
 
-<div class="columns prodpagecolumns" >
-  <div class="column">
-    <div class="hero">
-      <div class="hero-body" style="padding: 0;">
+<div class="container prodcontainer">
+  <div class="columns prodpagecolumns">
+    <div class="column">
+        <h1 id="prodh1" class="title">{{name}}</h1>
+        <div class="categorylinks">
+          <span>
+            <a href="/">Shop</a>
+            >
+            <span>
+              <a href="/">Arduino Microcontrollers</a>
+              >
+              <span>
+                Arduino Uno with USB Cable
+              </span>
+            </span>
+          </span>
+        </div>
+    </div>
+  </div>
+
+  <div class="columns prodpagecolumns" >
+    <div class="column">
         <div class="container has-text-centered">
           <div class="columns is-mobile  prodmainphoto">
 
@@ -83,6 +101,7 @@
               <figure class="image">
                 <a>
                   <picture>
+                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
                     <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
                     <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
                   </picture>
@@ -91,6 +110,7 @@
               <figure class="image">
                 <a>
                   <picture>
+                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
                     <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
                     <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
                   </picture>
@@ -99,6 +119,7 @@
               <figure class="image">
                 <a>
                   <picture>
+                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
                     <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
                     <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
                   </picture>
@@ -107,6 +128,7 @@
               <figure class="image">
                 <a>
                   <picture>
+                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
                     <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
                     <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
                   </picture>
@@ -118,7 +140,7 @@
               <figure class="image">
                 <a>
                   <picture>
-                    <!-- <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp"> -->
+                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
                     <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
                     <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
                   </picture>
@@ -129,29 +151,36 @@
 
           </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="column">
-    <div class="hero productdescription" >
-      <div class="hero-body">
-        <div class="container" id="proddesccontainer">
+
+    <div class="column">
+        <div class="container productdescription" id="proddesccontainer">
 
           <div class="content is-medium" >
-            <div class="">
-              <h1 id="prodh1" class="title is-5">{{name}}</h1>
-            </div>
-            <p>{{description}}</p>
+            <!-- <p>{{description}}</p> -->
           </div>
 
-          <div class="variants">
-            <p class="subtitle is-6">Variants</p>
-            <div class="buttons are-small is-centered">
-              {% for v in variants %}
-              <a class="variantbutton button is-link is-inverted is-outlined" {{v.is_disabled}} stock="{{v.stock}}"  price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</a>
-              {% endfor %}
+
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Variants <img src="data:image/png;base64,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">
+              </label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="variants">
+                  <div class="buttons are-small is-centered">
+                    {% for v in variants %}
+                    <a class="variantbutton button is-link is-inverted is-outlined" {{v.is_disabled}} stock="{{v.stock}}"  price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+
 
 
           <div class="">
@@ -171,18 +200,20 @@
 
           <div class="content delinfo">
             <p>
-              All India Delivery (3-4 days for metros)
+              Ships from India. All India Delivery <br>(3-4 days for metros)
             </p>
             <nav class="level is-mobile">
               <p class="level-item" id="stock_p">{{variants.0.stock}}</p>
             </nav>
           </div>
         </div>
-      </div>
     </div>
-
   </div>
 </div>
+
+
+
+
 
 
 

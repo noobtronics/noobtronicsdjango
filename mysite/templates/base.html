@@ -45,19 +45,23 @@
   </script>
 
 
+  {% if PRODENV %}
+
+    {% for  js_url in webpack_js %}    
+      <script type="text/javascript" src="/static/dist/{{js_url}}"></script>
+    {% endfor %}
+
+    {% for  css_url in webpack_css %}
+      <link rel="stylesheet" href="/static/dist/{{css_url}}" media="print" onload="this.media='all'; this.onload=null;">
+    {% endfor %}
+
+
+  {% else %}
   <script type="text/javascript" src="http://localhost:8080/js/chunk-vendors.js"></script>
   <script type="text/javascript" src="http://localhost:8080/js/app.js"></script>
   <link href="http://localhost:8080/css/app.css" rel="stylesheet">
+  {% endif %}
 
-
-<!--
-  {% include 'js/vuejs_loader.js' %}
-
-  {% for js_url in webpack_css %}
-
-    <link rel="stylesheet" href="/static/dist/{{js_url}}" media="print" onload="this.media='all'; this.onload=null;">
-
-  {% endfor %} -->
 
 
   {% block vue %}

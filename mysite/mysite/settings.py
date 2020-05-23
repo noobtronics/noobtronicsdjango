@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'siteconfig',
     'ecommerce',
     'orders_app',
+    'seotools',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,11 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+APP_ENV_PROD = False
+if os.environ.get('ENV'):
+    if os.environ.get('ENV').startswith("PROD"):
+        APP_ENV_PROD = True
 
 
 # Password validation
