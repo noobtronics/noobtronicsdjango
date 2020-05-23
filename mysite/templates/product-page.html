@@ -1,10 +1,26 @@
 {% extends 'base.html' %}
 
+
+
+
+{% block js_scripts %}
+
+
+{{images|json_script:"prod_images_json"}};
+
+
+{% endblock %}
+
+
+{% block init_vue_app %}
+init_product_page_app("#product-page-app");
+{% endblock %}
+
 {% block head %}
 <title>{{title}}</title>
 <meta name="description" content="{{meta_description}}">
 <meta name="keywords" content="{{keywords}}">
-<link rel="canonical" href="https://noobtronics.in">
+<link rel="canonical" href="https://noobtronics.in/{{url}}">
 <meta name="robots" content="all">
 
 <!-- <style>
@@ -72,16 +88,17 @@
 
 {% block section %}
 
-<div class="container prodcontainer">
+<div class="container prodcontainer" id="product-page-app">
+
   <div class="columns prodpagecolumns">
     <div class="column">
-        <h1 id="prodh1" class="title">{{name}}</h1>
+        <h1 id="prodh1" class="title">{{h1}}</h1>
         <div class="categorylinks">
           <span>
-            <a href="/">Shop</a>
+            <a href="/shop">Shop</a>
             >
             <span>
-              <a href="/">Arduino Microcontrollers</a>
+              <a href="/{{sub_category.slug}}">{{sub_category.name}}</a>
               >
               <span>
                 Arduino Uno with USB Cable
@@ -96,75 +113,41 @@
     <div class="column">
         <div class="container has-text-centered">
           <div class="columns is-mobile  prodmainphoto">
-
             <div class="column is-3 showcasecolumn" id="prodimage{{forloop.counter}}">
+
+              {% for i, v in images.items %}
               <figure class="image">
-                <a>
+                <a @mouseover="change_image($event)">
                   <picture>
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
-                    <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
+                    <source srcset="{{v.webp}}" type="image/webp">
+                    <source srcset="{{v.jpg}}" type="image/jpeg">
+                    <img id="{{i}}" src="{{v.jpg}}" alt="{{v.alt}}" >
                   </picture>
                 </a>
               </figure>
-              <figure class="image">
-                <a>
-                  <picture>
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
-                    <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
-                  </picture>
-                </a>
-              </figure>
-              <figure class="image">
-                <a>
-                  <picture>
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
-                    <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
-                  </picture>
-                </a>
-              </figure>
-              <figure class="image">
-                <a>
-                  <picture>
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
-                    <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
-                  </picture>
-                </a>
-              </figure>
+              {% endfor %}
             </div>
 
             <div class="column has-text-centered photocolumn" id="prodimage{{forloop.counter}}">
               <figure class="image">
-                <a>
-                  <picture>
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.webp" type="image/webp">
-                    <source srcset="/storage/product/arduino-uno/arduino-uno1.jpg" type="image/jpeg">
-                    <img src="/storage/product/arduino-uno/arduino-uno1.jpg" alt="Arduino Uno" >
+                <a id="product_main_image" v-html="mainimage">
+                  <picture >
+                    <source srcset="{{images.mainimage.webp}}" type="image/webp">
+                    <source srcset="{{images.mainimage.jpg}}" type="image/jpeg">
+                    <img src="{{images.mainimage.jpg}}" alt="{{images.0.alt}}" >
                   </picture>
                 </a>
               </figure>
             </div>
-
-
           </div>
         </div>
     </div>
 
     <div class="column">
         <div class="container productdescription" id="proddesccontainer">
-
-          <div class="content is-medium" >
-            <!-- <p>{{description}}</p> -->
-          </div>
-
-
-
           <div class="field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label">Variants <img src="data:image/png;base64,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">
+              <label class="label">Variants <img alt="more information icon" src="data:image/png;base64,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">
               </label>
             </div>
             <div class="field-body">
@@ -235,7 +218,7 @@
 <nav class="level is-mobile" style="background-color: hsl(348, 100%, 61%);">
   <div class="level-item has-text-centered">
     <div style="margin-right: 25px;display: inline-block;">
-      <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAmCAYAAACCjRgBAAADf0lEQVRYw+2ZS2gcVBRAz22iqTVIjDX1r5AWY5qQRRZV/CCKqAhaRcFFDaKiiF3pxpW6EQxCVaqoWYiICxVBqS7aqvhbaNFSPzSK1IrVNGIq/aQ2Jk1y3NyBMcxM4mSaTqB382bu9925n/fuGzgBxxcCQO0BbgRajrG9IeDtiBiumUb1DvWoCwcjanvNIqD+BKwCngJ+OcYRuAG4FRiIiAdqFYFp9a+FyFe1K6PwSa10Lsk6mF6gmpsqslszBxY1LHoHGo+T3Y6sg+YKPOPAt8DGiPihUmGpjixQEV9SRdudUO+rtwiMAWuBXRV4lgL3AA8DA+rhiHijXiLw+f+QuVedUkfVjnqJgCU22g08A/QADSVkmoG31DURMVZXXUhtAbYA1wKnlmA5CBwBuoGN9ZBCn83Ar038ZvWUMrLnqn8m37p6Owfacv26OD3+c2mLGAL68tbwYqEeFtVBFhGbgf6sh9fVhsV4Ej+W7bcXuLNeHJiea1eMiEng2fza11gnDvyY613qdmD/LPyHcu2ply4U6qZqxrvGOilO1duAu4ErgGVzELsZaKqLCFSpa0T1xECzaAYa9WLgOuAMYATYEhE/1zjFOvM+dDowDGyNiF9nE6pYA2qr+ma+XhTDlPqqeloNutCZ6jslmsyk+nKp+1GhBio6oDar3yTPPvVp9SF1g7o/8V+oTdU6oLaog4n/Q+1PG8+phwrPMOrJ1TiwIelfqitm0M5TdyT9iXk48FLiPlWXz+C/SN2Z9EfLOTCqjqltMxia1MNJay+zodX5LDmiNszBgUtzM7vUJRnhf3IP55eR6c30/V0tvOW25b5GG4GPgFuAHepgkeyyHC4+LFesEbFT/Qq4DPhYHZ/Fh85c24FB4ADQlA3htzI2tqvf5aT2fqZSZ87M7zYC64GzgDXAOSV0HJhlUwX6lXOs5U3pwOoqbFyTGwfYBqyPolBdCBTnYCuwFdgNrIqI6RLhPQnYkwPJ1Tn2VYK9ETGcqbAS6EiHBoGuiCg1Ky8F9uYMcHneXPfN2l5TeFvm7CNl6I8n/YN59P7vU8eDZej9SX+vGuVXZb+fzBa6PPEr1OezuCbU3nk4cH3qOao+qbYm/mx1IGlH1K5qDfRlpyjAwaLPf6u31+AEvj9/iFI2RtWbanGLfCVb2YS6J0/Imv3Tonarr6lD6ri6W31BvaCS3L9ju37TdhRvPgAAAABJRU5ErkJggg==" alt="free delivery logo"> -->
+     <img class="lozad" data-src="/static/images/free-delivery.png" alt="free delivery icon">
     </div>
     <div style="display: inline-block;">
       <div style="padding-top:5px;color:white;text-align:left;">

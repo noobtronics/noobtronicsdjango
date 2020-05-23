@@ -37,6 +37,10 @@
   </script>
 
 
+  {% block js_scripts %}
+  {% endblock %}
+
+
   <script>
     var init_vue_app = function(){
       {% block init_vue_app %}
@@ -47,7 +51,7 @@
 
   {% if PRODENV %}
 
-    {% for  js_url in webpack_js %}    
+    {% for  js_url in webpack_js %}
       <script type="text/javascript" src="/static/dist/{{js_url}}"></script>
     {% endfor %}
 

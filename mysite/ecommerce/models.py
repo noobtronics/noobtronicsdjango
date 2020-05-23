@@ -6,6 +6,7 @@ import uuid
 class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
+    slug = models.CharField(max_length=200, unique=True, null=True, blank=True)
     rank = models.IntegerField(default=100)
 
     def __str__(self):
@@ -15,6 +16,7 @@ class SubCategory(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    slug = models.CharField(max_length=200, unique=True, null=True, blank=True)
     rank = models.IntegerField(default=100)
 
     def __str__(self):

@@ -13,6 +13,11 @@ Vue.config.devtools = process.env.NODE_ENV === 'development';
 import Cookies from 'js-cookie'
 Vue.prototype.$cookies = Cookies;
 
+Vue.prototype.$log = console.log;
+
+import StrigFormat from 'string-format'
+Vue.prototype.$format = StrigFormat;
+
 
 import Header_Menu from './components/Header_Menu.vue'
 
@@ -20,7 +25,7 @@ import Header_Menu from './components/Header_Menu.vue'
 
 import SubscribeEmail from './components/header_menu_components/SubscribeEmail.vue'
 import Home_Page from './components/Home_Page.vue'
-import Product_Page from './components/Product_Page.vue'
+import ProductPage_App from './components/Product_Page.vue'
 
 import {store} from './store/store'
 
@@ -32,6 +37,14 @@ header_menu_app.$mount('#headermenu-app');
 window.header_menu_app = header_menu_app;
 
 
+
+function init_product_page_app(id) {
+   var temp = new Vue(ProductPage_App);
+   temp.$store = store;
+   temp.$mount(id);
+   window.product_page_app = temp;
+}
+window.init_product_page_app = init_product_page_app;
 
 
 
@@ -47,17 +60,12 @@ function init_home_page() {
   }).$mount('#components-demo')
 }
 
-function init_product_page() {
-  new Vue({
-    render: h => h(Product_Page),
-  }).$mount('#components-demo')
-}
+
 
 
 
 
 window.init_home_page = init_home_page;
-window.init_product_page = init_product_page;
 
 
 

@@ -38,11 +38,14 @@ def update_prod_obj(prod_obj):
     urls = prod_obj.github.split('/')
 
     slug = '/'.join(urls[1:])
-    cat_name = urls[0]
-    sub_cat_name = urls[1]
+    cat_url = urls[0]
+    sub_cat_url = urls[1]
 
-    cat, is_create = Category.objects.get_or_create(name=cat_name)
-    sub_cat, is_create = SubCategory.objects.get_or_create(name=sub_cat_name, category=cat)
+    cat_name = cat_url.replace('-',' ').title()
+    sub_cat_name = sub_cat_url.replace('-',' ').title()
+
+    cat, is_create = Category.objects.get_or_create(name=cat_name, slug=cat_url)
+    sub_cat, is_create = SubCategory.objects.get_or_create(name=sub_cat_name, category=cat, slug=sub_cat_url)
 
     md = markdown.Markdown(extensions=['tables', 'fenced_code'])
     html = md.convert(text)
@@ -88,13 +91,18 @@ def update_prod_obj(prod_obj):
     images_heading = soup.find('h2', text = re.compile('Images*'))
     images_paragraph = images_heading.findNext('p')
     images_tags = images_paragraph.findAll('img')
-    images = []
+    images = {}
+    images_idlist = []
     for img in images_tags:
         temp = {
-            'src': img['src'],
-            'alt': img['alt']
+            'jpg': img['src'],
+            'webp': img['src'].replace('.jpg','.webp'),
+            'alt': img['alt'],
+            'id': 'img{0}'.format(hash(img['src'])% (10 ** 8)),
         }
-        images.append(temp)
+        images[temp['id']] = temp
+        images_idlist.append(temp['id'])
+    images['mainimage'] = images[images_idlist[0]]
     prod_obj.images = json.dumps(images, indent=4)
     images_heading.decompose()
     images_paragraph.decompose()
@@ -107,7 +115,7 @@ def update_prod_obj(prod_obj):
         count = 0
         for v in variants:
             count += 1
-            variant_img = images[int(v['image'])-1]
+            variant_img = images[images_idlist[int(v['image'])-1]]
             variant_img['count'] = int(v['image'])
             prodvar, is_create = ProductVariant.objects.get_or_create(
                 prod=prod_obj,
@@ -184,3 +192,7 @@ class ProductVariantAdmin(admin.ModelAdmin):
     list_display = ['prod', 'name', 'price']
 
 admin.site.register(ProductVariant, ProductVariantAdmin)
+
+
+admin.site.register(Category)
+admin.site.register(SubCategory)

@@ -99,14 +99,19 @@ def product_page(request, category_slug, prod_slug):
         'title': prod.title,
         'keywords': prod.keywords,
         'meta_description': prod.meta_description,
+        'url': prod.slug,
         'name': prod.name,
         'description': prod.description,
-        'h1': '',
+        'h1': prod.name,
+        'sub_category': {
+            'name': prod.sub_category.name,
+            'slug': prod.sub_category.slug,
+        },
         'images': json.loads(prod.images),
         'variants': variants,
         'pricerange': '{0} - {1}'.format(min(prices), max(prices)),
         'html': prod.html,
 
-
     }
+
     return render(request, 'product-page.html', context)

@@ -1,16 +1,28 @@
-<template>
-  <div >
-
-  </div>
-</template>
 
 <script>
 export default {
   name: 'Product_Page',
+
+  delimiters: ['[[', ']]'],
+
   data: function () {
     return {
-
+      "mainimage": document.getElementById("product_main_image").innerHTML,
+      "images": JSON.parse(document.getElementById('prod_images_json').textContent),
     }
+  },
+  methods: {
+    change_image: function (event) {
+      var img = this.images[event.target.id];
+      var html=this.$format(`
+      <picture>
+        <source srcset="{2}" type="image/webp">
+        <source srcset="{1}" type="image/jpeg">
+        <img id="{0}" src="{1}" alt="{3}" >
+      </picture>
+      `, img.id, img.jpg, img.webp, img.alt);
+      this.mainimage = html;
+    },
   },
 }
 </script>
@@ -99,6 +111,9 @@ export default {
     figure
       margin: 0.2rem 0
       border: 1px solid rgba(255,255,255,0.6)
+
+      &:hover
+        border: 1px solid rgba(255,255,255,0.9)
 
 
 
