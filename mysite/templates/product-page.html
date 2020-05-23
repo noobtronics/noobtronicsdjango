@@ -7,7 +7,7 @@
 
 
 {{images|json_script:"prod_images_json"}};
-
+{{variants_dic|json_script:"prod_variants_json"}};
 
 {% endblock %}
 
@@ -37,51 +37,6 @@ init_product_page_app("#product-page-app");
 </script>
 
 
-
-<script>
-  /*! product buttons handler */
-  document.addEventListener('DOMContentLoaded', () => {
-    var buttons = document.querySelectorAll("#proddesccontainer");
-    var last_btn_change_time;
-
-    var button_event = function(el){
-      var price_el = document.getElementById('productprice');
-      var stock_el = document.getElementById('stock_p');
-      clear_variant_buttons();
-      price_el.innerText = el.getAttribute('price');
-      stock_p.innerText = el.getAttribute('stock');
-      document.querySelector('.horizontalprodphotos').scrollLeft = document.getElementById(el.getAttribute('imglink')).offsetLeft;
-      console.log(el);
-      el.classList.add('is-focused');
-
-    };
-
-    var clear_variant_buttons = function(el){
-        var price_el = document.getElementById('productprice');
-        price_el.innerText = price_el.getAttribute('default');
-        var buttons = document.querySelectorAll(".variantbutton.is-focused");
-        buttons.forEach(function(currentBtn){
-          currentBtn.classList.remove('is-focused');
-        });
-    };
-
-    buttons.forEach(function(currentBtn){
-      currentBtn.addEventListener('mousedown', (e)=>{
-        if(e.target.classList.contains('variantbutton')){
-          button_event(e.target);
-        }
-        else if(e.target.id == 'add-to-cart'){
-          notifications_app.create_alert('added to cart');
-          return;
-        }
-        else{
-          clear_variant_buttons();
-        }
-
-      });
-    });
-  });
-</script>
 
 {% endblock %}
 
@@ -155,7 +110,7 @@ init_product_page_app("#product-page-app");
                 <div class="variants">
                   <div class="buttons are-small is-centered">
                     {% for v in variants %}
-                    <a class="variantbutton button is-link is-inverted is-outlined" {{v.is_disabled}} stock="{{v.stock}}"  price="₹{{v.price}}" imglink="prodimage{{v.count}}">{{v.name}}</a>
+                    <a @mouseover="change_variant($event)" class="variantbutton button is-link is-inverted is-outlined" v-bind:class="{'is-focused': selected_variant.id=='{{v.id}}'}" {{v.is_disabled}} id="{{v.id}}">{{v.name}}</a>
                     {% endfor %}
                   </div>
                 </div>
@@ -171,7 +126,7 @@ init_product_page_app("#product-page-app");
               <div class="level-item">
                 <div class="level-item">
                   <p class="subtitle is-4" style="width:12rem;text-align:center;">
-                    Price: <strong id="productprice" default="₹{{variants.0.price}}">₹{{variants.0.price}}</strong>
+                    Price: <strong id="productprice" v-html="selected_variant.price" >₹{{variants.0.price}}</strong>
                   </p>
                 </div>
               </div>
@@ -186,7 +141,7 @@ init_product_page_app("#product-page-app");
               Ships from India. All India Delivery <br>(3-4 days for metros)
             </p>
             <nav class="level is-mobile">
-              <p class="level-item" id="stock_p">{{variants.0.stock}}</p>
+              <p class="level-item" id="product_in_stock" v-html="selected_variant.stock">{{variants.0.stock}}</p>
             </nav>
           </div>
         </div>

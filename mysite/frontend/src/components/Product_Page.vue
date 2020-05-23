@@ -9,11 +9,18 @@ export default {
     return {
       "mainimage": document.getElementById("product_main_image").innerHTML,
       "images": JSON.parse(document.getElementById('prod_images_json').textContent),
+      "variants": JSON.parse(document.getElementById('prod_variants_json').textContent),
+      "selected_variant":{
+        "id": '',
+        "stock": document.getElementById("product_in_stock").innerHTML,
+        "price": document.getElementById("productprice").innerHTML,
+      }
     }
   },
   methods: {
-    change_image: function (event) {
-      var img = this.images[event.target.id];
+
+    change_image_by_id:function(id){
+      var img = this.images[id];
       var html=this.$format(`
       <picture>
         <source srcset="{2}" type="image/webp">
@@ -22,6 +29,16 @@ export default {
       </picture>
       `, img.id, img.jpg, img.webp, img.alt);
       this.mainimage = html;
+    },
+    change_image: function (event) {
+      this.change_image_by_id(event.target.id);
+    },
+    change_variant: function (event) {
+      var variant = this.variants[event.target.id];
+      this.selected_variant.id = variant.id;
+      this.selected_variant.price = '₹'+variant.price;
+      this.selected_variant.stock = variant.stock;
+      this.change_image_by_id(variant.image);
     },
   },
 }

@@ -82,18 +82,21 @@ def product_page(request, category_slug, prod_slug):
     prod = get_object_or_404(Product, slug='{0}/{1}'.format(category_slug, prod_slug))
 
     variants = []
+    variants_dic = {}
     prices = []
     for v in prod.variants.all().order_by('rank'):
 
         temp = {
             'name': v.name,
-            'count': json.loads(v.image)['count'],
+            'image': json.loads(v.image)['id'],
             'is_disabled': 'disabled' if not v.in_stock else '',
             'price': v.price,
             'stock': 'out of stock' if not v.in_stock else 'in stock',
+            'id': str(v.id),
         }
         prices.append(v.price)
         variants.append(temp)
+        variants_dic[temp['id']] = temp
 
     context = {
         'title': prod.title,
@@ -109,6 +112,7 @@ def product_page(request, category_slug, prod_slug):
         },
         'images': json.loads(prod.images),
         'variants': variants,
+        'variants_dic': variants_dic,
         'pricerange': '{0} - {1}'.format(min(prices), max(prices)),
         'html': prod.html,
 
