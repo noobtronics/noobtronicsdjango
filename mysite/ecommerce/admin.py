@@ -92,7 +92,7 @@ def update_prod_obj(prod_obj):
     images_heading = soup.find('h2', text = re.compile('Images*'))
     images_paragraph = images_heading.findNext('p')
     images_tags = images_paragraph.findAll('img')
-    images = {}
+    images_data = {}
     images_idlist = []
     for img in images_tags:
         temp = {
@@ -101,9 +101,11 @@ def update_prod_obj(prod_obj):
             'alt': img['alt'],
             'id': 'img{0}'.format(hash(img['src'])% (10 ** 8)),
         }
-        images[temp['id']] = temp
+        images_data[temp['id']] = temp
         images_idlist.append(temp['id'])
-    images['mainimage'] = images[images_idlist[0]]
+    images = {}
+    images['mainimage'] = images_data[images_idlist[0]]
+    images['data'] = images_data
     prod_obj.images = json.dumps(images, indent=4)
     images_heading.decompose()
     images_paragraph.decompose()
@@ -116,7 +118,7 @@ def update_prod_obj(prod_obj):
         count = 0
         for v in variants:
             count += 1
-            variant_img = images[images_idlist[int(v['image'])-1]]
+            variant_img = images_data[images_idlist[int(v['image'])-1]]
             variant_img['count'] = int(v['image'])
             prodvar, is_create = ProductVariant.objects.get_or_create(
                 prod=prod_obj,
