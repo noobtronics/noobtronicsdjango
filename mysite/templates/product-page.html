@@ -110,7 +110,7 @@ init_product_page_app("#product-page-app");
                 <div class="variants">
                   <div class="buttons are-small is-centered">
                     {% for v in variants %}
-                    <a @mouseover="change_variant($event)" class="variantbutton button is-link is-inverted is-outlined" v-bind:class="{'is-focused': selected_variant.id=='{{v.id}}'}" {{v.is_disabled}} id="{{v.id}}">{{v.name}}</a>
+                    <a @click="change_variant($event)" class="variantbutton button is-link is-inverted is-outlined" v-bind:class="{'is-focused': selected_variant.id=='{{v.id}}'}" {{v.is_disabled}} id="{{v.id}}">{{v.name}}</a>
                     {% endfor %}
                   </div>
                 </div>
