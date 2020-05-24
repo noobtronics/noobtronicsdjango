@@ -66,6 +66,7 @@ def update_prod_obj(prod_obj):
     default_value = ''
 
     prod_obj.title = config.get('title', default_value)
+    prod_obj.shortname = config.get('shortname', default_value)
     prod_obj.meta_description = config.get('meta_description', default_value)
     prod_obj.keywords = config.get('keywords', default_value)
     prod_obj.sku = urls[-1]

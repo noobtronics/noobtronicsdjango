@@ -100,6 +100,7 @@ def product_page(request, category_slug, prod_slug):
 
     context = {
         'title': prod.title,
+        'shortname': prod.shortname,
         'keywords': prod.keywords,
         'meta_description': prod.meta_description,
         'url': prod.slug,

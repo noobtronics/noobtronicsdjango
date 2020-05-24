@@ -31,6 +31,7 @@ class Product(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='subcat_products', null=True, blank=True)
     sku = models.CharField(max_length=30, unique=True, null=True, blank=True)
     name = models.CharField(max_length=300, null=True, blank=True)
+    shortname = models.CharField(max_length=300, null=True, blank=True)
     description = models.TextField(default='', null=True, blank=True)
     title = models.TextField(default='', null=True, blank=True)
     meta_description = models.TextField(default='', null=True, blank=True)
