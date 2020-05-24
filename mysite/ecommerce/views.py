@@ -111,7 +111,7 @@ def product_page(request, category_slug, prod_slug):
             'name': prod.sub_category.name,
             'slug': prod.sub_category.slug,
         },
-        'images': json.loads(prod.images)['data'],
+        'images': json.loads(prod.images),
         'variants': variants,
         'variants_dic': variants_dic,
         'pricerange': '{0} - {1}'.format(min(prices), max(prices)),

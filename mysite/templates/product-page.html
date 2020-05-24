@@ -6,7 +6,7 @@
 {% block js_scripts %}
 
 
-{{images|json_script:"prod_images_json"}};
+{{images.data|json_script:"prod_images_json"}};
 {{variants_dic|json_script:"prod_variants_json"}};
 
 {% endblock %}
@@ -70,7 +70,7 @@ init_product_page_app("#product-page-app");
           <div class="columns is-mobile  prodmainphoto">
             <div class="column is-3 showcasecolumn" id="prodimage{{forloop.counter}}">
 
-              {% for i, v in images.items %}
+              {% for i, v in images.data.items %}
               <figure class="image">
                 <a @mouseover="change_image($event)">
                   <picture>
