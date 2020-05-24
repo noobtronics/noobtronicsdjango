@@ -47,23 +47,34 @@ init_subscribe_email("#subscribe_email");
 
       {% for prod in c.products %}
       <div class="column is-narrow horizontalprodcolumn">
+
+        <a href="/{{prod.slug}}">
         <div class="card" style="height: 100%">
           <div class="card-image">
             <figure class="image" style="object-fit: cover;">
-              <a href="/{{prod.slug}}">
-                <img class="lozad" data-src="{{prod.thumb}}" alt="{{prod.name}}">
-              </a>
+
+                <picture>
+                  <source srcset="{{prod.thumb.webp}}" type="image/webp">
+                  <source srcset="{{prod.thumb.jpg}}" type="image/jpeg">
+                  <img src="{{prod.thumb.jpg}}" alt="{{prod.thumb.alt}}" >
+                </picture>
+
             </figure>
+
+
           </div>
           <div class="footerblock">
             <footer class="card-footer">
-              <p class="cardhead">{{prod.name}}</p>
+              <p class="cardhead">{{prod.cardname}}</p>
             </footer>
             <footer class="card-footer">
               <p class="cardsubtitle">{{prod.cardtitle}}</p>
             </footer>
           </div>
         </div>
+        </a>
+
+
       </div>
       {% endfor %}
 

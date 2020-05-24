@@ -121,6 +121,7 @@ def update_prod_obj(prod_obj):
                 prod=prod_obj,
                 name=v['name'],
             )
+            prodvar.cardname=v['cardname']
             prodvar.cardtitle=v['cardtitle']
             prodvar.image=json.dumps(variant_img, indent=4)
             prodvar.price=int(v['price'])

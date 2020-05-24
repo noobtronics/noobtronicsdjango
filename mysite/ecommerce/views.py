@@ -42,10 +42,10 @@ def home_page(request):
             for var in vars:
                 image = json.loads(var.image)
                 temp = {
-                        'name': prod.name,
+                        'cardname': var.cardname,
                         'cardtitle': var.cardtitle,
                         'slug': prod.slug,
-                        'thumb': image['src']
+                        'thumb': image
                     }
                 prod_array.append(temp)
         temp = {

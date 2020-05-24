@@ -68,6 +68,7 @@ class ProductVariant(models.Model):
     prod = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="variants")
     name = models.CharField(max_length=300)
     image = models.TextField(default='')
+    cardname = models.CharField(max_length=200, null=True, blank=True)
     cardtitle = models.CharField(max_length=200, null=True, blank=True)
     is_main = models.BooleanField(default=False)
 
