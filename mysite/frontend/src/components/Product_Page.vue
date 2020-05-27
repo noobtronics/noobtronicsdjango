@@ -118,8 +118,9 @@ export default {
     overflow-y: auto
     width: 22%
     display: flex
+    flex-direction: column
     align-items: center
-    flex-wrap: wrap
+    flex-wrap: nowrap
 
     &::-webkit-scrollbar
       width: 0
