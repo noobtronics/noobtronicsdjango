@@ -3,7 +3,7 @@ const fs = require('fs')
 
 penthouse({
   url: 'http://localhost:8000',
-  css: '/Users/Nikhil/Desktop/noobtronicsdjango/mysite/static/dist/css/app.519ad3ac.css',
+  css: '/Users/Nikhil/Desktop/noobtronicsdjango/mysite/static/dist/css/app.ff628f4c.css',
   width: 1366,
   height: 768,
   renderWaitTime: 5000,
