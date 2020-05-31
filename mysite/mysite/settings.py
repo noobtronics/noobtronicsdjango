@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import json
+import traceback
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -102,6 +103,7 @@ DATABASES = {
 APP_ENV_PROD = False
 if os.environ.get('ENV'):
     if os.environ.get('ENV').startswith("PROD"):
+        print("Prod Environment....")
         APP_ENV_PROD = True
 
 
@@ -250,5 +252,8 @@ try:
             webpack_js.append(url)
         if url.endswith('.css'):
             webpack_css.append(url)
+    print(webpack_js)
+    print(webpack_css)
 except:
+    traceback.print_exc()
     pass
