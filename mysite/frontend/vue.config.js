@@ -1,4 +1,6 @@
 var BundleTracker = require('webpack-bundle-tracker');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const path = require("path");
 
 
@@ -34,6 +36,8 @@ module.exports = {
         path: __dirname,
         filename: './webpack-stats.json',
       }),
+
+      new BundleAnalyzerPlugin(),
     ]
   }
 

@@ -17,6 +17,42 @@
     .columns{margin: 0;}.column{padding: 0;}
   </style>
 
+
+
+    <script>
+      var init_vue_app = function(){
+        {% block init_vue_app %}
+        {% endblock %}
+      }
+    </script>
+
+
+    {% if PRODENV %}
+
+      {% for  css_url in webpack_css %}
+        <link rel="preload" as="style" href="/static/dist/{{css_url}}" onload="this.onload=null;this.rel='stylesheet'">
+        <!-- <link rel="stylesheet" href="/static/dist/{{css_url}}" > -->
+        <noscript>
+          <link rel="stylesheet" href="/static/dist/{{css_url}}">
+        </noscript>
+      {% endfor %}
+
+      {% for  js_url in webpack_js %}
+        <script async type="text/javascript" src="/static/dist/{{js_url}}"></script>
+      {% endfor %}
+
+    {% else %}
+    <script type="text/javascript" src="http://localhost:8080/js/chunk-vendors.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/js/app.js"></script>
+
+    <link href="http://localhost:8080/css/app.css" rel="stylesheet">
+    {% endif %}
+
+
+
+    {% block vue %}
+    {% endblock %}
+
 </head>
 
 <body>
@@ -49,39 +85,6 @@
   {% endblock %}
 
 
-  <script>
-    var init_vue_app = function(){
-      {% block init_vue_app %}
-      {% endblock %}
-    }
-  </script>
-
-
-  {% if PRODENV %}
-
-    {% for  css_url in webpack_css %}
-      <link rel="preload" as="style" href="/static/dist/{{css_url}}" onload="this.onload=null;this.rel='stylesheet'">
-      <!-- <link rel="stylesheet" href="/static/dist/{{css_url}}" > -->
-      <noscript>
-        <link rel="stylesheet" href="/static/dist/{{css_url}}">
-      </noscript>
-    {% endfor %}
-
-    {% for  js_url in webpack_js %}
-      <script async type="text/javascript" src="/static/dist/{{js_url}}"></script>
-    {% endfor %}
-
-  {% else %}
-  <script type="text/javascript" src="http://localhost:8080/js/chunk-vendors.js"></script>
-  <script type="text/javascript" src="http://localhost:8080/js/app.js"></script>
-
-  <link href="http://localhost:8080/css/app.css" rel="stylesheet">
-  {% endif %}
-
-
-
-  {% block vue %}
-  {% endblock %}
 
 
 </body>
