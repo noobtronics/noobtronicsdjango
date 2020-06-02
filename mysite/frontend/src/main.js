@@ -30,11 +30,15 @@ import ProductPage_App from './components/Product_Page.vue'
 import {store} from './store/store'
 
 
-
 var header_menu_app = new Vue(Header_Menu);
 header_menu_app.$store = store;
-header_menu_app.$mount('#headermenu-app');
 window.header_menu_app = header_menu_app;
+
+
+function initialize_vuejs(){
+  header_menu_app.$mount('#headermenu-app');
+  window.init_vue_app();
+}
 
 
 
@@ -60,13 +64,11 @@ function init_home_page() {
   }).$mount('#components-demo')
 }
 
-
-
-
-
-
 window.init_home_page = init_home_page;
 
 
+window.initialize_vuejs = initialize_vuejs;
 
-window.init_vue_app();
+if(window.load_vuejs){
+  initialize_vuejs();
+}

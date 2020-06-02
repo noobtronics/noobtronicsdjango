@@ -85,7 +85,13 @@
   {% endblock %}
 
 
-
+  <script>
+    if(!window.initialize_vuejs){
+      window.load_vuejs = true;
+    }else{
+      window.initialize_vuejs();
+    }
+  </script>
 
 </body>
 
