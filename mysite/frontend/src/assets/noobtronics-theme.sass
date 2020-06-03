@@ -2,7 +2,7 @@
 
 $navbar-height: 4rem
 $navbar-item-img-max-height: 4rem
-
+$card-shadow: 0 0.5em 1em -0.125em rgba(#000000, 0.1), 0 0px 0 1px rgba(#363636, 0.4)
 
 @import "node_modules/bulma/bulma.sass"
 @import "node_modules/bulma-extensions/bulma-badge/src/sass/index.sass"
@@ -107,7 +107,6 @@ html
           padding-left: 10px
           padding-right: 10px
 
-
 +mobile
   .horizontalprodmainrow
     .column
@@ -123,6 +122,86 @@ html
 
           .cardsubtitle
             font-size: 12px
+
+
+
+
+.shopprodrow
+  padding: 0
+  margin: 0
+
+  .prodcolumn
+    padding: 5px 0px
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+
+
+    .card
+      width: 180px
+      margin: 1%
+      border-radius: 10px
+
+      &.hidden
+        visibility: hidden
+        flex: auto
+
+
+
+      .card-footer
+        border-top: 0px solid black
+
+        .card-footer-item
+          padding: 0.4rem
+
+          .button
+            color: #000000
+            box-shadow: 0 2px 2px -1px rgba(#000000, 0.4)
+
+            &:hover
+              box-shadow: 0 4px 4px -2px rgba(#000000, 0.6)
+
+
+          .price
+            color: #c02843
+            font-size: 1.2rem
+            font-weight: 600
+
+          &:not(:last-child)
+            border-right: 0px solid black
+
+      .cardhead
+        font-size: 16px
+        font-weight: 600
+        color: black
+        padding-left: 10px
+        padding-right: 10px
+        overflow: hidden
+        white-space: nowrap
+
+
+      .cardsubtitle
+        font-size: 14px
+        font-weight: 600
+        color: #585858
+        padding-left: 10px
+        padding-right: 10px
+        overflow: hidden
+        white-space: nowrap
+
+
+
+
+
+
++mobile
+  .shopprodrow
+    .prodcolumn
+      .card
+        width: 180px
+        margin: 8px 0px
+        margin-left: calc(33.33% - 120px)
+
 
 
 
