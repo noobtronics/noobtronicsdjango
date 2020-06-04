@@ -3,7 +3,7 @@
 
 
 {% block init_vue_app %}
-init_subscribe_email("#subscribe_email");
+
 {% endblock %}
 
 
@@ -26,6 +26,9 @@ init_subscribe_email("#subscribe_email");
 
 <section class="section fullwidthmobilesection" style="padding-bottom: 1rem;">
   <div class="container fullwdithcontainer">
+
+    
+
     <h1 class="c">Shop</h1>
     <h2 class="c">Browse All Electronic Components and Kits</h2>
 
@@ -38,22 +41,24 @@ init_subscribe_email("#subscribe_email");
             {% for prod in products %}
             <div class="card">
               <div class="card-image">
-                <figure class="image" style="object-fit: cover;">
-
-                    <picture>
-                      <source srcset="{{prod.thumb.webp}}" type="image/webp">
-                      <source srcset="{{prod.thumb.jpg}}" type="image/jpeg">
-                      <img src="{{prod.thumb.jpg}}" alt="{{prod.thumb.alt}}"  width="150" height="150" loading="lazy"  >
-                    </picture>
-
-                </figure>
+                <a href="{{prod.slug}}">
+                  <figure class="image" style="object-fit: cover;">
+                      <picture>
+                        <source data-srcset="{{prod.thumb.webp}}" type="image/webp">
+                        <source data-srcset="{{prod.thumb.jpg}}" type="image/jpeg">
+                        <img data-src="{{prod.thumb.jpg}}" alt="{{prod.thumb.alt}}"  width="150" height="150" class="lazyload"  >
+                      </picture>
+                  </figure>
+                </a>
 
 
               </div>
               <div class="footerblock">
-                <footer class="card-footer">
-                  <p class="cardhead">{{prod.cardname}}</p>
-                </footer>
+                <a href="{{prod.slug}}">
+                  <footer class="card-footer">
+                    <p class="cardhead">{{prod.cardname}}</p>
+                  </footer>
+                </a>
                 <footer class="card-footer">
                   <p class="cardsubtitle">{{prod.cardtitle}}</p>
                 </footer>
