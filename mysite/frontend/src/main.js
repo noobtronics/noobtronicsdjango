@@ -18,6 +18,10 @@ Vue.prototype.$log = console.log;
 import StrigFormat from 'string-format'
 Vue.prototype.$format = StrigFormat;
 
+import lazySizes from 'lazysizes';
+lazySizes.cfg.lazyClass = 'lazyload';
+
+
 
 import Header_Menu from './components/Header_Menu.vue'
 

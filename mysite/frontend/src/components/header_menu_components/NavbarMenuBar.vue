@@ -68,7 +68,7 @@
           <p class="control">
             <a class="bd-tw-button button ">
               <span class="icon">
-                <img alt="store icon" class="lozad" data-src="/static/images/icons/store_icon.png">
+                <img alt="store icon" class="lazyload" data-src="/static/images/icons/store_icon.png">
               </span>
               <span>
                 Store
@@ -78,7 +78,7 @@
           <p class="control">
             <a class="button badge is-inverted badge is-badge-danger cartbuttons" v-bind:data-badge="cart_count>0 ? cart_count : false" href="https://github.com/jgthms/bulma/releases/download/0.8.0/bulma-0.8.0.zip">
               <span class="icon">
-                <img alt="checkout icon" class="lozad" data-src="/static/images/icons/cart_icon.png">
+                <img alt="checkout icon" class="lazyload" data-src="/static/images/icons/cart_icon.png">
               </span>
               <span>Checkout</span>
             </a>

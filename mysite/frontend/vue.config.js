@@ -1,5 +1,6 @@
 var BundleTracker = require('webpack-bundle-tracker');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const fs = require('fs')
 
 const path = require("path");
 
@@ -39,6 +40,16 @@ module.exports = {
 
       new BundleAnalyzerPlugin(),
     ]
-  }
+  },
+
+  devServer: {
+    https: {
+          key: fs.readFileSync('./certs/example.com+5-key.pem'),
+          cert: fs.readFileSync('./certs/example.com+5.pem'),
+        },
+    public: 'https://localhost:8080/'
+  },
+
+
 
 }
