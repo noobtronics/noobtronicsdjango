@@ -34,7 +34,7 @@ sitemaps = {
 urlpatterns = [
     path('convert/', include('lazysignup.urls')),
 
-    path('myadmin/', admin.site.urls),
+    path('myadmin', admin.site.urls),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap'),
 
     path('seotools/', include('seotools.urls')),

@@ -252,8 +252,8 @@ try:
             webpack_js.append(url)
         if url.endswith('.css'):
             webpack_css.append(url)
-    print(webpack_js)
-    print(webpack_css)
+    # print(webpack_js)
+    # print(webpack_css)
 except:
     traceback.print_exc()
     pass
