@@ -58,7 +58,11 @@
                       <picture>
                         <source data-srcset="{{prod.thumb.webp}}" type="image/webp">
                         <source data-srcset="{{prod.thumb.jpg}}" type="image/jpeg">
-                        <img data-src="{{prod.thumb.jpg}}" alt="{{prod.thumb.alt}}"  width="150" height="150" class="lazyload"  >
+                        {% if forloop.counter <= 4 %}
+                          <img src="{{prod.thumb.jpg}}" alt="{{prod.thumb.alt}}"  width="150" height="150"  >
+                        {% else %}
+                          <img data-src="{{prod.thumb.jpg}}" alt="{{prod.thumb.alt}}"  width="150" height="150" class="lazyload"  >
+                        {% endif %}
                       </picture>
                   </figure>
                 </a>
