@@ -6,7 +6,7 @@ $card-shadow: 0 0.5em 1em -0.125em rgba(#000000, 0.1), 0 0px 0 1px rgba(#363636,
 
 @import "node_modules/bulma/bulma.sass"
 @import "node_modules/bulma-extensions/bulma-badge/src/sass/index.sass"
-
+@import "./mobile-mixin.sass"
 
 .c
   position: absolute
@@ -199,12 +199,30 @@ html
   .shopprodrow
     .prodcolumn
       .card
+        width: 162px
+        margin: 8px 0px
+        margin-left: calc(33.33% - 108px)
+
+        .cardhead
+          font-size: 14px
+        .cardsubtitle
+          font-size: 12px
+        .button
+          font-size: 0.6rem
+
++iphone_plus
+  .shopprodrow
+    .prodcolumn
+      .card
         width: 180px
         margin: 8px 0px
         margin-left: calc(33.33% - 120px)
 
 
 .shoppagesection
+  .title
+    margin-bottom: 0.5rem
+
   .shophead
     margin-top: 1rem
 

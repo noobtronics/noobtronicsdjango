@@ -14,7 +14,6 @@ import json
 def home_page(request):
     config = Page.objects.get(name='homepage')
 
-    page_config = json.loads(config.config)
     prod_ids = []
     prod_data = {}
     # for i in page_config['catalog']:
@@ -69,7 +68,7 @@ def home_page(request):
     context = {
         'title': config.title,
         'keywords': config.keywords,
-        'description': config.description,
+        'description': config.meta_description,
         'h1': config.h1,
 
         'catalog': catalog,
@@ -114,7 +113,7 @@ def shop_page(request):
     context = {
         'title': config.title,
         'keywords': config.keywords,
-        'description': config.description,
+        'description': config.meta_description,
         'h1': config.h1,
         'categorys': category,
         'products': prod_array,
@@ -168,6 +167,44 @@ def shop_category_page(request, category_slug):
         'products': prod_array,
     }
     return render(request, 'shop-category-page.html', context)
+
+
+
+@log_urlhistory
+@ensure_csrf_cookie
+def shop_subcategory_page(request, subcategory_slug):
+
+    subcategory = get_object_or_404(SubCategory, slug=subcategory_slug)
+
+
+    prod_array = []
+
+    prods = subcategory.subcat_products.all().order_by('rank')
+    for prod in prods:
+        vars = prod.variants.filter(is_shop=True).order_by('rank')
+        for var in vars:
+            image = json.loads(var.image)
+            temp = {
+                    'cardname': var.cardname,
+                    'cardtitle': var.cardtitle,
+                    'slug': prod.slug,
+                    'price': var.price,
+                    'thumb': image
+                }
+            prod_array.append(temp)
+
+
+    context = {
+        'title': subcategory.title,
+        'keywords': subcategory.keywords,
+        'description': subcategory.meta_description,
+        'h1': subcategory.h1,
+        'name': subcategory.name,
+        'content': subcategory.html,
+
+        'products': prod_array,
+    }
+    return render(request, 'shop-subcategory-page.html', context)
 
 
 

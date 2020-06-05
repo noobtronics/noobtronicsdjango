@@ -31,25 +31,12 @@
 
     <h1 class="c">{{h1}}</h1>
 
-    <h2 class="title is-5 has-text-centered shophead" style="margin: 1rem 0;">Browse By Category</h2>
-    <div class="buttons is-centered" >
-      {% for cat in sub_category %}
-          <a class="button  is-medium is-active" href="/{{cat.slug}}">
-            {{cat.name}}
-          </a>
-      {% endfor %}
-    </div>
 
 
-
-    <h2 class="title is-5 has-text-centered">Browse All {{name}}</h2>
+    <h2 class="title is-5 has-text-centered" style="margin-top:1.5rem;">Browse All {{name}}</h2>
     <div class="columns shopprodrow">
 
           <div class="column prodcolumn">
-
-
-
-
             {% for prod in products %}
             <div class="card">
               <div class="card-image">

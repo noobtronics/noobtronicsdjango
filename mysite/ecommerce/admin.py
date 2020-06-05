@@ -160,6 +160,8 @@ def download_products():
             if sub_category.path.endswith('readme.md'):
                 continue
             for product in repo.get_dir_contents(sub_category.path):
+                if product.path.endswith('readme.md'):
+                    continue
                 prod_url = product.path.replace('src/products/','').replace('.md','')
                 prod_obj, is_create = Product.objects.get_or_create(github=prod_url)
 
@@ -230,18 +232,21 @@ def update_category_obj(category_obj):
     category_obj.keywords = config.get('keywords', default_value)
 
     h1 = soup.find('h1')
-    category_obj.name = h1.text
+    category_obj.h1 = h1.text
     h1.decompose()
-
-
 
     soup = add_table_styles(soup)
 
     category_obj.markdown=text
     category_obj.html=str(soup)
-    
+
     category_obj.save()
 
+
+def update_categorys():
+    cats = Category.objects.all()
+    for cat in cats:
+        update_category_obj(cat)
 
 
 class CategoryAdmin(DjangoObjectActions, admin.ModelAdmin):
@@ -251,9 +256,77 @@ class CategoryAdmin(DjangoObjectActions, admin.ModelAdmin):
     update_this.short_description = "Update from Github"  # optional
     change_actions = ('update_this', )
 
+    def update_all(modeladmin, request, queryset):
+        update_categorys()
+
+    changelist_actions = ('update_all',)
+
     list_display = ['name', 'slug', 'h1', 'title']
 
 
 admin.site.register(Category, CategoryAdmin)
 
-admin.site.register(SubCategory)
+
+
+def update_subcategory_obj(category_obj):
+    g = Github(settings.GITHUB_KEY)
+    repo  = g.get_repo("nikhilraut12/noobtronics_media")
+    text = repo.get_contents("src/products/{0}/{1}/readme.md".format(category_obj.category.slug, category_obj.slug)).decoded_content.decode()
+
+    md = markdown.Markdown(extensions=['tables', 'fenced_code'])
+    html = md.convert(text)
+
+
+    soup = BeautifulSoup(html, 'html.parser')
+
+    config = {}
+
+    yamls_html = soup.findAll('code', {'class': 'yaml'})
+    yamls = []
+    for t in yamls_html:
+        yamls.append(t.contents)
+        t.parent.decompose()
+    for y in yamls:
+        config.update(yaml.load(y[0], Loader=yaml.Loader))
+
+    default_value = ''
+
+    category_obj.title = config.get('title', default_value)
+    category_obj.meta_description = config.get('meta_description', default_value)
+    category_obj.keywords = config.get('keywords', default_value)
+
+    h1 = soup.find('h1')
+    category_obj.h1 = h1.text
+    h1.decompose()
+
+    soup = add_table_styles(soup)
+
+    category_obj.markdown=text
+    category_obj.html=str(soup)
+
+    category_obj.save()
+
+
+def update_subcategorys():
+    cats = SubCategory.objects.all()
+    for cat in cats:
+        update_subcategory_obj(cat)
+
+
+
+class SubCategoryAdmin(DjangoObjectActions, admin.ModelAdmin):
+    def update_this(self, request, obj):
+        update_subcategory_obj(obj)
+    update_this.label = "Update"  # optional
+    update_this.short_description = "Update from Github"  # optional
+    change_actions = ('update_this', )
+
+    def update_all(modeladmin, request, queryset):
+        update_subcategorys()
+
+    changelist_actions = ('update_all',)
+
+    list_display = ['name', 'slug', 'h1', 'title']
+
+
+admin.site.register(SubCategory, SubCategoryAdmin)
