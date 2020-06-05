@@ -110,8 +110,6 @@ def shop_page(request):
                     }
                 prod_array.append(temp)
 
-    prod_array.extend(prod_array[:3])
-
 
     context = {
         'title': config.title,
@@ -128,43 +126,48 @@ def shop_page(request):
 
 @log_urlhistory
 @ensure_csrf_cookie
-def shop_category_page(request):
-    config = Page.objects.get(name='homepage')
+def shop_category_page(request, category_slug):
 
-    page_config = json.loads(config.config)
-    prod_ids = []
-    prod_data = {}
+    category = get_object_or_404(Category, slug=category_slug)
 
+    sub_category = []
+    subs = category.subcategorys.all()
+    for sub_cat in subs:
+        temp = {
+            'name': sub_cat.name,
+            'slug': sub_cat.slug,
+        }
+        sub_category.append(temp)
 
     prod_array = []
-    cats = Category.objects.all().order_by('rank')
-    for cat in cats:
-        prods = cat.cat_products.all().order_by('rank')
-        for prod in prods:
-            vars = prod.variants.filter(is_shop=True).order_by('rank')
-            for var in vars:
-                image = json.loads(var.image)
-                temp = {
-                        'cardname': var.cardname,
-                        'cardtitle': var.cardtitle,
-                        'slug': prod.slug,
-                        'price': var.price,
-                        'thumb': image
-                    }
-                prod_array.append(temp)
 
-    prod_array.extend(prod_array[:3])
+    prods = category.cat_products.all().order_by('rank')
+    for prod in prods:
+        vars = prod.variants.filter(is_shop=True).order_by('rank')
+        for var in vars:
+            image = json.loads(var.image)
+            temp = {
+                    'cardname': var.cardname,
+                    'cardtitle': var.cardtitle,
+                    'slug': prod.slug,
+                    'price': var.price,
+                    'thumb': image
+                }
+            prod_array.append(temp)
 
 
     context = {
-        'title': config.title,
-        'keywords': config.keywords,
-        'description': config.description,
-        'h1': config.h1,
+        'title': category.title,
+        'keywords': category.keywords,
+        'description': category.meta_description,
+        'h1': category.h1,
+        'name': category.name,
+        'content': category.html,
 
+        'sub_category': sub_category,
         'products': prod_array,
     }
-    return render(request, 'shop-page.html', context)
+    return render(request, 'shop-category-page.html', context)
 
 
 

@@ -9,15 +9,33 @@ class Category(models.Model):
     slug = models.CharField(max_length=200, unique=True, null=True, blank=True)
     rank = models.IntegerField(default=100)
 
+
+    h1 = models.TextField(default='', null=True, blank=True)
+    title = models.TextField(default='', null=True, blank=True)
+    meta_description = models.TextField(default='', null=True, blank=True)
+    keywords = models.TextField(default='', null=True, blank=True)
+
+    markdown = models.TextField(default='', null=True, blank=True)
+    html = models.TextField(default='', null=True, blank=True)
+
     def __str__(self):
         return str(self.name)
+
 
 class SubCategory(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, unique=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategorys')
     slug = models.CharField(max_length=200, unique=True, null=True, blank=True)
     rank = models.IntegerField(default=100)
+
+    h1 = models.TextField(default='', null=True, blank=True)
+    title = models.TextField(default='', null=True, blank=True)
+    meta_description = models.TextField(default='', null=True, blank=True)
+    keywords = models.TextField(default='', null=True, blank=True)
+
+    markdown = models.TextField(default='', null=True, blank=True)
+    html = models.TextField(default='', null=True, blank=True)
 
     def __str__(self):
         return str(self.name)

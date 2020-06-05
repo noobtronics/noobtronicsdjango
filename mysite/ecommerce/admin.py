@@ -154,7 +154,11 @@ def download_products():
     g = Github(settings.GITHUB_KEY)
     repo  = g.get_repo("nikhilraut12/noobtronics_media")
     for category in repo.get_dir_contents("src/products"):
+        if category.path.endswith('readme.md'):
+            continue
         for sub_category in repo.get_dir_contents(category.path):
+            if sub_category.path.endswith('readme.md'):
+                continue
             for product in repo.get_dir_contents(sub_category.path):
                 prod_url = product.path.replace('src/products/','').replace('.md','')
                 prod_obj, is_create = Product.objects.get_or_create(github=prod_url)
@@ -198,5 +202,58 @@ class ProductVariantAdmin(admin.ModelAdmin):
 admin.site.register(ProductVariant, ProductVariantAdmin)
 
 
-admin.site.register(Category)
+def update_category_obj(category_obj):
+    g = Github(settings.GITHUB_KEY)
+    repo  = g.get_repo("nikhilraut12/noobtronics_media")
+    text = repo.get_contents("src/products/{0}/readme.md".format(category_obj.slug)).decoded_content.decode()
+
+    md = markdown.Markdown(extensions=['tables', 'fenced_code'])
+    html = md.convert(text)
+
+
+    soup = BeautifulSoup(html, 'html.parser')
+
+    config = {}
+
+    yamls_html = soup.findAll('code', {'class': 'yaml'})
+    yamls = []
+    for t in yamls_html:
+        yamls.append(t.contents)
+        t.parent.decompose()
+    for y in yamls:
+        config.update(yaml.load(y[0], Loader=yaml.Loader))
+
+    default_value = ''
+
+    category_obj.title = config.get('title', default_value)
+    category_obj.meta_description = config.get('meta_description', default_value)
+    category_obj.keywords = config.get('keywords', default_value)
+
+    h1 = soup.find('h1')
+    category_obj.name = h1.text
+    h1.decompose()
+
+
+
+    soup = add_table_styles(soup)
+
+    category_obj.markdown=text
+    category_obj.html=str(soup)
+    
+    category_obj.save()
+
+
+
+class CategoryAdmin(DjangoObjectActions, admin.ModelAdmin):
+    def update_this(self, request, obj):
+        update_category_obj(obj)
+    update_this.label = "Update"  # optional
+    update_this.short_description = "Update from Github"  # optional
+    change_actions = ('update_this', )
+
+    list_display = ['name', 'slug', 'h1', 'title']
+
+
+admin.site.register(Category, CategoryAdmin)
+
 admin.site.register(SubCategory)
