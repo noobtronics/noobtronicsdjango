@@ -24,18 +24,32 @@
 {% block section %}
 
 
-<section class="section fullwidthmobilesection" style="padding-bottom: 1rem;">
+<section class="section fullwidthmobilesection shoppagesection">
   <div class="container fullwdithcontainer">
 
-    
+
 
     <h1 class="c">Shop</h1>
     <h2 class="c">Browse All Electronic Components and Kits</h2>
 
 
+    <h2 class="title is-5 has-text-centered shophead">Browse By Category</h2>
+    <div class="buttons is-centered" >
+      {% for cat in categorys %}
+          <a class="button  is-medium is-active" href="/shop/{{cat.slug}}">
+            {{cat.name}}
+          </a>
+      {% endfor %}
+    </div>
+
+
+
+    <h2 class="title is-5 has-text-centered">Browse All</h2>
     <div class="columns shopprodrow">
 
           <div class="column prodcolumn">
+
+
 
 
             {% for prod in products %}

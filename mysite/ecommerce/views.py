@@ -81,6 +81,54 @@ def home_page(request):
 @log_urlhistory
 @ensure_csrf_cookie
 def shop_page(request):
+    config = Page.objects.get(name='shoppage')
+
+    prod_ids = []
+    prod_data = {}
+
+
+    prod_array = []
+    category = []
+    cats = Category.objects.all().order_by('rank')
+    for cat in cats:
+        temp = {
+            'name': cat.name,
+            'slug': cat.slug,
+        }
+        category.append(temp)
+        prods = cat.cat_products.all().order_by('rank')
+        for prod in prods:
+            vars = prod.variants.filter(is_shop=True).order_by('rank')
+            for var in vars:
+                image = json.loads(var.image)
+                temp = {
+                        'cardname': var.cardname,
+                        'cardtitle': var.cardtitle,
+                        'slug': prod.slug,
+                        'price': var.price,
+                        'thumb': image
+                    }
+                prod_array.append(temp)
+
+    prod_array.extend(prod_array[:3])
+
+
+    context = {
+        'title': config.title,
+        'keywords': config.keywords,
+        'description': config.description,
+        'h1': config.h1,
+        'categorys': category,
+        'products': prod_array,
+    }
+    return render(request, 'shop-page.html', context)
+
+
+
+
+@log_urlhistory
+@ensure_csrf_cookie
+def shop_category_page(request):
     config = Page.objects.get(name='homepage')
 
     page_config = json.loads(config.config)
