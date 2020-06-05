@@ -62,13 +62,11 @@ init_product_page_app("#product-page-app");
 
               {% for i, v in images.data.items %}
               <figure class="image">
-                <a @mouseover="change_image($event)">
-                  <picture>
+                  <picture @mouseover="change_image($event)">
                     <source srcset="{{v.webp}}" type="image/webp">
                     <source srcset="{{v.jpg}}" type="image/jpeg">
-                    <img id="{{i}}" src="{{v.jpg}}" alt="{{v.alt}}" >
+                    <img id="{{i}}" src="{{v.jpg}}"  alt="{{v.alt}}" width="300" height="300">
                   </picture>
-                </a>
               </figure>
               {% endfor %}
             </div>

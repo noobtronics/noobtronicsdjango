@@ -55,7 +55,7 @@
             {% for prod in products %}
             <div class="card">
               <div class="card-image">
-                <a href="{{prod.slug}}">
+                <a href="/{{prod.slug}}">
                   <figure class="image" style="object-fit: cover;">
                       <picture>
                         <source data-srcset="{{prod.thumb.webp}}" type="image/webp">
@@ -73,7 +73,7 @@
 
               </div>
               <div class="footerblock">
-                <a href="{{prod.slug}}">
+                <a href="/{{prod.slug}}">
                   <footer class="card-footer">
                     <p class="cardhead">{{prod.cardname}}</p>
                   </footer>
