@@ -1,2 +1,13 @@
 
 <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+<link rel="manifest" href="/static/manifest.json">
+<link rel="apple-touch-icon" href="/static/images/icons-192.png"/>
+<meta name="theme-color" content="#35363A">
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/static/js/service-worker.js');
+  });
+}
+</script>
