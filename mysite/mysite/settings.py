@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import json
 import traceback
+from pprint import pprint
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -247,12 +248,53 @@ try:
     with open('frontend/webpack-stats.json', 'r') as fil:
         webpack_config = json.loads(fil.read())
 
+    #pprint(webpack_config)
+
+    js_list = []
+    vuejs = ''
+    appjs = ''
+
     for url in webpack_config['chunks']['app']:
         if url.endswith('.js'):
-            webpack_js.append(url)
+            if '.vue.' in url:
+                url = '/static/dist/' + url
+                vuejs = url
+            elif '/app.' in url:
+                url = '/static/dist/' + url
+                appjs = url
+            else:
+                js_list.append(url)
         if url.endswith('.css'):
             webpack_css.append(url)
-    # print(webpack_js)
+
+
+    sizes = {}
+    for js in js_list:
+        path = 'static/dist'+ webpack_config['assets'][js]['publicPath']
+        sizes[js] = os.path.getsize(path)
+
+
+    temp = [vuejs,]
+    webpack_js.append(temp)
+
+    counter = 0
+    temp = []
+    for url in js_list:
+        counter += sizes[url]
+        url = '/static/dist/' + url
+        temp.append(url)
+        if counter > 20000:
+            webpack_js.append(temp)
+            temp = []
+            counter = 0
+    if len(temp) > 0:
+        webpack_js.append(temp)
+        temp = []
+
+    temp = [appjs,]
+    webpack_js.append(temp)
+
+    #pprint(webpack_js)
     # print(webpack_css)
 except:
     traceback.print_exc()

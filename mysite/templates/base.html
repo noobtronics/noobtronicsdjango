@@ -31,9 +31,35 @@
 
     {% if PRODENV %}
 
-      {% for  js_url in webpack_js %}
-        <!-- <script async type="text/javascript" src="/static/dist/{{js_url}}"></script> -->
+      {% for  js_urls in webpack_js %}
+      {% for  js_url in js_urls %}
+        <link rel="preload" href="{{js_url}}" as="script">
       {% endfor %}
+      {% endfor %}
+
+      <script>
+        !function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.loadScriptAsync=t():e.loadScriptAsync=t()}(this,(function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t){e.exports=function(e){e="[object Array]"!=Object.prototype.toString.call(e)?[e]:e;const t=document.body||document.head||document.documentElement;return Promise.all(e.map(e=>new Promise((n,r)=>{let o=document.createElement("script");o.async=!0,o.defer=!0,o.onload=()=>n(e),o.onerror=()=>r(new Error(e)),o.src=e,t.appendChild(o)})))}}])}));
+      </script>
+
+      <script>
+
+        var js_list = {{webpack_js|safe}};
+
+        var js_index = -1;
+        function initjsscripts() {
+          js_index += 1;
+
+          if (js_index < js_list.length ) {
+            loadScriptAsync(js_list[js_index]).then(() => {
+                setTimeout(initjsscripts, 5);
+            });
+          }
+
+
+          }
+          initjsscripts();
+
+      </script>
 
 
       {% for  css_url in webpack_css %}
@@ -87,6 +113,7 @@
 
   {% block js_scripts %}
   {% endblock %}
+
 
 
   <script>
