@@ -31,16 +31,18 @@
 
     {% if PRODENV %}
 
+      {% for  js_url in webpack_js %}
+        <!-- <script async type="text/javascript" src="/static/dist/{{js_url}}"></script> -->
+      {% endfor %}
+
+
       {% for  css_url in webpack_css %}
-        <link rel="preload" as="style" href="/static/dist/{{css_url}}" onload="this.onload=null;this.rel='stylesheet'">
+        <!-- <link rel="preload" as="style" href="/static/dist/{{css_url}}" onload="this.onload=null;this.rel='stylesheet'"> -->
         <!-- <link rel="stylesheet" href="/static/dist/{{css_url}}" > -->
+        <link rel="stylesheet" href="/static/dist/{{css_url}}" media="print" onload="this.media='all'; this.onload=null;">
         <noscript>
           <link rel="stylesheet" href="/static/dist/{{css_url}}">
         </noscript>
-      {% endfor %}
-
-      {% for  js_url in webpack_js %}
-        <script async type="text/javascript" src="/static/dist/{{js_url}}"></script>
       {% endfor %}
 
     {% else %}
