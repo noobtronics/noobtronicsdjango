@@ -40,8 +40,7 @@
             {% for prod in products %}
             <div class="card">
               <div class="card-image">
-                <a href="/{{prod.slug}}">
-                  <figure class="image" style="object-fit: cover;">
+                  <figure class="image" style="object-fit: cover; cursor:pointer;" onclick="window.location.href = '/{{prod.slug}}';" >
                       <picture>
                         <source data-srcset="{{prod.thumb.webp}}" type="image/webp">
                         <source data-srcset="{{prod.thumb.jpg}}" type="image/jpeg">
@@ -52,16 +51,15 @@
                         {% endif %}
                       </picture>
                   </figure>
-                </a>
 
 
               </div>
               <div class="footerblock">
-                <a href="/{{prod.slug}}">
-                  <footer class="card-footer">
-                    <p class="cardhead">{{prod.cardname}}</p>
-                  </footer>
-                </a>
+
+                <footer class="card-footer">
+                  <a href="/{{prod.slug}}"><p class="cardhead">{{prod.cardname}}</p></a>
+                </footer>
+
                 <footer class="card-footer">
                   <p class="cardsubtitle">{{prod.cardtitle}}</p>
                 </footer>

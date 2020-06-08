@@ -3,16 +3,16 @@ import "@/assets/noobtronics-theme.sass";
 
 import Vue from 'vue'
 
-// import Axios from 'axios'
-// Vue.prototype.$http = Axios;
-// Vue.prototype.$http.defaults.xsrfHeaderName = "X-CSRFToken";
-// Vue.prototype.$http.defaults.xsrfCookieName = "csrftoken";
-// import Cookies from 'js-cookie'
-// Vue.prototype.$cookies = Cookies;
-// import StrigFormat from 'string-format'
-// Vue.prototype.$format = StrigFormat;
-// import lazySizes from 'lazysizes'
-// lazySizes.cfg.lazyClass = 'lazyload';
+import Axios from 'axios'
+Vue.prototype.$http = Axios;
+Vue.prototype.$http.defaults.xsrfHeaderName = "X-CSRFToken";
+Vue.prototype.$http.defaults.xsrfCookieName = "csrftoken";
+import Cookies from 'js-cookie'
+Vue.prototype.$cookies = Cookies;
+import StrigFormat from 'string-format'
+Vue.prototype.$format = StrigFormat;
+import lazySizes from 'lazysizes'
+lazySizes.cfg.lazyClass = 'lazyload';
 
 Vue.config.devtools = process.env.NODE_ENV === 'development';
 
