@@ -31,6 +31,17 @@ def add_table_styles(soup):
     return soup
 
 
+
+def add_atag_noopner(soup):
+    atags = soup.findAll('a')
+
+    for atag in atags:
+        if 'target' in atag:
+            if atag['target'] == '_blank':
+                atag['rel'] = "noopener"
+    return soup
+
+
 def update_prod_obj(prod_obj):
     g = Github(settings.GITHUB_KEY)
     repo  = g.get_repo("nikhilraut12/noobtronics_media")
@@ -138,8 +149,8 @@ def update_prod_obj(prod_obj):
                 prodvar_ids.remove(prodvar.id)
         ProductVariant.objects.filter(pk__in=prodvar_ids).delete()
 
-
     soup = add_table_styles(soup)
+    soup = add_atag_noopner(soup)
 
     prod_obj.markdown=text
     prod_obj.html=str(soup)

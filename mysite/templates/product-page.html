@@ -58,7 +58,7 @@ init_product_page_app("#product-page-app");
     <div class="column">
         <div class="container has-text-centered">
           <div class="columns is-mobile  prodmainphoto">
-            <div class="column is-3 showcasecolumn" id="prodimage{{forloop.counter}}">
+            <div class="column is-3 showcasecolumn" >
 
               {% for i, v in images.data.items %}
               <figure class="image">
@@ -71,7 +71,7 @@ init_product_page_app("#product-page-app");
               {% endfor %}
             </div>
 
-            <div class="column has-text-centered photocolumn" id="prodimage{{forloop.counter}}">
+            <div class="column has-text-centered photocolumn">
               <figure class="image">
                 <a id="product_main_image" v-html="mainimage">
                   <picture >
