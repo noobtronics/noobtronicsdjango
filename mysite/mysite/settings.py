@@ -48,10 +48,13 @@ INSTALLED_APPS = [
     'django_object_actions',
     'lazysignup',
     'django_q',
+    'rest_framework',
+    'drf_yasg',
     'siteconfig',
     'ecommerce',
     'orders_app',
     'seotools',
+    'api_app',
 ]
 
 MIDDLEWARE = [
