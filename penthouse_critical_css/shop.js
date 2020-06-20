@@ -2,8 +2,8 @@ const penthouse = require('penthouse')
 const fs = require('fs')
 
 penthouse({
-  url: 'https://localhost/shop/microcontrollers',
-  css: '/Users/Nikhil/Desktop/noobtronicsdjango/mysite/static/dist/css/app.0ecc9844.css',
+  url: 'https://localhost/shop',
+  css:  '/Users/Nikhil/Desktop/legacy/noobtronicsdjango/mysite/static/css/bulma/mystyle.min.css',
   width: 1366,
   height: 768,
   renderWaitTime: 5000,
