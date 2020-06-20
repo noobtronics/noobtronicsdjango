@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="/static/css/fontawesome/css/all.min.css">
     <title>Your Orders</title>
     {% include "header.html" %}
+    <link rel="preload" href="/static/js/pages/orders.js" as="script">
+    <script>
+      js_list.push('/static/js/pages/orders.js');
+    </script>
     <script>
     </script>
 </head>
@@ -141,33 +145,6 @@
     };
 </script>
 
-<script>
-    var orderapp = new Vue({
-        el: '#orderapp',
-        delimiters: ['[%', '%]'],
-        data: {
-            ModalCancel: false,
-            order_id: '',
-        },
-        computed: {
-        },
-        methods: {
-            confirm_cancel: function(order_id){
-                this.order_id = order_id;
-                this.ModalCancel = true;
-            },
-            cancel_order: function(){
-                cancel_order();
-            },
-            open_prod_page: function(slug){
-                var url = '/product/'+slug;
-                var win = window.open(url, '_blank');
-                win.focus();
-            }
-        }
-    });
-
-</script>
 
 
 

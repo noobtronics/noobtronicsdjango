@@ -797,6 +797,7 @@ def generate_order_id(usr):
 
 def add_cart_to_order(usr):
     cart = Cart.objects.get(user_id=usr)
+    #print(cart)
     if cart.to_be_order_id == '' or cart.to_be_order_id is None:
         order_id = generate_order_id(usr)
     else:
@@ -867,6 +868,7 @@ def handle_payment(request):
         data = json.loads(request.body)
         paymode = data['paymode']
         if paymode == 'cod':
+            #print(request.user)
             order_id = add_cart_to_order(request.user)
             if order_id:
                 order_data = get_order_data(order_id)

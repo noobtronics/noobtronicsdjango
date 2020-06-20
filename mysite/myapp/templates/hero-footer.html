@@ -187,38 +187,9 @@
 </script>
 
 
-<script>
-    var footer_app = new Vue({
-        el: '#footer_app',
-        data: {
-            ModalDelivery: false,
-            ModalPayment: false,
-            ModalTC: false,
-            LegalactivePage:0,
-            Legaldata:['', '', ''],
-            downloadTC: true,
-            downloadDelivery: true,
-            downloadPayment: true,
-        },
-        computed: {
-            Legaldisplay: function () {
-                return this.Legaldata[this.LegalactivePage]
-            }
-        },
-        methods: {
-            LegalchangePage:function(pageNumber){
-                this.LegalactivePage=pageNumber;
-            },
 
-            openLegalWindow:function(){
-                openLegalWindow();
-            },
-            openDeliveryWindow:function(){
-                openDeliveryWindow();
-            },
-            openPaymentWindow:function(){
-                openPaymentWindow();
-            }
-        }
-    })
+
+
+<script>
+  initjsscripts();
 </script>
